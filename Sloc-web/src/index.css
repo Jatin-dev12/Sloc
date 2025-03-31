@@ -1,10 +1,103 @@
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Bai Jamjuree", sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+@media (min-width: 1500px) {
+  .container {
+    max-width: 1600px !important;
+  }
+
+}
+
+body{
+  font-family: "Bai Jamjuree", sans-serif !important;
+}
+p{
+  font-family: "Nunito Sans", sans-serif !important;
+  margin-bottom: 5px !important;
+  font-size: 16px;
+}
+section.Topbar {
+  background: #323232;
+  padding: 10px 0;
+}
+
+section.Topbar p {
+  color: #fff;
+
+}
+.Side {
+  border-right: 1px solid white;
+  margin-right: 20px;
+  padding: 0 20px;
+}
+.Main-nav {
+  padding: 40px 0 !important;
+}
+.Main-nav .navbar-nav {
+  gap: 25px;
+  align-items: center;
+}
+.Main-nav .navbar-nav a {
+  font-family: "Poppins", sans-serif !important;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 21.33px;
+  color: #1E1E1E;
+  vertical-align: middle;
+}
+.cntnct.nav-link {
+  background: #323232;
+  font-size: 20px !important;
+  font-weight: 500 !important;
+  color: #fff !important;
+  margin-left: 40px;
+  padding: 16px 40px !important;
+}
+/* Hero Banner */
+section.Main-banner {
+  background-image: url(./assets/Imgs/Baner.jpg);
+  height: 558px;
+  align-content: end;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+section.Main-banner h1 {
+  font-family: "Bai Jamjuree", sans-serif !important;
+  font-weight: 600;
+  font-size: 96px;
+  line-height: 100%;
+  color: #FFFFFF;
+  text-transform: uppercase;
+}
+.searc-bar {
+  background: #1E1E1E !important;
+  padding: 20px 50px;
+  margin-top: 48px;
+}
+
+.set-out button {
+  width: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 30px;
+  border-radius: 0;
+
+}
+.searc-bar .input-group input.form-control {
+  background: unset;
+  border-radius: 0;
+  border-left: none;
+  padding: 10px;
+}
+.searc-bar  span.input-group-text {
+  background: unset;
+  border-right: none;
+  border-radius: 0;
 }
