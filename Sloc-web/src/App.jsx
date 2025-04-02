@@ -10,6 +10,13 @@ import f2 from './assets/Imgs/f2.png'
 import f3 from './assets/Imgs/f3.png'
 import Arrow from './assets/Imgs/up-arrow.svg'
 import Cta from './assets/Imgs/Cta-scrol.png'
+import sam from './assets/Imgs/sam.png'
+import grl from './assets/Imgs/grl.png'
+import testi from './assets/Imgs/testimonal.svg'
+import blog1 from './assets/Imgs/blog-1.png'
+import blog2 from './assets/Imgs/blog-2.png'
+import blog3 from './assets/Imgs/blog-3.png'
+
 
 
 
@@ -20,7 +27,7 @@ const projects = [
     price: "₹ 3.30 CR* ONWARDS",
     location: "SECTOR 49, GURGAON",
     size: "3 & 4 BHK",
-    feet:"1948 - 3700 Sq.Ft.",
+    feet: "1948 - 3700 Sq.Ft.",
     image: f1 // Replace with actual image URL
   },
   {
@@ -29,7 +36,7 @@ const projects = [
     price: "₹ 6.50 CR* ONWARDS",
     location: "SECTOR 66, GURGAON",
     size: "3 & 4 BHK",
-    feet:"1948 - 3700 Sq.Ft.",
+    feet: "1948 - 3700 Sq.Ft.",
 
     image: f2
 
@@ -39,28 +46,68 @@ const projects = [
     title: "GODREJ ARISTOCRAT",
     price: "₹ 5.53 CR* ONWARDS",
     location: "SECTOR 62, GURGAON",
-    feet:"1948 - 3700 Sq.Ft.",
+    feet: "1948 - 3700 Sq.Ft.",
 
     size: "3 & 4 BHK",
     image: f3
   }
 ];
 
-  const testimonials = [
-    {
-      id: 1,
-      name: "SAM SAMPLETON",
-      image: "/placeholder.svg?height=80&width=80",
-      text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.",
-    },
-    {
-      id: 2,
-      name: "JANE DOE",
-      image: "/placeholder.svg?height=80&width=80",
-      text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.",
-    },
-  ]
+const testimonials = [
+  {
+    id: 1,
+    name: "SAM SAMPLETON",
+    image: sam,
+    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.",
+  },
+  {
+    id: 2,
+    name: "JANE DOE",
+    image: grl,
+    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.",
+  },
+  {
+    id: 3,
+    name: "SAM SAMPLETON",
+    image: sam,
+    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.",
+  },
+  {
+    id: 4,
+    name: "JANE DOE",
+    image: grl,
+    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.",
+  },
+]
 
+const Blogs = [
+  {
+    id: 1,
+    name: "Blog 1",
+    image: blog1,
+    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ",
+    date:"1 March 19, 2024",
+    catagory:"Apartment",
+
+
+  },
+  {
+    id: 2,
+    name: "Blog 2",
+    image: blog2,
+    text:  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ",
+    date:"1 March 19, 2024",
+    catagory:"Apartment",
+  },
+  {
+    id: 3,
+    name: "Blog 3",
+    image: blog3,
+    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ",
+    date:"1 March 19, 2024",
+    catagory:"Apartment",
+  },
+]
 
 function App() {
   return (
@@ -173,9 +220,9 @@ function App() {
               {projects.map((project) => (
                 <Col md={4} key={project.id} className="features-list p-0">
                   <Card className="">
-                    <Card.Img variant="top" src={project.image} alt={project.title}  />
+                    <Card.Img variant="top" src={project.image} alt={project.title} />
                     <Card.Body className="uper-space">
-                    <Card.Text className="mb-4 btn-loc">
+                      <Card.Text className="mb-4 btn-loc">
                         <span>{project.size}</span> <span>{project.feet}</span><span>{project.location}</span>
                       </Card.Text>
                       <Card.Title>{project.title}</Card.Title>
@@ -190,87 +237,82 @@ function App() {
                 </Col>
               ))}
             </Row>
-                 </Container>
+          </Container>
         </section>
 
         <section className="Cta position-relative">
-      <Container>
-        <Row className="d-flex align-items-center justify-content-center ">
-          <Col md={8}>
-            <h2 className="same-head">FIND YOUR DREAM HOME TODAY!</h2>
-            <p className="same-head-p">
-              Explore the best properties in your preferred location. Start your
-              journey to a perfect home with us.
-            </p>
-            </Col>
-            <Col md={4} className="text-end">
-            {/* <img src={Cta} alt="" className="scroll-img" /> */}
-            <Button variant="dark" className="banner-button">
-              Contact us for More info
-            </Button>
-          </Col>
-        </Row>
-      </Container>
-    </section>
+          <Container>
+            <Row className="d-flex align-items-center justify-content-center ">
+              <Col md={8}>
+                <h2 className="same-head">FIND YOUR DREAM HOME TODAY!</h2>
+                <p className="same-head-p">
+                  Explore the best properties in your preferred location. Start your
+                  journey to a perfect home with us.
+                </p>
+              </Col>
+              <Col md={4} className="text-end">
+                {/* <img src={Cta} alt="" className="scroll-img" /> */}
+                <Button variant="dark" className="banner-button">
+                  Contact us for More info
+                </Button>
+              </Col>
+            </Row>
+          </Container>
+        </section>
 
-  <section className="social-proof">
-    <Container fluid className="py-5">
-      <Row className="align-items-center">
-        <Col md={4} className="mb-4 mb-md-0">
-          <div className="ps-md-4">
-            <h2 className="fw-bold mb-3">
-              SOCIAL PROOF
-            </h2>
-            <p className="text-muted mb-4">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-              dolore magna aliqua.
-            </p>
-            <Button
-              variant="primary"
-              className="d-flex align-items-center justify-content-center"
-              style={{ width: "48px", height: "48px", padding: 0 }}
-            >
-            </Button>
-          </div>
-        </Col>
+        <section className="social-proof position-relative">
+          <Container className="">
+            <Row className="align-items-center justify-content-between">
+              <Col md={5} className="mb-4 mb-md-0">
+                <div className="ps-md-4">
+                  <h2 className="same-head">
+                    SOCIAL PROOF
+                  </h2>
+                  <p className="same-head-p">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                    dolore magna aliqua.
+                  </p>
+                  <Button className="Up-arrow-btn">
+                    <img src={Arrow} />
 
-        <Col md={8}>
-          <Card className="border-0 shadow-sm">
-            <Card.Body className="p-4">
-              {testimonials.map((testimonial, index) => (
-                <div key={testimonial.id} className={index !== 0 ? "mt-4 pt-4 border-top" : ""}>
-                  <Row className="align-items-center">
-                    <Col xs="auto">
-                      <div className="position-relative" style={{ width: "80px", height: "80px" }}>
-                      <img src={Arrow} />
-
-                      </div>
-                    </Col>
-                    <Col>
-                      <div className="position-relative">
-                        <div className="position-absolute" style={{ top: "-20px", right: "0" }}>
-                          <span className="text-muted" style={{ fontSize: "40px", opacity: "0.2" }}>
-                            &ldquo;&ldquo;
-                          </span>
-                        </div>
-                        <h5 className="mb-2">{testimonial.name}</h5>
-                        <p className="text-muted mb-0">{testimonial.text}</p>
-                      </div>
-                    </Col>
-                  </Row>
+                  </Button>
                 </div>
-              ))}
-            </Card.Body>
-          </Card>
-        </Col>
-      </Row>
-    </Container>
-    </section>
+              </Col>
 
+              <Col md={6} className="align-items-top rounded-0">
+                <Card className="sticky-box position-sticky rounded-0">
+                  <Card.Body className="p-0 pt-2">
+                    {testimonials.map((testimonial, index) => (
+                      <div key={testimonial.id} className={index !== 0 ? "mt-4 pt-4 border-top" : ""}>
+                        <Row className="align-items-top inner-set">
+                          <Col xs="auto">
+                            <div className="position-relative" style={{ width: "110px", height: "80px" }}>
+                              <img src={testimonial.image} alt="" className="img-fluid " />
+                            </div>
+                          </Col>
+                          <Col>
+                            <div className="position-relative">
+                              <div className="position-absolute" style={{ top: "-50px", right: "0" }}>
+                                <span className="text-muted" style={{ fontSize: "40px", opacity: "0.2" }}>
+                                  <img src={testi} />
+                                </span>
+                              </div>
+                              <h5 className="mb-2 socail-name">{testimonial.name}</h5>
+                              <p className="text-muted mb-0 social-p">{testimonial.text}</p>
+                            </div>
+                          </Col>
+                        </Row>
+                      </div>
+                    ))}
+                  </Card.Body>
+                </Card>
+              </Col>
+            </Row>
+          </Container>
+        </section>
 
-
-    <section className="featured blogs">
-          <Container className="full">
+        <section className="featured blogs">
+          <Container className="">
             <Row className="mb-4 d-flex py-4 align-content-center">
               <Col md={8} className="align-content-center">  <h2 className="same-head">Latest Blogs</h2>
                 <p className="same-head-p">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
@@ -280,17 +322,17 @@ function App() {
               </Col>
             </Row>
             <Row>
-              {projects.map((project) => (
-                <Col md={4} key={project.id} className="features-list p-0">
-                  <Card className="">
-                    <Card.Img variant="top" src={project.image} alt={project.title}  />
+              {Blogs.map((Blogs) => (
+                <Col md={4} key={Blogs.id} className="features-list p-0">
+                  <Card className=" position-relative">
+                    <Card.Img variant="top" src={Blogs.image} alt={Blogs.title} />
                     <Card.Body className="uper-space">
-                    <Card.Text className="mb-4 btn-loc">
-                        <span>{project.size}</span> <span>{project.feet}</span><span>{project.location}</span>
+                      <Card.Text className="mb-4 btn-loc top-set">
+                         <span className="black">{Blogs.date}</span><span>{Blogs.catagory}</span>
                       </Card.Text>
-                      <Card.Title>{project.title}</Card.Title>
+                      <Card.Title>{Blogs.name}</Card.Title>
 
-                      <Card.Text className="text-primary font-weight-bold">{project.price}</Card.Text>
+                      <Card.Text className="text-primary font-weight-bold">{Blogs.text}</Card.Text>
                       <Button className="Up-arrow-btn">
                         <img src={Arrow} />
 
@@ -300,7 +342,7 @@ function App() {
                 </Col>
               ))}
             </Row>
-                 </Container>
+          </Container>
         </section>
 
 
