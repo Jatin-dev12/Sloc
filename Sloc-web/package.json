@@ -1,6 +1,6 @@
 {
   "name": "sloc.json",
-  "homepage": "https://sloc-tau.vercel.app/",
+  "homepage": "https://slocc.netlify.app/",
   "private": true,
   "version": "0.0.0",
   "type": "module",
