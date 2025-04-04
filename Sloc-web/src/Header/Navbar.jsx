@@ -33,14 +33,10 @@ export default function Header() {
             <img src={Logo} alt="Logo"/>
           </Navbar.Brand>
           <Nav className="mr-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#features">Godrej Vrikshya</Nav.Link>
-            <Nav.Link href="#pricing">Smartworld The Edition</Nav.Link>
-            <Nav.Link href="#pricing">Godrej Aristocrat</Nav.Link>
-
-            <Nav.Link href="#pricing">About Us</Nav.Link>
-
-            <Nav.Link href="#pricing" className='cntnct'>Contact Us</Nav.Link>
+            <Nav.Link href="#">Home</Nav.Link>
+            <Nav.Link href="/About">About</Nav.Link>
+            <Nav.Link href="#">Search Properties</Nav.Link>
+            <Nav.Link href="#" className='cntnct'>Contact Us</Nav.Link>
 
 
           </Nav>
