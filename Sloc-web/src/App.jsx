@@ -3,22 +3,26 @@ import { Row, Col } from "react-bootstrap";
 import Container from "react-bootstrap/Container";
 import Search from "./assets/Imgs/Search.svg";
 import { Card } from "react-bootstrap";
-import { Form, Button, InputGroup, Dropdown, DropdownButton, } from "react-bootstrap";
-import Round from "./assets/Imgs/welcm-scrol.png";
-import f1 from './assets/Imgs/f1.png'
-import f2 from './assets/Imgs/f2.png'
-import f3 from './assets/Imgs/f3.png'
-import Arrow from './assets/Imgs/up-arrow.svg'
-import Cta from './assets/Imgs/Cta-scrol.png'
-import sam from './assets/Imgs/sam.png'
-import grl from './assets/Imgs/grl.png'
-import testi from './assets/Imgs/testimonal.svg'
-import blog1 from './assets/Imgs/blog-1.png'
-import blog2 from './assets/Imgs/blog-2.png'
-import blog3 from './assets/Imgs/blog-3.png'
-
-
-
+import {
+  Form,
+  Button,
+  InputGroup,
+  Dropdown,
+  DropdownButton,
+} from "react-bootstrap";
+import Round from "./assets/Imgs/rt.png";
+import f1 from "./assets/Imgs/f1.png";
+import f2 from "./assets/Imgs/f2.png";
+import f3 from "./assets/Imgs/f3.png";
+import Arrow from "./assets/Imgs/up-arrow.svg";
+import Cta from "./assets/Imgs/Cta-scrol.png";
+import sam from "./assets/Imgs/sam.png";
+import grl from "./assets/Imgs/grl.png";
+import testi from "./assets/Imgs/testimonal.svg";
+import blog1 from "./assets/Imgs/blog-1.png";
+import blog2 from "./assets/Imgs/blog-2.png";
+import blog3 from "./assets/Imgs/blog-3.png";
+import Counter from "./CountUp/CountUp";
 
 const projects = [
   {
@@ -28,7 +32,7 @@ const projects = [
     location: "SECTOR 49, GURGAON",
     size: "3 & 4 BHK",
     feet: "1948 - 3700 Sq.Ft.",
-    image: f1 // Replace with actual image URL
+    image: f1, // Replace with actual image URL
   },
   {
     id: 2,
@@ -38,8 +42,7 @@ const projects = [
     size: "3 & 4 BHK",
     feet: "1948 - 3700 Sq.Ft.",
 
-    image: f2
-
+    image: f2,
   },
   {
     id: 3,
@@ -49,8 +52,8 @@ const projects = [
     feet: "1948 - 3700 Sq.Ft.",
 
     size: "3 & 4 BHK",
-    image: f3
-  }
+    image: f3,
+  },
 ];
 
 const testimonials = [
@@ -78,7 +81,7 @@ const testimonials = [
     image: grl,
     text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.",
   },
-]
+];
 
 const Blogs = [
   {
@@ -86,28 +89,26 @@ const Blogs = [
     name: "Blog 1",
     image: blog1,
     text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ",
-    date:"1 March 19, 2024",
-    catagory:"Apartment",
-
-
+    date: "1 March 19, 2024",
+    catagory: "Apartment",
   },
   {
     id: 2,
     name: "Blog 2",
     image: blog2,
-    text:  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ",
-    date:"1 March 19, 2024",
-    catagory:"Apartment",
+    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ",
+    date: "1 March 19, 2024",
+    catagory: "Apartment",
   },
   {
     id: 3,
     name: "Blog 3",
     image: blog3,
     text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ",
-    date:"1 March 19, 2024",
-    catagory:"Apartment",
+    date: "1 March 19, 2024",
+    catagory: "Apartment",
   },
-]
+];
 
 function App() {
   return (
@@ -179,26 +180,35 @@ function App() {
               <Col md={6} className="d-flex flex-wrap four-col-st">
                 <Col md={6} lg={6} className="right">
                   <Card className="">
-                    <h3 className="text-primary">1M+</h3>
+                    <h3 className="text-primary">
+                      <Counter className="Counter-no" to={1} from={0} />
+                      M+
+                    </h3>
                     <p>Sed ut Perspiciatis</p>
                   </Card>
                 </Col>
                 <Col md={6} lg={6} className="only-bottom">
                   <Card className="">
-                    <h3 className="text-primary">500K+</h3>
-                    <p>Lorem Ipsum</p>
+                  <h3 className="text-primary">
+                      <Counter className="Counter-no" to={500} from={0} />
+                      K
+                    </h3>                    <p>Lorem Ipsum</p>
                   </Card>
                 </Col>
                 <Col md={6} lg={6} className="only-right">
                   <Card>
-                    <h3 className="text-primary">24/7</h3>
-                    <p>Consectetur Adipiscing Elit, Sed Do</p>
+                  <h3 className="text-primary">
+                      <Counter className="Counter-no" to={24} from={0} />
+                      /7
+                    </h3>                     <p>Consectetur Adipiscing Elit, Sed Do</p>
                   </Card>
                 </Col>
                 <Col md={6} lg={6} className="left-brdr">
                   <Card className="">
-                    <h3 className="text-primary">1M+</h3>
-                    <p>Sed ut Perspiciatis</p>
+                  <h3 className="text-primary">
+                      <Counter className="Counter-no" to={1} from={0} />
+                      M+
+                    </h3>                    <p>Sed ut Perspiciatis</p>
                   </Card>
                 </Col>
               </Col>
@@ -209,10 +219,18 @@ function App() {
         <section className="featured">
           <Container className="full">
             <Row className="mb-4 d-flex py-4 align-content-center">
-              <Col md={8} className="align-content-center">  <h2 className="same-head">FEATURED PROJECTS</h2>
-                <p className="same-head-p">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+              <Col md={8} className="align-content-center">
+                {" "}
+                <h2 className="same-head">FEATURED PROJECTS</h2>
+                <p className="same-head-p">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.{" "}
+                </p>
               </Col>
-              <Col md={4} className="align-items-end text-end align-content-center" >
+              <Col
+                md={4}
+                className="align-items-end text-end align-content-center"
+              >
                 <Button variant="dark">See more Projects</Button>
               </Col>
             </Row>
@@ -220,17 +238,23 @@ function App() {
               {projects.map((project) => (
                 <Col md={4} key={project.id} className="features-list p-0">
                   <Card className="">
-                    <Card.Img variant="top" src={project.image} alt={project.title} />
+                    <Card.Img
+                      variant="top"
+                      src={project.image}
+                      alt={project.title}
+                    />
                     <Card.Body className="uper-space">
                       <Card.Text className="mb-4 btn-loc">
-                        <span>{project.size}</span> <span>{project.feet}</span><span>{project.location}</span>
+                        <span>{project.size}</span> <span>{project.feet}</span>
+                        <span>{project.location}</span>
                       </Card.Text>
                       <Card.Title>{project.title}</Card.Title>
 
-                      <Card.Text className="text-primary font-weight-bold">{project.price}</Card.Text>
+                      <Card.Text className="text-primary font-weight-bold">
+                        {project.price}
+                      </Card.Text>
                       <Button className="Up-arrow-btn">
                         <img src={Arrow} />
-
                       </Button>
                     </Card.Body>
                   </Card>
@@ -246,8 +270,8 @@ function App() {
               <Col md={8}>
                 <h2 className="same-head">FIND YOUR DREAM HOME TODAY!</h2>
                 <p className="same-head-p">
-                  Explore the best properties in your preferred location. Start your
-                  journey to a perfect home with us.
+                  Explore the best properties in your preferred location. Start
+                  your journey to a perfect home with us.
                 </p>
               </Col>
               <Col md={4} className="text-end">
@@ -265,16 +289,14 @@ function App() {
             <Row className="align-items-center justify-content-between">
               <Col md={5} className="mb-4 mb-md-0">
                 <div className="ps-md-4">
-                  <h2 className="same-head">
-                    SOCIAL PROOF
-                  </h2>
+                  <h2 className="same-head">SOCIAL PROOF</h2>
                   <p className="same-head-p">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua.
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                    do eiusmod tempor incididunt ut labore et dolore magna
+                    aliqua.
                   </p>
                   <Button className="Up-arrow-btn">
                     <img src={Arrow} />
-
                   </Button>
                 </div>
               </Col>
@@ -283,22 +305,42 @@ function App() {
                 <Card className="sticky-box position-sticky rounded-0">
                   <Card.Body className="p-0 pt-2">
                     {testimonials.map((testimonial, index) => (
-                      <div key={testimonial.id} className={index !== 0 ? "mt-4 pt-4 border-top" : ""}>
+                      <div
+                        key={testimonial.id}
+                        className={index !== 0 ? "mt-4 pt-4 border-top" : ""}
+                      >
                         <Row className="align-items-top inner-set">
                           <Col xs="auto">
-                            <div className="position-relative" style={{ width: "110px", height: "80px" }}>
-                              <img src={testimonial.image} alt="" className="img-fluid " />
+                            <div
+                              className="position-relative"
+                              style={{ width: "110px", height: "80px" }}
+                            >
+                              <img
+                                src={testimonial.image}
+                                alt=""
+                                className="img-fluid "
+                              />
                             </div>
                           </Col>
                           <Col>
                             <div className="position-relative">
-                              <div className="position-absolute" style={{ top: "-50px", right: "0" }}>
-                                <span className="text-muted" style={{ fontSize: "40px", opacity: "0.2" }}>
+                              <div
+                                className="position-absolute"
+                                style={{ top: "-50px", right: "0" }}
+                              >
+                                <span
+                                  className="text-muted"
+                                  style={{ fontSize: "40px", opacity: "0.2" }}
+                                >
                                   <img src={testi} />
                                 </span>
                               </div>
-                              <h5 className="mb-2 socail-name">{testimonial.name}</h5>
-                              <p className="text-muted mb-0 social-p">{testimonial.text}</p>
+                              <h5 className="mb-2 socail-name">
+                                {testimonial.name}
+                              </h5>
+                              <p className="text-muted mb-0 social-p">
+                                {testimonial.text}
+                              </p>
                             </div>
                           </Col>
                         </Row>
@@ -314,10 +356,18 @@ function App() {
         <section className="featured blogs">
           <Container className="">
             <Row className="mb-4 d-flex py-4 align-content-center">
-              <Col md={8} className="align-content-center">  <h2 className="same-head">Latest Blogs</h2>
-                <p className="same-head-p">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+              <Col md={8} className="align-content-center">
+                {" "}
+                <h2 className="same-head">Latest Blogs</h2>
+                <p className="same-head-p">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.{" "}
+                </p>
               </Col>
-              <Col md={4} className="align-items-end text-end align-content-center" >
+              <Col
+                md={4}
+                className="align-items-end text-end align-content-center"
+              >
                 <Button variant="dark">See more Blogs</Button>
               </Col>
             </Row>
@@ -325,17 +375,23 @@ function App() {
               {Blogs.map((Blogs) => (
                 <Col md={4} key={Blogs.id} className="features-list p-0">
                   <Card className=" position-relative">
-                    <Card.Img variant="top" src={Blogs.image} alt={Blogs.title} />
+                    <Card.Img
+                      variant="top"
+                      src={Blogs.image}
+                      alt={Blogs.title}
+                    />
                     <Card.Body className="uper-space">
                       <Card.Text className="mb-4 btn-loc top-set">
-                         <span className="black">{Blogs.date}</span><span>{Blogs.catagory}</span>
+                        <span className="black">{Blogs.date}</span>
+                        <span>{Blogs.catagory}</span>
                       </Card.Text>
                       <Card.Title>{Blogs.name}</Card.Title>
 
-                      <Card.Text className="text-primary font-weight-bold">{Blogs.text}</Card.Text>
+                      <Card.Text className="text-primary font-weight-bold">
+                        {Blogs.text}
+                      </Card.Text>
                       <Button className="Up-arrow-btn">
                         <img src={Arrow} />
-
                       </Button>
                     </Card.Body>
                   </Card>
@@ -344,8 +400,6 @@ function App() {
             </Row>
           </Container>
         </section>
-
-
       </main>
     </>
   );
