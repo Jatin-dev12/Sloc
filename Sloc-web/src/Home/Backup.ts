@@ -24,13 +24,9 @@ import blog2 from "../assets/Imgs/blog-2.png";
 import blog3 from "../assets/Imgs/blog-3.png";
 import Counter from "../CountUp/CountUp";
 import New from '../assets/Imgs/SLOC.png'
-import back from '../assets/Imgs/back-cta.png'
-// import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import ScrollMagic from "scrollmagic";
-import Logo from "../assets/Imgs/o.png";  // Assuming this is your header image
-
 
 
 const projects = [
@@ -121,73 +117,69 @@ const Blogs = [
 
 gsap.registerPlugin(ScrollTrigger);
 function Home() {
-  // const logoRef = useRef(null);
-  // const containerRef = useRef(null);
+  const logoRef = useRef(null);
+  const containerRef = useRef(null);
 
-  // useEffect(() => {
-  //   if (!logoRef.current || !containerRef.current) return;
+  useEffect(() => {
+    if (!logoRef.current || !containerRef.current) return;
 
-  //   const sections = gsap.utils.toArray('.section');
+    const sections = gsap.utils.toArray('.section');
 
-  //   // Vertical scrolling animation for the logo
-  //   gsap.to(logoRef.current, {
-  //     y: () => {
-  //       // Calculate the total scroll distance
-  //       return window.innerHeight * 3; // Scroll down about 2.5 viewport heights
-  //     },
-  //     x: () => {
-  //       // Calculate the total scroll distance
-  //       return window.innerHeight * 3; // Scroll down about 2.5 viewport heights
-  //     },
-  //     ease: "none",
-  //     scrollTrigger: {
-  //       trigger: containerRef.current,
-  //       start: "top top",
-  //       end: "center center",
-  //       scrub: 1,
-  //       markers: false,
-  //       invalidateOnRefresh: true,
-  //     }
-  //   });
+    // Vertical scrolling animation for the logo
+    gsap.to(logoRef.current, {
+      y: () => {
+        // Calculate the total scroll distance
+        return window.innerHeight * 7; // Scroll down about 2.5 viewport heights
+      },
+      x: () => {
+        // Calculate the total scroll distance
+        return window.innerHeight * 5; // Scroll down about 2.5 viewport heights
+      },
+      ease: "none",
+      scrollTrigger: {
+        trigger: containerRef.current,
+        start: "top top",
+        end: "bottom bottom",
+        scrub: 1,
+        markers: false,
+        invalidateOnRefresh: true,
+      }
+    });
 
-  //   // Fade in sections as we scroll
-  //   sections.forEach((section, i) => {
-  //     gsap.fromTo(section,
-  //       {
-  //         opacity: 10,
-  //         y: 100,
-  //       },
-  //       {
-  //         opacity: 1,
-  //         y: 100,
-  //         duration: 1,
-  //         scrollTrigger: {
-  //           trigger: section,
-  //           start: "top center",
-  //           end: "center center",
-  //           scrub: true,
-  //           markers: false
-  //         }
-  //       }
-  //     );
-  //   });
+    // Fade in sections as we scroll
+    sections.forEach((section, i) => {
+      gsap.fromTo(section,
+        {
+          opacity: 0,
+          y: 100,
+        },
+        {
+          opacity: 1,
+          y: 100,
+          duration: 1,
+          scrollTrigger: {
+            trigger: section,
+            start: "top center",
+            end: "center center",
+            scrub: true,
+            markers: false
+          }
+        }
+      );
+    });
 
-  //   // Clean up ScrollTrigger on component unmount
-  //   return () => {
-  //     ScrollTrigger.getAll().forEach(trigger => trigger.kill());
-  //   };
-  // }, []);
+    // Clean up ScrollTrigger on component unmount
+    return () => {
+      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+    };
+  }, []);
 
   return (
     <>
- <main id="All" >
-      {/* <main ref={containerRef} id="All" > */}
-      {/* <img src={Logo} alt="Logo"
-                                id="rocket-image" // The ID to select the rocket element
-          className="rocket-image"
-                      ref={logoRef}
-                      /> */}
-      {/* <img className="Move" src={New} ref={logoRef}  /> */}
+
+      <main ref={containerRef} id="" >
+
+      <img className="Move" src={New} ref={logoRef}  />
 
         <section className="Main-banner" data-speed="1.5">
           <Container>
@@ -309,7 +301,7 @@ function Home() {
                 <Button variant="dark">See more Projects</Button>
               </Col>
             </Row>
-            <Row className="collr">
+            <Row>
               {projects.map((project) => (
                 <Col md={4} key={project.id} className="features-list p-0">
                   <Card className="">
@@ -348,10 +340,7 @@ function Home() {
                   Explore the best properties in your preferred location. Start
                   your journey to a perfect home with us.
                 </p>
-                <img src={back} alt="" className="back-roll"/>
-
               </Col>
-
               <Col md={4} className="text-end">
                 {/* <img src={Cta} alt="" className="scroll-img" /> */}
                 <Button variant="dark" className="banner-button">

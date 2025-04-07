@@ -3,13 +3,13 @@ import { Row,Col } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import Logo from '../assets/Imgs/Logo.png'
+import Logo from '../assets/Imgs/SLOC.png'
 
 export default function Header() {
   return (
     <>
     <main>
-<section className='Topbar'>
+{/* <section className='Topbar'>
         <Container>
          <Row className='justify-content-between'>
 <Col>
@@ -25,7 +25,7 @@ export default function Header() {
 </Col>
          </Row>
         </Container>
-      </section>
+      </section> */}
 
       <Navbar className='Main-nav'>
         <Container >
@@ -34,8 +34,10 @@ export default function Header() {
           </Navbar.Brand>
           <Nav className="mr-auto">
             <Nav.Link href="#">Home</Nav.Link>
-            <Nav.Link href="/About">About</Nav.Link>
-            <Nav.Link href="#">Search Properties</Nav.Link>
+
+
+            <Nav.Link href="/">About Us</Nav.Link>
+            <Nav.Link href="#">Blogs</Nav.Link>
             <Nav.Link href="#" className='cntnct'>Contact Us</Nav.Link>
 
 

@@ -93,7 +93,8 @@ body{
   }
 
   .searc-bar  button.btn.btn-primary {
-    background: #012FCB;
+    background: #ffffff;
+    color: #000;
     font-family: Poppins;
     font-weight: 500;
     font-size: 20px;
@@ -137,7 +138,7 @@ body{
     font-weight: 700;
     font-size: 100px;
     line-height: 150%;
-    color:  #578CFF !important;
+    color:  #064685 !important;
     text-align: left;
   }
   section.welcome .card p {
@@ -225,13 +226,15 @@ body{
     border-top: 1px solid #B8B8B8;
     border-bottom: 1px solid #B8B8B8;
   }
-
+  .blogs .row {
+    padding: unset !important;
+}
   section.featured .row .features-list:nth-child(1){
     border-left: 1px solid #B8B8B8;
 
   }
   button.Up-arrow-btn.btn.btn-primary {
-    background: #578CFF !important;
+    background: #064685 !important;
     border: none;
     border-radius: 0;
     height: 70px;
@@ -282,10 +285,27 @@ body{
   }
   section.Cta h2 {
     color: #fff;
+    position: relative;
+    z-index: 2;
   }
   section.Cta p {
     color: #fff;
+    position: relative;
+    z-index: 2;
   }
+
+section.Cta button.btn.btn-dark {
+  position: relative;
+  z-index: 2;
+}
+  img.back-roll {
+    position: absolute;
+    top: -45%;
+    right: 3%;
+    height: 500px;
+    width: 500px;
+    animation: rotate-animation 10s infinite linear;
+}
 
   /* Social Section */
   section.social-proof {
@@ -361,6 +381,7 @@ body{
     height: 100%;
     object-fit: contain;
     background-position: center top;
+    z-index: -1;
   }
   section.featured .row .features-list .card img {
     border-radius: 0;
@@ -461,7 +482,7 @@ body{
     font-weight: 700;
     font-size: 100px;
     line-height: 150%;
-    color: #578CFF !important;
+    color: #064685 !important;
     text-align: left;
 }
 
