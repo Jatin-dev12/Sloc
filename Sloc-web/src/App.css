@@ -309,7 +309,8 @@ section.Cta button.btn.btn-dark {
 
   /* Social Section */
   section.social-proof {
-    padding: 80px 0px;
+    padding-top: 80px;
+    padding-bottom: 40px;
   }
 
 

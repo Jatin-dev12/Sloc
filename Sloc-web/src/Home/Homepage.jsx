@@ -228,7 +228,7 @@ function Home() {
                 placeholder="Search by location or property ID....."
                 aria-label="Username"
                 aria-describedby="basic-addon1"
-              />{" "}
+              />
             </InputGroup>
 
             <Button variant="primary">Search</Button>
@@ -264,26 +264,28 @@ function Home() {
                 </Col>
                 <Col md={6} lg={6} className="only-bottom">
                   <Card className="">
-                  <h3 className="text-primary">
-                      <Counter className="Counter-no" to={500} from={0} />
-                      K
-                    </h3>                    <p>Lorem Ipsum</p>
+                    <h3 className="text-primary">
+                      <Counter className="Counter-no" to={500} from={0} />K
+                    </h3>
+                    <p>Lorem Ipsum</p>
                   </Card>
                 </Col>
                 <Col md={6} lg={6} className="only-right">
                   <Card>
-                  <h3 className="text-primary">
+                    <h3 className="text-primary">
                       <Counter className="Counter-no" to={24} from={0} />
                       /7
-                    </h3>                     <p>Consectetur Adipiscing Elit, Sed Do</p>
+                    </h3>
+                    <p>Consectetur Adipiscing Elit, Sed Do</p>
                   </Card>
                 </Col>
                 <Col md={6} lg={6} className="left-brdr">
                   <Card className="">
-                  <h3 className="text-primary">
+                    <h3 className="text-primary">
                       <Counter className="Counter-no" to={1} from={0} />
                       M+
-                    </h3>                    <p>Sed ut Perspiciatis</p>
+                    </h3>
+                    <p>Sed ut Perspiciatis</p>
                   </Card>
                 </Col>
               </Col>
@@ -295,11 +297,11 @@ function Home() {
           <Container className="full">
             <Row className="mb-4 d-flex py-4 align-content-center">
               <Col md={8} className="align-content-center">
-                {" "}
+                
                 <h2 className="same-head">FEATURED PROJECTS</h2>
                 <p className="same-head-p">
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.{" "}
+                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                 </p>
               </Col>
               <Col
@@ -435,11 +437,11 @@ function Home() {
           <Container className="">
             <Row className="mb-4 d-flex py-4 align-content-center">
               <Col md={8} className="align-content-center">
-                {" "}
+                
                 <h2 className="same-head">Latest Blogs</h2>
                 <p className="same-head-p">
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.{" "}
+                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                 </p>
               </Col>
               <Col
