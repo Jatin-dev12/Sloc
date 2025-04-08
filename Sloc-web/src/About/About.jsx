@@ -1,4 +1,5 @@
-import React, { useEffect, useRef } from 'react';
+
+
 import "../App.css";
 import { Row, Col } from "react-bootstrap";
 import Container from "react-bootstrap/Container";
@@ -16,7 +17,6 @@ import f1 from "../assets/Imgs/f1.png";
 import f2 from "../assets/Imgs/f2.png";
 import f3 from "../assets/Imgs/f3.png";
 import Arrow from "../assets/Imgs/up-arrow.svg";
-import Cta from "../assets/Imgs/Cta-scrol.png";
 import sam from "../assets/Imgs/sam.png";
 import grl from "../assets/Imgs/grl.png";
 import testi from "../assets/Imgs/testimonal.svg";
@@ -24,9 +24,15 @@ import blog1 from "../assets/Imgs/blog-1.png";
 import blog2 from "../assets/Imgs/blog-2.png";
 import blog3 from "../assets/Imgs/blog-3.png";
 import Counter from "../CountUp/CountUp";
-import Logo from "../assets/Imgs/scroll.png";  // Assuming this is your header image
-import { gsap } from "gsap";
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import ScrollMagic from "scrollmagic";
+import { Flip } from 'gsap/Flip';
+import { useEffect, useRef } from "react";
+import Logo from '../assets/Imgs/back-scrol.png'
+import Fe from '../assets/Imgs/scroll.png'
+
+
 const projects = [
   {
     id: 1,
@@ -113,177 +119,248 @@ const Blogs = [
   },
 ];
 
-function About() {
-  const logoTargetRef = useRef(null);  // Ref for the target position in the Home section
-  const logoRef = useRef(null); // Reference for logo image in the header
+gsap.registerPlugin(ScrollTrigger);
+function Home() {
 
-  // Handle scroll event to trigger animation for image following the cursor
+  const logoRef = useRef(null);
+  const section2TargetRef = useRef(null);
+  const section3TargetRef = useRef(null);
+  const splitImagesRef = useRef(null);
+  const columnsRef = useRef(null);
+  const flipCtxRef = useRef(null);
   useEffect(() => {
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY;
+    gsap.registerPlugin(Flip, ScrollTrigger);
 
-      // Dynamically adjust the position of the logo based on scroll position
-      if (logoRef.current) {
-        const scrollPercentage = scrollPosition / 500; // Adjust denominator to control speed
-        gsap.to(logoRef.current, {
-          y: scrollPercentage * 100, // Moves the logo down based on scroll
-          duration: 0.5,
-          ease: "power2.out",
-        });
+    const createTimeline = () => {
+      if (flipCtxRef.current) {
+        flipCtxRef.current.revert();
       }
-    };
 
-    window.addEventListener("scroll", handleScroll);
+      flipCtxRef.current = gsap.context(() => {
+        const columns = columnsRef.current.querySelectorAll('.dip-column');
+        const splitImages = splitImagesRef.current.querySelectorAll('.split-image');
+        const rocketImage = document.querySelector('.rocket-image'); // Ensure the reference is correct
 
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
+        // Timeline 1: Move from Main-banner to welcome
+        const tl1 = gsap.timeline({
+          scrollTrigger: {
+            trigger: ".Main-banner",
+            start: "top center",
+            endTrigger: ".welcome",
+            end: "top center",
+            scrub: 1,
+          }
+        });
 
-  // Add cursor-follow effect for the logo
-  const handleMouseMove = (e) => {
-    const logo = logoRef.current;
-    const mouseX = e.clientX;
-    const mouseY = e.clientY;
+        tl1.to(logoRef.current, {
+          y: () => {
+            const welcomeRect = section3TargetRef.current.getBoundingClientRect();
+            const logoRect = logoRef.current.getBoundingClientRect();
+            return welcomeRect.top - logoRect.top;
+          },
+          duration: 1,
+          ease: "none"
+        });
 
-    // Apply slight movement of the logo to follow the mouse
-    if (logo) {
-      gsap.to(logo, {
-        x: (mouseX - window.innerWidth / 2) / 10,
-        y: (mouseY - window.innerHeight / 2) / 10,
-        ease: "power2.out",
+        // Timeline 2: Split and move to featured section columns
+        const tl2 = gsap.timeline({
+          scrollTrigger: {
+            trigger: ".welcome",
+            start: "bottom center",
+            endTrigger: ".featured",
+            end: "top center",
+            scrub: 1,
+          }
+        });
+
+        tl2
+          .to(".main-image", { opacity: 0, duration: 0.3 })
+          .to(".split-images", { opacity: 1, duration: 0.3 }, 0)
+          .to(splitImages, {
+            x: (i) => {
+              const column = columns[i];
+              const columnRect = column.getBoundingClientRect();
+              const imageRect = splitImages[i].getBoundingClientRect();
+              return columnRect.left - imageRect.left + (columnRect.width - imageRect.width) / 2;
+            },
+            y: () => {
+              const featuredRect = columnsRef.current.getBoundingClientRect();
+              const logoRect = logoRef.current.getBoundingClientRect();
+              return featuredRect.top - logoRect.top;
+            },
+            duration: 1,
+            stagger: 0.2
+          }, 0.2);
+
+        // Timeline 3: Dip into columns and change background
+        const tl3 = gsap.timeline({
+          scrollTrigger: {
+            trigger: ".featured",
+            start: "top center",
+            end: "center center",
+            scrub: 1,
+            toggleActions: "play reverse play reverse"
+          }
+        });
+
+        tl3
+          .to(splitImages, {
+            y: (i) => {
+              const column = columns[i];
+              const columnRect = column.getBoundingClientRect();
+              const imageRect = splitImages[i].getBoundingClientRect();
+              return columnRect.top - imageRect.top + (columnRect.height / 2 - imageRect.height / 2);
+            },
+            duration: 0.5,
+            stagger: 0.2
+          })
+          .to(columns, {
+            backgroundColor: "#064685", // Adjust color as needed
+            duration: 0.5,
+            stagger: 0.2
+          }, 0.2)  // Add a small delay so background change happens after image transition
+          .to(splitImages, {
+            filter: "hue-rotate(90deg)", // Dipping effect
+            duration: 0.5,
+            stagger: 0.2
+          }, 0.4) // Delay this until the background color change happens
+          .to(".custom-card", {
+            backgroundColor: ["#5773FF","#5773FF","#5773FF"], // Adjust to your desired color
+            duration: 0.5,
+            stagger: 0.2
+          }, 0.4); // Same delay to sync with the image transition
+
+        // Move images towards the bottom of the ctaSection when scrolling down
+        const tlDown = gsap.timeline({
+          scrollTrigger: {
+            trigger: ".uper-space", // Trigger when `.uper-space` enters the viewport
+            start: "top center", // Start when top of .uper-space hits the center of the viewport
+            end: "top top", // End when it's out of the viewport
+            scrub: 1,
+          }
+        });
+
+        tlDown
+          .to(splitImages, {
+            y: () => {
+              const ctaSection = document.querySelector("#ctaSection");
+              const ctaRect = ctaSection.getBoundingClientRect();
+              // Ensure the images move downwards towards the bottom of `ctaSection`
+              return ctaRect.top + window.innerHeight; // This ensures the images move downward
+            },
+            x: 0, // Reset X position
+            filter: "none", // Reset filter
+            duration: 0.5,
+            stagger: 0.2
+          })
+          .to(columns, {
+            backgroundColor: "transparent", // Reset column background to transparent
+            duration: 0.5,
+            stagger: 0.2
+          }, 0.2)
+          .to(".custom-card", {
+            backgroundColor: ["#fff", "#fff", "#fff"], // Reset card background color
+            duration: 0.5,
+            stagger: 0.2
+          }, 0.4); // Sync with the image reset animation
+          const tlRocket = gsap.timeline({
+            scrollTrigger: {
+              trigger: ".Main-banner",  // Or any trigger you want to use
+              start: "top center",
+              end: "top center",
+              scrub: 1,
+            }
+          });
+
+          // Initially, set display to 'block' or whatever display type is needed for the image
+          tlRocket.to(rocketImage, {
+            display: "block", // Change this to your desired display type
+            opacity: 1, // Fade it in if needed
+            duration: 1,
+            ease: "power3.out"
+          });
       });
-    }
-  };
+    };
 
-  // Attach mousemove event listener to follow the cursor
-  useEffect(() => {
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
+    createTimeline();
+    window.addEventListener("resize", createTimeline);
 
-  useEffect(() => {
-    // Initialize ScrollMagic Controller
-    const controller = new ScrollMagic.Controller();
-
-    // Define the rocket element
-    const rocket = document.getElementById("rocket-image");
-
-    // Define the circle images and the section
-    const circles = document.querySelectorAll(".circle-image");
-    const section = document.getElementById("All");
-
-    // Define the featured cards
-    const featuredCards = document.querySelectorAll(".features-list .card");
-
-    // Create a ScrollMagic Scene for the rocket movement
-    const scene = new ScrollMagic.Scene({
-      triggerElement: "#header", // Trigger when the header enters the viewport
-      triggerHook: 0, // Trigger the scene when the header enters the viewport
-      duration: "100%", // Duration of the scroll animation
-    })
-      .on("progress", (event) => {
-        const progress = event.progress; // Progress of the scroll
-        gsap.to(rocket, {
-          // Move the rocket based on scroll progress
-          x: progress * window.innerWidth * 0.4, // Horizontal movement based on scroll
-          y: progress * window.innerHeight * 1, // Vertical movement based on scroll
-          scale: 1 + progress * 0.8, // Make it slightly larger as it moves
-          ease: "power1.out", // Smooth easing
-        });
-      })
-      .addTo(controller); // Add the scene to the ScrollMagic controller
-
-    // ScrollMagic Scene for section1 to trigger the glowing effect and background color change
-    const sectionScene = new ScrollMagic.Scene({
-      triggerElement: "#All", // Trigger the section1
-      triggerHook: 0.1, // Trigger when the section enters the middle of the viewport
-      duration: "100%", // Duration for the effect
-    })
-      .on("enter", () => {
-        // Apply the glowing effect to the circle images
-        circles.forEach((circle, index) => {
-          gsap.to(circle, {
-            opacity: 1,
-            scale: 1.5,
-            glowFilter: "blur(10px)", // Apply a glow effect
-            duration: 0.5,
-            delay: index * 0.2, // Stagger the animation for the circles
-          });
-        });
-
-        // Change the background color of the section to a magical gradient
-        gsap.to(section, {
-          background: "linear-gradient(45deg, #ff69b4, #ff1493)", // Magical gradient
-          duration: 0.5,
-        });
-      })
-      .on("leave", () => {
-        // Reset the glow and background when leaving the section
-        circles.forEach((circle) => {
-          gsap.to(circle, {
-            opacity: 0,
-            scale: 0.5,
-            glowFilter: "blur(0px)", // Remove the glow effect
-            duration: 0.5,
-          });
-        });
-
-        gsap.to(section, {
-          background: "none", // Reset background to default
-          duration: 0.5,
-        });
-      })
-      .addTo(controller); // Add the scene to the ScrollMagic controller
-
-    // Create a ScrollMagic Scene for changing the background color of featured cards
-    const featuredScene = new ScrollMagic.Scene({
-      triggerElement: ".featured", // Trigger when the "featured" section is in view
-      triggerHook: 0.5, // Trigger when the section is at the middle of the viewport
-      duration: "100%", // Duration of the animation
-    })
-      .on("enter", () => {
-        // Change the background color of the featured cards
-        gsap.to(featuredCards, {
-          backgroundColor: "#ffeb3b", // Change to a bright yellow (can customize)
-          duration: 0.5,
-          stagger: 0.2, // Stagger the background color change for each card
-        });
-      })
-      .on("leave", () => {
-        // Reset the background color of the cards when leaving the section
-        gsap.to(featuredCards, {
-          backgroundColor: "white", // Reset to default white
-          duration: 0.5,
-        });
-      })
-      .addTo(controller); // Add the scene to the ScrollMagic controller
-
-    // Clean up the scenes when the component is unmounted
     return () => {
-      scene.destroy();
-      sectionScene.destroy();
-      featuredScene.destroy();
+      window.removeEventListener("resize", createTimeline);
+      if (flipCtxRef.current) {
+        flipCtxRef.current.revert();
+      }
+      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
     };
   }, []);
 
+  const logoRefs = useRef(null);
+  const containerRefs = useRef(null);
+    const floatingImgRef = useRef(null);
+    useEffect(() => {
+      // Create a smoother timeline
+      gsap.timeline({
+        scrollTrigger: {
+          trigger: containerRefs.current,
+          start: "top center",
+          end: "bottom center",
+          scrub: 1.2, // smoother scrub
+          markers: false,
+        }
+      })
+      .fromTo(logoRefs.current,
+        {
+          opacity: 0,
+          y: -300,
+          x: 150,
+          scale: 1.4
+        },
+        {
+          opacity: 1,
+          y: 50,
+          x: 300,
+          scale: 0.6,
+          ease: "power3.out"
+        }
+      )
+      .to(logoRefs.current,
+        {
+          opacity: 0,
+          y: 500,
+          x: 400,
+          scale: 0.2,
+          ease: "power3.inOut"
+        }
+      );
+
+    }, []);
 
   return (
     <>
-                      <img src={Logo} alt="Logo"
-                                id="rocket-image" // The ID to select the rocket element
-          className="rocket-image"
-                      />
-
-      <main className='position-relative' >
-        <section className="Main-banner"  >
-          <Container>
-            <Row>
-              <Col>
-                <h1>Search Land Of Choice</h1>
-              </Col>
-            </Row>
-          </Container>
+ <main>
+<section className="Main-banner">
+  <Container>
+    <Row>
+      <Col>
+        <h1>Search Land Of Choice</h1>
+        <div ref={logoRef} className="animated-logo">
+          <div className="image-wrapper">
+            <img
+              src={Logo}
+              alt="Logo"
+              id="rocket-image"
+              className="rocket-image main-image"
+            />
+            <div className="split-images" ref={splitImagesRef}>
+              <img src={Logo} alt="Split 1" className="split-image" />
+              <img src={Logo} alt="Split 2" className="split-image" />
+              <img src={Logo} alt="Split 3" className="split-image" />
+            </div>
+          </div>
+        </div>
+      </Col>
+    </Row>
+  </Container>
           <div className="d-flex align-items-center searc-bar  justify-content-between">
             <DropdownButton
               id="dropdown-city"
@@ -315,67 +392,20 @@ function About() {
                 placeholder="Search by location or property ID....."
                 aria-label="Username"
                 aria-describedby="basic-addon1"
-              />{" "}
+              />
             </InputGroup>
 
             <Button variant="primary">Search</Button>
           </div>
-        </section>
+          </section>
 
 
 
-        <section className="featured" id="section2">
-          <Container className="full">
-            <Row className="mb-4 d-flex py-4 align-content-center">
-              <Col md={8} className="align-content-center">
-                {" "}
-                <h2 className="same-head">FEATURED PROJECTS</h2>
-                <p className="same-head-p">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.{" "}
-                </p>
-              </Col>
-              <Col
-                md={4}
-                className="align-items-end text-end align-content-center"
-              >
-                <Button variant="dark">See more Projects</Button>
-              </Col>
-            </Row>
-            <Row>
-              {projects.map((project) => (
-                <Col md={4} key={project.id} className="features-list p-0">
-                  <Card className="">
-                    <Card.Img
-                      variant="top"
-                      src={project.image}
-                      alt={project.title}
-                    />
-                    <Card.Body className="uper-space">
-                      <Card.Text className="mb-4 btn-loc">
-                        <span>{project.size}</span> <span>{project.feet}</span>
-                        <span>{project.location}</span>
-                      </Card.Text>
-                      <Card.Title>{project.title}</Card.Title>
 
-                      <Card.Text className="text-primary font-weight-bold">
-                        {project.price}
-                      </Card.Text>
-                      <Button className="Up-arrow-btn">
-                        <img src={Arrow} />
-                      </Button>
-                    </Card.Body>
-                  </Card>
-                </Col>
-              ))}
-            </Row>
-          </Container>
-        {/* Empty div to serve as a target for the logo */}
-        <div ref={logoTargetRef} className="logo-target" style={{ height: '50px', backgroundColor: '#f0f0f0' }}>
-          {/* Logo target section */}
-        </div>
-        </section>
-        <section className="welcome">
+        {/* <section className="welcome"> */}
+                <section ref={containerRefs} className="welcome">
+                <img className="Move" src={Logo} ref={logoRefs}  />
+
           <Container className="py-5">
             <Row className="mb-4 d-flex">
               <Col md={6} className=" align-content-end head">
@@ -429,8 +459,59 @@ function About() {
               </Col>
             </Row>
           </Container>
+          <div ref={section3TargetRef} className="logo-target" />
         </section>
-        <section className="Cta position-relative">
+        <section className="featured" id="section2">
+                  <div className="featured-floating-imgs" ref={floatingImgRef}>
+
+          </div>
+
+  <Container className="full">
+    <Row className="mb-4 d-flex py-4 align-content-center">
+      <Col md={8} className="align-content-center">
+        <h2 className="same-head">FEATURED PROJECTS</h2>
+        <p className="same-head-p">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+          do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        </p>
+      </Col>
+      <Col md={4} className="align-items-end text-end align-content-center">
+        <Button variant="dark">See more Projects</Button>
+      </Col>
+    </Row>
+
+    <Row ref={columnsRef} className="features-row">
+      {projects.slice(0, 3).map((project, index) => (
+        <Col md={4} key={project.id} className="features-list p-0 dip-column">
+      <Card className={`custom-card card-${index}`}>
+      <Card.Img
+              variant="top"
+              src={project.image}
+              alt={project.title}
+            />
+            <Card.Body className="uper-space">
+              <Card.Text className="mb-4 btn-loc">
+                <span>{project.size}</span> <span>{project.feet}</span>
+                <span>{project.location}</span>
+              </Card.Text>
+              <Card.Title>{project.title}</Card.Title>
+              <Card.Text className="text-primary font-weight-bold">
+                {project.price}
+              </Card.Text>
+              <Button className="Up-arrow-btn">
+                <img src={Arrow} />
+              </Button>
+            </Card.Body>
+          </Card>
+    <div id="ctaSection"  ref={section2TargetRef} className="logo-target" />
+
+        </Col>
+      ))}
+    </Row>
+
+  </Container>
+</section>
+        <section  className="Cta position-relative">
           <Container>
             <Row className="d-flex align-items-center justify-content-center ">
               <Col md={8}>
@@ -439,9 +520,10 @@ function About() {
                   Explore the best properties in your preferred location. Start
                   your journey to a perfect home with us.
                 </p>
+
               </Col>
+
               <Col md={4} className="text-end">
-                {/* <img src={Cta} alt="" className="scroll-img" /> */}
                 <Button variant="dark" className="banner-button">
                   Contact us for More info
                 </Button>
@@ -571,4 +653,7 @@ function About() {
   );
 }
 
-export default About;
+export default Home;
+
+
+

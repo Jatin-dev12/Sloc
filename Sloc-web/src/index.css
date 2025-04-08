@@ -120,3 +120,102 @@ main#All {
   box-shadow: 0 0 20px rgba(255, 20, 147, 1);
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.animated-logo {
+  position: relative;
+  width: 100%;
+}
+
+.image-wrapper {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.rocket-image.main-image {
+  width: 100%;
+  max-width: 300px;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+}
+
+.split-images {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  opacity: 0;
+  z-index: 1;
+}
+
+.split-image {
+  width: 100px;
+  height: auto;
+  transition: filter 0.3s ease;
+}
+
+.features-row {
+  position: relative;
+}
+
+.dip-column {
+  transition: background-color 0.3s ease;
+  position: relative;
+  min-height: 200px;
+}
+
+.dipped {
+  filter: hue-rotate(90deg);
+}
+
+
+
+.Cta .banner-button {
+  transition: transform 0.3s ease-out;
+}
+
+.split-images img {
+  transition: opacity 0.5s, transform 0.5s;
+}
+
+.card {
+  transition: background-color 0.5s ease;
+z-index: +9999;
+}
+
+img#rocket-image {
+  opacity: 0 !important;
+}
+

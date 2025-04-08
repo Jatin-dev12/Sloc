@@ -36,7 +36,7 @@ export default function Header() {
             <Nav.Link href="#">Home</Nav.Link>
 
 
-            <Nav.Link href="/">About Us</Nav.Link>
+            <Nav.Link href="/About">About Us</Nav.Link>
             <Nav.Link href="#">Blogs</Nav.Link>
             <Nav.Link href="#" className='cntnct'>Contact Us</Nav.Link>
 

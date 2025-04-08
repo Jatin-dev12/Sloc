@@ -1,15 +1,10 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { FaTwitter, FaFacebook, FaInstagram, FaSnapchat, FaTelegram } from 'react-icons/fa';
-import Logo from '../assets/Imgs/SLOC.png'
+import Logo from '../assets/Imgs/Footer-logo.png'
 import Instagram from '../assets/Imgs/ig.svg'
 import Facebook from '../assets/Imgs/facbook.svg'
-import Twitter from '../assets/Imgs/twiter.svg'
 import linkdin from '../assets/Imgs/Linkdin.svg'
-import telegram from '../assets/Imgs/telegram.svg'
-
-
-
 
 
 const Footer = () => {
