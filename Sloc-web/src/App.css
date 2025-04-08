@@ -369,7 +369,7 @@ section.Cta button.btn.btn-dark {
     overflow: auto;
     /* Ensure the content can still be scrolled */
   }
-  section.social-proof:before {
+  /* section.social-proof:before {
     background-image: url(./assets/Imgs/back-scrol.png);
     position: absolute;
     content: '';
@@ -383,7 +383,16 @@ section.Cta button.btn.btn-dark {
     object-fit: contain;
     background-position: center top;
     z-index: -1;
-  }
+  } */
+  img.soc-img {
+    position: absolute;
+    top: 11%;
+    left: 38%;
+    WIDTH: 500PX;
+    object-fit: contain;
+    HEIGHT: 500PX;
+    animation: rotate-animation 10s infinite linear;
+}
   section.featured .row .features-list .card img {
     border-radius: 0;
     position: relative;

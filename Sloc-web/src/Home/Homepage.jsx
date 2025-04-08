@@ -30,6 +30,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import ScrollMagic from "scrollmagic";
 import Logo from "../assets/Imgs/o.png";  // Assuming this is your header image
+import soback from '../assets/Imgs/back-scrol.png'
 
 
 
@@ -297,7 +298,7 @@ function Home() {
           <Container className="full">
             <Row className="mb-4 d-flex py-4 align-content-center">
               <Col md={8} className="align-content-center">
-                
+
                 <h2 className="same-head">FEATURED PROJECTS</h2>
                 <p className="same-head-p">
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
@@ -379,6 +380,7 @@ function Home() {
                     <img src={Arrow} />
                   </Button>
                 </div>
+                <img src={soback} className="soc-img" alt="" />
               </Col>
 
               <Col md={6} className="align-items-top rounded-0">
@@ -437,7 +439,7 @@ function Home() {
           <Container className="">
             <Row className="mb-4 d-flex py-4 align-content-center">
               <Col md={8} className="align-content-center">
-                
+
                 <h2 className="same-head">Latest Blogs</h2>
                 <p className="same-head-p">
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
