@@ -25,14 +25,19 @@ import blog3 from "../assets/Imgs/blog-3.png";
 import Counter from "../CountUp/CountUp";
 import New from '../assets/Imgs/SLOC.png'
 import back from '../assets/Imgs/back-cta.png'
-// import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import ScrollMagic from "scrollmagic";
-import Logo from "../assets/Imgs/o.png";  // Assuming this is your header image
-import soback from '../assets/Imgs/back-scrol.png'
-
-
+import Logo from '../assets/Imgs/back-scrol.png'
+// import soback from '../assets/Imgs/back-scrol.png'
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import { Navigation } from 'swiper/modules';
+import NextArrow from '../assets/Imgs/right.svg';
+import PrevArrow from '../assets/Imgs/left.svg';
+import { Flip } from 'gsap/Flip';
 
 const projects = [
   {
@@ -56,6 +61,16 @@ const projects = [
   },
   {
     id: 3,
+    title: "GODREJ ARISTOCRAT",
+    price: "₹ 5.53 CR* ONWARDS",
+    location: "SECTOR 62, GURGAON",
+    feet: "1948 - 3700 Sq.Ft.",
+
+    size: "3 & 4 BHK",
+    image: f3,
+  },
+  {
+    id: 4,
     title: "GODREJ ARISTOCRAT",
     price: "₹ 5.53 CR* ONWARDS",
     location: "SECTOR 62, GURGAON",
@@ -122,79 +137,283 @@ const Blogs = [
 
 gsap.registerPlugin(ScrollTrigger);
 function Home() {
-  // const logoRef = useRef(null);
-  // const containerRef = useRef(null);
+      const floatingImgRef = useRef(null);
+  const logoRefs = useRef(null);
+  const containerRefs = useRef(null);
+  //1.) WELCOME TO SLOC section
+  useEffect(() => {
+    // Create a smoother timeline
+    gsap.timeline({
+      scrollTrigger: {
+        trigger: containerRefs.current,
+        start: "top center",
+        end: "bottom center",
+        scrub: 1.2, // smoother scrub
+        markers: false,
+      }
+    })
+      .fromTo(logoRefs.current,
+        {
+          opacity: 0,
+          y: -300,
+          x: 150,
+          scale: 1.4
+        },
+        {
+          opacity: 1,
+          y: 50,
+          x: 400,
+          scale: 0.6,
+          ease: "power3.out"
+        }
+      )
+      .to(logoRefs.current,
+        {
+          opacity: 0,
+          y: 500,
+          x: 500,
+          scale: 0.2,
+          ease: "power3.inOut"
+        }
+      );
 
-  // useEffect(() => {
-  //   if (!logoRef.current || !containerRef.current) return;
+  }, []);
 
-  //   const sections = gsap.utils.toArray('.section');
+  //2.) FEATURED PROJECTS section
+  const logoRef = useRef(null);
+  const section2TargetRef = useRef(null);
+  const section3TargetRef = useRef(null);
+  const splitImagesRef = useRef(null);
+  const columnsRef = useRef(null);
+  const flipCtxRef = useRef(null);
+  useEffect(() => {
+    gsap.registerPlugin(Flip, ScrollTrigger);
 
-  //   // Vertical scrolling animation for the logo
-  //   gsap.to(logoRef.current, {
-  //     y: () => {
-  //       // Calculate the total scroll distance
-  //       return window.innerHeight * 3; // Scroll down about 2.5 viewport heights
-  //     },
-  //     x: () => {
-  //       // Calculate the total scroll distance
-  //       return window.innerHeight * 3; // Scroll down about 2.5 viewport heights
-  //     },
-  //     ease: "none",
-  //     scrollTrigger: {
-  //       trigger: containerRef.current,
-  //       start: "top top",
-  //       end: "center center",
-  //       scrub: 1,
-  //       markers: false,
-  //       invalidateOnRefresh: true,
-  //     }
-  //   });
+    const createTimeline = () => {
+      if (flipCtxRef.current) {
+        flipCtxRef.current.revert();
+      }
 
-  //   // Fade in sections as we scroll
-  //   sections.forEach((section, i) => {
-  //     gsap.fromTo(section,
-  //       {
-  //         opacity: 10,
-  //         y: 100,
-  //       },
-  //       {
-  //         opacity: 1,
-  //         y: 100,
-  //         duration: 1,
-  //         scrollTrigger: {
-  //           trigger: section,
-  //           start: "top center",
-  //           end: "center center",
-  //           scrub: true,
-  //           markers: false
-  //         }
-  //       }
-  //     );
-  //   });
+      flipCtxRef.current = gsap.context(() => {
+        const columns = columnsRef.current.querySelectorAll('.dip-column');
+        const splitImages = splitImagesRef.current.querySelectorAll('.split-image');
+        const rocketImage = document.querySelector('.rocket-image');
+        const tl1 = gsap.timeline({
+          scrollTrigger: {
+            trigger: ".Main-banner",
+            start: "top center",
+            endTrigger: ".welcome",
+            end: "top center",
+            scrub: 1,
+          }
+        });
 
-  //   // Clean up ScrollTrigger on component unmount
-  //   return () => {
-  //     ScrollTrigger.getAll().forEach(trigger => trigger.kill());
-  //   };
-  // }, []);
+        tl1.to(logoRef.current, {
+          y: () => {
+            const welcomeRect = section3TargetRef.current.getBoundingClientRect();
+            const logoRect = logoRef.current.getBoundingClientRect();
+            return welcomeRect.top - logoRect.top;
+          },
+          duration: 1,
+          ease: "none"
+        });
+        const tl2 = gsap.timeline({
+          scrollTrigger: {
+            trigger: ".welcome",
+            start: "bottom center",
+            endTrigger: ".featured",
+            end: "top center",
+            scrub: 1,
+          }
+        });
+        tl2
+          .to(".main-image", { opacity: 0, duration: 0.3 })
+          .to(".split-images", { opacity: 1, duration: 0.3 }, 0)
+          .to(splitImages, {
+            x: (i) => {
+              const column = columns[i];
+              const columnRect = column.getBoundingClientRect();
+              const imageRect = splitImages[i].getBoundingClientRect();
+              return columnRect.left - imageRect.left + (columnRect.width - imageRect.width) / 2;
+            },
+            y: () => {
+              const featuredRect = columnsRef.current.getBoundingClientRect();
+              const logoRect = logoRef.current.getBoundingClientRect();
+              return featuredRect.top - logoRect.top;
+            },
+            duration: 1,
+            stagger: 0.2
+          }, 0.2);
+        const tl3 = gsap.timeline({
+          scrollTrigger: {
+            trigger: ".featured",
+            start: "top center",
+            end: "center center",
+            scrub: 1,
+            toggleActions: "play reverse play reverse"
+          }
+        });
+
+        tl3
+          .to(splitImages, {
+            y: (i) => {
+              const column = columns[i];
+              const columnRect = column.getBoundingClientRect();
+              const imageRect = splitImages[i].getBoundingClientRect();
+              return columnRect.top - imageRect.top + (columnRect.height / 2 - imageRect.height / 2);
+            },
+            duration: 0.5,
+            stagger: 0.2
+          })
+          .to(columns, {
+            backgroundColor: "pink",
+            duration: 0.5,
+            stagger: 0.2
+          }, 0.2)
+          .to(splitImages, {
+            filter: "hue-rotate(90deg)",
+            duration: 0.5,
+            stagger: 0.2
+          }, 0.4)
+          .to(".custom-card", {
+            backgroundColor: ["#5773FF","#5773FF","#5773FF"],
+            duration: 0.5,
+            stagger: 0.2
+          }, 0.4)
+          .to(splitImages, {
+            opacity: 0,
+            duration: 1,
+            stagger: 0.2
+          }, 1);
+        const tlDown = gsap.timeline({
+          scrollTrigger: {
+            trigger: ".uper-space",
+            start: "top center",
+            end: "top top",
+            scrub: 1,
+          }
+        });
+
+        tlDown
+          .to(splitImages, {
+            y: () => {
+              const ctaSection = document.querySelector("#ctaSection");
+              const ctaRect = ctaSection.getBoundingClientRect();
+              return ctaRect.top + window.innerHeight;
+            },
+            x: 0,
+            filter: "none",
+            duration: 0.5,
+            stagger: 0.2
+          })
+          .to(columns, {
+            backgroundColor: "transparent",
+            duration: 0.5,
+            stagger: 0.2
+          }, 0.2)
+          .to(".custom-card", {
+            backgroundColor: ["#fff", "#fff", "#fff"],
+            duration: 0.5,
+            stagger: 0.2
+          }, 0.4);
+          const tlRocket = gsap.timeline({
+            scrollTrigger: {
+              trigger: ".Main-banner",
+              start: "top center",
+              end: "top center",
+              scrub: 1,
+            }
+          });
+          tlRocket.to(rocketImage, {
+            display: "block",
+            opacity: 1,
+            duration: 1,
+            ease: "power3.out"
+          });
+      });
+    };
+
+    createTimeline();
+    window.addEventListener("resize", createTimeline);
+
+    return () => {
+      window.removeEventListener("resize", createTimeline);
+      if (flipCtxRef.current) {
+        flipCtxRef.current.revert();
+      }
+      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+    };
+  }, []);
+
+  //3.) Testimonials section
+  const logoRefs1 = useRef(null);
+  const containerRefs1= useRef(null);
+  useEffect(() => {
+    // Create a smoother timeline
+    gsap.timeline({
+      scrollTrigger: {
+        trigger: containerRefs1.current,
+        start: "top center",
+        end: "bottom center",
+        scrub: 1.2, // smoother scrub
+        markers: false,
+      }
+    })
+      .fromTo(logoRefs1.current,
+        {
+          opacity: 0,
+          y: -900,
+          x: 550,
+        },
+        {
+          opacity: 1,
+          y: 50,
+          x: 550,
+          ease: "power3.out"
+        },
+        {
+          opacity: 2,
+          y: 100,
+          x: 650,
+          ease: "power3.out"
+        }
+      )
+      .to(logoRefs1.current,
+        {
+          opacity: 0,
+          y: 550,
+          x: 550,
+          scale: 0.2,
+          ease: "power3.inOut"
+        }
+      );
+
+  }, []);
 
   return (
     <>
- <main id="All" >
-      {/* <main ref={containerRef} id="All" > */}
-      {/* <img src={Logo} alt="Logo"
-                                id="rocket-image" // The ID to select the rocket element
-          className="rocket-image"
-                      ref={logoRef}
-                      /> */}
-      {/* <img className="Move" src={New} ref={logoRef}  /> */}
+      <main id="All" >
 
         <section className="Main-banner" data-speed="1.5">
           <Container>
             <Row>
               <Col>
                 <h1>Search Land Of Choice</h1>
+                        <div ref={logoRef} className="animated-logo">
+                          <div className="image-wrapper">
+                            <img
+                              src={Logo}
+                              alt="Logo"
+                              id="rocket-image"
+                              className="rocket-image main-image"
+                            />
+                            <div className="split-images" ref={splitImagesRef}>
+                              <img src={Logo} alt="Split 1" className="split-image" />
+                              <img src={Logo} alt="Split 2" className="split-image" />
+                              <img src={Logo} alt="Split 3" className="split-image" />
+                            </div>
+                          </div>
+                        </div>
               </Col>
             </Row>
           </Container>
@@ -236,7 +455,9 @@ function Home() {
           </div>
         </section>
 
-        <section className="welcome">
+        <section ref={containerRefs} className="welcome">
+          <img className="Move" src={Logo} ref={logoRefs} />
+
           <Container className="py-5">
             <Row className="mb-4 d-flex">
               <Col md={6} className=" align-content-end head">
@@ -266,9 +487,9 @@ function Home() {
                 <Col md={6} lg={6} className="only-bottom">
                   <Card className="">
                     <h3 className="text-primary">
-                      <Counter className="Counter-no" to={500} from={0} />K
-                    </h3>
-                    <p>Lorem Ipsum</p>
+                      <Counter className="Counter-no" to={500} from={0} />
+                      K
+                    </h3>                    <p>Lorem Ipsum</p>
                   </Card>
                 </Col>
                 <Col md={6} lg={6} className="only-right">
@@ -276,8 +497,7 @@ function Home() {
                     <h3 className="text-primary">
                       <Counter className="Counter-no" to={24} from={0} />
                       /7
-                    </h3>
-                    <p>Consectetur Adipiscing Elit, Sed Do</p>
+                    </h3>                     <p>Consectetur Adipiscing Elit, Sed Do</p>
                   </Card>
                 </Col>
                 <Col md={6} lg={6} className="left-brdr">
@@ -285,16 +505,19 @@ function Home() {
                     <h3 className="text-primary">
                       <Counter className="Counter-no" to={1} from={0} />
                       M+
-                    </h3>
-                    <p>Sed ut Perspiciatis</p>
+                    </h3>                    <p>Sed ut Perspiciatis</p>
                   </Card>
                 </Col>
               </Col>
             </Row>
           </Container>
+          <div ref={section3TargetRef} className="logo-target" />
         </section>
 
         <section className="featured">
+        <div className="featured-floating-imgs" ref={floatingImgRef}>
+
+          </div>
           <Container className="full">
             <Row className="mb-4 d-flex py-4 align-content-center">
               <Col md={8} className="align-content-center">
@@ -309,36 +532,60 @@ function Home() {
                 md={4}
                 className="align-items-end text-end align-content-center"
               >
-                <Button variant="dark">See more Projects</Button>
+               <div className="custom-swiper-nav d-flex gap-4 justify-content-end mb-3">
+  <img src={PrevArrow} alt="Previous" className="swiper-button-prev-custom" />
+  <img src={NextArrow} alt="Next" className="swiper-button-next-custom" />
+</div>
               </Col>
             </Row>
-            <Row className="collr">
-              {projects.map((project) => (
-                <Col md={4} key={project.id} className="features-list p-0">
-                  <Card className="">
-                    <Card.Img
-                      variant="top"
-                      src={project.image}
-                      alt={project.title}
-                    />
-                    <Card.Body className="uper-space">
-                      <Card.Text className="mb-4 btn-loc">
-                        <span>{project.size}</span> <span>{project.feet}</span>
-                        <span>{project.location}</span>
-                      </Card.Text>
-                      <Card.Title>{project.title}</Card.Title>
+            {/* <Row className="collr"> */}
+                  <Row ref={columnsRef} className="features-row">
+            <Swiper
+  // spaceBetween={30}
+  slidesPerView={1}
+  loop={true}
+  navigation={{
+    nextEl: '.swiper-button-next-custom',
+    prevEl: '.swiper-button-prev-custom',
+  }}
+  modules={[Navigation]}
+  breakpoints={{
+    768: { slidesPerView: 2 },
+    992: { slidesPerView: 3 },
+  }}
+>
+    {projects.map((project,index) => (
+      <SwiperSlide key={project.id}>
+        <Col className="features-list p-0 dip-column">
+              <Card className={`custom-card card-${index}`}>
+        {/* <Card className="custom-card"> */}
+          <Card.Img
+            variant="top"
+            src={project.image}
+            alt={project.title}
+          />
+          <Card.Body className="uper-space">
+            <Card.Text className="mb-4 btn-loc">
+              <span>{project.size}</span> <span>{project.feet}</span>
+              <span>{project.location}</span>
+            </Card.Text>
+            <Card.Title>{project.title}</Card.Title>
+            <Card.Text className="text-primary font-weight-bold">
+              {project.price}
+            </Card.Text>
+            <Button className="Up-arrow-btn">
+              <img src={Arrow} />
+            </Button>
+          </Card.Body>
+        </Card>
+            <div id="ctaSection"  ref={section2TargetRef} className="logo-target" />
 
-                      <Card.Text className="text-primary font-weight-bold">
-                        {project.price}
-                      </Card.Text>
-                      <Button className="Up-arrow-btn">
-                        <img src={Arrow} />
-                      </Button>
-                    </Card.Body>
-                  </Card>
-                </Col>
-              ))}
-            </Row>
+        </Col>
+      </SwiperSlide>
+
+    ))}
+  </Swiper>
+</Row>
           </Container>
         </section>
 
@@ -351,7 +598,7 @@ function Home() {
                   Explore the best properties in your preferred location. Start
                   your journey to a perfect home with us.
                 </p>
-                <img src={back} alt="" className="back-roll"/>
+                <img src={back} alt="" className="back-roll" />
 
               </Col>
 
@@ -365,12 +612,13 @@ function Home() {
           </Container>
         </section>
 
-        <section className="social-proof position-relative">
+        <section ref={containerRefs1} className="social-proof position-relative">
+        <img className="Move" src={Logo} ref={logoRefs1} />
           <Container className="">
             <Row className="align-items-center justify-content-between">
               <Col md={5} className="mb-4 mb-md-0">
                 <div className="ps-md-4">
-                  <h2 className="same-head">SOCIAL PROOF</h2>
+                  <h2 className="same-head">Testimonials </h2>
                   <p className="same-head-p">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
                     do eiusmod tempor incididunt ut labore et dolore magna
@@ -380,7 +628,7 @@ function Home() {
                     <img src={Arrow} />
                   </Button>
                 </div>
-                <img src={soback} className="soc-img" alt="" />
+                {/* <img src={soback} className="soc-img" alt="" /> */}
               </Col>
 
               <Col md={6} className="align-items-top rounded-0">
@@ -392,7 +640,7 @@ function Home() {
                         className={index !== 0 ? "mt-4 pt-4 border-top" : ""}
                       >
                         <Row className="align-items-top inner-set">
-                          <Col xs="auto">
+                          <Col xs="auto img-hide">
                             <div
                               className="position-relative"
                               style={{ width: "110px", height: "80px" }}
@@ -404,7 +652,7 @@ function Home() {
                               />
                             </div>
                           </Col>
-                          <Col>
+                          <Col className="px-4">
                             <div className="position-relative">
                               <div
                                 className="position-absolute"
@@ -465,7 +713,7 @@ function Home() {
                     <Card.Body className="uper-space">
                       <Card.Text className="mb-4 btn-loc top-set">
                         <span className="black">{Blogs.date}</span>
-                        <span>{Blogs.catagory}</span>
+                        <span>{Blogs.catagory} SDFSDF</span>
                       </Card.Text>
                       <Card.Title>{Blogs.name}</Card.Title>
 

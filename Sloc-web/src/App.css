@@ -399,7 +399,7 @@ section.Cta button.btn.btn-dark {
     z-index: +1;
   }
   /* Blogs  */
-  section.featured .row .features-list .card :before{
+  /* section.featured .row .features-list .card :before{
     background-image: url(./assets/Imgs/blg.png);
     position: absolute;
     content: '';
@@ -412,8 +412,8 @@ section.Cta button.btn.btn-dark {
     height: 100%;
     object-fit: contain;
     background-position: top right;
-    z-index: 0;
-  }
+
+  } */
 
 
   .blogs .row {
@@ -442,6 +442,7 @@ section.Cta button.btn.btn-dark {
   .top-set {
     position: absolute;
     top: 45px;
+    z-index: +99999999999999999;
   }
   span.black {
     background: black;

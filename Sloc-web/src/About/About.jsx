@@ -23,6 +23,8 @@ import testi from "../assets/Imgs/testimonal.svg";
 import blog1 from "../assets/Imgs/blog-1.png";
 import blog2 from "../assets/Imgs/blog-2.png";
 import blog3 from "../assets/Imgs/blog-3.png";
+import back from '../assets/Imgs/back-cta.png'
+
 import Counter from "../CountUp/CountUp";
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -31,6 +33,8 @@ import { Flip } from 'gsap/Flip';
 import { useEffect, useRef } from "react";
 import Logo from '../assets/Imgs/back-scrol.png'
 import Fe from '../assets/Imgs/scroll.png'
+import soback from '../assets/Imgs/back-scrol.png'
+
 
 
 const projects = [
@@ -119,6 +123,7 @@ const Blogs = [
   },
 ];
 
+
 gsap.registerPlugin(ScrollTrigger);
 function Home() {
 
@@ -175,7 +180,7 @@ function Home() {
 
         tl2
           .to(".main-image", { opacity: 0, duration: 0.3 })
-          .to(".split-images", { opacity: 1, duration: 0.3 }, 0)
+          .to(".split-images", { opacity: 1, duration: 0.8 }, 0)
           .to(splitImages, {
             x: (i) => {
               const column = columns[i];
@@ -197,7 +202,7 @@ function Home() {
           scrollTrigger: {
             trigger: ".featured",
             start: "top center",
-            end: "center center",
+            end: "bottom center",
             scrub: 1,
             toggleActions: "play reverse play reverse"
           }
@@ -218,24 +223,24 @@ function Home() {
             backgroundColor: "#064685", // Adjust color as needed
             duration: 0.5,
             stagger: 0.2
-          }, 0.2)  // Add a small delay so background change happens after image transition
+          }, 1)  // Add a small delay so background change happens after image transition
           .to(splitImages, {
             filter: "hue-rotate(90deg)", // Dipping effect
             duration: 0.5,
             stagger: 0.2
-          }, 0.4) // Delay this until the background color change happens
+          }, 1) // Delay this until the background color change happens
           .to(".custom-card", {
             backgroundColor: ["#5773FF","#5773FF","#5773FF"], // Adjust to your desired color
             duration: 0.5,
             stagger: 0.2
-          }, 0.4); // Same delay to sync with the image transition
+          }, 1); // Same delay to sync with the image transition
 
         // Move images towards the bottom of the ctaSection when scrolling down
         const tlDown = gsap.timeline({
           scrollTrigger: {
             trigger: ".uper-space", // Trigger when `.uper-space` enters the viewport
             start: "top center", // Start when top of .uper-space hits the center of the viewport
-            end: "top top", // End when it's out of the viewport
+            end: "bottom center", // End when it's out of the viewport
             scrub: 1,
           }
         });
@@ -318,7 +323,7 @@ function Home() {
         {
           opacity: 1,
           y: 50,
-          x: 300,
+          x: 400,
           scale: 0.6,
           ease: "power3.out"
         }
@@ -327,7 +332,7 @@ function Home() {
         {
           opacity: 0,
           y: 500,
-          x: 400,
+          x: 500,
           scale: 0.2,
           ease: "power3.inOut"
         }
@@ -511,7 +516,7 @@ function Home() {
 
   </Container>
 </section>
-        <section  className="Cta position-relative">
+<section className="Cta position-relative">
           <Container>
             <Row className="d-flex align-items-center justify-content-center ">
               <Col md={8}>
@@ -520,10 +525,12 @@ function Home() {
                   Explore the best properties in your preferred location. Start
                   your journey to a perfect home with us.
                 </p>
+                <img src={back} alt="" className="back-roll"/>
 
               </Col>
 
               <Col md={4} className="text-end">
+                {/* <img src={Cta} alt="" className="scroll-img" /> */}
                 <Button variant="dark" className="banner-button">
                   Contact us for More info
                 </Button>
@@ -547,6 +554,7 @@ function Home() {
                     <img src={Arrow} />
                   </Button>
                 </div>
+                <img src={soback} className="soc-img" alt="" />
               </Col>
 
               <Col md={6} className="align-items-top rounded-0">
@@ -600,6 +608,7 @@ function Home() {
             </Row>
           </Container>
         </section>
+
 
         <section className="featured blogs">
           <Container className="">
