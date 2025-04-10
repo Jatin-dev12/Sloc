@@ -12,11 +12,11 @@ const Footer = () => {
     <footer className="">
       <Container>
         <Row className="mb-4 justify-content-between">
-          <Col lg={5} md={6} className="mb-4 mb-md-0">
+          <Col lg={5} md={6} className="mb-4 mb-md-0 p-0">
             <div className="footer-logo">
-              <img src={Logo} />
+              <img src={Logo} className="foter-logo" />
             </div>
-            <p className=" my-3">
+            <p className="my-3 set-wi">
               We Are A Team Of Seasoned And Innovative Professionals, Whether You Want A Rejuvenating Swimming Pool Addition Or Appealing Landscaping Features.
             </p>
 
@@ -46,16 +46,16 @@ const Footer = () => {
             <h6 className="text-uppercase ft-font mb-3">QUICK LINKS</h6>
             <ul className="list-unstyled mb-0">
               <li className="mb-2">
-                <a href="#" className="text-decoration-none text-dark small">Home</a>
+                <a href="#" className="text-decoration-none  small">Home</a>
               </li>
               <li className="mb-2">
-                <a href="#" className="text-decoration-none text-dark small">About Us</a>
+                <a href="#" className="text-decoration-none  small">About Us</a>
               </li>
               <li className="mb-2">
-                <a href="#" className="text-decoration-none text-dark small">BLOG</a>
+                <a href="#" className="text-decoration-none  small">BLOG</a>
               </li>
               <li className="mb-2">
-                <a href="#" className="text-decoration-none text-dark small">CONTACT US</a>
+                <a href="#" className="text-decoration-none  small">CONTACT US</a>
               </li>
 
             </ul>
@@ -65,13 +65,13 @@ const Footer = () => {
             <h6 className="text-uppercase ft-font mb-3">Policies</h6>
             <ul className="list-unstyled mb-0">
               <li className="mb-2">
-                <a href="#" className="text-decoration-none text-dark small">Disclaimer </a>
+                <a href="#" className="text-decoration-none  small">Disclaimer </a>
               </li>
               <li className="mb-2">
-                <a href="#" className="text-decoration-none text-dark small">Privacy Policy</a>
+                <a href="#" className="text-decoration-none  small">Privacy Policy</a>
               </li>
               <li className="mb-2">
-                <a href="#" className="text-decoration-none text-dark small">Terms & Conditions</a>
+                <a href="#" className="text-decoration-none  small">Terms & Conditions</a>
               </li>
             </ul>
           </Col>
@@ -83,7 +83,6 @@ const Footer = () => {
             <p className="small mb-3">122003 </p>
             <p className="small my-3">contact@sloc.in</p>
             <p className="small mb-1">+971 4 542 4200</p>
-            <p className="small mb-1">+919971094108</p>
           </Col>
         </Row>
 

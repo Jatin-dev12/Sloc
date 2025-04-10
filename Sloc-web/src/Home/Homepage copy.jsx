@@ -38,7 +38,6 @@ import { Navigation } from 'swiper/modules';
 import NextArrow from '../assets/Imgs/right.svg';
 import PrevArrow from '../assets/Imgs/left.svg';
 import { Flip } from 'gsap/Flip';
-import Logo1 from '../assets/Imgs/back-scrol.png'
 
 const projects = [
   {
@@ -138,6 +137,7 @@ const Blogs = [
 
 gsap.registerPlugin(ScrollTrigger);
 function Home() {
+      const floatingImgRef = useRef(null);
   const logoRefs = useRef(null);
   const containerRefs = useRef(null);
   //1.) WELCOME TO SLOC section
@@ -178,6 +178,176 @@ function Home() {
       );
 
   }, []);
+
+
+
+  //2.) FEATURED PROJECTS section
+  // const logoRef = useRef(null);
+  // const section2TargetRef = useRef(null);
+  // const section3TargetRef = useRef(null);
+  // const splitImagesRef = useRef(null);
+  // const columnsRef = useRef(null);
+  // const flipCtxRef = useRef(null);
+  // useEffect(() => {
+  //   gsap.registerPlugin(Flip, ScrollTrigger);
+
+  //   const createTimeline = () => {
+  //     if (flipCtxRef.current) {
+  //       flipCtxRef.current.revert();
+  //     }
+
+  //     flipCtxRef.current = gsap.context(() => {
+  //       const columns = columnsRef.current.querySelectorAll('.dip-column');
+  //       const splitImages = splitImagesRef.current.querySelectorAll('.split-image');
+  //       const rocketImage = document.querySelector('.rocket-image');
+  //       const tl1 = gsap.timeline({
+  //         scrollTrigger: {
+  //           trigger: ".Main-banner",
+  //           start: "top center",
+  //           endTrigger: ".welcome",
+  //           end: "top center",
+  //           scrub: 1,
+  //         }
+  //       });
+
+  //       tl1.to(logoRef.current, {
+  //         y: () => {
+  //           const welcomeRect = section3TargetRef.current.getBoundingClientRect();
+  //           const logoRect = logoRef.current.getBoundingClientRect();
+  //           return welcomeRect.top - logoRect.top;
+  //         },
+  //         duration: 1,
+  //         ease: "none"
+  //       });
+  //       const tl2 = gsap.timeline({
+  //         scrollTrigger: {
+  //           trigger: ".welcome",
+  //           start: "bottom center",
+  //           endTrigger: ".featured",
+  //           end: "top center",
+  //           scrub: 1,
+  //         }
+  //       });
+  //       tl2
+  //         .to(".main-image", { opacity: 0, duration: 0.3 })
+  //         .to(".split-images", { opacity: 1, duration: 0.3 }, 0)
+  //         .to(splitImages, {
+  //           x: (i) => {
+  //             const column = columns[i];
+  //             const columnRect = column.getBoundingClientRect();
+  //             const imageRect = splitImages[i].getBoundingClientRect();
+  //             return columnRect.left - imageRect.left + (columnRect.width - imageRect.width) / 2;
+  //           },
+  //           y: () => {
+  //             const featuredRect = columnsRef.current.getBoundingClientRect();
+  //             const logoRect = logoRef.current.getBoundingClientRect();
+  //             return featuredRect.top - logoRect.top;
+  //           },
+  //           duration: 1,
+  //           stagger: 0.2
+  //         }, 0.2);
+  //       const tl3 = gsap.timeline({
+  //         scrollTrigger: {
+  //           trigger: ".featured",
+  //           start: "top center",
+  //           end: "center center",
+  //           scrub: 1,
+  //           toggleActions: "play reverse play reverse"
+  //         }
+  //       });
+
+  //       tl3
+  //         .to(splitImages, {
+  //           y: (i) => {
+  //             const column = columns[i];
+  //             const columnRect = column.getBoundingClientRect();
+  //             const imageRect = splitImages[i].getBoundingClientRect();
+  //             return columnRect.top - imageRect.top + (columnRect.height / 2 - imageRect.height / 2);
+  //           },
+  //           duration: 0.5,
+  //           stagger: 0.2
+  //         })
+  //         .to(columns, {
+  //           backgroundColor: "pink",
+  //           duration: 0.5,
+  //           stagger: 0.2
+  //         }, 0.2)
+  //         .to(splitImages, {
+  //           filter: "hue-rotate(90deg)",
+  //           duration: 0.5,
+  //           stagger: 0.2
+  //         }, 0.4)
+  //         .to(".custom-card", {
+  //           backgroundColor: ["#5773FF","#5773FF","#5773FF"],
+  //           duration: 0.5,
+  //           stagger: 0.2
+  //         }, 0.4)
+  //         .to(splitImages, {
+  //           opacity: 0,
+  //           duration: 1,
+  //           stagger: 0.2
+  //         }, 1);
+  //       const tlDown = gsap.timeline({
+  //         scrollTrigger: {
+  //           trigger: ".uper-space",
+  //           start: "top center",
+  //           end: "top top",
+  //           scrub: 1,
+  //         }
+  //       });
+
+  //       tlDown
+  //         .to(splitImages, {
+  //           y: () => {
+  //             const ctaSection = document.querySelector("#ctaSection");
+  //             const ctaRect = ctaSection.getBoundingClientRect();
+  //             return ctaRect.top + window.innerHeight;
+  //           },
+  //           x: 0,
+  //           filter: "none",
+  //           duration: 0.5,
+  //           stagger: 0.2
+  //         })
+  //         .to(columns, {
+  //           backgroundColor: "transparent",
+  //           duration: 0.5,
+  //           stagger: 0.2
+  //         }, 0.2)
+  //         .to(".custom-card", {
+  //           backgroundColor: ["#fff", "#fff", "#fff"],
+  //           duration: 0.5,
+  //           stagger: 0.2
+  //         }, 0.4);
+  //         const tlRocket = gsap.timeline({
+  //           scrollTrigger: {
+  //             trigger: ".Main-banner",
+  //             start: "top center",
+  //             end: "top center",
+  //             scrub: 1,
+  //           }
+  //         });
+  //         tlRocket.to(rocketImage, {
+  //           display: "block",
+  //           opacity: 1,
+  //           duration: 1,
+  //           ease: "power3.out"
+  //         });
+  //     });
+  //   };
+
+  //   createTimeline();
+  //   window.addEventListener("resize", createTimeline);
+
+  //   return () => {
+  //     window.removeEventListener("resize", createTimeline);
+  //     if (flipCtxRef.current) {
+  //       flipCtxRef.current.revert();
+  //     }
+  //     ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+  //   };
+  // }, []);
+
+
 
 
 
@@ -227,62 +397,6 @@ function Home() {
   }, []);
 
 
-  //2.) FEATURED PROJECTS section
-
-
-   const section1Ref = useRef(null);
-  const imageRefs = useRef([]);
-  const boxRefs = useRef([]);
-
-
-
-  useEffect(() => {
-    const boxes = boxRefs.current;
-    const images = imageRefs.current;
-
-    images.forEach((img, index) => {
-      const box = boxes[index];
-
-      const xOffset = () => {
-        const boxRect = box.getBoundingClientRect();
-        const imgRect = img.getBoundingClientRect();
-        return boxRect.left + boxRect.width / 2 - (imgRect.left + imgRect.width / 2);
-      };
-
-      gsap.fromTo(
-        img,
-        { x: 0, y: -150, scale: 1, opacity: 0.1 },
-        {
-          x: xOffset,
-          y: 300,
-          scale: 1,
-          opacity: 10,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: section1Ref.current,
-            start: "top top",
-            end: "bottom center",
-            scrub: true,
-            onUpdate: (self) => {
-              const imgRect = img.getBoundingClientRect();
-              const boxRect = box.getBoundingClientRect();
-              // Check if the image is inside the box (overlapping vertically)
-              const isInside =
-                imgRect.top < boxRect.bottom && imgRect.bottom > boxRect.top;
-
-              // Apply red color if image is inside the box, reset otherwise
-              if (isInside) {
-                box.style.backgroundColor = "#a1d3ff"; // Red when image is inside
-              } else {
-                box.style.backgroundColor = ""; // Reset to default when image is outside
-              }
-            },
-          },
-        }
-      );
-    });
-
-  }, []);
 
 
 
@@ -410,96 +524,80 @@ function Home() {
           </Container>
         </section>
 
-        <section ref={section1Ref} className="featured">
-      {/* Floating Images Container */}
-            <div className="featured-floating-imgs">
-        <div className="image-stack">
-          <img
-            ref={(el) => (imageRefs.current[0] = el)}
-            className="initial-image"
-            src={Logo1}
-            alt="img1"
-          />
-          <img
-            ref={(el) => (imageRefs.current[1] = el)}
-            className="initial-image"
-            src={Logo1}
-            alt="img2"
-          />
-          <img
-            ref={(el) => (imageRefs.current[2] = el)}
-            className="initial-image"
-            src={Logo1}
-            alt="img3"
-          />
-        </div>
-      </div>
+        <section className="featured">
+        <div className="featured-floating-imgs" ref={floatingImgRef}>
 
-      <Container className="full">
-        <Row className="mb-4 d-flex py-4 align-content-center">
-          <Col md={8} className="align-content-center">
-            <h2 className="same-head">FEATURED PROJECTS</h2>
-            <p className="same-head-p">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-              do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            </p>
-          </Col>
-          <Col md={4} className="align-items-end text-end align-content-center">
-            <div className="custom-swiper-nav d-flex gap-4 justify-content-end mb-3">
-              <img src={PrevArrow} alt="Previous" className="swiper-button-prev-custom" />
-              <img src={NextArrow} alt="Next" className="swiper-button-next-custom" />
-            </div>
-          </Col>
-        </Row>
-        <Row className="features-row">
-          <Swiper
-            spaceBetween={30}
-            slidesPerView={1}
-            loop={true}
-            navigation={{
-              nextEl: '.swiper-button-next-custom',
-              prevEl: '.swiper-button-prev-custom',
-            }}
-            modules={[Navigation]}
-            breakpoints={{
-              768: { slidesPerView: 2 },
-              992: { slidesPerView: 3 },
-            }}
-          >
-            {projects.map((project, index) => (
-              <SwiperSlide key={project.id}>
-                <Col className="features-list p-0 dip-column">
-                  <Card
-                    ref={(el) => (boxRefs.current[index] = el)} // Applied ref to each card
-                    className={`custom-card card-${index}  box-${index}`} // Added box classes
-                  >
-                    <Card.Img
-                      variant="top"
-                      src={project.image}
-                      alt={project.title}
-                    />
-                    <Card.Body className="uper-space">
-                      <Card.Text className="mb-4 btn-loc">
-                        <span>{project.size}</span> <span>{project.feet}</span>
-                        <span>{project.location}</span>
-                      </Card.Text>
-                      <Card.Title>{project.title}</Card.Title>
-                      <Card.Text className="text-primary font-weight-bold">
-                        {project.price}
-                      </Card.Text>
-                      <Button className="Up-arrow-btn">
-                        <img src={Arrow} />
-                      </Button>
-                    </Card.Body>
-                  </Card>
-                </Col>
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        </Row>
-      </Container>
+          </div>
+          <Container className="full">
+            <Row className="mb-4 d-flex py-4 align-content-center">
+              <Col md={8} className="align-content-center">
 
-    </section>
+                <h2 className="same-head">FEATURED PROJECTS</h2>
+                <p className="same-head-p">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </p>
+              </Col>
+              <Col
+                md={4}
+                className="align-items-end text-end align-content-center"
+              >
+               <div className="custom-swiper-nav d-flex gap-4 justify-content-end mb-3">
+  <img src={PrevArrow} alt="Previous" className="swiper-button-prev-custom" />
+  <img src={NextArrow} alt="Next" className="swiper-button-next-custom" />
+</div>
+              </Col>
+            </Row>
+            {/* <Row className="collr"> */}
+                  <Row  className="features-row">
+            <Swiper
+  // spaceBetween={30}
+  slidesPerView={1}
+  loop={true}
+  navigation={{
+    nextEl: '.swiper-button-next-custom',
+    prevEl: '.swiper-button-prev-custom',
+  }}
+  modules={[Navigation]}
+  breakpoints={{
+    768: { slidesPerView: 2 },
+    992: { slidesPerView: 3 },
+  }}
+>
+    {projects.map((project,index) => (
+      <SwiperSlide key={project.id}>
+        <Col className="features-list p-0 dip-column">
+              <Card className={`custom-card card-${index}`}>
+        {/* <Card className="custom-card"> */}
+          <Card.Img
+            variant="top"
+            src={project.image}
+            alt={project.title}
+          />
+          <Card.Body className="uper-space">
+            <Card.Text className="mb-4 btn-loc">
+              <span>{project.size}</span> <span>{project.feet}</span>
+              <span>{project.location}</span>
+            </Card.Text>
+            <Card.Title>{project.title}</Card.Title>
+            <Card.Text className="text-primary font-weight-bold">
+              {project.price}
+            </Card.Text>
+            <Button className="Up-arrow-btn">
+              <img src={Arrow} />
+            </Button>
+          </Card.Body>
+        </Card>
+            {/* <div id="ctaSection"   className="logo-target" /> */}
+
+        </Col>
+      </SwiperSlide>
+
+    ))}
+  </Swiper>
+</Row>
+          </Container>
+        </section>
 
         <section className="Cta position-relative">
           <Container>

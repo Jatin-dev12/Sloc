@@ -169,3 +169,51 @@ img#rocket-image {
   position: relative;
   z-index: 10;
 }
+
+
+
+.featured-floating-imgs {
+  position: relative;
+}
+
+.image-stack {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 20px;
+}
+
+.initial-image {
+  width: 150px;
+  height:150px;
+  object-fit: cover;
+}
+
+.box-container {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  gap: 50px;
+}
+
+.box-wrapper {
+  position: relative;
+}
+
+.box {
+  width: 100px;
+  height: 100px;
+  background: #ccc;
+}
+
+
+.bottom-image {
+  width: 150px;
+  height: 150px;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}

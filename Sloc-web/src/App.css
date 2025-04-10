@@ -451,7 +451,7 @@ section.Cta button.btn.btn-dark {
 
   /* Footer */
   footer{
-    background-color: #F3F3F3;
+    background:  #1E1E1E;
     padding-top: 60px;
     padding-bottom: 20px;
   }
@@ -496,11 +496,26 @@ section.Cta button.btn.btn-dark {
     color: #064685 !important;
     text-align: left;
 }
+img.foter-logo {
+  width: 200px;
+}
 
+footer p,a,h6{
+  color: #ffffff !important;
+}
+.set-wi {
+  width: 90%;
+  border-bottom: 1px solid var(--white, #FFFFFF);
+  padding-bottom: 20px;
+}
+.Main-nav a {
+  color: #1E1E1E !important;
+}
+.cntnct.nav-link {
 
+  color: #fff !important;
 
-
-
+}
   /* Rotating Animation */
 
   @keyframes rotate-animation {
@@ -560,3 +575,4 @@ section.featured .card-title.h5 {
   padding: 0 !important;
 }
   }
+
