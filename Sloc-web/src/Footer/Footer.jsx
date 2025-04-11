@@ -9,12 +9,18 @@ import linkdin from '../assets/Imgs/Linkdin.svg'
 
 const Footer = () => {
   return (
+    <>
+    <section className="Disclamer">
+<Container>
+  <p className='Dis'>Disclaimer : The content provided on this website is for information purposes only and does not constitute an offer to avail any service. The prices mentioned are subject to change without prior notice, and the availability of properties mentioned is not guaranteed. Users of this website are hereby advised to exercise due diligence and to independently validate and verify all information about any property / project before deciding to purchase the same or taking any other action. The images displayed on the website are for representation purposes only and may not reflect the actual properties accurately. Please note that this is the official website of an authorized marketing partner. The content, design, and information on this website are protected by copyright and other intellectual property rights. Any unauthorized use or reproduction of the content may violate applicable laws. All trademarks are the property of their respective owners.</p>
+</Container>
+    </section>
     <footer className="">
       <Container>
         <Row className="mb-4 justify-content-between">
           <Col lg={5} md={6} className="mb-4 mb-md-0 p-0">
             <div className="footer-logo">
-              <img src={Logo} className="foter-logo" />
+           <a href='/'><p className='Logo'>SLOC</p></a>
             </div>
             <p className="my-3 set-wi">
               We Are A Team Of Seasoned And Innovative Professionals, Whether You Want A Rejuvenating Swimming Pool Addition Or Appealing Landscaping Features.
@@ -86,13 +92,14 @@ const Footer = () => {
           </Col>
         </Row>
 
-        <Row className='border-top pt-3 mt-2'>
+        <Row className='border-top-set pt-3 mt-2'>
           <Col className="text-center small">
             <p className="mb-0 copyright">© Copyright 2025 | All Rights Reserved</p>
           </Col>
         </Row>
       </Container>
     </footer>
+    </>
   );
 };
 

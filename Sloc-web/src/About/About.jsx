@@ -22,7 +22,7 @@ import testi from "../assets/Imgs/testimonal.svg";
 import blog1 from "../assets/Imgs/blog-1.png";
 import blog2 from "../assets/Imgs/blog-2.png";
 import blog3 from "../assets/Imgs/blog-3.png";
-import Counter from "../CountUp/CountUp";
+import Counter from "../Animations/CountUp/CountUp";
 import New from '../assets/Imgs/SLOC.png'
 import back from '../assets/Imgs/back-cta.png'
 import React, { useEffect, useRef } from 'react';
@@ -39,6 +39,10 @@ import NextArrow from '../assets/Imgs/right.svg';
 import PrevArrow from '../assets/Imgs/left.svg';
 import { Flip } from 'gsap/Flip';
 import Logo1 from '../assets/Imgs/back-scrol.png'
+import BottomImg1 from '../assets/Imgs/back-scrol.png'
+import BottomImg2 from '../assets/Imgs/back-scrol.png'
+import BottomImg3 from '../assets/Imgs/back-scrol.png'
+import BottomImg4 from '../assets/Imgs/back-scrol.png'
 
 const projects = [
   {
@@ -49,6 +53,7 @@ const projects = [
     size: "3 & 4 BHK",
     feet: "1948 - 3700 Sq.Ft.",
     image: f1, // Replace with actual image URL
+    bottomImage: BottomImg1,
   },
   {
     id: 2,
@@ -59,6 +64,7 @@ const projects = [
     feet: "1948 - 3700 Sq.Ft.",
 
     image: f2,
+    bottomImage: BottomImg2,
   },
   {
     id: 3,
@@ -69,6 +75,7 @@ const projects = [
 
     size: "3 & 4 BHK",
     image: f3,
+    bottomImage: BottomImg3,
   },
   {
     id: 4,
@@ -79,6 +86,7 @@ const projects = [
 
     size: "3 & 4 BHK",
     image: f3,
+    bottomImage: BottomImg4,
   },
 ];
 
@@ -117,6 +125,7 @@ const Blogs = [
     text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ",
     date: "1 March 19, 2024",
     catagory: "Apartment",
+    BlogImage: BottomImg1,
   },
   {
     id: 2,
@@ -125,6 +134,7 @@ const Blogs = [
     text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ",
     date: "1 March 19, 2024",
     catagory: "Apartment",
+    BlogImage: BottomImg1,
   },
   {
     id: 3,
@@ -133,6 +143,7 @@ const Blogs = [
     text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ",
     date: "1 March 19, 2024",
     catagory: "Apartment",
+    BlogImage: BottomImg1,
   },
 ];
 
@@ -181,179 +192,10 @@ function About() {
 
 
 
-  //2.) FEATURED PROJECTS section
-  // const logoRef = useRef(null);
-  // const section2TargetRef = useRef(null);
-  // const section3TargetRef = useRef(null);
-  // const splitImagesRef = useRef(null);
-  // const columnsRef = useRef(null);
-  // const flipCtxRef = useRef(null);
-  // useEffect(() => {
-  //   gsap.registerPlugin(Flip, ScrollTrigger);
-
-  //   const createTimeline = () => {
-  //     if (flipCtxRef.current) {
-  //       flipCtxRef.current.revert();
-  //     }
-
-  //     flipCtxRef.current = gsap.context(() => {
-  //       const columns = columnsRef.current.querySelectorAll('.dip-column');
-  //       const splitImages = splitImagesRef.current.querySelectorAll('.split-image');
-  //       const rocketImage = document.querySelector('.rocket-image');
-  //       const tl1 = gsap.timeline({
-  //         scrollTrigger: {
-  //           trigger: ".Main-banner",
-  //           start: "top center",
-  //           endTrigger: ".welcome",
-  //           end: "top center",
-  //           scrub: 1,
-  //         }
-  //       });
-
-  //       tl1.to(logoRef.current, {
-  //         y: () => {
-  //           const welcomeRect = section3TargetRef.current.getBoundingClientRect();
-  //           const logoRect = logoRef.current.getBoundingClientRect();
-  //           return welcomeRect.top - logoRect.top;
-  //         },
-  //         duration: 1,
-  //         ease: "none"
-  //       });
-  //       const tl2 = gsap.timeline({
-  //         scrollTrigger: {
-  //           trigger: ".welcome",
-  //           start: "bottom center",
-  //           endTrigger: ".featured",
-  //           end: "top center",
-  //           scrub: 1,
-  //         }
-  //       });
-  //       tl2
-  //         .to(".main-image", { opacity: 0, duration: 0.3 })
-  //         .to(".split-images", { opacity: 1, duration: 0.3 }, 0)
-  //         .to(splitImages, {
-  //           x: (i) => {
-  //             const column = columns[i];
-  //             const columnRect = column.getBoundingClientRect();
-  //             const imageRect = splitImages[i].getBoundingClientRect();
-  //             return columnRect.left - imageRect.left + (columnRect.width - imageRect.width) / 2;
-  //           },
-  //           y: () => {
-  //             const featuredRect = columnsRef.current.getBoundingClientRect();
-  //             const logoRect = logoRef.current.getBoundingClientRect();
-  //             return featuredRect.top - logoRect.top;
-  //           },
-  //           duration: 1,
-  //           stagger: 0.2
-  //         }, 0.2);
-  //       const tl3 = gsap.timeline({
-  //         scrollTrigger: {
-  //           trigger: ".featured",
-  //           start: "top center",
-  //           end: "center center",
-  //           scrub: 1,
-  //           toggleActions: "play reverse play reverse"
-  //         }
-  //       });
-
-  //       tl3
-  //         .to(splitImages, {
-  //           y: (i) => {
-  //             const column = columns[i];
-  //             const columnRect = column.getBoundingClientRect();
-  //             const imageRect = splitImages[i].getBoundingClientRect();
-  //             return columnRect.top - imageRect.top + (columnRect.height / 2 - imageRect.height / 2);
-  //           },
-  //           duration: 0.5,
-  //           stagger: 0.2
-  //         })
-  //         .to(columns, {
-  //           backgroundColor: "pink",
-  //           duration: 0.5,
-  //           stagger: 0.2
-  //         }, 0.2)
-  //         .to(splitImages, {
-  //           filter: "hue-rotate(90deg)",
-  //           duration: 0.5,
-  //           stagger: 0.2
-  //         }, 0.4)
-  //         .to(".custom-card", {
-  //           backgroundColor: ["#5773FF","#5773FF","#5773FF"],
-  //           duration: 0.5,
-  //           stagger: 0.2
-  //         }, 0.4)
-  //         .to(splitImages, {
-  //           opacity: 0,
-  //           duration: 1,
-  //           stagger: 0.2
-  //         }, 1);
-  //       const tlDown = gsap.timeline({
-  //         scrollTrigger: {
-  //           trigger: ".uper-space",
-  //           start: "top center",
-  //           end: "top top",
-  //           scrub: 1,
-  //         }
-  //       });
-
-  //       tlDown
-  //         .to(splitImages, {
-  //           y: () => {
-  //             const ctaSection = document.querySelector("#ctaSection");
-  //             const ctaRect = ctaSection.getBoundingClientRect();
-  //             return ctaRect.top + window.innerHeight;
-  //           },
-  //           x: 0,
-  //           filter: "none",
-  //           duration: 0.5,
-  //           stagger: 0.2
-  //         })
-  //         .to(columns, {
-  //           backgroundColor: "transparent",
-  //           duration: 0.5,
-  //           stagger: 0.2
-  //         }, 0.2)
-  //         .to(".custom-card", {
-  //           backgroundColor: ["#fff", "#fff", "#fff"],
-  //           duration: 0.5,
-  //           stagger: 0.2
-  //         }, 0.4);
-  //         const tlRocket = gsap.timeline({
-  //           scrollTrigger: {
-  //             trigger: ".Main-banner",
-  //             start: "top center",
-  //             end: "top center",
-  //             scrub: 1,
-  //           }
-  //         });
-  //         tlRocket.to(rocketImage, {
-  //           display: "block",
-  //           opacity: 1,
-  //           duration: 1,
-  //           ease: "power3.out"
-  //         });
-  //     });
-  //   };
-
-  //   createTimeline();
-  //   window.addEventListener("resize", createTimeline);
-
-  //   return () => {
-  //     window.removeEventListener("resize", createTimeline);
-  //     if (flipCtxRef.current) {
-  //       flipCtxRef.current.revert();
-  //     }
-  //     ScrollTrigger.getAll().forEach(trigger => trigger.kill());
-  //   };
-  // }, []);
-
-
-
-
 
   //3.) Testimonials section
   const logoRefs1 = useRef(null);
-  const containerRefs1= useRef(null);
+  const containerRefs1 = useRef(null);
   useEffect(() => {
     // Create a smoother timeline
     gsap.timeline({
@@ -369,7 +211,7 @@ function About() {
         {
           opacity: 0,
           y: -900,
-          x: 550,
+          x: 1300,
         },
         {
           opacity: 1,
@@ -397,17 +239,24 @@ function About() {
   }, []);
 
 
+  //2.) FEATURED PROJECTS section
+
   const section1Ref = useRef(null);
+  const section2Ref = useRef(null);
   const imageRefs = useRef([]);
   const boxRefs = useRef([]);
   const bottomImageRefs = useRef([]);
   const section2ImageRef = useRef(null);
+
+
 
   useEffect(() => {
     const boxes = boxRefs.current;
     const images = imageRefs.current;
     const bottomImages = bottomImageRefs.current;
     const section2Image = section2ImageRef.current;
+
+    // Top Images Animation
     images.forEach((img, index) => {
       const box = boxes[index];
 
@@ -419,28 +268,34 @@ function About() {
 
       gsap.fromTo(
         img,
-        { x: 0, y: -400, scale: 1, opacity: 0.5 },
+        {
+          x: 0,
+          y: -150,
+          scale: 1,
+          opacity: 1,
+          visibility: "hidden",
+        },
         {
           x: xOffset,
           y: 300,
           scale: 1,
-          opacity: 1, // Changed from 10 to 1 (opacity should be 0-1)
+          opacity: 1,
+          visibility: "visible",
           ease: "power2.out",
           scrollTrigger: {
             trigger: section1Ref.current,
-            start: "top top",
+            // start: "top center",
+            start: "top center+=125",
             end: "bottom center",
             scrub: true,
             onUpdate: (self) => {
               const imgRect = img.getBoundingClientRect();
               const boxRect = box.getBoundingClientRect();
-              const isTouching = imgRect.top <= boxRect.top && imgRect.bottom >= boxRect.top;
-
-              // Change background color when image touches box
-              if (isTouching) {
-                box.style.backgroundColor = '#5773FF'; // Change to your desired color
+              const isInside = imgRect.top < boxRect.bottom && imgRect.bottom > boxRect.top;
+              if (isInside) {
+                box.style.backgroundColor = "#EFF7FE";
               } else {
-                box.style.backgroundColor = ''; // Reset to default (or set a specific default color)
+                box.style.backgroundColor = "";
               }
             },
           },
@@ -448,104 +303,205 @@ function About() {
       );
     });
 
-        // Bottom Images: Emerge from inside boxes downward
-        bottomImages.forEach((img, index) => {
-          const box = boxes[index];
+    // Bottom Images Animation
+    bottomImages.forEach((img, index) => {
+      const box = boxes[index];
 
-          const xOffset = () => {
-            const boxRect = box.getBoundingClientRect();
-            const imgRect = img.getBoundingClientRect();
-            return boxRect.left + boxRect.width / 2 - (imgRect.left + imgRect.width / 2);
-          };
+      const xOffset = () => {
+        const boxRect = box.getBoundingClientRect();
+        const imgRect = img.getBoundingClientRect();
+        return boxRect.left + boxRect.width / 2 - (imgRect.left + imgRect.width / 2);
+      };
 
-          gsap.fromTo(
-            img,
-            { y: -100, opacity: 0, visibility: "hidden", x: xOffset }, // Start hidden
-            {
-              y: 100,
-              opacity: 1,
-              visibility: "visible", // Become visible when moving
-              ease: "power2.out",
-              scrollTrigger: {
-                trigger: section1Ref.current,
-                start: "bottom-=200 bottom",
-                end: "bottom bottom",
-                scrub: true,
-              },
-            }
-          );
-        });
+      gsap.fromTo(
+        img,
+        { y: -100, opacity: 0, visibility: "hidden", x: xOffset },
+        {
+          y: 100,
+          opacity: 1,
+          visibility: "visible",
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: section1Ref.current,
+            start: "bottom-=400 bottom",
+            end: "bottom+=200 bottom",
+            scrub: 3,
+          },
+        }
+      );
+    });
 
-        // Section 2: Bottom images move into right-side image
-        bottomImages.forEach((img) => {
-          const xOffset = () => {
-            const imgRect = img.getBoundingClientRect();
-            const section2ImgRect = section2Image.getBoundingClientRect();
-            return section2ImgRect.left + section2ImgRect.width / 2 - (imgRect.left + imgRect.width / 2);
-          };
+    // Section 2: Bottom images move into right-side image
+    bottomImages.forEach((img) => {
+      const xOffset = () => {
+        const imgRect = img.getBoundingClientRect();
+        const section2ImgRect = section2Image.getBoundingClientRect();
+        return section2ImgRect.left + section2ImgRect.width / 2 - (imgRect.left + imgRect.width / 2);
+      };
 
-          gsap.to(img, {
-            x: xOffset,
-            y: 500,
-            scale: 0.5,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: section2Ref.current,
-              start: "top center",
-              end: "bottom center",
-              scrub: true,
-              onEnter: () => gsap.set(img, { visibility: "visible" }), // Ensure visibility when animation starts
-                onLeaveBack: () => gsap.set(img, { visibility: "hidden" }) // Hide when scrolling back up
-            },
+      gsap.to(img, {
+        x: xOffset,
+        y: 500,
+        scale: 0.5,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: section2Ref.current,
+          start: "top center",
+          end: "bottom+=300 center",
+          scrub: 2,
+          onEnter: () => gsap.set(img, { visibility: "visible" }),
+          onLeaveBack: () => gsap.set(img, { visibility: "hidden" }),
+        },
+      });
+    });
+
+    // Section 2: Move top images only
+    gsap.to(images, {
+      y: 500,
+      ease: "power2.out",
+      scrollTrigger: {
+        trigger: section2Ref.current,
+        start: "top center",
+        end: "bottom center",
+        scrub: true,
+      },
+    });
+
+    // Reset background color of boxes when section2Ref is reached
+    gsap.to(boxes, {
+      scrollTrigger: {
+        trigger: section2Ref.current,
+        start: "top center", // When top of section2Ref hits center of viewport
+        onEnter: () => {
+          boxes.forEach((box) => {
+            box.style.backgroundColor = ""; // Reset to default
           });
-        });
+        },
+      },
+    });
   }, []);
-  //
-  //
-  //  const section1Ref = useRef(null);
-  // const imageRefs = useRef([]);
-  // const boxRefs = useRef([]);
+  const blogsectionRef = useRef(null);
+  const BlogimageRefs = useRef([]);
+  const BlogsboxRefs = useRef([]);
+  const BlogBottomImageRefs = useRef([]);
+  const BlogsBottomsectionRef = useRef(null);
 
+  useEffect(() => {
+    const boxes = BlogsboxRefs.current;
+    const images = BlogimageRefs.current;
+    const blogsbottomImages = BlogBottomImageRefs.current;
+    const blogssection2Image = BlogsBottomsectionRef.current;
 
-  //   useEffect(() => {
-  //     const boxes = boxRefs.current;
-  //     const images = imageRefs.current;
-  //     images.forEach((img, index) => {
-  //       const box = boxes[index];
+    // Bottom Images: Emerge from inside boxes downward
 
-  //       const xOffset = () => {
-  //         const boxRect = box.getBoundingClientRect();
-  //         const imgRect = img.getBoundingClientRect();
-  //         return boxRect.left + boxRect.width / 2 - (imgRect.left + imgRect.width / 2);
-  //       };
+    images.forEach((img, index) => {
+      const box = boxes[index];
 
-  //       gsap.fromTo(
-  //         img,
-  //         { x: 0, y: -400, scale: 1, opacity: 0.5 },
-  //         {
-  //           x: xOffset,
-  //           y: 300,
-  //           scale: 1,
-  //           opacity:10,
-  //           ease: "power2.out",
-  //           scrollTrigger: {
-  //             trigger: section1Ref.current,
-  //             start: "top top",
-  //             end: "bottom center",
-  //             scrub: true,
-  //             onUpdate: (self) => {
-  //               const imgRect = img.getBoundingClientRect();
-  //               const boxRect = box.getBoundingClientRect();
-  //               const isTouching = imgRect.top <= boxRect.top && imgRect.bottom >= boxRect.top;
-  //               box.classList.toggle("box-active", isTouching);
-  //             },
-  //           },
-  //         }
-  //       );
-  //     });
-  //   }, []);
+      const xOffset = () => {
+        const boxRect = box.getBoundingClientRect();
+        const imgRect = img.getBoundingClientRect();
+        return boxRect.left + boxRect.width / 2 - (imgRect.left + imgRect.width / 2);
+      };
 
+      gsap.fromTo(
+        img,
+        {
+          x: 0,
+          y: -150,
+          scale: 1,
+          opacity: 1,
+          visibility: "hidden",
+        },
+        {
+          x: xOffset,
+          y: 300,
+          scale: 1,
+          opacity: 1,
+          visibility: "visible",
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: blogsectionRef.current,
+            // start: "top center", // Changed from "top top" to start when top of section hits center of viewport
+            start: "top center+=155",
+            end: "bottom center",
+            scrub: true,
+            onUpdate: (self) => {
+              const imgRect = img.getBoundingClientRect();
+              const boxRect = box.getBoundingClientRect();
+              const isInside = imgRect.top < boxRect.bottom && imgRect.bottom > boxRect.top;
+              if (isInside) {
+                box.style.backgroundColor = "#EFF7FE";
+              } else {
+                box.style.backgroundColor = "";
+              }
+            },
+          },
+        }
+      );
+    });
+    blogsbottomImages.forEach((img, index) => {
+      const box = boxes[index];
 
+      const xOffset = () => {
+        const boxRect = box.getBoundingClientRect();
+        const imgRect = img.getBoundingClientRect();
+        return boxRect.left + boxRect.width / 2 - (imgRect.left + imgRect.width / 2);
+      };
+
+      gsap.fromTo(
+        img,
+        { y: -100, opacity: 1, visibility: "hidden", x: xOffset }, // Start hidden
+        {
+          y: 100,
+          opacity: 1,
+          visibility: "visible", // Become visible when moving
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: blogsectionRef.current,
+            start: "bottom-=200 bottom",
+            end: "bottom bottom",
+            scrub: true,
+          },
+        }
+      );
+    });
+
+    // Section 2: Bottom images move into right-side image
+    blogsbottomImages.forEach((img) => {
+      const xOffset = () => {
+        const imgRect = img.getBoundingClientRect();
+        const section2ImgRect = blogssection2Image.getBoundingClientRect();
+        return section2ImgRect.left + section2ImgRect.width / 2 - (imgRect.left + imgRect.width / 2);
+      };
+
+      gsap.to(img, {
+        x: xOffset,
+        y: 500,
+        scale: 0.5,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: section2Ref.current,
+          start: "top center",
+          end: "bottom center",
+          scrub: true,
+          onEnter: () => gsap.set(img, { visibility: "visible" }), // Ensure visibility when animation starts
+          onLeaveBack: () => gsap.set(img, { visibility: "hidden" }) // Hide when scrolling back up
+        },
+      });
+    });
+
+    // Section 2: Move top images only
+    gsap.to(images, {
+      y: 500,
+      ease: "power2.out",
+      scrollTrigger: {
+        trigger: BlogsBottomsectionRef.current,
+        start: "top center",
+        end: "bottom center",
+        scrub: true,
+      },
+    });
+  }, []);
 
   return (
     <>
@@ -554,23 +510,33 @@ function About() {
         <section className="Main-banner" data-speed="1.5">
           <Container>
             <Row>
-              <Col>
+              <Col md={6} >
                 <h1>Search Land Of Choice</h1>
-                        <div  className="animated-logo">
-                          <div className="image-wrapper">
-                            <img
-                              src={Logo}
-                              alt="Logo"
-                              id="rocket-image"
-                              className="rocket-image main-image"
-                            />
-                            <div className="split-images" >
-                              <img src={Logo} alt="Split 1" className="split-image" />
-                              <img src={Logo} alt="Split 2" className="split-image" />
-                              <img src={Logo} alt="Split 3" className="split-image" />
-                            </div>
-                          </div>
-                        </div>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor<br /> incididunt ut labore et dolore magna aliqua. </p>
+              </Col>
+              <Col>
+
+
+
+
+                {/* Dont Edit this this for animation  */}
+                <div className="animated-logo">
+                  <div className="image-wrapper">
+                    <img
+                      src={Logo}
+                      alt="Logo"
+                      id="rocket-image"
+                      className="rocket-image main-image"
+                    />
+                    <div className="split-images" >
+                      <img src={Logo} alt="Split 1" className="split-image" />
+                      <img src={Logo} alt="Split 2" className="split-image" />
+                      <img src={Logo} alt="Split 3" className="split-image" />
+                    </div>
+                  </div>
+                </div>
+                {/* Dont Edit this this for animation End */}
+
               </Col>
             </Row>
           </Container>
@@ -671,96 +637,102 @@ function About() {
         </section>
 
         <section ref={section1Ref} className="featured">
-      {/* Floating Images Container */}
-      <div className="featured-floating-imgs">
-        <div className="image-stack">
-          <img
-            ref={(el) => (imageRefs.current[0] = el)}
-            className="initial-image"
-            src={Logo1}
-            alt="img1"
-          />
-          <img
-            ref={(el) => (imageRefs.current[1] = el)}
-            className="initial-image"
-            src={Logo1}
-            alt="img2"
-          />
-          <img
-            ref={(el) => (imageRefs.current[2] = el)}
-            className="initial-image"
-            src={Logo1}
-            alt="img3"
-          />
-        </div>
-      </div>
-
-      <Container className="full">
-        <Row className="mb-4 d-flex py-4 align-content-center">
-          <Col md={8} className="align-content-center">
-            <h2 className="same-head">FEATURED PROJECTS</h2>
-            <p className="same-head-p">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-              do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            </p>
-          </Col>
-          <Col md={4} className="align-items-end text-end align-content-center">
-            <div className="custom-swiper-nav d-flex gap-4 justify-content-end mb-3">
-              <img src={PrevArrow} alt="Previous" className="swiper-button-prev-custom" />
-              <img src={NextArrow} alt="Next" className="swiper-button-next-custom" />
+          {/* Floating Images Container */}
+          <div className="featured-floating-imgs">
+            <div className="image-stack">
+              <img
+                ref={(el) => (imageRefs.current[0] = el)}
+                className="initial-image"
+                src={Logo1}
+                alt="img1"
+              />
+              <img
+                ref={(el) => (imageRefs.current[1] = el)}
+                className="initial-image"
+                src={Logo1}
+                alt="img2"
+              />
+              <img
+                ref={(el) => (imageRefs.current[2] = el)}
+                className="initial-image"
+                src={Logo1}
+                alt="img3"
+              />
             </div>
-          </Col>
-        </Row>
-        <Row className="features-row">
-          <Swiper
-            spaceBetween={30}
-            slidesPerView={1}
-            loop={true}
-            navigation={{
-              nextEl: '.swiper-button-next-custom',
-              prevEl: '.swiper-button-prev-custom',
-            }}
-            modules={[Navigation]}
-            breakpoints={{
-              768: { slidesPerView: 2 },
-              992: { slidesPerView: 3 },
-            }}
-          >
-            {projects.map((project, index) => (
-              <SwiperSlide key={project.id}>
-                <Col className="features-list p-0 dip-column">
-                  <Card
-                    ref={(el) => (boxRefs.current[index] = el)} // Applied ref to each card
-                    className={`custom-card card-${index}  box-${index}`} // Added box classes
-                  >
-                    <Card.Img
-                      variant="top"
-                      src={project.image}
-                      alt={project.title}
-                    />
-                    <Card.Body className="uper-space">
-                      <Card.Text className="mb-4 btn-loc">
-                        <span>{project.size}</span> <span>{project.feet}</span>
-                        <span>{project.location}</span>
-                      </Card.Text>
-                      <Card.Title>{project.title}</Card.Title>
-                      <Card.Text className="text-primary font-weight-bold">
-                        {project.price}
-                      </Card.Text>
-                      <Button className="Up-arrow-btn">
-                        <img src={Arrow} />
-                      </Button>
-                    </Card.Body>
-                  </Card>
-                </Col>
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        </Row>
-      </Container>
-    </section>
+          </div>
+          <Container className="full">
+            <Row className="mb-4 d-flex py-4 align-content-center">
+              <Col md={8} className="align-content-center">
+                <h2 className="same-head">FEATURED PROJECTS</h2>
+                <p className="same-head-p">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </p>
+              </Col>
+              <Col md={4} className="align-items-end text-end align-content-center">
+                <div className="custom-swiper-nav d-flex gap-4 justify-content-end mb-3">
+                  <img src={PrevArrow} alt="Previous" className="swiper-button-prev-custom" />
+                  <img src={NextArrow} alt="Next" className="swiper-button-next-custom" />
+                </div>
+              </Col>
+            </Row>
+            <Row className="features-row">
+              <Swiper
+                // spaceBetween={30}
+                slidesPerView={1}
+                loop={true}
+                navigation={{
+                  nextEl: '.swiper-button-next-custom',
+                  prevEl: '.swiper-button-prev-custom',
+                }}
+                modules={[Navigation]}
+                breakpoints={{
+                  768: { slidesPerView: 2 },
+                  992: { slidesPerView: 3 },
+                }}
+              >
+                {projects.map((project, index) => (
+                  <SwiperSlide key={project.id}>
+                    <Col className="features-list p-0 dip-column">
+                      <Card
+                        ref={(el) => (boxRefs.current[index] = el)} // Applied ref to each card
+                        className={`custom-card card-${index}  box-${index}`} // Added box classes
+                      >
+                        <Card.Img
+                          variant="top"
+                          src={project.image}
+                          alt={project.title}
+                        />
+                        <Card.Body className="uper-space">
+                          <Card.Text className="mb-4 btn-loc">
+                            <span>{project.size}</span> <span>{project.feet}</span>
+                            <span>{project.location}</span>
+                          </Card.Text>
+                          <Card.Title>{project.title}</Card.Title>
+                          <Card.Text className="text-primary font-weight-bold">
+                            {project.price}
+                          </Card.Text>
+                          <Button className="Up-arrow-btn">
+                            <img src={Arrow} />
+                          </Button>
+                        </Card.Body>
+                        <img
+                          ref={(el) => (bottomImageRefs.current[index] = el)}
+                          className="bottom-image"
+                          src={project.bottomImage}
+                          alt={`bottom-img-${project.id}`}
+                        />
+                      </Card>
+                    </Col>
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            </Row>
+          </Container>
 
-        <section className="Cta position-relative">
+        </section>
+
+        <section ref={section2Ref} className="Cta position-relative">
           <Container>
             <Row className="d-flex align-items-center justify-content-center ">
               <Col md={8}>
@@ -769,7 +741,8 @@ function About() {
                   Explore the best properties in your preferred location. Start
                   your journey to a perfect home with us.
                 </p>
-                <img src={back} alt="" className="back-roll" />
+                <img src={back} alt="" className="back-roll" ref={section2ImageRef}
+                />
 
               </Col>
 
@@ -784,7 +757,7 @@ function About() {
         </section>
 
         <section ref={containerRefs1} className="social-proof position-relative">
-        <img className="Move" src={Logo} ref={logoRefs1} />
+          <img className="Move" src={Logo} ref={logoRefs1} />
           <Container className="">
             <Row className="align-items-center justify-content-between">
               <Col md={5} className="mb-4 mb-md-0">
@@ -854,7 +827,29 @@ function About() {
           </Container>
         </section>
 
-        <section className="featured blogs">
+        <section className="featured blogs" ref={blogsectionRef}>
+          <div className="featured-floating-imgs">
+            <div className="image-stack">
+              <img
+                ref={(el) => (BlogimageRefs.current[0] = el)}
+                className="initial-image"
+                src={Logo1}
+                alt="img1"
+              />
+              <img
+                ref={(el) => (BlogimageRefs.current[1] = el)}
+                className="initial-image"
+                src={Logo1}
+                alt="img2"
+              />
+              <img
+                ref={(el) => (BlogimageRefs.current[2] = el)}
+                className="initial-image"
+                src={Logo1}
+                alt="img3"
+              />
+            </div>
+          </div>
           <Container className="">
             <Row className="mb-4 d-flex py-4 align-content-center">
               <Col md={8} className="align-content-center">
@@ -873,9 +868,13 @@ function About() {
               </Col>
             </Row>
             <Row>
-              {Blogs.map((Blogs) => (
+              {Blogs.map((Blogs, index) => (
                 <Col md={4} key={Blogs.id} className="features-list p-0">
-                  <Card className=" position-relative">
+                  {/* <Card className=" position-relative"> */}
+                  <Card
+                    ref={(el) => (BlogsboxRefs.current[index] = el)} // Applied ref to each card
+                    className={`position-relative custom-card card-${index}  box-${index}`} // Added box classes
+                  >
                     <Card.Img
                       variant="top"
                       src={Blogs.image}
@@ -891,16 +890,25 @@ function About() {
                       <Card.Text className="text-primary font-weight-bold">
                         {Blogs.text}
                       </Card.Text>
-                      <Button className="Up-arrow-btn">
+                      <Button className="Up-arrow-btn" href="/details">
                         <img src={Arrow} />
                       </Button>
                     </Card.Body>
                   </Card>
+                  <img
+                    ref={(el) => (BlogBottomImageRefs.current[index] = el)}
+                    className="bottom-image"
+                    src={Blogs.BlogImage}
+                    alt={`bottom-img-${Blogs.id}`}
+                  />
                 </Col>
               ))}
             </Row>
           </Container>
         </section>
+        <div className="position relative" ref={BlogsBottomsectionRef} >
+
+        </div>
       </main>
     </>
   );

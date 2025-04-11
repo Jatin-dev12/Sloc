@@ -11,7 +11,16 @@ body{
     background: #323232;
     padding: 10px 0;
   }
-
+  p.Logo {
+    font-family: "Darker Grotesque", sans-serif;
+    font-weight: 500;
+    font-size: 64px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    text-align: center;
+    vertical-align: middle;
+    font-family: "Darker Grotesque", sans-serif !important;
+}
   section.Topbar p {
     color: #fff;
 
@@ -23,6 +32,7 @@ body{
   }
   .Main-nav {
     padding: 20px 0 !important;
+    border-bottom: 1px solid #B8B8B8;
   }
   .Main-nav .navbar-nav {
     gap: 25px;
@@ -37,7 +47,7 @@ body{
     vertical-align: middle;
   }
   .cntnct.nav-link {
-    background: #323232;
+    background: #064685;
     font-size: 20px !important;
     font-weight: 500 !important;
     color: #fff !important;
@@ -48,10 +58,11 @@ body{
   /* Hero Banner */
 
   section.Main-banner {
-    background-image: url(./assets/Imgs/Baner.jpg);
+    background-image: url(./assets/Imgs/Baner.png);
     height: 658px;
-    align-content: end;
+    align-content: center;
     background-size: cover;
+    background-position: center;
     background-repeat: no-repeat;
     position: relative;
     z-index: 11;
@@ -59,18 +70,23 @@ body{
   section.Main-banner h1 {
     font-family: "Bai Jamjuree", sans-serif !important;
     font-weight: 600;
-    font-size: 96px;
+    font-size: 90px;
     line-height: 100%;
-    color: #FFFFFF;
+    color: #064685;
     text-transform: uppercase;
   }
   .searc-bar {
-    background: #1E1E1E !important;
+    background: #064685 !important;
     padding: 20px 50px;
     margin-top: 48px;
     gap: 45px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
   }
-
+  .searc-bar a.dropdown-item {
+    color: #064685 !important;
+}
   .set-out button {
     width: 300px;
     display: flex;
@@ -130,7 +146,7 @@ body{
   /* Welcom Section */
   section.welcome {
     padding: 80px 0px;
-    background: #F3F3F3;
+    background: #EFF7FE;
     position: relative;
   }
   section.welcome h3.text-primary {
@@ -174,6 +190,8 @@ body{
     line-height: 100%;
     margin-bottom: 20px;
     text-transform: uppercase;
+    color: #064685;
+
   }
   .same-head p {
     width: 100%;
@@ -212,6 +230,8 @@ body{
   section.featured .row .features-list .card{
     border: none !important;
     padding: 25px;
+    border-radius: 0;
+
   }
   section.featured .row .features-list .card img {
     border-radius: 0;
@@ -233,6 +253,15 @@ body{
     border-left: 1px solid #B8B8B8;
 
   }
+  a.Up-arrow-btn.btn.btn-primary {
+    background: #064685 !important;
+    border: none;
+    border-radius: 0;
+    height: 70px;
+    margin-top: 20px;
+    width: 70px;
+    align-content: center;
+  }
   button.Up-arrow-btn.btn.btn-primary {
     background: #064685 !important;
     border: none;
@@ -244,16 +273,18 @@ body{
 
   section.featured .card-title.h5 {
     font-family: "Bai Jamjuree", sans-serif !important;
-    font-weight: 400;
+    font-weight: 500;
     font-size: 30px;
     text-transform: uppercase;
+    color: #064685;
+
   }
   section.featured p.card-text {
     font-weight: 700;
     font-size: 18px;
     line-height: 120%;
     letter-spacing: 0%;
-    color: #323232 !important;
+    color: #064685 !important;
 
     text-transform: uppercase;
   }
@@ -264,7 +295,7 @@ body{
     line-height: 110.00000000000001%;
     letter-spacing: 0%;
     text-transform: uppercase;
-    background: #E6E6E6;
+    background: #ffffff;
     padding: 10px;
     border-radius: 100px;
     margin-right: 10px;
@@ -297,6 +328,8 @@ body{
 section.Cta button.btn.btn-dark {
   position: relative;
   z-index: 2;
+  background-color: #ffffff;
+  color: #1E1E1E;
 }
   img.back-roll {
     position: absolute;
@@ -399,7 +432,7 @@ section.Cta button.btn.btn-dark {
     z-index: +1;
   }
   /* Blogs  */
-  /* section.featured .row .features-list .card :before{
+  section.featured .features-list .card:before{
     background-image: url(./assets/Imgs/blg.png);
     position: absolute;
     content: '';
@@ -412,8 +445,10 @@ section.Cta button.btn.btn-dark {
     height: 100%;
     object-fit: contain;
     background-position: top right;
+    z-index: -1;
 
-  } */
+  }
+
 
 
   .blogs .row {
@@ -429,7 +464,7 @@ section.Cta button.btn.btn-dark {
   .blogs .uper-space.card-body {
     border: 0.5px solid #B8B8B8 !important;
       padding: 20px !important;
-    border-top: none;
+    border-top: none !important;
   }
 
   .blogs .uper-space.card-body p {
@@ -437,24 +472,27 @@ section.Cta button.btn.btn-dark {
     font-weight: 400 !important;
     font-size: 16px !important;
     line-height: 180%;
-    letter-spacing: 0%;
-  }
+    color: #323232 !important;  }
   .top-set {
     position: absolute;
     top: 45px;
     z-index: +99999999999999999;
   }
   span.black {
-    background: black;
+    background: #064685;
     color: white;
   }
 
   /* Footer */
   footer{
-    background:  #1E1E1E;
+    background:  #064685;
     padding-top: 60px;
     padding-bottom: 20px;
   }
+  .footer-logo p.Logo {
+    text-align: left;
+    font-size: 96px;
+}
   .ft-font {
     font-weight: 700;
     font-size: 24px;
@@ -472,8 +510,9 @@ section.Cta button.btn.btn-dark {
     text-align: center;
     text-transform: uppercase;
   }
-  .border-top {
-    border-color: #808080 !important;
+  .border-top-set {
+    border-color: #ffffff78 !important;
+    border-top: 1px solid;
   }
   .copyright {
     font-family: "Nunito Sans", sans-serif !important;
@@ -505,17 +544,139 @@ footer p,a,h6{
 }
 .set-wi {
   width: 90%;
-  border-bottom: 1px solid var(--white, #FFFFFF);
+  border-bottom: 1px solid #ffffff78;
   padding-bottom: 20px;
 }
 .Main-nav a {
-  color: #1E1E1E !important;
+  color: #064685 !important;
 }
 .cntnct.nav-link {
 
   color: #fff !important;
 
 }
+section.Disclamer {
+  background: #EFF7FE;
+  padding: 60px 0;
+}
+.Dis {
+  font-family: "Bai Jamjuree", sans-serif !important;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 150%;
+  text-align: center;
+  color: #323232 !important;
+}
+/* Blog Page */
+
+
+.Blogs-banner{
+  background-image: url(/src/assets/Imgs/Blog-banner.png) !important;
+  background-position: unset !important;
+}
+
+.blog-select button {
+  font-family: "Bai Jamjuree", sans-serif !important;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  text-transform: uppercase;
+  margin-right: 15px;
+}
+button.active {
+  background: #064685 !important;
+  border: none;
+
+}
+
+button.latest {
+  background: #EFF7FE;
+  border: none;
+  color: #1E1E1E;
+}
+.all-blogs {
+  padding-top: 0 !important;
+}
+
+span.date.badge {
+  background: #064685 !important;
+  color: #fff !important;
+  padding: 10px 15px;
+  border-radius: 100px;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 110.00000000000001%;
+  text-transform: uppercase;
+}
+
+span.apartmanet.badge {
+  background: #EFF7FE !important;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 110.00000000000001%;
+  letter-spacing: 0%;
+  text-transform: uppercase;
+  color: #1E1E1E;
+  padding: 10px 15px;
+  border-radius: 100px;
+  margin-left: 20px;
+}
+
+.blog-h {
+  font-family: "Bai Jamjuree", sans-serif !important;
+  font-weight: 600;
+  font-size: 85px;
+  line-height: 100%;
+  text-transform: uppercase;
+  color: #064685;
+}
+.blog-p {
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 180%;
+  color: #323232 !important;
+  width: 88%;
+}
+
+p.author {
+  color: #064685 !important;
+  font-family: Nunito Sans;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 180%;
+  margin-top: 20px;
+}
+
+section.blog-text {
+  border: 1px solid  #B8B8B8;
+  border-left: none;
+  border-radius: none;
+
+}
+
+.all-border {
+  padding: 50px 40px !important;
+  border: 1px solid  #B8B8B8;
+  border-bottom: none;
+  border-top: none;
+}
+
+.all-border p {
+  font-weight: 500;
+  font-size: 22px;
+  line-height: 180%;
+  letter-spacing: 0%;
+  vertical-align: middle;
+}
+
+
+
+
+
+
+
+
   /* Rotating Animation */
 
   @keyframes rotate-animation {
@@ -530,7 +691,7 @@ footer p,a,h6{
     }
   }
 
-
+/*
 
   @media screen and (max-width: 1400px) {
     .cntnct.nav-link {
@@ -575,4 +736,4 @@ section.featured .card-title.h5 {
   padding: 0 !important;
 }
   }
-
+ */

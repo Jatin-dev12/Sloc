@@ -1,0 +1,50 @@
+
+
+@media screen and (max-width: 1440px) {
+    .cntnct.nav-link {
+      margin-left: 0;
+      padding: 12px 12px !important;
+  }
+  section.Main-banner h1 {
+
+    font-size: 80px;
+}
+span.Counter-no {
+  font-size: 75px;
+}
+section.welcome h3.text-primary {
+  font-size: 75px;
+
+}
+
+section.featured .row .features-list .card {
+  padding: 20px;
+}
+section.featured .card-title.h5 {
+
+  font-size: 25px;
+
+}
+.same-head {
+
+  font-size: 42px;
+
+}
+.socail-name {
+
+  font-size: 30px;
+
+}
+.social-p {
+  font-size: 15px;
+
+}
+.blogs .row {
+  padding: 0 !important;
+}
+.btn-loc span {
+    font-size: 11px;
+    margin-right: 7px;
+}
+  }
+

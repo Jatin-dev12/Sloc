@@ -23,7 +23,9 @@ body {
   overflow-x: hidden;
 }
 
-
+a{
+  text-decoration: none !important;
+}
 
 .dots {
   position: absolute;
@@ -65,7 +67,7 @@ body {
 .circle-image {
   width: 100px;
   height: 100px;
-  background-color: blue;
+  background-color: #EFF7FE;
   border-radius: 50%;
   opacity: 0;
   transform: scale(0.5);
@@ -216,4 +218,13 @@ img#rocket-image {
   top: 0;
   left: 50%;
   transform: translateX(-50%);
+}
+
+.initial-image {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  position: absolute;
+  left: -80px;
+  top: -58px;
 }

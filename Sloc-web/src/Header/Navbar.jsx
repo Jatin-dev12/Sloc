@@ -29,15 +29,15 @@ export default function Header() {
 
       <Navbar className='Main-nav'>
         <Container >
-          <Navbar.Brand href="#home">
-            <img src={Logo} alt="Logo"/>
+          <Navbar.Brand href="/">
+            <p className='Logo'>SLOC</p>
           </Navbar.Brand>
           <Nav className="mr-auto">
             <Nav.Link href="/">Home</Nav.Link>
 
 
             <Nav.Link href="/About">About Us</Nav.Link>
-            <Nav.Link href="#">Blogs</Nav.Link>
+            <Nav.Link href="/Blogs">Blogs</Nav.Link>
             <Nav.Link href="#" className='cntnct'>Contact Us</Nav.Link>
 
 
