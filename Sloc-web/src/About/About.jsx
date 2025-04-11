@@ -167,13 +167,13 @@ function About() {
         {
           opacity: 0,
           y: -300,
-          x: 150,
+          x: 200,
           scale: 1.4
         },
         {
           opacity: 1,
-          y: 50,
-          x: 400,
+          y: 150,
+          x: 450,
           scale: 0.6,
           ease: "power3.out"
         }
@@ -181,8 +181,8 @@ function About() {
       .to(logoRefs.current,
         {
           opacity: 0,
-          y: 500,
-          x: 500,
+          y: 450,
+          x: 580,
           scale: 0.2,
           ease: "power3.inOut"
         }

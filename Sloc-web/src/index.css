@@ -228,3 +228,6 @@ img#rocket-image {
   left: -80px;
   top: -58px;
 }
+img.Move {
+  left: -25px;
+}
