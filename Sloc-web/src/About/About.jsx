@@ -25,11 +25,13 @@ import blog3 from "../assets/Imgs/blog-3.png";
 import Counter from "../Animations/CountUp/CountUp";
 import New from '../assets/Imgs/SLOC.png'
 import back from '../assets/Imgs/back-cta.png'
-import React, { useEffect, useRef } from 'react';
+import React, { useLayoutEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import ScrollMagic from "scrollmagic";
-import Logo from '../assets/Imgs/back-scrol.png'
+import Logo from '../assets/Imgs/Round.svg'
+import WelcomeLogo from '../assets/Imgs/Scroll.svg'
+import revertLogo from '../assets/Imgs/Round.svg'
 // import soback from '../assets/Imgs/back-scrol.png'
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
@@ -38,11 +40,12 @@ import { Navigation } from 'swiper/modules';
 import NextArrow from '../assets/Imgs/right.svg';
 import PrevArrow from '../assets/Imgs/left.svg';
 import { Flip } from 'gsap/Flip';
-import Logo1 from '../assets/Imgs/back-scrol.png'
-import BottomImg1 from '../assets/Imgs/back-scrol.png'
-import BottomImg2 from '../assets/Imgs/back-scrol.png'
-import BottomImg3 from '../assets/Imgs/back-scrol.png'
-import BottomImg4 from '../assets/Imgs/back-scrol.png'
+// import Logo1 from '../assets/Imgs/back-scrol.png'
+import Logo1 from '../assets/Imgs/Group (1).svg'
+import BottomImg1 from '../assets/Imgs/Group (1).svg'
+import BottomImg2 from '../assets/Imgs/Group (1).svg'
+import BottomImg3 from '../assets/Imgs/Group (1).svg'
+import BottomImg4 from '../assets/Imgs/Group (1).svg'
 
 const projects = [
   {
@@ -148,360 +151,251 @@ const Blogs = [
 ];
 
 gsap.registerPlugin(ScrollTrigger);
-function About() {
+function Home() {
   const logoRefs = useRef(null);
-  const containerRefs = useRef(null);
-  //1.) WELCOME TO SLOC section
-  useEffect(() => {
-    // Create a smoother timeline
-    gsap.timeline({
-      scrollTrigger: {
-        trigger: containerRefs.current,
-        start: "top center",
-        end: "bottom center",
-        scrub: 1.2, // smoother scrub
-        markers: false,
-      }
-    })
-      .fromTo(logoRefs.current,
-        {
-          opacity: 0,
-          y: -300,
-          x: 200,
-          scale: 1.4
-        },
-        {
-          opacity: 1,
-          y: 150,
-          x: 450,
-          scale: 0.6,
-          ease: "power3.out"
-        }
-      )
-      .to(logoRefs.current,
-        {
-          opacity: 0,
-          y: 450,
-          x: 580,
-          scale: 0.2,
-          ease: "power3.inOut"
-        }
-      );
+const containerRefs = useRef(null);
+const welcomeTextRef = useRef(null);
+const scrollImageRef = useRef(null);
 
-  }, []);
+const logoRefs1 = useRef(null);
+const containerRefs1 = useRef(null);
 
+const section1Ref = useRef(null);
+const section2Ref = useRef(null);
+const imageRefs = useRef([]);
+const boxRefs = useRef([]);
+const bottomImageRefs = useRef([]);
+const section2ImageRef = useRef(null);
 
+const blogsectionRef = useRef(null);
+const BlogimageRefs = useRef([]);
+const BlogsboxRefs = useRef([]);
+const BlogBottomImageRefs = useRef([]);
+const BlogsBottomsectionRef = useRef(null);
 
+const initImageBoxAnim = (images, boxes, triggerRef, start = "top center+=155", scrub = true) => {
+    images.forEach((img, i) => {
+        const box = boxes[i];
+        const xOffset = () => {
+            const boxRect = box.getBoundingClientRect();
+            const imgRect = img.getBoundingClientRect();
+            return boxRect.left + boxRect.width / 2 - (imgRect.left + imgRect.width / 2);
+        };
 
-  //3.) Testimonials section
-  const logoRefs1 = useRef(null);
-  const containerRefs1 = useRef(null);
-  useEffect(() => {
-    // Create a smoother timeline
-    gsap.timeline({
-      scrollTrigger: {
-        trigger: containerRefs1.current,
-        start: "top center",
-        end: "bottom center",
-        scrub: 1.2, // smoother scrub
-        markers: false,
-      }
-    })
-      .fromTo(logoRefs1.current,
-        {
-          opacity: 0,
-          y: -900,
-          x: 1300,
-        },
-        {
-          opacity: 1,
-          y: 50,
-          x: 550,
-          ease: "power3.out"
-        },
-        {
-          opacity: 2,
-          y: 100,
-          x: 650,
-          ease: "power3.out"
-        }
-      )
-      .to(logoRefs1.current,
-        {
-          opacity: 0,
-          y: 550,
-          x: 550,
-          scale: 0.2,
-          ease: "power3.inOut"
-        }
-      );
-
-  }, []);
-
-
-  //2.) FEATURED PROJECTS section
-
-  const section1Ref = useRef(null);
-  const section2Ref = useRef(null);
-  const imageRefs = useRef([]);
-  const boxRefs = useRef([]);
-  const bottomImageRefs = useRef([]);
-  const section2ImageRef = useRef(null);
-
-
-
-  useEffect(() => {
-    const boxes = boxRefs.current;
-    const images = imageRefs.current;
-    const bottomImages = bottomImageRefs.current;
-    const section2Image = section2ImageRef.current;
-
-    // Top Images Animation
-    images.forEach((img, index) => {
-      const box = boxes[index];
-
-      const xOffset = () => {
-        const boxRect = box.getBoundingClientRect();
-        const imgRect = img.getBoundingClientRect();
-        return boxRect.left + boxRect.width / 2 - (imgRect.left + imgRect.width / 2);
-      };
-
-      gsap.fromTo(
-        img,
-        {
-          x: 0,
-          y: -150,
-          scale: 1,
-          opacity: 1,
-          visibility: "hidden",
-        },
-        {
-          x: xOffset,
-          y: 300,
-          scale: 1,
-          opacity: 1,
-          visibility: "visible",
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: section1Ref.current,
-            // start: "top center",
-            start: "top center+=125",
-            end: "bottom center",
-            scrub: true,
-            onUpdate: (self) => {
-              const imgRect = img.getBoundingClientRect();
-              const boxRect = box.getBoundingClientRect();
-              const isInside = imgRect.top < boxRect.bottom && imgRect.bottom > boxRect.top;
-              if (isInside) {
-                box.style.backgroundColor = "#EFF7FE";
-              } else {
-                box.style.backgroundColor = "";
-              }
-            },
-          },
-        }
-      );
+        gsap.fromTo(img, {
+            x: 0,
+            y: -150,
+            scale: 1,
+            opacity: 1,
+            visibility: "hidden"
+        }, {
+            x: xOffset,
+            y: 300,
+            scale: 1,
+            opacity: 1,
+            visibility: "visible",
+            ease: "power2.out",
+            scrollTrigger: {
+                trigger: triggerRef.current,
+                start,
+                end: "bottom center",
+                scrub,
+            }
+        });
     });
+};
 
-    // Bottom Images Animation
-    bottomImages.forEach((img, index) => {
-      const box = boxes[index];
+const initBottomImageAnim = (bottomImages, boxes, triggerRef, start = "bottom-=400 bottom", end = "bottom+=200 bottom", scrub = 2) => {
+    bottomImages.forEach((img, i) => {
+        const box = boxes[i];
+        const xOffset = () => {
+            const boxRect = box.getBoundingClientRect();
+            const imgRect = img.getBoundingClientRect();
+            return boxRect.left + boxRect.width / 2 - (imgRect.left + imgRect.width / 2);
+        };
 
-      const xOffset = () => {
-        const boxRect = box.getBoundingClientRect();
-        const imgRect = img.getBoundingClientRect();
-        return boxRect.left + boxRect.width / 2 - (imgRect.left + imgRect.width / 2);
-      };
-
-      gsap.fromTo(
-        img,
-        { y: -100, opacity: 0, visibility: "hidden", x: xOffset },
-        {
-          y: 100,
-          opacity: 1,
-          visibility: "visible",
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: section1Ref.current,
-            start: "bottom-=400 bottom",
-            end: "bottom+=200 bottom",
-            scrub: 3,
-          },
-        }
-      );
+        gsap.fromTo(img, {
+            x: xOffset,
+            y: -100,
+            opacity: 0,
+            visibility: "hidden"
+        }, {
+            y: 100,
+            opacity: 1,
+            visibility: "visible",
+            ease: "power2.out",
+            scrollTrigger: {
+                trigger: triggerRef.current,
+                start,
+                end,
+                scrub,
+            }
+        });
     });
+};
 
-    // Section 2: Bottom images move into right-side image
-    bottomImages.forEach((img) => {
-      const xOffset = () => {
-        const imgRect = img.getBoundingClientRect();
-        const section2ImgRect = section2Image.getBoundingClientRect();
-        return section2ImgRect.left + section2ImgRect.width / 2 - (imgRect.left + imgRect.width / 2);
-      };
+// Y - Is use for TOP-BOOTOM img direction // X - Is use for LEFT-RIGHT img directions // 
 
-      gsap.to(img, {
-        x: xOffset,
-        y: 500,
-        scale: 0.5,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: section2Ref.current,
-          start: "top center",
-          end: "bottom+=300 center",
-          scrub: 2,
-          onEnter: () => gsap.set(img, { visibility: "visible" }),
-          onLeaveBack: () => gsap.set(img, { visibility: "hidden" }),
-        },
+useLayoutEffect(() => {
+    // Main hero animation
+    if (logoRefs.current) {
+        gsap.set(logoRefs.current, { attr: { src: Logo } });
+    }
+
+      const heroTL = gsap.timeline({
+          scrollTrigger: {
+              trigger: containerRefs.current,
+              start: "top center",
+              end: "bottom center",
+              scrub: 1.2,
+          }
       });
+
+      heroTL.fromTo(logoRefs.current, {
+        opacity: 0,
+        y: -400,
+        x: 50,
+        scale: 1.4,
+    }, {
+        opacity: 0.6,
+        y: 50,
+        x: 350,
+        scale: 0.6,
+        ease: "power3.out",
+    })
+    // For hiding roting ig
+    .to(scrollImageRef.current, {
+        opacity:0,
+        duration: 0.3,
+      
+        ease: "power3.out",
+    }, 0).to(logoRefs.current, {
+        opacity: 0,
+        y: 350,
+        x: 550,
+        scale: 0.2,
+        ease: "power3.inOut",
     });
 
-    // Section 2: Move top images only
-    gsap.to(images, {
-      y: 500,
-      ease: "power2.out",
-      scrollTrigger: {
-        trigger: section2Ref.current,
-        start: "top center",
-        end: "bottom center",
-        scrub: true,
-      },
-    });
-
-    // Reset background color of boxes when section2Ref is reached
-    gsap.to(boxes, {
-      scrollTrigger: {
-        trigger: section2Ref.current,
-        start: "top center", // When top of section2Ref hits center of viewport
-        onEnter: () => {
-          boxes.forEach((box) => {
-            box.style.backgroundColor = ""; // Reset to default
-          });
-        },
-      },
-    });
-  }, []);
-  const blogsectionRef = useRef(null);
-  const BlogimageRefs = useRef([]);
-  const BlogsboxRefs = useRef([]);
-  const BlogBottomImageRefs = useRef([]);
-  const BlogsBottomsectionRef = useRef(null);
-
-  useEffect(() => {
-    const boxes = BlogsboxRefs.current;
-    const images = BlogimageRefs.current;
-    const blogsbottomImages = BlogBottomImageRefs.current;
-    const blogssection2Image = BlogsBottomsectionRef.current;
-
-    // Bottom Images: Emerge from inside boxes downward
-
-    images.forEach((img, index) => {
-      const box = boxes[index];
-
-      const xOffset = () => {
-        const boxRect = box.getBoundingClientRect();
-        const imgRect = img.getBoundingClientRect();
-        return boxRect.left + boxRect.width / 2 - (imgRect.left + imgRect.width / 2);
-      };
-
-      gsap.fromTo(
-        img,
-        {
-          x: 0,
-          y: -150,
-          scale: 1,
-          opacity: 1,
-          visibility: "hidden",
-        },
-        {
-          x: xOffset,
-          y: 300,
-          scale: 1,
-          opacity: 1,
-          visibility: "visible",
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: blogsectionRef.current,
-            // start: "top center", // Changed from "top top" to start when top of section hits center of viewport
-            start: "top center+=155",
-            end: "bottom center",
-            scrub: true,
-            onUpdate: (self) => {
-              const imgRect = img.getBoundingClientRect();
-              const boxRect = box.getBoundingClientRect();
-              const isInside = imgRect.top < boxRect.bottom && imgRect.bottom > boxRect.top;
-              if (isInside) {
-                box.style.backgroundColor = "#EFF7FE";
-              } else {
-                box.style.backgroundColor = "";
-              }
-            },
-          },
-        }
-      );
-    });
-    blogsbottomImages.forEach((img, index) => {
-      const box = boxes[index];
-
-      const xOffset = () => {
-        const boxRect = box.getBoundingClientRect();
-        const imgRect = img.getBoundingClientRect();
-        return boxRect.left + boxRect.width / 2 - (imgRect.left + imgRect.width / 2);
-      };
-
-      gsap.fromTo(
-        img,
-        { y: -100, opacity: 1, visibility: "hidden", x: xOffset }, // Start hidden
-        {
-          y: 100,
-          opacity: 1,
-          visibility: "visible", // Become visible when moving
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: blogsectionRef.current,
-            start: "bottom-=200 bottom",
-            end: "bottom bottom",
-            scrub: true,
-          },
-        }
-      );
-    });
-
-    // Section 2: Bottom images move into right-side image
-    blogsbottomImages.forEach((img) => {
-      const xOffset = () => {
-        const imgRect = img.getBoundingClientRect();
-        const section2ImgRect = blogssection2Image.getBoundingClientRect();
-        return section2ImgRect.left + section2ImgRect.width / 2 - (imgRect.left + imgRect.width / 2);
-      };
-
-      gsap.to(img, {
-        x: xOffset,
-        y: 500,
-        scale: 0.5,
-        ease: "power2.out",
+      // Change welcome section image color on scroll
+      gsap.to(logoRefs.current, {
         scrollTrigger: {
+            trigger: welcomeTextRef.current,
+            start: "top bottom",
+            onEnter: () => gsap.to(logoRefs.current, {  duration: 2 }),
+            onLeaveBack: () => gsap.to(logoRefs.current, {  duration: 1 }),
+        },
+    });
+    // Testimonials animation
+    gsap.timeline({
+        scrollTrigger: {
+            trigger: containerRefs1.current,
+            start: "top center",
+            end: "bottom center",
+            scrub: 1.2,
+        },
+    }).fromTo(logoRefs1.current, {
+        opacity: 0,
+        y: -900,
+        x: 1350,
+        scale:0.9,
+    }, {
+        opacity: 1,
+        y: 50,
+        x: 570,
+        
+        ease: "power3.out",
+    }).to(logoRefs1.current, {
+        opacity: 0,
+        y: 480,
+        x: 570,
+        scale: 0.2,
+        ease: "power3.inOut",
+    });
+
+    // Featured Projects
+    initImageBoxAnim(imageRefs.current, boxRefs.current, section1Ref);
+    initBottomImageAnim(bottomImageRefs.current, boxRefs.current, section1Ref);
+    bottomImageRefs.current.forEach(img => {
+      const xOffset = () => {
+          const imgRect = img.getBoundingClientRect();
+          const sec2Rect = section2ImageRef.current.getBoundingClientRect();
+          return sec2Rect.left + sec2Rect.width / 2 - (imgRect.left + imgRect.width / 2);
+      };
+  
+      gsap.to(img, {
+          x: xOffset,
+          y: 300, // Test with a fixed value and adjust if needed
+          scale: 0.5,
+          ease: "power1.out", // Use a smoother ease
+          scrollTrigger: {
+              trigger: section2Ref.current,
+              start: "top center",
+              end: "bottom center",
+              scrub: 0.5, // Add a slight delay for better smoothness
+              onEnter: () => gsap.set(img, { visibility: "visible" }),
+              onLeaveBack: () => gsap.set(img, { visibility: "hidden" }),
+              snap: 1 // Enable snapping to improve the feel
+          }
+      });
+  });
+  
+  // Move top images down on section2
+  gsap.to(imageRefs.current, {
+      y: 300, // Test with a fixed value
+      ease: "power1.out", // Use a smoother ease
+      scrollTrigger: {
           trigger: section2Ref.current,
           start: "top center",
           end: "bottom center",
-          scrub: true,
-          onEnter: () => gsap.set(img, { visibility: "visible" }), // Ensure visibility when animation starts
-          onLeaveBack: () => gsap.set(img, { visibility: "hidden" }) // Hide when scrolling back up
-        },
+          scrub: 0.5, // Add a slight delay for better smoothness
+      }
+  });
+  
+  // BLOG SECTION
+  initImageBoxAnim(BlogimageRefs.current, BlogsboxRefs.current, blogsectionRef);
+  initBottomImageAnim(BlogBottomImageRefs.current, BlogsboxRefs.current, blogsectionRef, "bottom-=200 bottom", "bottom bottom", 1.5);
+  
+  BlogBottomImageRefs.current.forEach(img => {
+      const xOffset = () => {
+          const imgRect = img.getBoundingClientRect();
+          const sec2Rect = BlogsBottomsectionRef.current.getBoundingClientRect();
+          return sec2Rect.left + sec2Rect.width / 2 - (imgRect.left + imgRect.width / 2);
+      };
+  
+      gsap.to(img, {
+          x: xOffset,
+          y: 300, // Test with a fixed value
+          scale: 0.5,
+          ease: "power1.out", // Use a smoother ease
+          scrollTrigger: {
+              trigger: BlogsBottomsectionRef.current,
+              start: "top center",
+              end: "bottom center",
+              scrub: 0.5, // Add a slight delay for better smoothness
+              onEnter: () => gsap.set(img, { visibility: "visible" }),
+              onLeaveBack: () => gsap.set(img, { visibility: "hidden" }),
+          }
       });
-    });
-
-    // Section 2: Move top images only
-    gsap.to(images, {
-      y: 500,
-      ease: "power2.out",
+  });
+  
+  // Move blog images down
+  gsap.to(BlogimageRefs.current, {
+      y: 300, // Test with a fixed value
+      ease: "power1.out", // Use a smoother ease
       scrollTrigger: {
-        trigger: BlogsBottomsectionRef.current,
-        start: "top center",
-        end: "bottom center",
-        scrub: true,
-      },
-    });
-  }, []);
+          trigger: BlogsBottomsectionRef.current,
+          start: "top center",
+          end: "bottom center",
+          scrub: 0.5, // Add a slight delay for better smoothness
+      }
+  });
+  
+
+    return () => {
+        ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+    };
+}, []);
 
   return (
     <>
@@ -579,13 +473,13 @@ function About() {
         </section>
 
         <section ref={containerRefs} className="welcome">
-          <img className="Move" src={Logo} ref={logoRefs} />
+          <img className="Move" src={revertLogo} ref={logoRefs} />
 
           <Container className="py-5">
             <Row className="mb-4 d-flex">
               <Col md={6} className=" align-content-end head">
-                <img src={Round} alt="scroling" className="scrol-top" />
-                <h2 className="same-head">WELCOME TO SLOC</h2>
+                <img src={Round} alt="scroling" className="scrol-top"  ref={scrollImageRef}/>
+                <h2 className="same-head" ref={welcomeTextRef} >WELCOME TO SLOC</h2>
                 <p className="same-head-p">
                   SLOC – "Search Land of Choice" is a leading real estate
                   company in India dedicated to providing exceptional property
@@ -678,7 +572,6 @@ function About() {
             </Row>
             <Row className="features-row">
               <Swiper
-                // spaceBetween={30}
                 slidesPerView={1}
                 loop={true}
                 navigation={{
@@ -914,6 +807,6 @@ function About() {
   );
 }
 
-export default About;
+export default Home;
 
 
