@@ -23,7 +23,7 @@ const Footer = () => {
            <a href='/'><p className='Logo'>SLOC</p></a>
             </div>
             <p className="my-3 set-wi">
-              We Are A Team Of Seasoned And Innovative Professionals, Whether You Want A Rejuvenating Swimming Pool Addition Or Appealing Landscaping Features.
+            We bring you the finest real estate choices with trust and excellence. Get set to Dream, Discover, and Deal.
             </p>
 
             <div className="mb-2">

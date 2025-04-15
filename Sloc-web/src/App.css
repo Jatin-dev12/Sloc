@@ -225,12 +225,14 @@ body{
   }
   section.featured .row .features-list {
     border-right: 1px solid #B8B8B8;
+    z-index: -1;
 
   }
   section.featured .row .features-list .card{
     border: none !important;
     padding: 25px;
     border-radius: 0;
+    z-index: -1;
 
   }
   section.featured .row .features-list .card img {
@@ -241,6 +243,7 @@ body{
   }
   section.featured .row{
     padding: 0px 60px;
+    z-index: -1;
   }
   section.featured .row:nth-child(2){
     border-top: 1px solid #B8B8B8;
@@ -295,7 +298,7 @@ body{
     line-height: 110.00000000000001%;
     letter-spacing: 0%;
     text-transform: uppercase;
-    background: #ffffff;
+    background: #EFF7FE;
     padding: 10px;
     border-radius: 100px;
     margin-right: 10px;
@@ -432,7 +435,7 @@ section.Cta button.btn.btn-dark {
     z-index: +1;
   }
   /* Blogs  */
-  section.featured .features-list .card:before{
+  /* section.featured .features-list .card:before{
     background-image: url(./assets/Imgs/blg.png);
     position: absolute;
     content: '';
@@ -447,7 +450,7 @@ section.Cta button.btn.btn-dark {
     background-position: top right;
     z-index: -1;
 
-  }
+  } */
 
 
 
@@ -670,6 +673,165 @@ section.blog-text {
   vertical-align: middle;
 }
 
+/* About us page */
+
+.About-banner{
+  background-image: url(/src/assets/Imgs/About.jpg) !important;
+}
+.about-sloc img.scrol-top {
+  top: -68%;
+}
+.services-section{
+  background-image: url(/src/assets/Imgs/Serv-about.jpg) ;
+padding: 80px 0;
+  align-content: center;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.services-section .section-title {
+  font-weight: bold;
+}
+
+.services-section .section-subtitle {
+}
+.head-serv {
+  padding-bottom: 50px;
+}
+
+.service-row p {
+  width: 90%;
+}
+
+.service-row.border-white {
+  border-color: #fffffe94 !important;
+  padding: 50px 0px !important;
+}
+.service-row {
+  padding: 25px 0px !important;
+}
+.head-serv h3.section-title {
+  font-size: 48px;
+}
+.services-section p {
+  font-size: 18px;
+}
+.services-section h5{
+font-size: 36px;
+}
+.assistance-section {
+padding: 80px 0 !important;
+  position: relative;
+}
+
+
+.assistance-section h6 {
+  color: #323232 !important;
+  font-size: 36px;
+}
+
+
+
+.assistance-section p{
+  font-size: 18px;
+}
+
+.step-text {
+  display: flex;
+  align-items: center;
+  align-content: center;
+  gap: 30px;
+  padding: 40PX 0;
+  margin-left: 10%;
+}
+.connect,.select,.buy,.cus {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.step-text img {
+  position: relative;
+  top: 37px;
+}
+.assistance-section h5.step-number {
+  font-weight: 700;
+  font-size: 64px;
+  line-height: 100%;
+  color: transparent;
+  -webkit-text-stroke: 2px #808080;
+  text-stroke: 2px #808080;
+  margin-top: 10px;
+}
+
+.step-box img {
+  position: relative;
+  left: 30px;
+}
+
+
+.connect {
+  position: relative;
+
+}
+.select {
+  position: relative;
+  padding-left: 18% !important;
+  margin-top: -11em !important;
+}
+.buy {
+  position: relative;
+  padding-left: 35% !important;
+  margin-top: -11em !important;
+}
+.cus {
+  position: relative;
+  padding-left: 53% !important;
+  margin-top: -11em !important;
+}
+.side-set {
+  position: absolute;
+  right: -15%;
+  animation: rotate-animation 10s infinite linear;
+}
+.alliance.row .brdr {
+  border-right: 1px solid #B8B8B8;
+  align-content: center;
+  padding: 30px;
+
+}
+.alliance.row .brdr:nth-child(1){
+  border-left: 1px solid #B8B8B8;
+}
+.alliance.row {
+  border: 1px solid #B8B8B8;
+  border-left: none;
+  border-right:none;
+}
+section.achivments {
+  background: #F3F3F3;
+}
+
+
+
+
+.achiv {
+  border: 1px solid #B8B8B8;
+  backdrop-filter: blur(10px);
+  background: #FFFFFF4D !important;
+}
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -691,49 +853,3 @@ section.blog-text {
     }
   }
 
-/*
-
-  @media screen and (max-width: 1400px) {
-    .cntnct.nav-link {
-      margin-left: 0;
-      padding: 12px 12px !important;
-  }
-  section.Main-banner h1 {
-
-    font-size: 80px;
-}
-span.Counter-no {
-  font-size: 75px;
-}
-section.welcome h3.text-primary {
-  font-size: 75px;
-
-}
-
-section.featured .row .features-list .card {
-  padding: 20px;
-}
-section.featured .card-title.h5 {
-
-  font-size: 25px;
-
-}
-.same-head {
-
-  font-size: 42px;
-
-}
-.socail-name {
-
-  font-size: 30px;
-
-}
-.social-p {
-  font-size: 15px;
-
-}
-.blogs .row {
-  padding: 0 !important;
-}
-  }
- */
