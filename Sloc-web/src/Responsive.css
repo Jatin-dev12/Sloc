@@ -349,7 +349,7 @@ footer {
   padding: 40px 15px;
 }
 .res-st {
-  width: 50%;
+  width: 50% !important;
 }
 .res {
   margin-top: 1.5em;
@@ -359,5 +359,9 @@ section.featured .row {
 }
 .socail-name {
   font-size: 22px;
+}
+
+section.Main-banner {
+  background-position: right;
 }
 }
