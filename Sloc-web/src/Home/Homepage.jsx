@@ -719,7 +719,7 @@ gsap.to([section2Image], {
     </div>
   </div>
   <Container className="full">
-           <Row className="mb-4 d-flex py-4 align-content-center">
+           <Row className="mb-4 d-flex py-md-4 align-content-center">
               <Col md={8} className="align-content-center">
                 <h2 className="same-head">Exclusive Listings</h2>
                 <p className="same-head-p">
@@ -743,7 +743,7 @@ gsap.to([section2Image], {
                 }}
                 modules={[Navigation]}
                 breakpoints={{
-                  768: { slidesPerView: 2 },
+                  768: { slidesPerView: 1 },
                   992: { slidesPerView: 3 },
                 }}
               >

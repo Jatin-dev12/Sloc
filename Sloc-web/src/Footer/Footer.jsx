@@ -18,7 +18,7 @@ const Footer = () => {
     <footer className="">
       <Container>
         <Row className="mb-4 justify-content-between">
-          <Col lg={5} md={6} className="mb-4 mb-md-0 p-0">
+          <Col lg={5} md={6} className="mb-4 mb-md-0 p-md-0">
             <div className="footer-logo">
            <a href='/'><p className='Logo'>SLOC</p></a>
             </div>

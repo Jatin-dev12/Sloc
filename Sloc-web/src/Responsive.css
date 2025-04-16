@@ -341,7 +341,7 @@ section.welcome {
   padding: 10px;
 }
 section.featured {
-  padding-top: 100px;
+  padding-top: 40px;
   padding-bottom: 40px;
 }
 footer {
@@ -353,5 +353,11 @@ footer {
 }
 .res {
   margin-top: 1.5em;
+}
+section.featured .row {
+  padding: 0 10px;
+}
+.socail-name {
+  font-size: 22px;
 }
 }
