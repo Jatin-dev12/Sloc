@@ -15,6 +15,9 @@ body{
 
     justify-content: end;
 }
+.top-co p {
+  font-size: 18px;
+}
   p.Logo {
     font-family: "Darker Grotesque", sans-serif;
     font-weight: 500;
@@ -195,17 +198,22 @@ body{
     margin-bottom: 20px;
     text-transform: uppercase;
     color: #064685;
+    position: relative;
+    z-index: +9999;
 
   }
   .same-head p {
     width: 100%;
     max-width: 85%;
+    position: relative;
+    z-index: +9999;
   }
   .same-head-p {
     font-weight: 400;
     font-size: 18px;
     font-family: "Nunito Sans", sans-serif !important;
-
+    position: relative;
+    z-index: +9999;
     line-height: 150%;
   }
   .scrol-top {
@@ -229,7 +237,7 @@ body{
   }
   section.featured .row .features-list {
     border-right: 1px solid #B8B8B8;
-    z-index: 1 !important;
+    z-index: -1 !important;
 
 
   }
@@ -237,16 +245,21 @@ body{
     border: none !important;
     padding: 25px;
     border-radius: 0;
+    z-index: -1;
+
 
   }
   section.featured .row .features-list .card img {
     border-radius: 0;
+    z-index: -1;
+
   }
   .full.container {
     max-width: 100% !important;
   }
   section.featured .row{
     padding: 0px 60px;
+    z-index: -1;
   }
   section.featured .row:nth-child(2){
     border-top: 1px solid #B8B8B8;

@@ -151,93 +151,7 @@ function Home() {
   const scrollImageRef = useRef(null);
   const welcomeTextRef = useRef(null);
 
-  const getAnimationProps = (width) => {
-    // Default values for larger screens (>1920px)
-    let props = {
-      logoFrom: { opacity: 0, y: -160, x: 160, scale: 0.9 },
-      logoTo1: { opacity: 1, y: 50, x: 300, scale: 0.6, duration: 1 },
-      scrollImageTo: { opacity: 0, duration: 0.2 },
-      pathsTo: { fill: '#012fcb', stroke: '#012fcb', duration: 0.6 },
-      logoTo2: { y: 460, x: 509, scale: 0.1, duration: 2.5 },
-      logoTo3: { opacity: 0, duration: 0.5 },
-      scrollTrigger: { start: 'top center', end: 'bottom center', scrub: 0.5 },
-    };
 
-    // Adjust for specific breakpoints
-    if (width <= 425) {
-      props = {
-        logoFrom: { opacity: 0, y: -80, x: 80, scale: 0.8 },
-        logoTo1: { opacity: 1, y: 20, x: 100, scale: 0.5, duration: 0.8 },
-        scrollImageTo: { opacity: 0, duration: 0.15 },
-        pathsTo: { fill: '#012fcb', stroke: '#012fcb', duration: 0.5 },
-        logoTo2: { y: 200, x: 150, scale: 0.05, duration: 2 },
-        logoTo3: { opacity: 0, duration: 0.4 },
-        scrollTrigger: { start: 'top 80%', end: 'bottom 20%', scrub: 0.3 },
-      };
-    } else if (width <= 574) {
-      props = {
-        logoFrom: { opacity: 0, y: -100, x: 100, scale: 0.85 },
-        logoTo1: { opacity: 1, y: 30, x: 120, scale: 0.55, duration: 0.9 },
-        scrollImageTo: { opacity: 0, duration: 0.18 },
-        pathsTo: { fill: '#012fcb', stroke: '#012fcb', duration: 0.55 },
-        logoTo2: { y: 250, x: 180, scale: 0.08, duration: 2.2 },
-        logoTo3: { opacity: 0, duration: 0.45 },
-        scrollTrigger: { start: 'top 75%', end: 'bottom 25%', scrub: 0.4 },
-      };
-    } else if (width <= 991) {
-      props = {
-        logoFrom: { opacity: 0, y: 0, x: 0, scale: 0.9 },
-        logoTo1: { opacity: 1, y: 0, x: 0, scale: 0.55, duration: 1 },
-        scrollImageTo: { opacity: 0, duration: 0.2 },
-        pathsTo: { fill: '#06467973', stroke: '#06467973', duration: 0.6 },
-        logoTo2: { y: 0, x: 0, scale: 0.1, duration: 2.3 },
-        logoTo3: { opacity: 0, duration: 0.5 },
-        scrollTrigger: { start: 'top ', end: 'bottom center', scrub: 0.5 },
-      };
-    } else if (width <= 1100) {
-      props = {
-        logoFrom: { opacity: 0, y: -140, x: 140, scale: 0.9 },
-        logoTo1: { opacity: 1, y: 45, x: 200, scale: 0.58, duration: 1 },
-        scrollImageTo: { opacity: 0, duration: 0.2 },
-        pathsTo: { fill: '#06467973', stroke: '#06467973', duration: 0.6 },
-        logoTo2: { y: 350, x: 300, scale: 0.1, duration: 2.4 },
-        logoTo3: { opacity: 0, duration: 0.5 },
-        scrollTrigger: { start: 'top 65%', end: 'bottom 35%', scrub: 0.5 },
-      };
-    } else if (width <= 1400) {
-      props = {
-        logoFrom: { opacity: 0, y: -150, x: 150, scale: 0.9 },
-        logoTo1: { opacity: 1, y: 48, x: 250, scale: 0.6, duration: 1 },
-        scrollImageTo: { opacity: 0, duration: 0.2 },
-        pathsTo: { fill: '#064679a3', stroke: '#064679a3', duration: 0.6 },
-        logoTo2: { y: 400, x: 400, scale: 0.1, duration: 2.5 },
-        logoTo3: { opacity: 0, duration: 0.5 },
-        scrollTrigger: { start: 'top 60%', end: 'bottom 40%', scrub: 0.5 },
-      };
-    } else if (width <= 1600) {
-      props = {
-        logoFrom: { opacity: 0, y: -155, x: 155, scale: 0.9, scrub: 1 },
-        logoTo1: { opacity: 1, y: 50, x: 280, scale: 0.6, duration: 1 },
-        scrollImageTo: { opacity: 0, duration: 0.2 },
-        pathsTo: { fill: '#06467973', stroke: '#06467973', duration: 0.6 },
-        logoTo2: { y: 490, x: 550, scale: 0.1, duration: 2.5 },
-        logoTo3: { opacity: 0, duration: 0.5 },
-        scrollTrigger: { start: 'top 55%', end: 'bottom 45%', scrub: 2.3 },
-      };
-    } else if (width <= 1920) {
-      props = {
-        logoFrom: { opacity: 0, y: -160, x: 160, scale: 0.9 },
-        logoTo1: { opacity: 1, y: 50, x: 300, scale: 0.6, duration: 1 },
-        scrollImageTo: { opacity: 0, duration: 0.2 },
-        pathsTo: { fill: '#06467973', stroke: '#06467973', duration: 0.6 },
-        logoTo2: { y: 460, x: 509, scale: 0.1, duration: 2.5 },
-        logoTo3: { opacity: 0, duration: 0.5 },
-        scrollTrigger: { start: 'top center', end: 'bottom center', scrub: 0.5 },
-      };
-    }
-
-    return props;
-  };
 
   useEffect(() => {
     // Ensure logoRefs exists
@@ -249,86 +163,85 @@ function Home() {
 
     // Set initial faded color using GSAP to avoid FOUC
     gsap.set(paths, {
-      fill: '#06467973',
-      stroke: '#06467973',
+      fill: '#b3b3b3',
+      stroke: '#b3b3b3',
     });
 
-    // Function to create or update animation
-    const createAnimation = () => {
-      // Get current width
-      const width = window.innerWidth;
-      const props = getAnimationProps(width);
-
-      // Kill existing ScrollTriggers to avoid duplicates
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-
-      // GSAP Timeline with ScrollTrigger
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: containerRefs.current,
-          ...props.scrollTrigger,
-          anticipatePin: 1,
-          fastScrollEnd: true,
-          markers: false,
+    // GSAP Timeline with ScrollTrigger
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: containerRefs.current,
+        start: 'top center',
+        end: 'bottom center',
+        scrub: 0.5, // Increased for smoother scrubbing
+        markers: false,
+        anticipatePin: 1, // Improves pinning performance
+        fastScrollEnd: true, // Reduces lag at scroll end
+      },
+    })
+      .fromTo(
+        logoRefs.current,
+        {
+          opacity: 0,
+          y: -160,
+          x: 160,
+          scale: 0.9,
+          willChange: 'transform, opacity',
         },
-      })
-        .fromTo(
-          logoRefs.current,
-          props.logoFrom,
-          {
-            ...props.logoTo1,
-            ease: 'power3.out',
-            willChange: 'transform, opacity',
-          }
-        )
-        .to(
-          scrollImageRef.current,
-          {
-            ...props.scrollImageTo,
-            ease: 'power3.out',
-          },
-          '-=1'
-        )
-        .to(
-          paths,
-          {
-            ...props.pathsTo,
-            ease: 'sine.out',
-          },
-          '-=1'
-        )
-        .to(
-          logoRefs.current,
-          {
-            ...props.logoTo2,
-            ease: 'power3.inOut',
-          },
-          '-=0.4'
-        )
-        .to(
-          logoRefs.current,
-          {
-            ...props.logoTo3,
-            ease: 'sine.out',
-          },
-          '-=1.1'
-        );
-
-      return tl;
-    };
-
-    // Initial animation
-    let tl = createAnimation();
+        {
+          opacity: 1,
+          y: 50,
+          x: 300,
+          scale: 0.6,
+          duration: 1,
+          ease: 'power3.out', // Smoother easing
+        }
+      )
+      .to(
+        scrollImageRef.current,
+        {
+          opacity: 0,
+          duration: 0.2,
+          ease: 'power3.out',
+        },
+        '-=1'
+      )
+      .to(
+        paths,
+        {
+          fill: '#012fcb',
+          stroke: '#012fcb',
+          duration: 0.6, // Smoother color transition
+          ease: 'sine.out', // Gentle color easing
+        },
+        '-=1'
+      )
+      .to(
+        logoRefs.current,
+        {
+          y: 460,
+          x: 509,
+          scale: 0.1,
+          duration: 2.5, // Reduced for better performance
+          ease: 'power3.inOut',
+        },
+        '-=0.4'
+      )
+      .to(
+        logoRefs.current,
+        {
+          opacity: 0,
+          duration: 0.5, // Smoother fade-out
+          ease: 'sine.out',
+        },
+        '-=1.1'
+      );
 
     // Optimized resize handler
     let timeout;
     const handleResize = () => {
       clearTimeout(timeout);
-      timeout = setTimeout(() => {
-        tl.kill(); // Kill existing timeline
-        ScrollTrigger.refresh(); // Refresh ScrollTrigger
-        tl = createAnimation(); // Recreate animation with new props
-      }, 200);
+      timeout = setTimeout(() => ScrollTrigger.refresh(), 200);
     };
     window.addEventListener('resize', handleResize);
 
@@ -339,106 +252,6 @@ function Home() {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
-
-  // useEffect(() => {
-  //   // Ensure logoRefs exists
-  //   const paths = logoRefs.current?.querySelectorAll('path');
-  //   if (!paths || paths.length === 0) {
-  //     console.warn('No paths found in logoRefs');
-  //     return;
-  //   }
-
-  //   // Set initial faded color using GSAP to avoid FOUC
-  //   gsap.set(paths, {
-  //     fill: '#064685',
-  //     stroke: '#064685',
-  //   });
-
-  //   // GSAP Timeline with ScrollTrigger
-  //   const tl = gsap.timeline({
-  //     scrollTrigger: {
-  //       trigger: containerRefs.current,
-  //       start: 'top center',
-  //       end: 'bottom center',
-  //       scrub: 0.5, // Increased for smoother scrubbing
-  //       markers: false,
-  //       anticipatePin: 1, // Improves pinning performance
-  //       fastScrollEnd: true, // Reduces lag at scroll end
-  //     },
-  //   })
-  //     .fromTo(
-  //       logoRefs.current,
-  //       {
-  //         opacity: 0,
-  //         y: -160,
-  //         x: 160,
-  //         scale: 0.9,
-  //         willChange: 'transform, opacity',
-  //       },
-  //       {
-  //         opacity: 1,
-  //         y: 50,
-  //         x: 300,
-  //         scale: 0.6,
-  //         duration: 1,
-  //         ease: 'power3.out', // Smoother easing
-  //       }
-  //     )
-  //     .to(
-  //       scrollImageRef.current,
-  //       {
-  //         opacity: 0,
-  //         duration: 0.2,
-  //         ease: 'power3.out',
-  //       },
-  //       '-=1'
-  //     )
-  //     .to(
-  //       paths,
-  //       {
-  //         fill: '#064685',
-  //         stroke: '#064685',
-  //         duration: 0.6, // Smoother color transition
-  //         ease: 'sine.out', // Gentle color easing
-  //       },
-  //       '-=1'
-  //     )
-  //     .to(
-  //       logoRefs.current,
-  //       {
-  //         y: 460,
-  //         x: 509,
-  //         scale: 0.1,
-  //         duration: 2.5, // Reduced for better performance
-  //         ease: 'power3.inOut',
-  //       },
-  //       '-=0.4'
-  //     )
-  //     .to(
-  //       logoRefs.current,
-  //       {
-  //         opacity: 0,
-  //         duration: 0.5, // Smoother fade-out
-  //         ease: 'sine.out',
-  //       },
-  //       '-=1.1'
-  //     );
-
-  //   // Optimized resize handler
-  //   let timeout;
-  //   const handleResize = () => {
-  //     clearTimeout(timeout);
-  //     timeout = setTimeout(() => ScrollTrigger.refresh(), 200);
-  //   };
-  //   window.addEventListener('resize', handleResize);
-
-  //   // Cleanup
-  //   return () => {
-  //     tl.kill();
-  //     ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-  //     window.removeEventListener('resize', handleResize);
-  //   };
-  // }, []);
   const section1Ref = useRef(null);
   const section2Ref = useRef(null);
   const imageRefs = useRef([]);
@@ -639,11 +452,11 @@ gsap.to([section2Image], {
         )
         .to(logoRefs1.current, {
           opacity: 0,
-          y: 480,
-          x: 540,
+          y: 550,
+          x: 550,
           scale: 0,
           ease: "power3.inOut",
-          duration: 9.5,
+          duration: 7.5,
         });
 
       // Handle resize to refresh ScrollTrigger
