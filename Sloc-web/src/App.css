@@ -11,6 +11,10 @@ body{
     background: #323232;
     padding: 10px 0;
   }
+  .navbar-expand-md .navbar-collapse {
+
+    justify-content: end;
+}
   p.Logo {
     font-family: "Darker Grotesque", sans-serif;
     font-weight: 500;
@@ -225,14 +229,14 @@ body{
   }
   section.featured .row .features-list {
     border-right: 1px solid #B8B8B8;
-    z-index: -1;
+    z-index: 1 !important;
+
 
   }
   section.featured .row .features-list .card{
     border: none !important;
     padding: 25px;
     border-radius: 0;
-    z-index: -1;
 
   }
   section.featured .row .features-list .card img {
@@ -243,7 +247,6 @@ body{
   }
   section.featured .row{
     padding: 0px 60px;
-    z-index: -1;
   }
   section.featured .row:nth-child(2){
     border-top: 1px solid #B8B8B8;
@@ -333,6 +336,7 @@ section.Cta button.btn.btn-dark {
   z-index: 2;
   background-color: #ffffff;
   color: #1E1E1E;
+  border: none !important;
 }
   img.back-roll {
     position: absolute;

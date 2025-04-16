@@ -48,3 +48,310 @@ section.featured .card-title.h5 {
 }
   }
 
+ @media screen and (max-width: 1300px) {
+  p.Logo {
+    font-size: 55px;
+  }
+  section.Main-banner h1 {
+    font-size: 70px;
+}
+.same-head {
+  font-size: 40px;
+}
+.same-head-p {
+
+  font-size: 17px;
+
+}
+section.featured .row .features-list .card {
+  padding: 15px;
+}
+
+section.featured .card-title.h5 {
+  font-size: 23px;
+}
+section.featured p.card-text {
+  font-size: 16px;
+
+}
+.socail-name {
+  font-size: 26px;
+}
+span.Counter-no {
+  font-size: 65px;
+}
+section.welcome h3.text-primary {
+  font-size: 65px;
+
+}
+  }
+
+
+  @media screen and (max-width: 1200px){
+    section.Main-banner h1 {
+      font-size: 65px;
+  }
+  span.Counter-no {
+    font-size: 60px;
+  }
+  section.welcome h3.text-primary {
+    font-size: 60px;
+
+  }
+  img.back-roll {
+
+    right: 1%;
+
+}
+.btn-loc.card-text {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.same-head {
+  font-size: 35px;
+}
+.blogs .uper-space.card-body p {
+
+  font-size: 15px !important;
+
+
+}
+section.featured .row .features-list {
+
+  height: inherit;
+}
+.set-out button {
+  width: 270px;
+
+}
+button.btn.btn-dark {
+
+  font-size: 18px;
+  padding: 12px 30px;
+
+}
+.footer-logo p.Logo {
+  font-size: 80px;
+}
+section.featured .card-title.h5 {
+  font-size: 22px;
+}
+.blogs .btn-loc.top-set.card-text {
+  display: unset;
+}
+}
+
+@media screen and (max-width: 1100px){
+  section.Main-banner h1 {
+    font-size: 60px;
+}
+.set-out button {
+  width: 220px;
+}
+.same-head {
+  font-size: 32px;
+}
+.same-head-p {
+  font-size: 16px;
+}
+span.Counter-no {
+  font-size: 55px;
+}
+section.welcome h3.text-primary {
+  font-size: 55px;
+
+}
+section.featured .card-title.h5 {
+  font-size: 20px;
+}
+.footer-logo p.Logo {
+  font-size: 70px;
+}
+footer h6 {
+  font-size: 20px !important;
+}
+
+}
+@media screen and (max-width: 1024px){
+  .searc-bar {
+  padding: 20px 40px;
+  gap: 20px;
+
+}
+
+section.Main-banner h1 {
+  font-size: 55px;
+}
+.same-head {
+  font-size: 30px;
+}
+section.featured .card-title.h5 {
+  font-size: 18px;
+}
+section.featured p.card-text {
+  font-size: 15px;
+}
+section.welcome{
+  padding-bottom: 40px;
+}
+section.social-proof {
+  padding-top: 40px;
+}
+section.Cta {
+  padding: 40px 0px;
+
+}
+}
+button.navbar-toggler {
+  border: none !important;
+  background: #064685;
+  border-radius: 0;
+  color: white;
+  padding: 8px;
+}
+.navbar-toggler-icon {
+
+  background-image:url(./assets//Imgs/Togle.svg) !important;
+  padding: 10px;
+}
+@media screen and (max-width: 991px){
+  section.Main-banner {
+    height: 530px;
+
+}
+section.Main-banner h1 {
+  font-size: 48px;
+}
+.top-set {
+  position: unset;
+
+}
+.blogs .btn-loc.top-set.card-text {
+  display: flex;
+}
+.blogs .uper-space.card-body p {
+  font-size: 13px !important;
+}
+footer .mb-4.justify-content-between.row {
+  row-gap: 30px;
+}
+.same-head {
+  font-size: 26px;
+}
+button.btn.btn-dark {
+  font-size: 16px;
+  padding: 12px 25px;
+}
+a.Up-arrow-btn.btn.btn-primary {
+
+  height: 60px;
+  width: 60px;
+}
+button.Up-arrow-btn.btn.btn-primary {
+  height: 60px;
+  width: 60px;
+}
+.set-out button {
+  width: unset;
+}
+.Main-nav .navbar-nav {
+  gap: 25px;
+  align-items: end;
+}
+}
+
+@media screen and (max-width: 778px){
+  section.Main-banner h1 {
+    text-align: center;
+}
+section.Main-banner p {
+  text-align: center;
+}
+.searc-bar {
+align-items: unset !important;
+  flex-direction: column;
+  position: relative;
+}
+.searc-bar .me-2.input-group{
+  width: unset;
+}
+.set-out button {
+  width: 100%;
+}
+section.Main-banner {
+  padding-top: 50px;
+}
+.same-head {
+  font-size: 25px;
+  text-align: center;
+}
+.same-head-p {
+  font-size: 16px;
+  text-align: center;
+}
+.res {
+  width: 100%;
+  border-right: none;
+  border-bottom: 1px solid #0000003D;
+  text-align: center !important;
+}
+section.welcome h3.text-primary {
+  font-size: 50px;
+  text-align: center;
+}
+span.Counter-no {
+  font-size: 50px;
+}
+section.welcome .card p {
+
+  text-align: center;
+}
+.four-col-st {
+  margin-top: 20px;
+}
+.custom-swiper-nav {
+  justify-content: center !important;
+  margin-top: 20px;
+}
+.res-hide {
+  display: none;
+}
+button.btn.btn-dark {
+
+  margin-top: 20px;
+}
+.top-co {
+  padding: 50px 0px;
+}
+.res-hide {
+  display: none !important;
+}
+}
+
+@media screen and (max-width: 578px){
+  section.Main-banner h1 {
+    font-size: 45px;
+}
+section.welcome {
+  padding-top: 100px !important;
+}
+.Dis {
+  font-size: 14px;
+  padding: 10px;
+}
+section.featured {
+  padding-top: 100px;
+  padding-bottom: 40px;
+}
+footer {
+
+  padding: 40px 15px;
+}
+.res-st {
+  width: 50%;
+}
+.res {
+  margin-top: 1.5em;
+}
+}

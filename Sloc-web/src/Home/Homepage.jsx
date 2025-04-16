@@ -547,7 +547,7 @@ gsap.to([section2Image], {
         <section className="Main-banner" data-speed="1.5">
           <Container>
             <Row>
-              <Col md={6} >
+              <Col md={6} className="top-co" >
                 <h1>Search Land Of Choice</h1>
                 <p>Explore premium living spaces in the most sought-after locations of India. </p>
               </Col>
@@ -573,7 +573,7 @@ gsap.to([section2Image], {
               </Col>
             </Row>
           </Container>
-          <div className="d-flex align-items-center searc-bar  justify-content-between">
+          <div className="d-flex align-items-md-center searc-bar  justify-content-between">
             <DropdownButton
               id="dropdown-city"
               title="City"
@@ -654,7 +654,7 @@ gsap.to([section2Image], {
         </p>
       </Col>
       <Col md={6} className="d-flex flex-wrap four-col-st" >
-        <Col md={6} lg={6} className="right">
+        <Col md={6} lg={6} className="right res">
           <Card className="">
             <h3 className="text-primary">
               <Counter className="Counter-no" to={10} from={0} />
@@ -663,7 +663,7 @@ gsap.to([section2Image], {
             <p>Years of Excellence</p>
           </Card>
         </Col>
-        <Col md={6} lg={6} className="only-bottom">
+        <Col md={6} lg={6} className="only-bottom res">
           <Card className="">
             <h3 className="text-primary">
               <Counter className="Counter-no" to={5} from={0} />
@@ -672,7 +672,7 @@ gsap.to([section2Image], {
             <p>Happy Customers</p>
           </Card>
         </Col>
-        <Col md={6} lg={6} className="only-right" ref={welcomeTextRef}>
+        <Col md={6} lg={6} className="only-right res" ref={welcomeTextRef}>
           <Card>
             <h3 className="text-primary">
               <Counter className="Counter-no" to={100} from={0} />
@@ -681,7 +681,7 @@ gsap.to([section2Image], {
             <p>Premium Projects</p>
           </Card>
         </Col>
-        <Col md={6} lg={6} className="left-brdr">
+        <Col md={6} lg={6} className="left-brdr res">
           <Card className="">
             <h3 className="text-primary">
               <Counter className="Counter-no" to={95} from={0} />
@@ -727,7 +727,7 @@ gsap.to([section2Image], {
                 </p>
               </Col>
               <Col md={4} className="align-items-end text-end align-content-center">
-                <div className="custom-swiper-nav d-flex gap-4 justify-content-end mb-3">
+                <div className="custom-swiper-nav d-flex gap-4 justify-content--md-end mb-3">
                   <img src={PrevArrow} alt="Previous" className="swiper-button-prev-custom" />
                   <img src={NextArrow} alt="Next" className="swiper-button-next-custom" />
                 </div>
@@ -809,7 +809,7 @@ gsap.to([section2Image], {
 
               </Col>
 
-              <Col md={4} className="text-end">
+              <Col md={4} className="text-md-end text-center">
                 {/* <img src={Cta} alt="" className="scroll-img" /> */}
                 <Button variant="dark" className="banner-button">
                   Contact us for More info
@@ -829,7 +829,7 @@ gsap.to([section2Image], {
                   <p className="same-head-p">
                   From search to sold, we make real estate effortless and exciting!
                   </p>
-                  <Button className="Up-arrow-btn">
+                  <Button className="Up-arrow-btn res-hide">
                     <img src={Arrow} />
                   </Button>
                 </div>
@@ -921,7 +921,7 @@ gsap.to([section2Image], {
               </Col>
               <Col
                 md={4}
-                className="align-items-end text-end align-content-center"
+                className="align-items-md-end text-md-end align-content-center text-center"
               >
                 <Button variant="dark">See more Blogs</Button>
               </Col>

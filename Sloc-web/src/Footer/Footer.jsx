@@ -48,7 +48,7 @@ const Footer = () => {
             </div>
           </Col>
 
-          <Col lg={2} md={6} sm={6} className="mb-4 mb-md-0">
+          <Col lg={2} md={6} sm={6} className="mb-4 mb-md-0 res-st">
             <h6 className="text-uppercase ft-font mb-3">QUICK LINKS</h6>
             <ul className="list-unstyled mb-0">
               <li className="mb-2">
@@ -67,7 +67,7 @@ const Footer = () => {
             </ul>
           </Col>
 
-          <Col lg={2} md={6} sm={6} className="mb-4 mb-md-0">
+          <Col lg={2} md={6} sm={6} className="mb-4 mb-md-0 res-st">
             <h6 className="text-uppercase ft-font mb-3">Policies</h6>
             <ul className="list-unstyled mb-0">
               <li className="mb-2">
@@ -82,7 +82,7 @@ const Footer = () => {
             </ul>
           </Col>
 
-          <Col lg={2} md={6} className="mb-4 mb-md-0">
+          <Col lg={2} md={6} className="mb-4 mb-md-0 res-st">
             <h6 className="text-uppercase ft-font mb-3">INFORMATION</h6>
             <p className="small mb-1">15th Floor, Ocus Quantum,</p>
             <p className="small mb-1">Sector-51, Gurugram, Haryana</p>

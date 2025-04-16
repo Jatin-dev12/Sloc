@@ -26,24 +26,26 @@ export default function Header() {
          </Row>
         </Container>
       </section> */}
+<Navbar expand="md" className="Main-nav" collapseOnSelect>
+  <Container>
+    <Navbar.Brand href="/">
+      <p className="Logo">SLOC</p>
+    </Navbar.Brand>
 
-      <Navbar className='Main-nav'>
-        <Container >
-          <Navbar.Brand href="/">
-            <p className='Logo'>SLOC</p>
-          </Navbar.Brand>
-          <Nav className="mr-auto">
-            <Nav.Link href="/">Home</Nav.Link>
+    {/* Toggle Button */}
+    <Navbar.Toggle aria-controls="basic-navbar-nav" />
 
-
-            <Nav.Link href="/About">About Us</Nav.Link>
-            <Nav.Link href="/Blogs">Blogs</Nav.Link>
-            <Nav.Link href="#" className='cntnct'>Contact Us</Nav.Link>
-
-
-          </Nav>
-        </Container>
-      </Navbar>
+    {/* Collapsible Nav Items */}
+    <Navbar.Collapse id="basic-navbar-nav">
+      <Nav className="ml-auto">
+        <Nav.Link href="/">Home</Nav.Link>
+        <Nav.Link href="/About">About Us</Nav.Link>
+        <Nav.Link href="/Blogs">Blogs</Nav.Link>
+        <Nav.Link href="#" className="cntnct">Contact Us</Nav.Link>
+      </Nav>
+    </Navbar.Collapse>
+  </Container>
+</Navbar>
 
     </main>
     </>
