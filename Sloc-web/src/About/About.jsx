@@ -24,6 +24,12 @@ import tri from '../assets/Alliance-imgs/tri.png'
 import pirmal from '../assets/Alliance-imgs/pirmal.png'
 import Award from '../assets/Imgs/award.svg'
 import shopp from '../assets/Alliance-imgs/shpoji.png'
+import Achive from '../assets/Imgs/Achive.png';
+import very from '../assets/Alliance-imgs/verifyed.svg'
+import expert from '../assets/Alliance-imgs/expert.svg'
+import free from '../assets/Alliance-imgs/free.svg'
+import best from '../assets/Alliance-imgs/best.svg'
+import Timeline from './Timeline.jsx'
 
 
 const services = [
@@ -62,9 +68,58 @@ const awards = [
     image: Award,
 
   },
+  {
+    id: 5,
+    title: "AWARD OF BEST SELLING",
+    year: "LOREM IPSUM DOLOR SIT 2022-23",
+    image: Award,
+
+  },
+  {
+    id: 6,
+    title: "AWARD OF BEST SELLING",
+    year: "LOREM IPSUM DOLOR SIT 2022-23",
+    image: Award,
+
+  },
+  {
+    id: 7,
+    title: "AWARD OF BEST SELLING",
+    year: "LOREM IPSUM DOLOR SIT 2022-23",
+    image: Award,
+
+  },
+  {
+    id: 8,
+    title: "AWARD OF BEST SELLING",
+    year: "LOREM IPSUM DOLOR SIT 2022-23",
+    image: Award,
+
+  },
 ]
 
-
+const features = [
+  {
+icons:very,
+    title: "Verified Properties",
+    description: "Every listing is 100% verified for authenticity and legal clarity.",
+  },
+  {
+    icons:expert,
+    title: "Best Price Guarantee",
+    description: "We offer competitive prices and unbeatable deals.",
+  },
+  {
+    icons:free,
+    title: "Expert Guidance",
+    description: "Our experienced team supports you from site visit to possession—every step of the way.",
+  },
+  {
+    icons:best,
+    title: "Hassle-Free Process",
+    description: "From site visits to paperwork, we make buying property smooth and stress-free.",
+  },
+];
 
 
 function About() {
@@ -295,8 +350,8 @@ function About() {
 
     <section className='achivments same-space'>
     <Container className="">
-      <Row className="align-items-center">
-        <Col md={5} className="mb-4 mb-md-0">
+      <Row className="align-items-center ">
+        <Col md={4} className="mb-4 mb-md-0">
           <h2 className="same-head">
             AWARDS
           </h2>
@@ -305,12 +360,14 @@ function About() {
             dolore magna aliqua.
           </p>
         </Col>
-        <Col md={7}>
-          <Row>
+        <Col md={8} className='px-3'>
+        <div className='over'>
+          <Row className='achivments'>
             {awards.map((award) => (
               <Col md={6} key={award.id} className="mb-4">
-                <Card className="h-100 position-relative">
+                <Card className=" position-relative overflow-hidden">
                   <Card.Body className="p-4 achiv">
+                    <img src={Achive} className='corner' />
                     <div className=" mb-3">
                       <img src={award.image}  />
 
@@ -332,9 +389,42 @@ function About() {
               </Col>
             ))}
           </Row>
+          </div>
         </Col>
       </Row>
     </Container>
+    </section>
+
+
+    <section className='same-space why-us'>
+      <Container>
+        <div className=" mb-5">
+          <h3 className="same-head" style={{ color: "#ffffff" }}>WHY CHOOSE US</h3>
+          <p className="same-head-p" style={{ color: "#ffffff" }}>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          </p>
+        </div>
+        <Row className="g-4">
+          {features.map((feature, index) => (
+            <Col key={index} xs={12} sm={6} md={6} lg={3} className='p-0'>
+              <Card className="why-choose">
+                <div className="mb-3" >
+                <img src={feature.icons} alt={feature.title} style={{ width: "80px", height: "80px" }} />                </div>
+                <h5 className="">{feature.title}</h5>
+                <p >{feature.description}</p>
+              </Card>
+            </Col>
+          ))}
+        </Row>
+      </Container>
+    </section>
+
+
+
+    <section className='time-sec'>
+
+<Timeline />
+
     </section>
 
 
