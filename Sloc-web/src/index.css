@@ -60,7 +60,9 @@ a{
   font-size: 40px;
   color: #333;
 }
-
+.image-stack img.initial-image {
+  transition: .2s all ease;
+}
 .scroll-section {
   height: 100vh;
   display: flex;

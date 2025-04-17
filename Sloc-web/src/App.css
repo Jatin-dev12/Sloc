@@ -237,7 +237,7 @@ body{
   }
   section.featured .row .features-list {
     border-right: 1px solid #B8B8B8;
-    z-index: -1 !important;
+    z-index: -1 ;
 
 
   }
@@ -965,6 +965,314 @@ section.achivments {
   color: #fff  !important;
   font-size: 18px;
 }
+
+.blog-page .features-list {
+  z-index: +111 !important;
+}
+
+.baner-iner {
+  height: 100%;
+  min-height: 560px;
+  align-content: center;
+  background-position: right;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+
+.privacy{
+  background-image: url(./assets/Imgs/privacy.jpg);
+
+}
+.terms {
+  background-image: url(./assets/Imgs/Term.jpg);
+
+}
+.disclamer{
+  background-image: url(./assets/Imgs/Dis.jpg);
+
+}
+.btm-space {
+  margin-bottom: 80px;
+}
+
+.list-term li {
+  font-size: 20px;
+  color: #1E1E1E !important;
+  font-weight: 500;
+  font-family: "Nunito Sans", sans-serif !important;
+  margin-bottom: 30px !important;
+
+
+}
+
+.form-set {
+  background: #064685;
+  padding: 60px 50px;
+}
+.form-set h5 {
+ color: #fff;
+ text-align: center;
+ text-transform: uppercase;
+ margin-bottom: 40px;
+ font-size: 24px;
+ font-weight: 600;
+}
+.form-control {
+  background: unset !important;
+  border-width: 0.5px !important;
+  border-radius: 0 !important;
+  color: #fff !important;
+}
+
+input#agreeCheck {
+  border-radius: 0;
+}
+
+.form-set  button.btn.btn-light.text-dark {
+  font-size: 20px;
+  font-family: "Poppins", sans-serif !important;
+  width: fit-content;
+  margin: 0 auto;
+  padding: 12px 40px;
+  font-weight: 600;
+  border-radius: 0;
+  margin-top: 1em;
+}
+.cntnct {
+  padding-left: 50px;
+}
+.cntnct li {
+  font-size: 24px;
+  font-weight: 500;
+  margin-bottom: 40px !important;
+}
+.cntnct li img {
+  margin-right: 30px;
+}
+.cntnct {
+  padding-left: 50px;
+  border-left: 1px solid #B8B8B8;
+}
+.contact-set {
+  padding: 0 !important;
+
+}
+.btm-s {
+  padding: 50px !important;
+
+}
+.project-baner{
+  height: 100%  !important;
+  min-height: 778px;
+  background-image:url(./Project/p.jpg) !important;
+  padding-top: 20px;
+
+
+}
+
+ .pr{
+  border: none;
+
+ }
+ .pr {
+  position: absolute  !important;
+  top: 10px;
+  width: 100%;
+  left: 0;
+}
+.info {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+ .pr div#basic-navbar-nav {
+  justify-content: center;
+}
+span.brkr {
+  margin: 0 10px;
+}
+
+.project-baner h1 {
+  color: #fff !important;
+}
+.project-baner p {
+  color: #fff !important;
+}
+.project-baner a {
+  color: #fff !important;
+}
+
+.navbar-nav a {
+  font-family: 'Nunito Sans' !important;
+}
+
+.pr a.nav-link {
+  font-family: 'Nunito Sans' !important;
+
+}
+.pr a.cntnct.nav-link {
+  color: #000 !important;
+  background: #fff;
+  font-weight: 600 !important;
+
+}
+p.loction {
+  margin: 30px 0 !important;
+}
+.project-baner .searc-bar{
+  position: relative !important;
+  margin-top: 40px  !important;
+  padding:  20px;
+  background: #fff  !important;
+
+
+}
+
+.top-line-info p {
+  text-align: right;
+  width: 95%;
+  font-size: 20px;
+  font-family: "Bai Jamjuree", sans-serif !important;
+}
+
+.project-baner form {
+  display: flex;
+  gap: 15px;
+  justify-content: space-between;
+  align-items: center;
+}
+span.diff-color {
+  color: #064685 !important;
+}
+.set-ww {
+  width: 100%;
+  max-width: 250px !important;
+}
+.long-one {
+  width: 365px !important;
+}
+
+.project-baner .searc-bar input {
+  height: 40px !important;
+  color: #000 !important;
+}
+.project-baner .searc-bar input::placeholder {
+  color: #000;
+}
+
+input#agreeCheck {
+  height: 1em !important;
+}
+
+.project-baner .searc-bar .form-set {
+  padding: 0;
+  background: #fff  !important;
+
+}
+.project-baner .searc-bar .form-set button {
+  margin: 0 !important;
+  padding: 5px 20px !important;
+    height: 40px;
+}
+label.form-check-label {
+  margin: 0;
+  font-size: 12px;
+  color: #323232;
+  font-weight: 500;
+}
+.form-check.text-white {
+  width: 11%;
+  margin: 0;
+  padding: 0;
+}
+.project-baner .searc-bar .form-set h5{
+color: #064685  !important;
+}
+.project-baner .searc-bar  button.btn.btn-light.text-dark {
+  background: #064685;
+  color: #fff !important;
+  padding: 5px 40px !important;
+}
+.project-baner .searc-bar p{
+  color: #000  !important;
+}
+.lastbar {
+  padding: 20px 0px;
+  text-align: center;
+  background: #064685;
+}
+
+.lastbar h6 {
+  margin: 0;
+  font-size: 28px;
+}
+.overview button.btn.btn-light.text-dark {
+  background: #064685;
+  color: #fff !important;
+  padding: 12px 42px;
+  border-radius: 0;
+  margin-top: 20px;
+  font-weight: 500;
+  font-family: "Poppins", sans-serif !important;}
+
+
+  .res img {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 20px;
+}
+.res .card {
+  padding: 25px !important;
+}
+.btm-s .form-check.mb-3.text-white {
+  width: unset;
+  padding: unset;
+  margin: unset;
+  position: relative;
+  left: 25px;
+}
+.btm-s .form-check.mb-3.text-white label.form-check-label {
+  margin: unset;
+  color: unset;
+  font-size: unset;
+  text-align: center !important;
+}
+img.home-struct {
+  width: 100%;
+}
+section.list-home {
+  padding-top: 80px;
+}
+
+.struk-li   li {
+  font-size: 20px;
+}
+
+.home-text {
+  margin-bottom: 80px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   /* Rotating Animation */
 
   @keyframes rotate-animation {

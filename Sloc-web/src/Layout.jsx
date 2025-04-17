@@ -1,13 +1,16 @@
 import React from "react";
-import { Outlet, } from "react-router-dom";
+import { Outlet,useLocation  } from "react-router-dom";
 import Header from "./Header/Navbar";
 import Footer from "./Footer/Footer";
 
 
 const Layout = () => {
+  const location = useLocation();
+
+  const isProjectPage = location.pathname === '/Project';
   return (
     <>
-      <Header/>
+     {!isProjectPage && <Header />}
       <Outlet />
 
       <Footer/>

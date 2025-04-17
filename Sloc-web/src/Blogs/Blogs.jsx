@@ -109,7 +109,8 @@ const Blogsdata = [
 
 function Blogs() {
   return (
-    <>
+    <main className='blog-page'>
+
      <section className="Main-banner Blogs-banner" data-speed="1.5">
           <Container>
             <Row>
@@ -186,8 +187,8 @@ function Blogs() {
                   </Container>
                 </section>
 
+                </main>
 
- </>
   )
 }
 

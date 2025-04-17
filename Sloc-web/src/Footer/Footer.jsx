@@ -52,16 +52,16 @@ const Footer = () => {
             <h6 className="text-uppercase ft-font mb-3">QUICK LINKS</h6>
             <ul className="list-unstyled mb-0">
               <li className="mb-2">
-                <a href="#" className="text-decoration-none  small">Home</a>
+                <a href="/" className="text-decoration-none  small">Home</a>
               </li>
               <li className="mb-2">
-                <a href="#" className="text-decoration-none  small">About Us</a>
+                <a href="/About" className="text-decoration-none  small">About Us</a>
               </li>
               <li className="mb-2">
-                <a href="#" className="text-decoration-none  small">BLOG</a>
+                <a href="/Blogs" className="text-decoration-none  small">BLOG</a>
               </li>
               <li className="mb-2">
-                <a href="#" className="text-decoration-none  small">CONTACT US</a>
+                <a href="/contact" className="text-decoration-none  small">CONTACT US</a>
               </li>
 
             </ul>
@@ -71,13 +71,13 @@ const Footer = () => {
             <h6 className="text-uppercase ft-font mb-3">Policies</h6>
             <ul className="list-unstyled mb-0">
               <li className="mb-2">
-                <a href="#" className="text-decoration-none  small">Disclaimer </a>
+                <a href="/Disclaimer" className="text-decoration-none  small">Disclaimer </a>
               </li>
               <li className="mb-2">
-                <a href="#" className="text-decoration-none  small">Privacy Policy</a>
+                <a href="/Privacy" className="text-decoration-none  small">Privacy Policy</a>
               </li>
               <li className="mb-2">
-                <a href="#" className="text-decoration-none  small">Terms & Conditions</a>
+                <a href="/Terms" className="text-decoration-none  small">Terms & Conditions</a>
               </li>
             </ul>
           </Col>
