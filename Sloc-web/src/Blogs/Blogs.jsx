@@ -114,7 +114,7 @@ function Blogs() {
      <section className="Main-banner Blogs-banner" data-speed="1.5">
           <Container>
             <Row>
-              <Col md={6} >
+              <Col md={12} >
                 <h1>Real<br/>
                 Estate Blogs</h1>
                 <p>Explore expert blogs on buying, selling, investing, and living in your perfect space.<br/> Knowledge that moves with the market. </p>

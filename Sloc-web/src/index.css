@@ -452,3 +452,53 @@ svg.Move {
 .image-stack img.initial-image {
   transition: .2s all linear !important;
 }
+
+
+
+.timeline-container {
+  position: relative;
+  max-height: 500px;
+  overflow-y: auto;
+  padding-left: 2rem;
+  border-left: 2px solid #dee2e6;
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 3rem;
+  padding-left: 1.5rem;
+}
+
+.timeline-dot {
+  position: absolute;
+  top: 0.4rem;
+  left: -1.1rem;
+  width: 1rem;
+  height: 1rem;
+  background-color: #6c757d;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.timeline-dot.active {
+  background-color: #000;
+}
+
+.year-display {
+  font-size: 2.5rem;
+  color: #dee2e6;
+  opacity: 0.7;
+}
+button.navbar-toggler {
+  border: none !important;
+  background: #064685;
+  border-radius: 0;
+  color: white;
+  padding: 8px;
+}
+.navbar-toggler-icon {
+
+  background-image:url(./assets//Imgs/Togle.svg) !important;
+  padding: 10px;
+}

@@ -1207,16 +1207,19 @@ color: #064685  !important;
   margin: 0;
   font-size: 28px;
 }
-.overview button.btn.btn-light.text-dark {
-  background: #064685;
+.comn-btn {
+  background: #064685 !important;
   color: #fff !important;
-  padding: 12px 42px;
-  border-radius: 0;
-  margin-top: 20px;
-  font-weight: 500;
+  padding: 12px 42px !important;
+  border-radius: 0 !important;
+  margin-top: 20px !important;
+  font-weight: 500 !important;
+  border: none !important;
   font-family: "Poppins", sans-serif !important;}
 
-
+  .card-content img.text-primary.me-2 {
+    width: 100%;
+}
   .res img {
     width: 100px;
     height: 100px;
@@ -1236,7 +1239,6 @@ color: #064685  !important;
   margin: unset;
   color: unset;
   font-size: unset;
-  text-align: center !important;
 }
 img.home-struct {
   width: 100%;
@@ -1254,24 +1256,201 @@ section.list-home {
 }
 
 
+h4.amni-details {
+  display: inline;
+  margin-left: 15px;
+  font-size: 21px;
+  font-family: "Poppins", sans-serif !important;
+
+}
+.amni .brdr {
+  padding: 40px !important;
+}
 
 
 
 
 
 
+.slider-container {
+  margin: 50px 0;
+}
+
+.property-card {
+  position: relative;
+  background-color: #EFF7FE;
+  border: 1px solid #B8B8B8;
+  padding: 30px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  padding-top: 90px;
+}
 
 
 
+.card-content {
+  margin-top: 40px;
+}
+
+.card-content h3 {
+    font-size: 36px;
+    font-weight: 400;
+    margin-bottom: 8px;
+}
+.card-content p {
+  font-size: 16px;
+  color: #323232;
+  margin-bottom: 15px;
+}
+
+.cta-btn {
+  background-color: #002f6c;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.pricing{
+  background-image:url(./Project//pricing-bg.jpg) !important;
+background-position: center;
+background-size: cover;
+
+}
+.ribbon-set img {
+  position: absolute;
+  right: 0;
+  top: 35px;
+}
 
 
 
+.card-content {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+.left-side-move img.back-roll {
+  left: -14%;
+  width: 325px;
+  height: 325px;
+  top: 10%;
+}
+.pricing .swiper{
+  overflow: hidden !important;
+}
+
+.grid-r {
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+}
+.grid-r img {
+  width: 320px;
+}
+.image-showcase img {
+  width: 100%;
+}
+
+.img-scrol {
+  padding-bottom: 0px !important;
+}
 
 
 
+.image-showcase {
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  gap: 60px;
+}
+.image-showcase img:nth-child(2) {
+  margin-top: 60px;
+}
+.image-showcase img:nth-child(3) {
+  margin-top: -80px;
+}
+.img-scrol img.Move {
+  left: 28%;
+  z-index: -1;
+  animation: rotate-animation 10s infinite linear;
+}
 
+section.faqs {
+  padding: 80px 0;
+  padding-bottom: 20px;
+}
+.faqqs .all-border {
+  padding: 0 !important;
+}
 
+button.accordion-button {
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: unset !important;
+  font-size: 20px;
+  color: #161616 !important;
+  font-weight: 600;
+  justify-content: space-between;
+  flex-direction: row-reverse;
+  padding: 30px;
+}
+.accordion-button:not(.collapsed) {
+  background-color: unset !important;
 
+}
+
+.accordion-body {
+  padding: 30px !important;
+  padding-top: 10px !important;
+}
+
+/* Hide default arrow */
+.accordion-button::after {
+  display: none;
+}
+
+/* Add custom plus icon */
+.accordion-button::before {
+  content: "+";
+  font-size: 1.5rem;
+  margin-right: 10px;
+  color: #000000; /* Bootstrap primary color */
+  font-weight: bold;
+
+}
+
+/* Change plus to minus when expanded */
+.accordion-button:not(.collapsed)::before {
+  content: "−";
+  font-size: 1.5rem;
+  margin-right: 10px;
+  color: #000000;
+  font-weight: bold;
+}
+
+.meeting hr {
+ color: #FFFFFF!important;
+  opacity: 1;
+  /* border: 0.3px solid !important; */
+  width: 80%;
+}
+.meeting .form-check.mb-3.text-white {
+  width: unset;
+  padding-left:1.5rem !important;
+  text-align: left;
+}
+
+.meeting .form-check.mb-3.text-white label.form-check-label {
+  color: #fff;
+  font-size: 18px  !important;
+
+}
+.meeting .form-check.text-white{
+  padding-left: unset !important;
+}
+.meeting .form-set {
+  backdrop-filter: blur(8px) !important;
+  background: #00000010 !important;
+  margin-left: 30px;
+}
 
   /* Rotating Animation */
 
@@ -1287,3 +1466,129 @@ section.list-home {
     }
   }
 
+
+  .custom-range::-webkit-slider-thumb {
+    background-color: #ffffff;
+    border: 2px solid #003366;
+    height: 70px;
+    width: 70px;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-top: -7px;
+    z-index: 3;
+    position: relative;
+  }
+
+  .custom-range::-webkit-slider-runnable-track {
+    height: 6px;
+    background: linear-gradient(to right, #064685 var(--range-progress), #ccc var(--range-progress));
+    border-radius: 3px;
+  }
+
+  .custom-range::-moz-range-track {
+    height: 6px;
+    background: linear-gradient(to right, #064685 var(--range-progress), #ccc var(--range-progress));
+    border-radius: 3px;
+  }
+  .emi-chart .row {
+    padding: 0px !important;
+    ;
+
+}
+.emi-chart label.form-label {
+  font-size: 24px;
+  font-weight: bold;
+  font-family: "Nunito Sans", sans-serif !important;
+}
+.custom-range::-webkit-slider-thumb {
+  appearance: none;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border: none  !important;
+  background-color: #ffffff;
+  background-image: url(./Project/range.png);
+  background-size: cover;
+  background-position: center;
+  cursor: pointer;
+  margin-top: -14px;
+  z-index: 2;
+}
+
+.custom-range::-webkit-slider-runnable-track {
+  height: 6px;
+  background: linear-gradient(to right, #003366 var(--range-progress), #ccc var(--range-progress));
+  border-radius: 3px;
+}
+
+.custom-range::-moz-range-thumb {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border:none !important;
+  background-color: #ffffff;
+  background-image: url(./Project/range.png);
+  background-size: cover;
+  background-position: center;
+  cursor: pointer;
+}.emi-chart span {
+  font-size: 24px;
+  color: #808080;
+}.bg-chane {
+  background: #eff7fe;
+  border: none;
+  padding: 30px !important;
+}
+.set-to.card {
+  background: unset;
+  border: none;
+}.bg-chane.less-wi {
+  width: 56%;
+}
+.bg-chane .set-to.card canvas {
+  width: 370px !important;
+  height: 370px !important;
+  margin: 0 auto;
+}
+.bg-chane h6 {
+  font-size: 24px;
+  color: #1E1E1E !important;
+}
+.bg-chane h3 {
+  font-size: 40px;
+}
+.iti.iti--allow-dropdown.iti--show-flags.iti--inline-dropdown {
+  width: 100%;
+}
+.iti .iti__selected-dial-code {
+  margin-left: 0;
+  color: #ffffff;
+  border-right: 1px solid #fff;
+  padding-right: 10px;
+}
+input.form-control.iti__tel-input {
+  padding-left: 90px !important;
+}
+
+.searc-bar .iti__selected-dial-code {
+  border: none !important;
+  padding: 0 !important;
+  color: unset  !important;
+}
+.searc-bar input.form-control.iti__tel-input {
+  padding-left: 120px !important;
+}
+button.iti__selected-country {
+  border-left: 1px solid #B8B8B8;
+}
+input.form-control:focus {
+
+  border-color: #B8B8B8 !important;
+}
+.iti {
+    width: 100%;
+
+}
+.services-section h3.same-head {
+  color: #fff;
+}

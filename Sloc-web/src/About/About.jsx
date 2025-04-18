@@ -128,7 +128,7 @@ function About() {
     <section className="Main-banner About-banner" data-speed="1.5">
          <Container>
            <Row>
-             <Col md={6} >
+             <Col md={6} xs={12} >
                <h1>Your Property
                Partner</h1>
                <p>Explore expert blogs on buying, selling, investing, and living in your perfect space.<br/> Knowledge that moves with the market. </p>
@@ -195,8 +195,8 @@ function About() {
         <section className="services-section text-white">
       <Container>
         <div className='head-serv'>
-        <h3 className="section-title">SERVICES</h3>
-        <p className="section-subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        <h3 className="same-head">SERVICES</h3>
+        <p className="same-head-p">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
         </div>
         {services.map((service, idx) => (
           <Row key={idx} className="service-row py-3 align-items-center border-bottom border-white">
@@ -286,8 +286,8 @@ function About() {
     </section>
 
 
-    <section className="assistance-section position-relative same-space ">
-    <Container className='full'>
+    <section className="assistance-section position-relative same-space aline ">
+    <Container fluid className=''>
     <Row className=" px-5 ">
         <h3 className="section-title same-head">Our Alliances</h3>
         <p className="section-subtitle same-head-p">
@@ -423,7 +423,7 @@ function About() {
 
     <section className='time-sec'>
 
-<Timeline />
+{/* <Timeline /> */}
 
     </section>
 
