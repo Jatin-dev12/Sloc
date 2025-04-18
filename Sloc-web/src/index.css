@@ -60,9 +60,7 @@ a{
   font-size: 40px;
   color: #333;
 }
-.image-stack img.initial-image {
-  transition: .2s all ease;
-}
+
 .scroll-section {
   height: 100vh;
   display: flex;
@@ -450,4 +448,7 @@ img.Move {
 svg.Move {
   top: -150px;
   left: -7px;
+}
+.image-stack img.initial-image {
+  transition: .2s all linear !important;
 }

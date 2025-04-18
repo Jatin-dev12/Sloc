@@ -290,7 +290,7 @@ This project ensures seamless connectivity to Delhi and other parts of Gurgaon.
                           <section className="assistance-section position-relative same-space ">
                           <Container className='full'>
                           <Row className=" px-5 ">
-                              <h3 className="section-title same-head">Amenities</h3>
+                              <h3 className="section-title same-head">Amenities  </h3>
                               <p className="section-subtitle same-head-p">
                               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                               </p>
