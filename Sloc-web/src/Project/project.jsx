@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import React, { useEffect, useRef, useState } from 'react';
 import { Row, Col } from "react-bootstrap";
 import Container from "react-bootstrap/Container";
@@ -12,36 +13,36 @@ import {
 } from "react-bootstrap";
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import location from './navigate.svg'
+import location from './imgs/navigate.svg'
 import Round from "../assets/Imgs/rt.png";
 import Counter from "../Animations/CountUp/CountUp";
-import over1 from './over1.svg'
-import over2 from './over2.svg'
-import over3 from './over3.svg'
-import over4 from './over4.svg'
+import over1 from './imgs/over1.svg'
+import over2 from './imgs/over2.svg'
+import over3 from './imgs/over3.svg'
+import over4 from './imgs/over4.svg'
 import Icon from '../assets/Imgs/list-icon.svg'
 import back from '../assets/Imgs/back-cta.png'
-import Temp from './temp.png'
-import Struc from './home.png'
-import jog from './joging.png'
-import silent from './silent.png'
-import spa from './spa.png'
+import Temp from './imgs/temp.png'
+import Struc from './imgs/home.png'
+import jog from './imgs/joging.png'
+import silent from './imgs/silent.png'
+import spa from './imgs/spa.png'
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
-import lib from './lib.png'
-import tr from './24.png'
-import stake from './staking.png'
-import gym from './gym.png'
-import red from './red.png'
-import kach from './kach.png'
-import dubai from './dubai.png'
+import lib from './imgs/lib.png'
+import tr from './imgs/24.png'
+import stake from './imgs/staking.png'
+import gym from './imgs/gym.png'
+import red from './imgs/red.png'
+import kach from './imgs/kach.png'
+import dubai from './imgs/dubai.png'
 import WelcomeLogo from '../assets/Imgs/back-scrol-BsNhHslO.png'
-import air from './air.png'
-import f1 from './1st.png'
-import f2 from './2nd.png'
-import f3 from './3rd.png'
+import air from './imgs/air.png'
+import f1 from './imgs/1st.png'
+import f2 from './imgs/2nd.png'
+import f3 from './imgs/3rd.png'
 import Arrow from "../assets/Imgs/up-arrow.svg";
 import pro1 from "../assets/Imgs/f1.png";
 import pro2 from "../assets/Imgs/f2.png";
@@ -526,7 +527,7 @@ const handleSubmit = (e) => {
         </section>
 
         <section className="assistance-section position-relative same-space ">
-          <Container className='full amni'>
+          <Container fluid className=' amni'>
             <Row className=" px-5 ">
               <h3 className="section-title same-head">Amenities  </h3>
               <p className="section-subtitle same-head-p">
@@ -872,7 +873,8 @@ const handleSubmit = (e) => {
                 modules={[Navigation]}
                 breakpoints={{
                   768: { slidesPerView: 1 },
-                  992: { slidesPerView: 3 },
+                  992: { slidesPerView: 2  },
+                  1024: { slidesPerView: 3 },
                 }}
               >
         {projects.map((project, index) => (

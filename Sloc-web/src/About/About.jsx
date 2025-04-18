@@ -423,7 +423,7 @@ function About() {
 
     <section className='time-sec'>
 
-{/* <Timeline /> */}
+<Timeline />
 
     </section>
 

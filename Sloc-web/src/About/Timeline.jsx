@@ -96,13 +96,14 @@ const SuccessTimeline = () => {
               ref={(el) => (timelineRefs.current[index] = el)}
               className="timeline-item relative pl-16 pb-16"
             >
+                            <h2 className="text-5xl font-bold text-gray-200 mb-2">{item.year}</h2>
+
               <div
                 className={`absolute left-[24px] top-1 w-[14px] h-[14px] rounded-full border-2 border-blue-500 transition-all duration-300 ${
                   index <= activeIndex ? "bg-blue-500" : "bg-white"
                 }`}
               ></div>
 
-              <h2 className="text-5xl font-bold text-gray-200 mb-2">{item.year}</h2>
               <h5 className="text-xl font-bold text-gray-800 mb-2">{item.title}</h5>
               <p className="text-gray-600">{item.description || "Description coming soon..."}</p>
             </div>
@@ -114,6 +115,7 @@ const SuccessTimeline = () => {
           offer to avail any service. The prices mentioned are subject to change without prior notice, and the
           availability of properties...
         </p>
+        
       </Container>
         </section>
 

@@ -109,6 +109,9 @@ section.Main-banner.About-banner br {
 img.side-set {
   display: none;
 }
+.similar .swiper{
+  overflow: hidden !important;
+}
   }
 
  @media screen and (max-width: 1300px) {
@@ -156,6 +159,7 @@ img.side-set {
 .blog-h {
   font-size: 60px;
 }
+
 
   }
 

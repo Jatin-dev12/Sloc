@@ -1,21 +1,21 @@
 import React from "react";
-import { Outlet,useLocation  } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import Header from "./Header/Navbar";
 import Footer from "./Footer/Footer";
-
 
 const Layout = () => {
   const location = useLocation();
 
-  const isProjectPage = location.pathname === '/Project';
+  // Hide header on all routes starting with "/project"
+  const isProjectPage = location.pathname.toLowerCase().startsWith('/project');
+
   return (
     <>
-     {!isProjectPage && <Header />}
+      {!isProjectPage && <Header />}
       <Outlet />
-
-      <Footer/>
+      <Footer />
     </>
-  )
+  );
 };
 
 export default Layout;
