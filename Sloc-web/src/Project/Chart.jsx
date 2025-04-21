@@ -44,15 +44,16 @@ const EMICalculator = () => {
               <Form.Label>Loan Amount (₹)</Form.Label>
               <Form.Range
   className="custom-range"
-  min={100000}
-  max={300000000}
-  step={100000}
+  min={1000000} // 1 million
+  max={100000000} // 100 million
+  step={1000000} // 1 million step
   value={loanAmount}
   onChange={(e) => setLoanAmount(Number(e.target.value))}
   style={{
-    '--range-progress': `${((loanAmount - 100000) / (300000000 - 100000)) * 100}%`
+    '--range-progress': `${((loanAmount - 1000000) / (100000000 - 1000000)) * 100}%`
   }}
 />
+
               <div className="d-flex justify-content-between">
                 <span>1L</span>
                 <span>30CR</span>

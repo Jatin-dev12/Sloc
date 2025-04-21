@@ -459,13 +459,10 @@ svg.Move {
   position: relative;
   max-height: 500px;
   overflow-y: auto;
-  padding-left: 2rem;
-  border-left: 2px solid #dee2e6;
 }
 
 .timeline-item {
   position: relative;
-  margin-bottom: 3rem;
   padding-left: 1.5rem;
 }
 
@@ -501,4 +498,29 @@ button.navbar-toggler {
 
   background-image:url(./assets//Imgs/Togle.svg) !important;
   padding: 10px;
+}
+
+.timeline-container::-webkit-scrollbar {
+  display: none;
+  /* Hide scrollbar */
+}
+
+/* Hide scrollbar for Firefox */
+.timeline-container {
+  scrollbar-width: none;
+  /* Firefox */
+}
+
+/* Hide scrollbar for Internet Explorer and Edge */
+.timeline-container {
+  -ms-overflow-style: none;
+  /* Internet Explorer and Edge */
+}
+
+/* Optional: If you want to ensure that the content is still scrollable */
+.timeline-container {
+  overflow: auto;
+  border-right: 1px solid #ccc;
+
+  /* Ensure the content can still be scrolled */
 }

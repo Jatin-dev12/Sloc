@@ -1,4 +1,9 @@
-
+.similar .swiper{
+  overflow: hidden !important;
+}
+main.project-page {
+  overflow-x: hidden;
+}
 @media screen and (max-width: 1550px){
   img.side-set {
   display: none;
@@ -112,6 +117,56 @@ img.side-set {
 .similar .swiper{
   overflow: hidden !important;
 }
+
+.top-line-info p {
+
+  font-size: 18px;
+  
+}
+.lastbar h6 {
+  margin: 0;
+  font-size: 22px;
+}
+.card-content h3 {
+  font-size: 30px;
+
+}
+.grid-r img {
+  width: 250px;
+}
+
+button.accordion-button {
+
+  font-size: 18px;
+ 
+}
+.meeting .form-set {
+
+  margin-left: 0;
+}
+.meeting .form-check.mb-3.text-white label.form-check-label {
+  
+  font-size: 14px !important;
+}
+.form-set button.btn.btn-light.text-dark {
+  font-size: 16px;
+ 
+}
+section.featured.similar {
+  padding-top: 60px !important;
+}
+.bg-chane h3 {
+  font-size: 35px;
+}
+.emi-chart label.form-label {
+  font-size: 20px;
+  font-weight: bold;
+  font-family: "Nunito Sans", sans-serif !important;
+}
+.emi-chart span {
+  font-size: 20px;
+  color: #808080;
+}
   }
 
  @media screen and (max-width: 1300px) {
@@ -159,8 +214,20 @@ img.side-set {
 .blog-h {
   font-size: 60px;
 }
+.top-line-info p {
+  font-size: 16px;
+} .lastbar h6 {
+  font-size: 20px;
+}
+.comn-btn {
+  padding: 12px 25px !important;
+ 
+}
+.form-set h5 {
 
-
+  font-size: 20px;
+  
+}
   }
 
 
@@ -252,6 +319,18 @@ section.featured .card-title.h5 {
 img.side-set {
     display: none;
 }
+.bg-chane h6 {
+  font-size: 20px;
+  color: #1E1E1E !important;
+}
+.bg-chane h3 {
+  font-size: 30px;
+}
+.bg-chane .set-to.card canvas {
+  width: 300px !important;
+  height: 300px !important;
+  margin: 0 auto;
+}
 }
 
 @media screen and (max-width: 1100px){
@@ -289,7 +368,29 @@ footer h6 {
 .why-choose.card p {
   font-size: 15px;
 }
+section.welcome .card p {
 
+  font-size: 15px;
+ 
+}
+.cntnct li {
+  font-size: 16px;
+}
+.alliance.row .brdr img {
+  /* width: 70%; */
+  object-fit: contain;
+  height: 70%;
+}
+.comn-btn {
+  font-size: 12px;
+}
+.card-content h3 {
+  font-size: 25px;
+}
+.form-set {
+  background: #064685;
+  padding: 40px 25px;
+}
 }
 @media screen and (max-width: 1024px){
   .searc-bar {
@@ -340,7 +441,35 @@ section.blog-detailss {
 .alliance.row .brdr img {
   width: 100%;
 }
+.top-co p {
+  font-size: 16px;
+}
+.res img {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 20px;
+}
+.overview img.scrol-top {
+  top: -65%;
+}
+section.list-home {
+  padding-top: 40px;
+}
+.amni.container-fluid .brdr img {
+  width: UNSET;
+}
+.card-content h3 {
+  font-size: 20px;
+}
+.card-content p {
+  font-size: 14px;
 
+
+}
+
+.comn-btn {
+  font-size: 10px;
+}
 }
 
 
@@ -450,6 +579,62 @@ br{
 .connect, .select, .buy, .cus {
 
   gap: 20px;
+}
+.navbar>.container, .navbar>.container-fluid, .navbar>.container-lg, .navbar>.container-md, .navbar>.container-sm, .navbar>.container-xl, .navbar>.container-xxl {
+  display: flex;
+  flex-wrap: inherit;
+  align-items: center;
+  justify-content: end;
+}
+.top-co {
+  padding-top: 0 !important;
+}
+section.welcome {
+  padding: 40px 0 !important;
+}
+.bg-chane.less-wi {
+  width: 100%;
+  margin-bottom: 1em;
+}
+.meeting .d-flex.align-items-center.justify-content-center.px-5.row {
+  gap: 4em;
+  text-align: center;
+}
+.meeting hr {
+
+  width: 100%;
+}
+.assistance-section {
+  padding: 40px 0 !important;
+ padding-bottom: 0 
+  !important;
+}
+.left-side-move .d-flex.align-items-center.justify-content-center.px-5.row {
+  gap: 2em;
+  text-align: center;
+  padding: 0 !important;
+}
+.grid-r {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+}
+.img-scrol img.Move {
+  left: -18%;
+  z-index: -1;
+  animation: rotate-animation 10s infinite linear;
+  top: 26%;
+}
+.res img {
+
+  margin: 0 auto;
+  margin-bottom: 20px;
+}
+section.welcome.overview {
+  padding-top: 40px !important;
+  text-align: center;
+}
+.same-space {
+  padding: 40px 0 !important;
 }
 }
 
@@ -564,6 +749,23 @@ margin-top: 10px;
 
 .achivments.row .mb-4.col-md-6:nth-child(7){
   margin-top: 0px;
+}
+.grid-r img {
+  width: 100%;
+}
+.ps-md-4.text-sm-center {
+  text-align: center;
+}
+section.faqs {
+  padding: 40px 0;
+  padding-bottom: 20px;
+}
+button.accordion-button {
+  font-size: 16px;
+}
+.accordion-body {
+
+  font-size: 13px;
 }
 }
 

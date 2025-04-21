@@ -26,7 +26,7 @@ import back from '../assets/Imgs/back-cta.png'
 import React, { useEffect,  useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import WelcomeLogo from '../assets/Imgs/back-scrol-BsNhHslO.png'
+import WelcomeLogo from '../assets/Imgs/Group (2).svg'
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -157,7 +157,7 @@ function Home() {
       logoFrom: { opacity: 0, y: -160, x: 160, scale: 0.9 },
       logoTo1: { opacity: 1, y: 50, x: 300, scale: 0.6, duration: 1 },
       scrollImageTo: { opacity: 0, duration: 0.2 },
-      pathsTo: { fill: '#012fcb', stroke: '#012fcb', duration: 0.6 },
+      pathsTo: { fill: '#0b4d83c4', stroke: '#0b4d83c4', duration: 0.6 },
       logoTo2: { y: 460, x: 509, scale: 0.1, duration: 2.5 },
       logoTo3: { opacity: 0, duration: 0.5 },
       scrollTrigger: { start: 'top center', end: 'bottom center', scrub: 0.5 },
@@ -167,78 +167,81 @@ function Home() {
     if (width <= 425) {
       props = {
         logoFrom: { opacity: 0, y: -80, x: 80, scale: 0.8 },
-        logoTo1: { opacity: 1, y: 20, x: 100, scale: 0.5, duration: 0.8 },
+        logoTo1: { opacity: 1, y: 650, x: 100, scale: 0.5, duration: 21, scrub: 1.2},
         scrollImageTo: { opacity: 0, duration: 0.15 },
-        pathsTo: { fill: '#012fcb', stroke: '#012fcb', duration: 0.5 },
-        logoTo2: { y: 200, x: 150, scale: 0.05, duration: 2 },
-        logoTo3: { opacity: 0, duration: 0.4 },
-        scrollTrigger: { start: 'top 80%', end: 'bottom 20%', scrub: 0.3 },
+        pathsTo: { fill: '#0b4d83c4', stroke: '#0b4d83c4', duration: 2.5 },
+        logoTo2: { y: 966, x: -39, scale: 0.1, duration: 29 },
+        logoTo3: { opacity: 0, duration: 0.1 },
+        scrollTrigger: { start: 'top 30%', end: 'bottom 77.6%', scrub: 1.2 },
       };
     } else if (width <= 574) {
       props = {
         logoFrom: { opacity: 0, y: -100, x: 100, scale: 0.85 },
         logoTo1: { opacity: 1, y: 30, x: 120, scale: 0.55, duration: 0.9 },
         scrollImageTo: { opacity: 0, duration: 0.18 },
-        pathsTo: { fill: '#012fcb', stroke: '#012fcb', duration: 0.55 },
-        logoTo2: { y: 250, x: 180, scale: 0.08, duration: 2.2 },
+        pathsTo: { fill: '#0b4d83c4', stroke: '#0b4d83c4', duration: 0.55 },
+        logoTo2: { y: 910, x: 39, scale: 0.1, duration: 15 },
         logoTo3: { opacity: 0, duration: 0.45 },
-        scrollTrigger: { start: 'top 75%', end: 'bottom 25%', scrub: 0.4 },
+        scrollTrigger: { start: 'top 69%', end: 'bottom 79%', scrub: 0.4 },
       };
     } else if (width <= 991) {
       props = {
-        logoFrom: { opacity: 0, y: 0, x: 0, scale: 0.9 },
-        logoTo1: { opacity: 1, y: 0, x: 0, scale: 0.55, duration: 1 },
+        logoFrom: { opacity: 0, y: -140, x: 340, scale: 0.9 },
+        logoTo1: { opacity: 1, y: 45, x: 350, scale: 0.58, duration: 1},
         scrollImageTo: { opacity: 0, duration: 0.2 },
-        pathsTo: { fill: '#06467973', stroke: '#06467973', duration: 0.6 },
-        logoTo2: { y: 0, x: 0, scale: 0.1, duration: 2.3 },
+        pathsTo: { fill: '#0b4d83c4', stroke: '#0b4d83c4', duration: 0.6 },
+        logoTo2: { y: 485, x: 250, scale: 0.1, duration: 3.6 },
         logoTo3: { opacity: 0, duration: 0.5 },
-        scrollTrigger: { start: 'top ', end: 'bottom center', scrub: 0.5 },
+        scrollTrigger: { start: 'top 65%', end: 'bottom 61%', scrub: 0.5 },
       };
     } else if (width <= 1100) {
       props = {
         logoFrom: { opacity: 0, y: -140, x: 140, scale: 0.9 },
         logoTo1: { opacity: 1, y: 45, x: 200, scale: 0.58, duration: 1 },
         scrollImageTo: { opacity: 0, duration: 0.2 },
-        pathsTo: { fill: '#06467973', stroke: '#06467973', duration: 0.6 },
-        logoTo2: { y: 350, x: 300, scale: 0.1, duration: 2.4 },
+        pathsTo: { fill: '#0b4d83c4', stroke: '#0b4d83c4', duration: 0.6 },
+        logoTo2: { y: 405, x: 306, scale: 0.1, duration: 5.6 },
         logoTo3: { opacity: 0, duration: 0.5 },
-        scrollTrigger: { start: 'top 65%', end: 'bottom 35%', scrub: 0.5 },
+        scrollTrigger: { start: 'top 65%', end: 'bottom 63%', scrub: 0.5 },
       };
-    } else if (width <= 1400) {
+    }  
+    else if (width <= 1400) {
       props = {
         logoFrom: { opacity: 0, y: -150, x: 150, scale: 0.9 },
         logoTo1: { opacity: 1, y: 48, x: 250, scale: 0.6, duration: 1 },
         scrollImageTo: { opacity: 0, duration: 0.2 },
-        pathsTo: { fill: '#064679a3', stroke: '#064679a3', duration: 0.6 },
-        logoTo2: { y: 400, x: 400, scale: 0.1, duration: 2.5 },
+        pathsTo: { fill: '#0b4d83c4', stroke: '#0b4d83c4', duration: 0.6 },
+        logoTo2: { y: 445, x: 470, scale: 0.1, duration: 2.6 },
         logoTo3: { opacity: 0, duration: 0.5 },
-        scrollTrigger: { start: 'top 60%', end: 'bottom 40%', scrub: 0.5 },
+        scrollTrigger: { start: 'top 60%', end: 'bottom 59%', scrub: 1 },
       };
     } else if (width <= 1600) {
       props = {
         logoFrom: { opacity: 0, y: -155, x: 155, scale: 0.9, scrub: 1 },
-        logoTo1: { opacity: 1, y: 50, x: 280, scale: 0.6, duration: 1 },
-        scrollImageTo: { opacity: 0, duration: 0.2 },
-        pathsTo: { fill: '#06467973', stroke: '#06467973', duration: 0.6 },
-        logoTo2: { y: 490, x: 550, scale: 0.1, duration: 2.5 },
+        logoTo1: { opacity: 1, y: 50, x: 280, scale: 0.6, duration: 1 , scrub: 1},
+        scrollImageTo: { opacity: 0, duration: 1.1, scrub: 1 },
+        pathsTo: { fill: '#0b4d83c4', stroke: '#0b4d83c4', scrub: 3 },
+        logoTo2: { y: 510, x: 551, scale: 0.1, duration: 4.6  },
         logoTo3: { opacity: 0, duration: 0.5 },
-        scrollTrigger: { start: 'top 55%', end: 'bottom 45%', scrub: 2.3 },
+        scrollTrigger: { start: 'top 75%', 
+          end: 'bottom 55%',
+        ease: 'power3.out', scrub: 2.3 },
       };
     } else if (width <= 1920) {
       props = {
-        logoFrom: { opacity: 0, y: -160, x: 160, scale: 0.9 },
+        logoFrom: { opacity: 0, y: -160, x: 110, scale: 0.9 },
         logoTo1: { opacity: 1, y: 50, x: 300, scale: 0.6, duration: 1 },
         scrollImageTo: { opacity: 0, duration: 0.2 },
-        pathsTo: { fill: '#06467973', stroke: '#06467973', duration: 0.6 },
-        logoTo2: { y: 460, x: 509, scale: 0.1, duration: 2.5 },
+        pathsTo: { fill: '#0b4d83c4', stroke: '#0b4d83c4', duration: 0.6 },
+        logoTo2: { y: 523, x: 725, scale: 0.1, duration: 3.2 },
         logoTo3: { opacity: 0, duration: 0.5 },
-        scrollTrigger: { start: 'top center', end: 'bottom center', scrub: 0.5 },
+        scrollTrigger: { start: 'top center', end: 'bottom 55%', scrub: 0.5 },
       };
     }
 
     return props;
   };
-
+  
   useEffect(() => {
     // Ensure logoRefs exists
     const paths = logoRefs.current?.querySelectorAll('path');
@@ -246,22 +249,22 @@ function Home() {
       console.warn('No paths found in logoRefs');
       return;
     }
-
+  
     // Set initial faded color using GSAP to avoid FOUC
     gsap.set(paths, {
-      fill: '#06467973',
-      stroke: '#06467973',
+      fill: '#b3b3b3',
+      stroke: '#b3b3b3',
     });
-
+  
     // Function to create or update animation
     const createAnimation = () => {
       // Get current width
       const width = window.innerWidth;
       const props = getAnimationProps(width);
-
+  
       // Kill existing ScrollTriggers to avoid duplicates
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-
+  
       // GSAP Timeline with ScrollTrigger
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -272,6 +275,34 @@ function Home() {
           markers: false,
         },
       })
+
+      // GSAP Timeline with ScrollTrigger
+    // const tl = gsap.timeline({
+    //   scrollTrigger: {
+    //     trigger: containerRefs.current,
+    //     ...props.scrollTrigger,
+    //     anticipatePin: 1,
+    //     fastScrollEnd: true,
+    //     markers: false,
+    //     // Add onEnterBack to control image reappearance
+    //     onEnterBack: () => {
+    //       gsap.to(scrollImageRef.current, {
+    //         opacity: 1, // Fade image back in
+    //         duration: 3.7,
+    //         delay: 6.1, // Delay the appearance when scrolling up
+    //         ease: 'power3.out',
+    //       });
+    //     },
+    //     // Ensure image fades out when scrolling down past the trigger
+    //     onLeave: () => {
+    //       gsap.to(scrollImageRef.current, {
+    //         opacity: 0,
+    //         duration: 0.5,
+    //         ease: 'power3.out',
+    //       });
+    //     },
+    //   },
+    // })
         .fromTo(
           logoRefs.current,
           props.logoFrom,
@@ -313,13 +344,13 @@ function Home() {
           },
           '-=1.1'
         );
-
+  
       return tl;
     };
-
+  
     // Initial animation
     let tl = createAnimation();
-
+  
     // Optimized resize handler
     let timeout;
     const handleResize = () => {
@@ -331,7 +362,7 @@ function Home() {
       }, 200);
     };
     window.addEventListener('resize', handleResize);
-
+  
     // Cleanup
     return () => {
       tl.kill();
@@ -340,105 +371,7 @@ function Home() {
     };
   }, []);
 
-  // useEffect(() => {
-  //   // Ensure logoRefs exists
-  //   const paths = logoRefs.current?.querySelectorAll('path');
-  //   if (!paths || paths.length === 0) {
-  //     console.warn('No paths found in logoRefs');
-  //     return;
-  //   }
 
-  //   // Set initial faded color using GSAP to avoid FOUC
-  //   gsap.set(paths, {
-  //     fill: '#064685',
-  //     stroke: '#064685',
-  //   });
-
-  //   // GSAP Timeline with ScrollTrigger
-  //   const tl = gsap.timeline({
-  //     scrollTrigger: {
-  //       trigger: containerRefs.current,
-  //       start: 'top center',
-  //       end: 'bottom center',
-  //       scrub: 0.5, // Increased for smoother scrubbing
-  //       markers: false,
-  //       anticipatePin: 1, // Improves pinning performance
-  //       fastScrollEnd: true, // Reduces lag at scroll end
-  //     },
-  //   })
-  //     .fromTo(
-  //       logoRefs.current,
-  //       {
-  //         opacity: 0,
-  //         y: -160,
-  //         x: 160,
-  //         scale: 0.9,
-  //         willChange: 'transform, opacity',
-  //       },
-  //       {
-  //         opacity: 1,
-  //         y: 50,
-  //         x: 300,
-  //         scale: 0.6,
-  //         duration: 1,
-  //         ease: 'power3.out', // Smoother easing
-  //       }
-  //     )
-  //     .to(
-  //       scrollImageRef.current,
-  //       {
-  //         opacity: 0,
-  //         duration: 0.2,
-  //         ease: 'power3.out',
-  //       },
-  //       '-=1'
-  //     )
-  //     .to(
-  //       paths,
-  //       {
-  //         fill: '#064685',
-  //         stroke: '#064685',
-  //         duration: 0.6, // Smoother color transition
-  //         ease: 'sine.out', // Gentle color easing
-  //       },
-  //       '-=1'
-  //     )
-  //     .to(
-  //       logoRefs.current,
-  //       {
-  //         y: 460,
-  //         x: 509,
-  //         scale: 0.1,
-  //         duration: 2.5, // Reduced for better performance
-  //         ease: 'power3.inOut',
-  //       },
-  //       '-=0.4'
-  //     )
-  //     .to(
-  //       logoRefs.current,
-  //       {
-  //         opacity: 0,
-  //         duration: 0.5, // Smoother fade-out
-  //         ease: 'sine.out',
-  //       },
-  //       '-=1.1'
-  //     );
-
-  //   // Optimized resize handler
-  //   let timeout;
-  //   const handleResize = () => {
-  //     clearTimeout(timeout);
-  //     timeout = setTimeout(() => ScrollTrigger.refresh(), 200);
-  //   };
-  //   window.addEventListener('resize', handleResize);
-
-  //   // Cleanup
-  //   return () => {
-  //     tl.kill();
-  //     ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-  //     window.removeEventListener('resize', handleResize);
-  //   };
-  // }, []);
   const section1Ref = useRef(null);
   const section2Ref = useRef(null);
   const imageRefs = useRef([]);
@@ -466,7 +399,7 @@ function Home() {
           // Target 220px above the top-right corner of the card's top image
           return {
             x: cardImgRect.right - imgRect.width / 2 - imgRect.left, // Center at right edge
-            y: cardImgRect.top - 215 + imgRect.height / 2 - imgRect.top, // Center 220px above top
+            y: cardImgRect.top - 229 + imgRect.height / 2 - imgRect.top, // Center 220px above top
           };
         };
 
@@ -490,7 +423,7 @@ function Home() {
               trigger: section1Ref.current,
               start: "top center+=135",
               end: "bottom center",
-              scrub: true,
+              scrub: 0.6,
               onUpdate: (self) => {
                 const imgRect = img.getBoundingClientRect();
                 const boxRect = box.getBoundingClientRect();
@@ -525,7 +458,7 @@ bottomImages.forEach((img) => {
   gsap.fromTo(
     img,
     {
-      x: 0,
+      x: -110,
       y: 0,
       scale: 0,
       opacity: 1,
@@ -539,12 +472,12 @@ bottomImages.forEach((img) => {
   duration: 3.5,
       visibility: "visible",
       ease: "power2.out",
+      scrub: 2,
       scrollTrigger: {
         trigger: section2Ref.current,
         start: "top center+=70",
         end: "bottom center-=20",
         scrub: 2,
-
       },
     }
   );
@@ -612,51 +545,135 @@ gsap.to([section2Image], {
     }, []);
     const logoRefs1 = useRef(null);
     const containerRefs1 = useRef(null);
+    const getAnimationProps1 = (width) => {
+      // Default values for larger screens (>1920px)
+      let props = {
+        fromTo: {
+          from: { opacity: 0, y: -490, x: 1150 },
+          to: { opacity: 1, y: 50, x: 550, ease: 'power3.out', duration: 5.5 },
+        },
+        to: { opacity: 0, y: 550, x: 550, scale: 0, ease: 'power3.inOut', duration: 7.5 },
+        scrollTrigger: { start: 'top center+=30px', end: 'bottom center-=-30px', scrub: 1.2 },
+      };
+    
+      // Adjust for specific breakpoints
+      if (width <= 425) {
+        props = {
+          fromTo: {
+            from: { opacity: 0, y: -300,scale:1.3, x: 90 },
+            to: { opacity: 1, y: 30, x: 100,scale: 0.7, ease: 'power3.out', duration: 4.8 },
+          },
+          to: { opacity: 0, y: 600, x: 20, scale: 0, ease: 'power3.inOut', duration: 6.5 },
+          scrollTrigger: { start: 'top 75%', end: 'bottom 35%', scrub: 0.9 },};
+      } else if (width <= 574) {
+        props = {
+          fromTo: {
+            from: { opacity: 0, y: -300,scale:1.3, x: 150 },
+            to: { opacity: 1, y: 30, x: 150,scale: 0.7, ease: 'power3.out', duration: 4.8 },
+          },
+          to: { opacity: 0, y: 570, x: 90, scale: 0, ease: 'power3.inOut', duration: 6.5 },
+          scrollTrigger: { start: 'top 75%', end: 'bottom 35%', scrub: 0.9 },
+        };
+      } else if (width <= 991) {
+        props = {
+          fromTo: {
+            from: { opacity: 0, y: -300, x: 600 },
+            to: { opacity: 1, y: 40, x: 350, ease: 'power3.out', duration: 5 },
+          },
+          to: { opacity: 0, y: 550, x: 300, scale: 0, ease: 'power3.inOut', duration: 7 },
+          scrollTrigger: { start: 'top 70%', end: 'bottom 33%', scrub: 1 },
+        };
+      } else if (width <= 1100) {
+        props = {
+          fromTo: {
+            from: { opacity: 0, y: -410, x: 730 ,scale: 1.2,scrub: 3},
+            to: { opacity: 1, y: 45, x: 390,scale: 0.7, ease: 'power3.out', duration: 5.2 },
+          },
+          to: { opacity: 0, y: 550, x: 370, scale: 0, ease: 'power3.inOut', duration: 7.2 },
+          scrollTrigger: { start: 'top 65%', end: 'bottom 45%', scrub: 2 },
+        };
+      } else if (width <= 1400) {
+        props = {
+          fromTo: {
+            from: { opacity: 0, y: -400,scale: 1.2, x: 980 ,scrub: 2},
+            to: { opacity: 1, y: 8, x: 570,scale: 0.7, ease: 'power3.out', duration: 5.3 },
+          },
+          to: { opacity: 0, y: 570, x: 497, scale: 0, ease: 'power3.inOut', duration: 7.3 },
+          scrollTrigger: { start: 'top 60%', end: 'bottom 45%', scrub: 2.1 },
+        };
+      } else if (width <= 1600) {
+        props = {
+          fromTo: {
+            from: { opacity: 0, y: -390, x: 1170 ,scale: 1.3, scrub: 1},
+            to: { opacity: 1, y: 50, x: 600,scale: 0.7, ease: 'power3.out', duration: 3.5, scrub: 1 },
+          },
+          to: { opacity: 0, y: 590, x: 600, scale: 0, ease: 'power3.inOut', duration: 3.9 , scrub: 1},
+          scrollTrigger: { start: 'top 55%', end: 'bottom 55%', duration: 3.5,scrub: 1.6 },
+        };
+      } else if (width <= 1920) {
+        props = {
+          fromTo: {
+            from: { opacity: 0, y: -390, x: 1550,scale: 1.3 },
+            to: { opacity: 1, y: 10, x: 790, scale: 1, ease: 'power3.out', duration: 5.5 },
+          },
+          to: { opacity: 0, y: 550, x: 760, scale: 0, ease: 'power3.inOut', duration: 5.6, scrub: 3.2 },
+          scrollTrigger: { start: 'top center+=30px', end: 'bottom center-=-30px', scrub: 1.2 },
+        };
+      }
+    
+      return props;
+    };
     useEffect(() => {
+      // Get initial width
+      let width = window.innerWidth;
+      let animationProps = getAnimationProps1(width);
+    
+      // Create GSAP timeline
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: containerRefs1.current,
-          start: "top center+=30px", // -30px offset for scrolling up (delays start)
-          end: "bottom center-=-30px", // -30px offset for scrolling down
-          scrub: 1.2, // Smooth scrubbing for both directions
-          markers: false, // Set to true for debugging
+          ...animationProps.scrollTrigger,
+          markers: false,
         },
       })
         .fromTo(
           logoRefs1.current,
-          {
-            opacity: 0,
-            y: -490,
-            x: 1150,
-          },
-          {
-            opacity: 1,
-            y: 50,
-            x: 550,
-            ease: "power3.out",
-            duration: 5.5,
-          }
+          animationProps.fromTo.from,
+          animationProps.fromTo.to
         )
-        .to(logoRefs1.current, {
-          opacity: 0,
-          y: 480,
-          x: 540,
-          scale: 0,
-          ease: "power3.inOut",
-          duration: 9.5,
-        });
-
-      // Handle resize to refresh ScrollTrigger
+        .to(logoRefs1.current, animationProps.to);
+    
+      // Handle resize to refresh animation with new props
       let timeout;
-      window.addEventListener("resize", () => {
+      const handleResize = () => {
         clearTimeout(timeout);
-        timeout = setTimeout(() => ScrollTrigger.refresh(), 100);
-      });
-
+        timeout = setTimeout(() => {
+          width = window.innerWidth;
+          animationProps = getAnimationProps1(width);
+          // Kill existing ScrollTrigger and create a new one
+          ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+          const newTl = gsap.timeline({
+            scrollTrigger: {
+              trigger: containerRefs1.current,
+              ...animationProps.scrollTrigger,
+              markers: false,
+            },
+          })
+            .fromTo(
+              logoRefs1.current,
+              animationProps.fromTo.from,
+              animationProps.fromTo.to
+            )
+            .to(logoRefs1.current, animationProps.to);
+        }, 100);
+      };
+    
+      window.addEventListener('resize', handleResize);
+    
       // Cleanup
       return () => {
         ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-        window.removeEventListener("resize", () => {});
+        window.removeEventListener('resize', handleResize);
       };
     }, []);
 
@@ -665,7 +682,6 @@ gsap.to([section2Image], {
   const BlogsboxRefs = useRef([]);
   const BlogBottomImageRefs = useRef([]);
   const BlogsBottomsectionRef = useRef(null);
-
   useEffect(() => {
     const boxes = BlogsboxRefs.current;
     const images = BlogimageRefs.current;
@@ -691,6 +707,7 @@ gsap.to([section2Image], {
           y: -170,
           scale: 1,
           opacity: 1,
+          duration : 1.5,
           visibility: "hidden",
         },
         {
@@ -702,9 +719,9 @@ gsap.to([section2Image], {
           ease: "power2.out",
           scrollTrigger: {
             trigger: blogsectionRef.current,
-            start: "top center+=175",
+            start: "top center+=105",
             end: "bottom center",
-            scrub: true,
+            scrub: 0.67,
             onUpdate: (self) => {
               const imgRect = img.getBoundingClientRect();
               const boxRect = box.getBoundingClientRect();
@@ -726,7 +743,6 @@ gsap.to([section2Image], {
 // Collapse and vanish images into one at the bottom
 
   }, []);
-
   return (
     <>
       <main id="All" >

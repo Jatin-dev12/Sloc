@@ -280,16 +280,16 @@ const handleSubmit = (e) => {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                   <Nav className="ml-auto">
-                    <Nav.Link href="/">Overview</Nav.Link>
-                    <Nav.Link href="/About">Highlights</Nav.Link>
-                    <Nav.Link href="/Blogs">Amenities</Nav.Link>
-                    <Nav.Link href="/Blogs">Layout & Pricing</Nav.Link>
+                    <Nav.Link href="#Overview">Overview</Nav.Link>
+                    <Nav.Link href="#highlight">Highlights</Nav.Link>
+                    <Nav.Link href="#Amenities">Amenities</Nav.Link>
+                    <Nav.Link href="#Layout">Layout & Pricing</Nav.Link>
 
-                    <Nav.Link href="/Blogs">Gallery</Nav.Link>
+                    <Nav.Link href="#Gallery">Gallery</Nav.Link>
 
-                    <Nav.Link href="/Blogs">EMI Calculator</Nav.Link>
+                    <Nav.Link href="#Emi">EMI Calculator</Nav.Link>
 
-                    <Nav.Link href="#" className="cntnct">Contact Us</Nav.Link>
+                    <Nav.Link href="/contact" className="cntnct">Contact Us</Nav.Link>
                   </Nav>
                 </Navbar.Collapse>
               </Container>
@@ -381,10 +381,10 @@ const handleSubmit = (e) => {
           </div>
         </section>
 
-        <section className="welcome overview">
+        <section className="welcome overview" id='Overview'>
 
 
-          <Container className="py-5 mt-5">
+          <Container className="py-md-5 mt-md-5">
             <Row className="mb-4 d-flex">
               <Col md={6} className="align-content-end head">
                 <img src={Round} alt="scroling" className="scrol-top" />
@@ -434,7 +434,7 @@ const handleSubmit = (e) => {
           </Container>
         </section>
 
-        <section className="list-home">
+        <section className="list-home" id='highlight'>
 
           <Container fluid className="p-0 px-5">
             <Row className="mb-3 d-flex py-4 align-content-center">
@@ -526,7 +526,7 @@ const handleSubmit = (e) => {
           </Container>
         </section>
 
-        <section className="assistance-section position-relative same-space ">
+        <section className="assistance-section position-relative same-space " id='Amenities'>
           <Container fluid className=' amni'>
             <Row className=" px-5 ">
               <h3 className="section-title same-head">Amenities  </h3>
@@ -589,7 +589,7 @@ const handleSubmit = (e) => {
           </Container>
         </section>
 
-        <section className="pricing position-relative same-space">
+        <section className="pricing position-relative same-space" id='Layout'>
           <Container className='full amni'>
             <Row className=" px-5 ">
               <h3 className="section-title same-head">layout & pricing  </h3>
@@ -678,12 +678,12 @@ const handleSubmit = (e) => {
           </Container>
         </section>
 
-        <section className="social-proof position-relative img-scrol">
+        <section className="social-proof position-relative img-scrol" id='Gallery'>
                   <img className="Move" src={WelcomeLogo}  />
                   <Container className="">
                     <Row className="align-items-center justify-content-between">
                       <Col md={5} className="mb-4 mb-md-0">
-                        <div className="ps-md-4">
+                        <div className="ps-md-4 text-sm-center">
                           <h2 className="same-head">Gallery  </h2>
                           <p className="same-head-p">
                           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -909,7 +909,7 @@ const handleSubmit = (e) => {
   </Container>
         </section>
 
-        <section  className="featured calculater pt-0">
+        <section  className="featured calculater pt-0" id='Emi'>
 
   <Container className="full">
            <Row className="mb-4 d-flex py-md-4 align-content-center">
