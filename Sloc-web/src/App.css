@@ -1059,7 +1059,7 @@ section.achivments {
 
 .why-choose.card h5 {
   color: #fff;
-  font-size: 28px;
+  font-size: 26px;
 }
 
 .why-choose.card p {
@@ -1649,7 +1649,7 @@ button.accordion-button {
 
 .emi-chart .row {
   padding: 0px !important;
-  
+
 
 }
 
@@ -1792,7 +1792,7 @@ input.form-control:focus {
 
 .custom-range::-moz-range-thumb:focus {
   outline: none !important;
-  box-shadow: none !important; 
+  box-shadow: none !important;
 }
 
 .custom-range::-ms-thumb:focus {
@@ -1846,9 +1846,8 @@ height: 350px;
 .year-data {
   padding: 60px;
   padding-right: 0;
-  border: 1px solid #ccc;
-  border-left: none;
-  border-right: 0;
+  border-bottom: 1px solid #ccc;
+
   width: 100%;
   max-width: 1000px;
   backdrop-filter: blur(4px);
@@ -1856,6 +1855,7 @@ height: 350px;
   align-content: center;
   min-height: 300px;
 }
-.timeline-item:nth-child(1){
-  
+
+.timeline-item:first-child .year-data {
+  border-top: 1px solid #ccc !important;
 }

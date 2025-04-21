@@ -33,91 +33,60 @@ import Timeline from './Timeline.jsx'
 
 
 const services = [
-  { title: "REAL STATE CONSULTING", desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." },
-  { title: "LEGAL CONSULTING", desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." },
-  { title: "WE ARE HAPPY TO SERVE", desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." },
-  { title: "NRI SERVICES", desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." },
-  { title: "Sales Assistance", desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." },
+  { title: "Property Listings", desc: "Discover a curated selection of premium residential and commercial properties across India." },
+  { title: "Site Visits & Consultation", desc: "Get expert-guided tours and honest advice to help you make informed decisions." },
+  { title: "Legal & Documentation Support", desc: "From paperwork to compliance, we ensure your buying journey is smooth and secure." },
+  { title: "NRI Assistance", desc: "Dedicated services for NRIs looking to invest or buy property in India with ease and clarity." },
+  { title: "Loan Assistance", desc: "Partnering with top banks to help you secure competitive interest rates and smooth approvals." },
 ];
 
 const awards = [
   {
     id: 1,
-    title: "AWARD OF BEST SELLING",
-    year: "LOREM IPSUM DOLOR SIT 2022-23",
+    year: "Certified Gold Partner by Godrej Properties (FY 2024-25)",
     image: Award,
   },
   {
     id: 2,
-    title: "AWARD OF BEST SELLING",
-    year: "LOREM IPSUM DOLOR SIT 2022-23",
+    year: "#3000 Crore Club Gold Category Partner for the launch of the project Godrej Zenith",
     image: Award,
 
   },
   {
     id: 3,
-    title: "AWARD OF BEST SELLING",
-    year: "LOREM IPSUM DOLOR SIT 2022-23",
+    year: "Shining Star Award by DLF for the project DLF Privana South",
     image: Award,
 
   },
   {
     id: 4,
-    title: "AWARD OF BEST SELLING",
-    year: "LOREM IPSUM DOLOR SIT 2022-23",
+    year: "Certificate of Achievement for the successful execution of Godrej Aristocrat",
     image: Award,
 
   },
-  {
-    id: 5,
-    title: "AWARD OF BEST SELLING",
-    year: "LOREM IPSUM DOLOR SIT 2022-23",
-    image: Award,
 
-  },
-  {
-    id: 6,
-    title: "AWARD OF BEST SELLING",
-    year: "LOREM IPSUM DOLOR SIT 2022-23",
-    image: Award,
-
-  },
-  {
-    id: 7,
-    title: "AWARD OF BEST SELLING",
-    year: "LOREM IPSUM DOLOR SIT 2022-23",
-    image: Award,
-
-  },
-  {
-    id: 8,
-    title: "AWARD OF BEST SELLING",
-    year: "LOREM IPSUM DOLOR SIT 2022-23",
-    image: Award,
-
-  },
 ]
 
 const features = [
   {
 icons:very,
-    title: "Verified Properties",
-    description: "Every listing is 100% verified for authenticity and legal clarity.",
+    title: "Trusted Expertise",
+    description: "Years of experience and deep market insights will guide your every decision.",
   },
   {
     icons:expert,
-    title: "Best Price Guarantee",
-    description: "We offer competitive prices and unbeatable deals.",
+    title: "Verified Listings Only",
+    description: "Offering handpicked and authenticated properties for a secure and worry-free experience.",
   },
   {
     icons:free,
-    title: "Expert Guidance",
-    description: "Our experienced team supports you from site visit to possession—every step of the way.",
+    title: "Personalized Approach",
+    description: "Get property solutions tailored to match your lifestyle, budget, and goals.",
   },
   {
     icons:best,
-    title: "Hassle-Free Process",
-    description: "From site visits to paperwork, we make buying property smooth and stress-free.",
+    title: "Seamless Experience",
+    description: "Enjoy a transparent, reliable, and smooth process from your first inquiry to your final deal.",
   },
 ];
 
@@ -129,9 +98,9 @@ function About() {
          <Container>
            <Row>
              <Col md={6} xs={12} >
-               <h1>Your Property
-               Partner</h1>
-               <p>Explore expert blogs on buying, selling, investing, and living in your perfect space.<br/> Knowledge that moves with the market. </p>
+               <h1>Shaping Property Dreams! </h1>
+               <p>SLOC is your trusted partner in discovering premium homes, top locations, and lifestyle investments.
+               </p>
              </Col>
              <Col>
 
@@ -153,7 +122,8 @@ function About() {
                 <img src={Round} alt="scroling" className="scrol-top" />
                 <h2 className="same-head" >About Sloc</h2>
                 <p className="same-head-p">
-                “Search Land of Choice” is a leading real estate company in India dedicated to providing exceptional property solutions. With a focus on customer satisfaction and market expertise, SLOC has built a reputation as a trusted name in the industry. Collaborating with top-tier real estate brands like Godrej, DLF and many more, SLOC offers a diverse range of properties, including luxurious apartments, plots, villas, and commercial space.
+                We’re more than just real estate advisors; we’re a team that understands how important the right space can be. A home isn’t just four walls; it’s where life happens. An investment is more than simply a number; it represents the shaping of your future. That's why we do what we do: with heart, honesty, and a genuine desire to assist you in finding what works best for you. Whether you're buying, selling, or simply exploring your options, we're here to guide you with relevant insights and support you as a friend would.<br/>Real people + Real spaces + Real connections = the SLOC Success.
+
                 </p>
               </Col>
               <Col md={6} className="d-flex flex-wrap four-col-st">
@@ -166,8 +136,7 @@ function About() {
           <Col xs={9}>
             <h5><strong>OUR MISSION</strong></h5>
             <p className="mb-0 text-muted">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            </p>
+            We aim to connect people with properties that match their dreams, goals, and lifestyles through honest advice and exceptional service.            </p>
           </Col>
         </Row>
 
@@ -181,7 +150,7 @@ function About() {
           <Col xs={9}>
             <h5><strong>OUR VISION</strong></h5>
             <p className="mb-0 text-muted">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            To be the most trusted name in real estate by creating experiences that feel personal, seamless, and truly rewarding.
             </p>
           </Col>
         </Row>
@@ -196,7 +165,8 @@ function About() {
       <Container>
         <div className='head-serv'>
         <h3 className="same-head">SERVICES</h3>
-        <p className="same-head-p">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        <p className="same-head-p">We offer expert solutions for every step of your property journey.
+        </p>
         </div>
         {services.map((service, idx) => (
           <Row key={idx} className="service-row py-3 align-items-center border-bottom border-white">
@@ -222,9 +192,7 @@ function About() {
     <Container>
         <h3 className="section-title same-head">END TO END ASSISTANCE</h3>
         <p className="section-subtitle same-head-p">
-          The period from 2020 to 2022 presented unprecedented challenges, but also remarkable opportunities.
-          We embraced change, adapted quickly, and emerged stronger than ever.
-          This timeline highlights key milestones in our journey.
+        We walk with you from start to sold!
         </p>
         <img src={side} className='side-set' />
 
@@ -234,7 +202,7 @@ function About() {
           <img src={Line} alt="" />
           <div className='dumy-ass'>
               <h6 className="step-title">CONNECT</h6>
-              <p className="step-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do.</p>
+              <p className="step-desc">Talk to our experts and let us understand your exact needs.</p>
               </div>
             </div>
             <div className="step-box text-center text-md-start">
@@ -248,7 +216,7 @@ function About() {
           <img src={Line} alt="" />
           <div className='dumy-ass'>
               <h6 className="step-title">SELECT</h6>
-              <p className="step-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do.</p></div>
+              <p className="step-desc">Choose from a curated list of verified, trusted properties tailored to your preferences.</p></div>
             </div>
             <div className="step-box text-center text-md-start">
               <img src={select} alt="SELECT" className="step-icon mb-3" />
@@ -261,7 +229,8 @@ function About() {
           <img src={Line} alt="" />
           <div className='dumy-ass'>
               <h6 className="step-title">BUY</h6>
-              <p className="step-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do.</p></div>
+              <p className="step-desc">Seal the deal with confidence, complete with all legal documentation and guidance.
+              </p></div>
             </div>
             <div className="step-box text-center text-md-start">
               <img src={buy} alt="BUY" className="step-icon mb-3" />
@@ -274,7 +243,7 @@ function About() {
           <img src={Line} alt="" />
           <div className='dumy-ass'>
               <h6 className="step-title">CUSTOMER SUPPORT</h6>
-              <p className="step-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do.</p></div>
+              <p className="step-desc">From loan help to resale support, we’ve got your back even after the purchase.</p></div>
             </div>
             <div className="step-box text-center text-md-start">
               <img src={cus} alt="CUSTOMER SUPPORT" className="step-icon mb-3" />
@@ -291,7 +260,7 @@ function About() {
     <Row className=" px-5 ">
         <h3 className="section-title same-head">Our Alliances</h3>
         <p className="section-subtitle same-head-p">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        We’re backed by a network of reputed developers and property experts.
         </p>
         </Row>
 
@@ -356,8 +325,8 @@ function About() {
             AWARDS
           </h2>
           <p className="same-head-p">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-            dolore magna aliqua.
+          Have a glance at our milestones of trust and achievements of excellence.
+
           </p>
         </Col>
         <Col md={8} className='px-3'>
@@ -373,7 +342,7 @@ function About() {
 
                     </div>
                     <div className="">
-                      <h5 className="fw-bold">{award.title}</h5>
+                      {/* <h5 className="fw-bold">{award.title}</h5> */}
                       <p className="small text-muted">{award.year}</p>
                     </div>
                     {/* Decorative corner elements */}
@@ -401,8 +370,7 @@ function About() {
         <div className=" mb-5">
           <h3 className="same-head" style={{ color: "#ffffff" }}>WHY CHOOSE US</h3>
           <p className="same-head-p" style={{ color: "#ffffff" }}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-          </p>
+          We're here to make your property search easier, offering expert guidance and a personal touch at every step.          </p>
         </div>
         <Row className="g-4">
           {features.map((feature, index) => (

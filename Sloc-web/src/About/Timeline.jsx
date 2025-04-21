@@ -87,22 +87,20 @@ const SuccessTimeline = () => {
 
   return (
     <>
- 
+
       <section className="assistance-section position-relative pb-2">
         <Container>
           <h3 className="section-title same-head"> OUR SUCCESS STORY</h3>
           <p className="section-subtitle same-head-p">
-            The period from 2020 to 2022 presented unprecedented challenges, but
-            also remarkable opportunities. We embraced change, adapted quickly,
-            and emerged stronger than ever. This timeline highlights key
-            milestones in our journey.
+          Trust and hard work are the cornerstones of our success, and they have helped us turn dreams into reality. With every satisfied client and successful project, we take great delight in being a part of your real estate experience. What’s more? This is worth your attention!
+
           </p>
           <img src={side} className="side-set" />
         </Container>
         <Container className="mt-5 relative">
           <div className="timeline-container relative max-w-3xl mx-auto">
-          
-       
+
+
 
             {timelineData.map((item, index) => (
               <div
@@ -124,12 +122,12 @@ const SuccessTimeline = () => {
                 <p className="text-gray-600">
                   {item.description || "Description coming soon..."}
                 </p></div>
-              
+
               </div>
             ))}
           </div>
 
-       
+
         </Container>
       </section>
     </>
