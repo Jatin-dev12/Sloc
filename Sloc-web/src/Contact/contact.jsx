@@ -145,10 +145,10 @@ const Contact = () => {
         <Container>
           <Row className="align-items-center">
             <Col md={12}>
-              <h2 className="fw-bold blog-h mt-2">Contact us</h2>
+              <h2 className="fw-bold blog-h mt-2">Let’s <br/>Connect</h2>
               <p className="blog-p">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do <br />
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              Helping you is what we do best. Whether you need info,<br/> advice, or a friendly chat; we’ve got you!
+
               </p>
             </Col>
           </Row>
@@ -226,20 +226,20 @@ const Contact = () => {
                 </Col>
                 <Col md={6} className="justify-content-center cntnct align-content-center btm-s ">
    <ul className="list-unstyled">
-            <li className="mb-3 d-flex align-items-start">
+            <li className="mb-3 d-flex align-items-center">
                 <img src={ofc} />
               <span>15th Floor, Ocus Quantum, Sector-51,<br/>
               Gurugram, Haryana - 122003</span>
             </li>
-            <li className="mb-3 d-flex align-items-start">
+            <li className="mb-3 d-flex align-items-center">
             <img src={call} />
+            <span>+919971094108</span>
 
-              <span>contact@sloc.in</span>
+
             </li>
-            <li className="mb-3 d-flex align-items-start">
+            <li className="mb-3 d-flex align-items-center">
             <img src={mal} />
-
-              <span>+919971094108</span>
+            <span>contact@sloc.in</span>
             </li>
 
 

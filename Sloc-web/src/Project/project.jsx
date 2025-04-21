@@ -51,6 +51,7 @@ import NextArrow from '../assets/Imgs/right.svg';
 import PrevArrow from '../assets/Imgs/left.svg';
 import { Accordion } from 'react-bootstrap';
 import Char from './Chart'
+import { Link } from 'react-router-dom';
 
 
 function project() {

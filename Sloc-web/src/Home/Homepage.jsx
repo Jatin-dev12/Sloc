@@ -26,7 +26,7 @@ import back from '../assets/Imgs/back-cta.png'
 import React, { useEffect,  useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import WelcomeLogo from '../assets/Imgs/Group (2).svg'
+import WelcomeLogo from '../assets/Imgs/25_Logo.svg'
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -157,7 +157,7 @@ function Home() {
       logoFrom: { opacity: 0, y: -160, x: 160, scale: 0.9 },
       logoTo1: { opacity: 1, y: 50, x: 300, scale: 0.6, duration: 1 },
       scrollImageTo: { opacity: 0, duration: 0.2 },
-      pathsTo: { fill: '#0b4d83c4', stroke: '#0b4d83c4', duration: 0.6 },
+      pathsTo: { fill: '#c1d1e0', stroke: '#c1d1e0', duration: 0.6 },
       logoTo2: { y: 460, x: 509, scale: 0.1, duration: 2.5 },
       logoTo3: { opacity: 0, duration: 0.5 },
       scrollTrigger: { start: 'top center', end: 'bottom center', scrub: 0.5 },
@@ -169,7 +169,7 @@ function Home() {
         logoFrom: { opacity: 0, y: -80, x: 80, scale: 0.8 },
         logoTo1: { opacity: 1, y: 650, x: 100, scale: 0.5, duration: 21, scrub: 1.2},
         scrollImageTo: { opacity: 0, duration: 0.15 },
-        pathsTo: { fill: '#0b4d83c4', stroke: '#0b4d83c4', duration: 2.5 },
+        pathsTo: { fill: '#c1d1e0', stroke: '#c1d1e0', duration: 2.5 },
         logoTo2: { y: 966, x: -39, scale: 0.1, duration: 29 },
         logoTo3: { opacity: 0, duration: 0.1 },
         scrollTrigger: { start: 'top 30%', end: 'bottom 77.6%', scrub: 1.2 },
@@ -179,7 +179,7 @@ function Home() {
         logoFrom: { opacity: 0, y: -100, x: 100, scale: 0.85 },
         logoTo1: { opacity: 1, y: 30, x: 120, scale: 0.55, duration: 0.9 },
         scrollImageTo: { opacity: 0, duration: 0.18 },
-        pathsTo: { fill: '#0b4d83c4', stroke: '#0b4d83c4', duration: 0.55 },
+        pathsTo: { fill: '#c1d1e0', stroke: '#c1d1e0', duration: 0.55 },
         logoTo2: { y: 910, x: 39, scale: 0.1, duration: 15 },
         logoTo3: { opacity: 0, duration: 0.45 },
         scrollTrigger: { start: 'top 69%', end: 'bottom 79%', scrub: 0.4 },
@@ -189,7 +189,7 @@ function Home() {
         logoFrom: { opacity: 0, y: -140, x: 340, scale: 0.9 },
         logoTo1: { opacity: 1, y: 45, x: 350, scale: 0.58, duration: 1},
         scrollImageTo: { opacity: 0, duration: 0.2 },
-        pathsTo: { fill: '#0b4d83c4', stroke: '#0b4d83c4', duration: 0.6 },
+        pathsTo: { fill: '#c1d1e0', stroke: '#c1d1e0', duration: 0.6 },
         logoTo2: { y: 485, x: 250, scale: 0.1, duration: 3.6 },
         logoTo3: { opacity: 0, duration: 0.5 },
         scrollTrigger: { start: 'top 65%', end: 'bottom 61%', scrub: 0.5 },
@@ -199,18 +199,18 @@ function Home() {
         logoFrom: { opacity: 0, y: -140, x: 140, scale: 0.9 },
         logoTo1: { opacity: 1, y: 45, x: 200, scale: 0.58, duration: 1 },
         scrollImageTo: { opacity: 0, duration: 0.2 },
-        pathsTo: { fill: '#0b4d83c4', stroke: '#0b4d83c4', duration: 0.6 },
+        pathsTo: { fill: '#c1d1e0', stroke: '#c1d1e0', duration: 0.6 },
         logoTo2: { y: 405, x: 306, scale: 0.1, duration: 5.6 },
         logoTo3: { opacity: 0, duration: 0.5 },
         scrollTrigger: { start: 'top 65%', end: 'bottom 63%', scrub: 0.5 },
       };
-    }  
+    }
     else if (width <= 1400) {
       props = {
         logoFrom: { opacity: 0, y: -150, x: 150, scale: 0.9 },
         logoTo1: { opacity: 1, y: 48, x: 250, scale: 0.6, duration: 1 },
         scrollImageTo: { opacity: 0, duration: 0.2 },
-        pathsTo: { fill: '#0b4d83c4', stroke: '#0b4d83c4', duration: 0.6 },
+        pathsTo: { fill: '#c1d1e0', stroke: '#c1d1e0', duration: 0.6 },
         logoTo2: { y: 445, x: 470, scale: 0.1, duration: 2.6 },
         logoTo3: { opacity: 0, duration: 0.5 },
         scrollTrigger: { start: 'top 60%', end: 'bottom 59%', scrub: 1 },
@@ -220,19 +220,44 @@ function Home() {
         logoFrom: { opacity: 0, y: -155, x: 155, scale: 0.9, scrub: 1 },
         logoTo1: { opacity: 1, y: 50, x: 280, scale: 0.6, duration: 1 , scrub: 1},
         scrollImageTo: { opacity: 0, duration: 1.1, scrub: 1 },
-        pathsTo: { fill: '#0b4d83c4', stroke: '#0b4d83c4', scrub: 3 },
+        pathsTo: { fill: '#c1d1e0', stroke: '#c1d1e0', scrub: 3 },
         logoTo2: { y: 510, x: 551, scale: 0.1, duration: 4.6  },
         logoTo3: { opacity: 0, duration: 0.5 },
-        scrollTrigger: { start: 'top 75%', 
+        scrollTrigger: { start: 'top 75%',
           end: 'bottom 55%',
         ease: 'power3.out', scrub: 2.3 },
       };
-    } else if (width <= 1920) {
+    }  else if (width <= 1750) {
+      props = {
+        logoFrom: { opacity: 0, y: -155, x: 155, scale: 0.9, scrub: 1 },
+        logoTo1: { opacity: 1, y: 50, x: 280, scale: 0.6, duration: 1 , scrub: 1},
+        scrollImageTo: { opacity: 0, duration: 1.1, scrub: 1 },
+        pathsTo: { fill: '#c1d1e0', stroke: '#c1d1e0', scrub: 3 },
+        logoTo2: { y: 509, x: 597, scale: 0.1, duration: 4.6  },
+        logoTo3: { opacity: 0, duration: 0.5 },
+        scrollTrigger: { start: 'top 75%',
+          end: 'bottom 55%',
+        ease: 'power3.out', scrub: 2.3 },
+      };
+    }
+    else if (width <= 1800) {
+      props = {
+        logoFrom: { opacity: 0, y: -155, x: 155, scale: 0.9, scrub: 1 },
+        logoTo1: { opacity: 1, y: 50, x: 280, scale: 0.6, duration: 1 , scrub: 1},
+        scrollImageTo: { opacity: 0, duration: 1.1, scrub: 1 },
+        pathsTo: { fill: '#c1d1e0', stroke: '#c1d1e0', scrub: 3 },
+        logoTo2: { y: 509, x: 650, scale: 0.1, duration: 4.6  },
+        logoTo3: { opacity: 0, duration: 0.5 },
+        scrollTrigger: { start: 'top 75%',
+          end: 'bottom 55%',
+        ease: 'power3.out', scrub: 2.3 },
+      };
+    }else if (width <= 1920) {
       props = {
         logoFrom: { opacity: 0, y: -160, x: 110, scale: 0.9 },
         logoTo1: { opacity: 1, y: 50, x: 300, scale: 0.6, duration: 1 },
         scrollImageTo: { opacity: 0, duration: 0.2 },
-        pathsTo: { fill: '#0b4d83c4', stroke: '#0b4d83c4', duration: 0.6 },
+        pathsTo: { fill: '#c1d1e0', stroke: '#c1d1e0', duration: 0.6 },
         logoTo2: { y: 523, x: 725, scale: 0.1, duration: 3.2 },
         logoTo3: { opacity: 0, duration: 0.5 },
         scrollTrigger: { start: 'top center', end: 'bottom 55%', scrub: 0.5 },
@@ -241,7 +266,7 @@ function Home() {
 
     return props;
   };
-  
+
   useEffect(() => {
     // Ensure logoRefs exists
     const paths = logoRefs.current?.querySelectorAll('path');
@@ -249,22 +274,22 @@ function Home() {
       console.warn('No paths found in logoRefs');
       return;
     }
-  
+
     // Set initial faded color using GSAP to avoid FOUC
     gsap.set(paths, {
       fill: '#b3b3b3',
       stroke: '#b3b3b3',
     });
-  
+
     // Function to create or update animation
     const createAnimation = () => {
       // Get current width
       const width = window.innerWidth;
       const props = getAnimationProps(width);
-  
+
       // Kill existing ScrollTriggers to avoid duplicates
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-  
+
       // GSAP Timeline with ScrollTrigger
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -344,13 +369,13 @@ function Home() {
           },
           '-=1.1'
         );
-  
+
       return tl;
     };
-  
+
     // Initial animation
     let tl = createAnimation();
-  
+
     // Optimized resize handler
     let timeout;
     const handleResize = () => {
@@ -362,7 +387,7 @@ function Home() {
       }, 200);
     };
     window.addEventListener('resize', handleResize);
-  
+
     // Cleanup
     return () => {
       tl.kill();
@@ -555,7 +580,7 @@ gsap.to([section2Image], {
         to: { opacity: 0, y: 550, x: 550, scale: 0, ease: 'power3.inOut', duration: 7.5 },
         scrollTrigger: { start: 'top center+=30px', end: 'bottom center-=-30px', scrub: 1.2 },
       };
-    
+
       // Adjust for specific breakpoints
       if (width <= 425) {
         props = {
@@ -605,12 +630,32 @@ gsap.to([section2Image], {
         props = {
           fromTo: {
             from: { opacity: 0, y: -390, x: 1170 ,scale: 1.3, scrub: 1},
-            to: { opacity: 1, y: 50, x: 600,scale: 0.7, ease: 'power3.out', duration: 3.5, scrub: 1 },
+            to: { opacity: 1, y: 50, x: 660,scale: 0.7, ease: 'power3.out', duration: 3.5, scrub: 1 },
           },
           to: { opacity: 0, y: 590, x: 600, scale: 0, ease: 'power3.inOut', duration: 3.9 , scrub: 1},
           scrollTrigger: { start: 'top 55%', end: 'bottom 55%', duration: 3.5,scrub: 1.6 },
         };
-      } else if (width <= 1920) {
+      }
+      else if (width <= 1700) {
+        props = {
+          fromTo: {
+            from: { opacity: 0, y: -390, x: 1170 ,scale: 1.3, scrub: 1},
+            to: { opacity: 1, y: 50, x: 660,scale: 0.7, ease: 'power3.out', duration: 3.5, scrub: 1 },
+          },
+          to: { opacity: 0, y: 590, x: 600, scale: 0, ease: 'power3.inOut', duration: 3.9 , scrub: 1},
+          scrollTrigger: { start: 'top 55%', end: 'bottom 55%', duration: 3.5,scrub: 1.6 },
+        };
+      }       else if (width <= 1800) {
+        props = {
+          fromTo: {
+            from: { opacity: 0, y: -390, x: 1170 ,scale: 1.3, scrub: 1},
+            to: { opacity: 1, y: 50, x: 730,scale: 0.7, ease: 'power3.out', duration: 3.5, scrub: 1 },
+          },
+          to: { opacity: 0, y: 590, x: 645, scale: 0, ease: 'power3.inOut', duration: 3.9 , scrub: 1},
+          scrollTrigger: { start: 'top 55%', end: 'bottom 55%', duration: 3.5,scrub: 1.6 },
+        };
+      }
+      else if (width <= 1920) {
         props = {
           fromTo: {
             from: { opacity: 0, y: -390, x: 1550,scale: 1.3 },
@@ -620,14 +665,14 @@ gsap.to([section2Image], {
           scrollTrigger: { start: 'top center+=30px', end: 'bottom center-=-30px', scrub: 1.2 },
         };
       }
-    
+
       return props;
     };
     useEffect(() => {
       // Get initial width
       let width = window.innerWidth;
       let animationProps = getAnimationProps1(width);
-    
+
       // Create GSAP timeline
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -642,7 +687,7 @@ gsap.to([section2Image], {
           animationProps.fromTo.to
         )
         .to(logoRefs1.current, animationProps.to);
-    
+
       // Handle resize to refresh animation with new props
       let timeout;
       const handleResize = () => {
@@ -667,9 +712,9 @@ gsap.to([section2Image], {
             .to(logoRefs1.current, animationProps.to);
         }, 100);
       };
-    
+
       window.addEventListener('resize', handleResize);
-    
+
       // Cleanup
       return () => {
         ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
@@ -751,7 +796,8 @@ gsap.to([section2Image], {
           <Container>
             <Row>
               <Col md={6} className="top-co" >
-                <h1>Search Land Of Choice</h1>
+                <h1 class=" animate__animated animate__fadeInLeft">Search Land Of Choice</h1>
+
                 <p>Explore premium living spaces in the most sought-after locations of India. </p>
               </Col>
               <Col>
@@ -849,7 +895,7 @@ gsap.to([section2Image], {
       <Col md={6} className="align-content-end head">
         <img src={Round} alt="scroling" className="scrol-top" ref={scrollImageRef} />
 
-        <h2 className="same-head" >
+        <h2 className="same-head animate__animated animate__slideInLeft" >
           WELCOME TO SLOC!
         </h2>
         <p className="same-head-p">

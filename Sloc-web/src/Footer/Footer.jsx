@@ -5,6 +5,7 @@ import Logo from '../assets/Imgs/Footer-logo.png'
 import Instagram from '../assets/Imgs/ig.svg'
 import Facebook from '../assets/Imgs/facbook.svg'
 import linkdin from '../assets/Imgs/Linkdin.svg'
+import { Link } from 'react-router-dom';
 
 
 const Footer = () => {
@@ -20,7 +21,7 @@ const Footer = () => {
         <Row className="mb-4 justify-content-between">
           <Col lg={5} md={6} className="mb-4 mb-md-0 p-md-0">
             <div className="footer-logo">
-           <a href='/'><p className='Logo'>SLOC</p></a>
+          <Link to='/'><p className='Logo'>SLOC</p></Link>
             </div>
             <p className="my-3 set-wi">
             We bring you the finest real estate choices with trust and excellence. Get set to Dream, Discover, and Deal.
@@ -30,21 +31,21 @@ const Footer = () => {
               <h6 className="text-uppercase ft-font">FOLLOW US AT</h6>
             </div>
             <div className="d-flex gap-4 mt-4">
-              <a href="#" className="">
+             <Link to="#" className="">
                 <img src={linkdin} />
-              </a>
-              {/* <a href="#" className="">
+              </Link>
+              {/*<Link to="#" className="">
               <img src={Twitter} />
-              </a> */}
-              <a href="#" className="">
+              </Link> */}
+             <Link to="#" className="">
               <img src={Instagram} />
-              </a>
-              <a href="#" className="">
+              </Link>
+             <Link to="#" className="">
               <img src={Facebook} />
-              </a>
-              {/* <a href="#" className="">
+              </Link>
+              {/*<Link to="#" className="">
               <img src={telegram} />
-              </a> */}
+              </Link> */}
             </div>
           </Col>
 
@@ -52,16 +53,16 @@ const Footer = () => {
             <h6 className="text-uppercase ft-font mb-3">QUICK LINKS</h6>
             <ul className="list-unstyled mb-0">
               <li className="mb-2">
-                <a href="/" className="text-decoration-none  small">Home</a>
+               <Link to="/" className="text-decoration-none  ">Home</Link>
               </li>
               <li className="mb-2">
-                <a href="/About" className="text-decoration-none  small">About Us</a>
+               <Link to="/About" className="text-decoration-none  ">About Us</Link>
               </li>
               <li className="mb-2">
-                <a href="/Blogs" className="text-decoration-none  small">BLOG</a>
+               <Link to="/Blogs" className="text-decoration-none  ">BLOG</Link>
               </li>
               <li className="mb-2">
-                <a href="/contact" className="text-decoration-none  small">CONTACT US</a>
+               <Link to="/contact" className="text-decoration-none  ">CONTACT US</Link>
               </li>
 
             </ul>
@@ -71,29 +72,29 @@ const Footer = () => {
             <h6 className="text-uppercase ft-font mb-3">Policies</h6>
             <ul className="list-unstyled mb-0">
               <li className="mb-2">
-                <a href="/Disclaimer" className="text-decoration-none  small">Disclaimer </a>
+               <Link to="/Disclaimer" className="text-decoration-none  ">Disclaimer </Link>
               </li>
               <li className="mb-2">
-                <a href="/Privacy" className="text-decoration-none  small">Privacy Policy</a>
+               <Link to="/Privacy" className="text-decoration-none  ">Privacy Policy</Link>
               </li>
               <li className="mb-2">
-                <a href="/Terms" className="text-decoration-none  small">Terms & Conditions</a>
+               <Link to="/Terms" className="text-decoration-none  ">Terms & Conditions</Link>
               </li>
             </ul>
           </Col>
 
           <Col lg={2} md={6} className="mb-4 mb-md-0 res-st">
             <h6 className="text-uppercase ft-font mb-3">INFORMATION</h6>
-            <p className="small mb-1">15th Floor, Ocus Quantum,</p>
-            <p className="small mb-1">Sector-51, Gurugram, Haryana</p>
-            <p className="small mb-3">122003 </p>
-            <p className="small my-3">contact@sloc.in</p>
-            <p className="small mb-1">+971 4 542 4200</p>
+            <p className=" mb-1">15th Floor, Ocus Quantum,</p>
+            <p className=" mb-1">Sector-51, Gurugram, Haryana</p>
+            <p className=" mb-3">122003 </p>
+            <p className=" my-3">contact@sloc.in</p>
+            <p className=" mb-1">+971 4 542 4200</p>
           </Col>
         </Row>
 
         <Row className='border-top-set pt-3 mt-2'>
-          <Col className="text-center small">
+          <Col className="text-center ">
             <p className="mb-0 copyright">© Copyright 2025 | All Rights Reserved</p>
           </Col>
         </Row>

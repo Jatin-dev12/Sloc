@@ -121,7 +121,7 @@ img.side-set {
 .top-line-info p {
 
   font-size: 18px;
-  
+
 }
 .lastbar h6 {
   margin: 0;
@@ -138,19 +138,19 @@ img.side-set {
 button.accordion-button {
 
   font-size: 18px;
- 
+
 }
 .meeting .form-set {
 
   margin-left: 0;
 }
 .meeting .form-check.mb-3.text-white label.form-check-label {
-  
+
   font-size: 14px !important;
 }
 .form-set button.btn.btn-light.text-dark {
   font-size: 16px;
- 
+
 }
 section.featured.similar {
   padding-top: 60px !important;
@@ -166,6 +166,22 @@ section.featured.similar {
 .emi-chart span {
   font-size: 20px;
   color: #808080;
+}
+.timeline-container h5 {
+  font-size: 25px;
+  font-weight: 400;
+}
+.timeline-container h2 {
+  font-size: 85px;
+}
+.year-data {
+  max-width: 900px;
+  min-height: 250px;
+}
+.timeline-line {
+
+  height: 185vh;
+
 }
   }
 
@@ -221,12 +237,28 @@ img.side-set {
 }
 .comn-btn {
   padding: 12px 25px !important;
- 
+
 }
 .form-set h5 {
 
   font-size: 20px;
-  
+
+}
+.timeline-container h5 {
+  font-size: 23px;
+
+}
+.timeline-container h2 {
+  font-size: 65px;
+}
+.timeline-item::before {
+
+  left: 21.7%;
+
+}
+.timeline-line {
+  left: 22%;
+
 }
   }
 
@@ -331,6 +363,12 @@ img.side-set {
   height: 300px !important;
   margin: 0 auto;
 }
+.year-data {
+  max-width: 800px;
+}
+.timeline-container h5 {
+  font-size: 20px;
+}
 }
 
 @media screen and (max-width: 1100px){
@@ -371,7 +409,7 @@ footer h6 {
 section.welcome .card p {
 
   font-size: 15px;
- 
+
 }
 .cntnct li {
   font-size: 16px;
@@ -390,6 +428,9 @@ section.welcome .card p {
 .form-set {
   background: #064685;
   padding: 40px 25px;
+}
+.timeline-container h2 {
+  font-size: 50px;
 }
 }
 @media screen and (max-width: 1024px){
@@ -606,7 +647,7 @@ section.welcome {
 }
 .assistance-section {
   padding: 40px 0 !important;
- padding-bottom: 0 
+ padding-bottom: 0
   !important;
 }
 .left-side-move .d-flex.align-items-center.justify-content-center.px-5.row {
@@ -635,6 +676,9 @@ section.welcome.overview {
 }
 .same-space {
   padding: 40px 0 !important;
+}
+.connect {
+  right: 86px;
 }
 }
 
@@ -767,6 +811,46 @@ button.accordion-button {
 
   font-size: 13px;
 }
+.connect {
+  right: 25px;
+}
+.year-data {
+  max-width: unset !important;
+  min-height: unset !important;
+  text-align: center;
+  padding: 20px;
+}
+.timeline-item {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  justify-content: space-between;
+  flex-direction: column;
+  justify-content: center;
+}
+.timeline-line {
+  left: 4%;
+}
+.timeline-item::before {
+  left: 3.5%;
+}
+.timeline-line {
+  height: 114vh;
+}
+.timeline-container h5 {
+  font-size: 16px;
+}
+.timeline-container h2 {
+  font-size: 40px;
+  margin-top: 20px;
+}
+.about-sloc img.scrol-top {
+
+  display: none;
+}
+section.welcome {
+  padding-top: 40px !important;
+}
 }
 
 @media screen and (max-width: 578px){
@@ -774,7 +858,7 @@ button.accordion-button {
     font-size: 45px;
 }
 section.welcome {
-  padding-top: 100px !important;
+  padding-top: 40px !important;
 }
 .Dis {
   font-size: 14px;
@@ -820,5 +904,12 @@ section.Main-banner {
   justify-content: center;
   text-align: center;
   gap: 20px;
+}
+.timeline-item::before {
+  left: 3.2%;
+}
+.why-choose.card {
+  min-height: 200px;
+
 }
 }

@@ -6,6 +6,7 @@ import blog1 from "../assets/Imgs/blog-1.png";
 import blog2 from "../assets/Imgs/blog-2.png";
 import { Card } from "react-bootstrap";
 import '../App.css'
+import { Link } from 'react-router-dom';
 
 import blog3 from "../assets/Imgs/blog-3.png";
 const Blogsdata = [
@@ -115,9 +116,9 @@ function Blogs() {
           <Container>
             <Row>
               <Col md={12} >
-                <h1>Real<br/>
-                Estate Blogs</h1>
-                <p>Explore expert blogs on buying, selling, investing, and living in your perfect space.<br/> Knowledge that moves with the market. </p>
+                <h1> Property<br/> Insights</h1>
+                <p>From market trends to expert tips, we’ve got your back at every step.
+                </p>
               </Col>
               <Col>
 

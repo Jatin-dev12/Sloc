@@ -6,6 +6,8 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  --animate-duration: 800ms;
+  --animate-delay: 0.9s;
 }
 html {
   scroll-behavior: smooth;
@@ -192,6 +194,7 @@ img#rocket-image {
   transform: translateX(-50%);
   display: flex;
   gap: 20px;
+  z-index: 9999;
 }
 
 .initial-image {
@@ -523,4 +526,9 @@ button.navbar-toggler {
   border-right: 1px solid #ccc;
 
   /* Ensure the content can still be scrolled */
+}
+button.scroll-to-top-btn {
+  align-items: center;
+  align-content: center;
+  z-index: +9999999999999999999999999999999 !important,
 }

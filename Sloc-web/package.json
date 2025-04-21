@@ -14,6 +14,7 @@
     "@gsap/react": "^2.1.2",
     "@react-three/drei": "^10.0.6",
     "@react-three/fiber": "^9.1.2",
+    "animate.css": "^4.1.1",
     "bootstrap": "^5.3.3",
     "chart.js": "^4.4.9",
     "framer-motion": "^11.18.2",

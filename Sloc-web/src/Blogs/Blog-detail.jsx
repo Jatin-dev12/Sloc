@@ -2,6 +2,7 @@ import React from 'react';
 import { Container, Row, Col, Badge, Image } from 'react-bootstrap';
 import Bl from '../assets/Imgs/Blog-detail.svg';
 import '../App.css'
+import { Link } from 'react-router-dom';
 
 const BlogSection = () => {
   return (
@@ -18,7 +19,7 @@ const BlogSection = () => {
             <Badge bg="" className="date">March 10, 2025</Badge>
             <Badge bg="                                                                                                                                                                                                                                                                                                                                                     " className='apartmanet'>Architecture</Badge>
           </div>
-          <h2 className="fw-bold blog-h mt-2">BLOG 1 HEADING</h2>
+          <h2 className="fw-bold blog-h mt-3">BLOG 1 HEADING</h2>
           <p className="text-muted blog-p">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
             Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.

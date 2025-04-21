@@ -30,6 +30,7 @@ import expert from '../assets/Alliance-imgs/expert.svg'
 import free from '../assets/Alliance-imgs/free.svg'
 import best from '../assets/Alliance-imgs/best.svg'
 import Timeline from './Timeline.jsx'
+import { Link } from 'react-router-dom';
 
 
 const services = [
@@ -116,7 +117,7 @@ function About() {
 
        <section className="welcome about-sloc">
 
-          <Container className="py-5 pb-0">
+          <Container className="py-md-5 pb-0">
             <Row className="mb-4 d-flex">
               <Col md={6} className=" align-content-end head">
                 <img src={Round} alt="scroling" className="scrol-top" />
@@ -266,7 +267,7 @@ function About() {
 
         <Row className="text text-center alliance mt-5 px-5 ">
           <Col md={3} className='brdr'>
-<img src={god}/>
+<img src={god} className='phli'/>
           </Col>
           <Col md={3} className='brdr'>
 <img src={ats}/>

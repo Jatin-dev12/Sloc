@@ -4,7 +4,7 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Logo from '../assets/Imgs/SLOC.png'
-
+import { Link } from 'react-router-dom';
 export default function Header() {
   return (
     <>
@@ -38,10 +38,11 @@ export default function Header() {
     {/* Collapsible Nav Items */}
     <Navbar.Collapse id="basic-navbar-nav">
       <Nav className="ml-auto">
-        <Nav.Link href="/">Home</Nav.Link>
-        <Nav.Link href="/About">About Us</Nav.Link>
-        <Nav.Link href="/Blogs">Blogs</Nav.Link>
-        <Nav.Link href="#" className="cntnct">Contact Us</Nav.Link>
+        {/* <Nav.Link to="/">Home</Nav.Link> */}
+        <Link to="/">Home</Link>
+        <Link to="/About">About Us</Link>
+        <Link to="/Blogs">Blogs</Link>
+        <Link to="/contact" className="cntnct">Contact Us</Link>
       </Nav>
     </Navbar.Collapse>
   </Container>
