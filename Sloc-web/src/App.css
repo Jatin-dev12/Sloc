@@ -822,7 +822,7 @@ section.blog-text {
 }
 
 .assistance-section {
-  padding-top: 80px  !important;
+  padding-top: 80px !important;
   position: relative;
 }
 
@@ -1108,9 +1108,11 @@ section.achivments {
 
 
 }
-.list-term p{
-font-size: 18px;
+
+.list-term p {
+  font-size: 18px;
 }
+
 .form-set {
   background: #064685;
   padding: 60px 50px;
@@ -1261,8 +1263,8 @@ p.loction {
 
 .project-baner form {
   display: flex;
-  gap: 15px;
-  justify-content: space-between;
+  gap: 35px;
+  justify-content: center;
   align-items: center;
 }
 
@@ -1683,11 +1685,11 @@ button.accordion-button {
 }
 
 .custom-range::-moz-range-thumb {
-  width: 50px !important ;
+  width: 50px !important;
   height: 50px !important;
   background-color: unset !important;
   bottom: 14px !important;
-right: 5px;
+  right: 5px;
   border: none !important;
   background-color: #ffffff;
   background-image: url(./Project/imgs/range.png);
@@ -1757,7 +1759,7 @@ input.form-control.iti__tel-input {
 }
 
 button.iti__selected-country {
-  border-left: 1px solid #B8B8B8;
+  border-left: 1px solid #dee2e6;
 }
 
 input.form-control:focus {
@@ -1765,18 +1767,30 @@ input.form-control:focus {
   border-color: #B8B8B8 !important;
 }
 
+button.btn.btn-dark {
+
+  background: #064685;
+  border: none;
+}
+
 .iti {
   width: 100%;
 
+}
+
+button.scroll-to-top-btn {
+  border: 1px solid #fff !important;
+  background: #064685 !important;
 }
 
 .services-section h3.same-head {
   color: #fff;
 }
 
-.custom-range::-webkit-slider-thumb:focus{
-  box-shadow: none  ;
+.custom-range::-webkit-slider-thumb:focus {
+  box-shadow: none;
 }
+
 .custom-range:focus {
   outline: none !important;
 }
@@ -1800,7 +1814,8 @@ input.form-control:focus {
   outline: none !important;
   box-shadow: none !important;
 }
-.timeline-container h2{
+
+.timeline-container h2 {
   font-weight: 700;
   font-size: 100px;
   line-height: 100%;
@@ -1809,14 +1824,17 @@ input.form-control:focus {
   text-stroke: 2px #808080;
   margin-top: 10px;
 }
-.timeline-container h5{
+
+.timeline-container h5 {
   font-size: 36px;
   font-weight: 400;
 
 }
-.timeline-container p{
+
+.timeline-container p {
   font-size: 18px;
 }
+
 .timeline-item {
 
   display: flex;
@@ -1824,13 +1842,15 @@ input.form-control:focus {
   gap: 5em;
   justify-content: space-between;
 }
+
 .timeline-observer {
-  height: 1px; /* Height to detect intersection */
+  height: 1px;
+  /* Height to detect intersection */
 }
 
 
 .line {
-height: 350px;
+  height: 350px;
   position: absolute;
   top: 0;
   bottom: 0;
@@ -1844,6 +1864,7 @@ height: 350px;
   background-color: #c1c1c1;
   opacity: 1;
 }
+
 .year-data {
   padding: 60px;
   padding-right: 0;
@@ -1860,9 +1881,11 @@ height: 350px;
 .timeline-item:first-child .year-data {
   border-top: 1px solid #ccc !important;
 }
+
 .tip-two p {
   font-size: 18px !important;
 }
+
 .new-lis li {
   margin-bottom: 10px !important;
 }
@@ -1875,7 +1898,8 @@ li.mb-3.set-to-down.align-items-start {
   filter: saturate(0);
   transition: cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
-.alliance img:hover{
+
+.alliance img:hover {
   filter: unset !important;
 }
 
@@ -1890,7 +1914,7 @@ li.mb-3.set-to-down.align-items-start {
   position: absolute;
   left: 26%;
   top: 20px;
-  height: 195vh;
+  height: 166vh;
   width: 4px;
   background: #e5e7eb;
   z-index: 1;
@@ -1898,7 +1922,7 @@ li.mb-3.set-to-down.align-items-start {
 
 .timeline-line-progress {
   width: 100%;
-  background: #000000;
+  background: #064685;
   height: 0;
   transition: height 0.3s ease;
 }
@@ -1914,14 +1938,14 @@ li.mb-3.set-to-down.align-items-start {
   top: 40%;
   width: 12px;
   height: 12px;
-  background: #000000;
+  background: #064685;
   border-radius: 50%;
   z-index: 2;
   transition: background 0.3s ease, transform 0.3s ease;
 }
 
 .timeline-item.touched::before {
-  background: #050505;
+  background: #064685;
   transform: scale(1.2);
 }
 
@@ -1936,4 +1960,24 @@ li.mb-3.set-to-down.align-items-start {
 
 .timeline-item.active .year-data {
   opacity: 1;
+}
+
+section.Blog-listing .latest {
+  background: #EFF7FE;
+  color: #000 !important;
+}
+.why-choose.card:hover img {
+  scale: 1.2 !important;
+}
+.why-choose.card img {
+  transition: .3s all ease;
+}
+.text-sm-center {
+  text-align: left !important;
+}
+.home-serch{
+  background-image: url(./assets/Imgs/Cta-banner.png) !important;
+  background-size: cover !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
 }

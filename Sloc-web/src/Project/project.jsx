@@ -275,9 +275,9 @@ const handleSubmit = (e) => {
       <main className='project-page'>
 
         <section className="Main-banner project-baner" data-speed="1.5">
-          <Container>
+          <Container >
             <Navbar expand="md" className="Main-nav pr" collapseOnSelect>
-              <Container>
+              <Container className='end-toend'>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                   <Nav className="ml-auto">
@@ -298,7 +298,8 @@ const handleSubmit = (e) => {
           </Container>
           <Container>
             <Row>
-              <Col md={12} className="top-co text-center" >
+              <Col md={12} className="top-co text-center" data-aos="fade-right" data-aos-easing="ease-in-sine" data-aos-offset="300"
+              >
                 <h1>GODREJ VRIKSHYA</h1>
                 <p className='loction'><img src={location} style={{ marginRight: "10px" }} /> SECTOR-103, GURUGRAM</p>
               </Col>
@@ -387,22 +388,26 @@ const handleSubmit = (e) => {
 
           <Container className="py-md-5 mt-md-5">
             <Row className="mb-4 d-flex">
-              <Col md={6} className="align-content-end head">
+              <Col md={6} className="align-content-end head" >
                 <img src={Round} alt="scroling" className="scrol-top" />
 
-                <h2 className="same-head" >
+                <h2 className="same-head" data-aos="fade-right" data-aos-easing="ease-in-sine" data-aos-offset="300"
+ >
                   Overview
                 </h2>
-                <p className="same-head-p">
+                <p className="same-head-p" data-aos="fade-right" data-aos-easing="ease-in-sine" data-aos-offset="300"
+                >
                   Godrej Vrikshya – Inspired by Trees, is a luxury residential project situated in Sector-103, Gurugram, along the Dwarka Expressway. Spanning approximately 15 acres, the development comprises six towers, each rising up to 30 floors, offering a total of 621 apartments.
                   This project offers 2.5 acres of Resort-Style Central Greens, a grand Club-House, an olympic-length infinity edge swimming pool, zen garden, yoga deck, multipurpose court, spa and salon.
                   This project ensures seamless connectivity to Delhi and other parts of Gurgaon.
                 </p>
-                <button type="text" className="btn btn-light comn-btn">
+                <button type="text" className="btn btn-light comn-btn" data-aos="fade-right" data-aos-easing="ease-in-sine" data-aos-offset="300"
+                >
                   Get Brochure
                 </button>
               </Col>
-              <Col md={6} className="d-flex flex-wrap four-col-st" >
+              <Col md={6} className="d-flex flex-wrap four-col-st" data-aos="fade-left" data-aos-easing="ease-in-sine" data-aos-offset="300"
+ >
                 <Col md={6} lg={6} className="right res">
                   <Card className="">
                     <img src={over1} />
@@ -456,7 +461,7 @@ const handleSubmit = (e) => {
               <Col md={10} className="all-border contact-set">
                 <Row className="">
                   <Col md={6} className="justify-content-center btm-s">
-                    <img src={Struc} className='home-struct' />
+                    <img src={Struc} className='home-struct' data-aos="zoom-in"/>
                   </Col>
                   <Col md={6} className="justify-content-center cntnct align-content-center btm-s struk-li ">
                     <ul className="list-unstyled">
@@ -538,31 +543,31 @@ const handleSubmit = (e) => {
 
             <Row className="text text-center alliance mt-5 px-5 ">
               <Col md={4} className='brdr'>
-                <img src={Temp} />
+                <img src={Temp} data-aos="zoom-in" data-aos-easing="ease-in-sine" data-aos-offset="100" />
 
 
               </Col>
               <Col md={4} className='brdr'>
-                <img src={jog} />
+                <img src={jog} data-aos="zoom-in" data-aos-easing="ease-in-sine" data-aos-offset="100" />
               </Col>
               <Col md={4} className='brdr'>
-                <img src={silent} />
+                <img src={silent} data-aos="zoom-in" data-aos-easing="ease-in-sine" data-aos-offset="100" />
               </Col>
 
 
             </Row>
             <Row className="text text-center alliance  px-5 ">
               <Col md={4} className='brdr'>
-                <img src={spa} />
+                <img src={spa} data-aos="zoom-in" data-aos-easing="ease-in-sine" data-aos-offset="100" />
 
 
               </Col>
               <Col md={4} className='brdr'>
-                <img src={lib} />
+                <img src={lib} data-aos="zoom-in" data-aos-easing="ease-in-sine" data-aos-offset="100" />
 
               </Col>
               <Col md={4} className='brdr'>
-                <img src={tr} />
+                <img src={tr} data-aos="zoom-in" data-aos-easing="ease-in-sine" data-aos-offset="100"/>
 
               </Col>
 
@@ -571,16 +576,16 @@ const handleSubmit = (e) => {
             </Row>
             <Row className="text text-center alliance px-5 ">
               <Col md={4} className='brdr'>
-                <img src={stake} />
+                <img src={stake} data-aos="zoom-in" data-aos-easing="ease-in-sine" data-aos-offset="100"/>
 
 
               </Col>
               <Col md={4} className='brdr'>
-                <img src={gym} />
+                <img src={gym} data-aos="zoom-in" data-aos-easing="ease-in-sine" data-aos-offset="100"/>
 
               </Col>
               <Col md={4} className='brdr'>
-                <img src={silent} />
+                <img src={silent} data-aos="zoom-in" data-aos-easing="ease-in-sine" data-aos-offset="100"/>
 
               </Col>
 
@@ -618,7 +623,7 @@ const handleSubmit = (e) => {
       >
         {properties.map((item, index) => (
           <SwiperSlide key={index}>
-            <div className="property-card position-relative">
+            <div className="property-card position-relative" data-aos="zoom-in" data-aos-easing="ease-in-sine" data-aos-offset="100">
               <div className="ribbon-set">
                 <img src={red}  />
               </div>
@@ -641,11 +646,14 @@ const handleSubmit = (e) => {
           <Container>
             <Row className="d-flex align-items-center justify-content-center px-5 ">
               <Col md={6}>
-                <h2 className="same-head">Location Advantages</h2>
-                <p className="same-head-p">
+                <h2 className="same-head" data-aos="fade-right" data-aos-easing="ease-in-sine" data-aos-offset="300"
+                >Location Advantages</h2>
+                <p className="same-head-p" data-aos="fade-right" data-aos-easing="ease-in-sine" data-aos-offset="300"
+                >
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                 </p>
-                <Button variant="dark" className="banner-button">
+                <Button variant="dark" className="banner-button" data-aos="fade-right" data-aos-easing="ease-in-sine" data-aos-offset="300"
+                >
                   Contact us for More info
                 </Button>
                 <img src={back} alt="" className="back-roll"
@@ -653,7 +661,8 @@ const handleSubmit = (e) => {
 
               </Col>
 
-              <Col md={6} className="text-md-end text-center">
+              <Col md={6} className="text-md-end text-center" data-aos="fade-left" data-aos-easing="ease-in-sine" data-aos-offset="300"
+              >
               <div className='grid-r'>
                 <Col md={6}>
 <img src={kach} />
@@ -684,7 +693,7 @@ const handleSubmit = (e) => {
                   <Container className="">
                     <Row className="align-items-center justify-content-between">
                       <Col md={5} className="mb-4 mb-md-0">
-                        <div className="ps-md-4 text-sm-center">
+                        <div className="ps-md-4 ons">
                           <h2 className="same-head">Gallery  </h2>
                           <p className="same-head-p">
                           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -720,8 +729,10 @@ const handleSubmit = (e) => {
 
         <section className='faqs'>
         <Container fluid className="px-5">
-      <h2 className="same-head">FREQUENTLY ASKED QUESTIONS</h2>
-      <p className="same-head-p">
+      <h2 className="same-head" data-aos="fade-right" data-aos-easing="ease-in-sine" data-aos-offset="300"
+      >FREQUENTLY ASKED QUESTIONS</h2>
+      <p className="same-head-p" data-aos="fade-right" data-aos-easing="ease-in-sine" data-aos-offset="300"
+      >
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
       </p>
     </Container>
@@ -744,7 +755,8 @@ const handleSubmit = (e) => {
         </Accordion.Item>
 
         {[1, 2, 3].map((item) => (
-          <Accordion.Item eventKey={`${item}`} key={item}>
+          <Accordion.Item eventKey={`${item}`} key={item} data-aos="fade-up" data-aos-easing="ease-in-sine"
+>
             <Accordion.Header>
               Lorem Ipsum Dolor Sit Amet, Consectetur Adipiscing Elit?
             </Accordion.Header>
@@ -763,13 +775,17 @@ const handleSubmit = (e) => {
           <Container>
             <Row className="d-flex align-items-center justify-content-center px-5 ">
               <Col md={6}>
-                <h2 className="same-head">Schedule Meeting</h2>
-                <p className="same-head-p">
+                <h2 className="same-head" data-aos="fade-right" data-aos-easing="ease-in-sine" data-aos-offset="300"
+                >Schedule Meeting</h2 >
+                <p className="same-head-p" data-aos="fade-right" data-aos-easing="ease-in-sine" data-aos-offset="300"
+                >
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                 </p>
-                <hr/>
-                <p className='mb-4'>15th Floor, Ocus Quantum, Sector-51,<br/> Gurugram, Haryana - 122003</p>
-                <Button variant="dark" className="banner-button">
+                <hr data-aos="fade-right" data-aos-easing="ease-in-sine" data-aos-offset="300"/ >
+                <p className='mb-4' data-aos="fade-right" data-aos-easing="ease-in-sine" data-aos-offset="300"
+                >15th Floor, Ocus Quantum, Sector-51,<br/> Gurugram, Haryana - 122003</p>
+                <Button variant="dark" className="banner-button" data-aos="fade-right" data-aos-easing="ease-in-sine" data-aos-offset="300"
+                >
                   Contact us for More info
                 </Button>
                 <img src={back} alt="" className="back-roll"
@@ -778,7 +794,8 @@ const handleSubmit = (e) => {
               </Col>
 
               <Col md={6} className="text-md-end text-center">
-              <div className='form-set'>
+              <div className='form-set' data-aos="fade-left" data-aos-easing="ease-in-sine" data-aos-offset="300"
+              >
                 <h5>Enter details to schedule meeting</h5>
                 <form onSubmit={handleSubmit}>
                       <div className="mb-3">
@@ -880,7 +897,8 @@ const handleSubmit = (e) => {
               >
         {projects.map((project, index) => (
           <SwiperSlide key={project.id}>
-            <Col className="features-list p-0 dip-column">
+            <Col className="features-list p-0 dip-column" data-aos="fade-up" data-aos-easing="ease-in-sine"
+            >
 
                 <Card
                   className={`custom-card card-${index} box-${index}`}

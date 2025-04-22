@@ -115,7 +115,7 @@ function Blogs() {
      <section className="Main-banner Blogs-banner" data-speed="1.5">
           <Container>
             <Row>
-              <Col md={12} >
+              <Col md={12} className='animate__animated animate__fadeInLeft' >
                 <h1> Property<br/> Insights</h1>
                 <p>From market trends to expert tips, we’ve got your back at every step.
                 </p>
@@ -156,7 +156,8 @@ function Blogs() {
 
                     <Row>
                       {Blogsdata.map((Blogsdata, index) => (
-                        <Col md={4} key={Blogsdata.id} className="features-list p-0">
+                        <Col md={4} key={Blogsdata.id} className="features-list p-0" data-aos="fade-up" data-aos-easing="ease-in-sine"
+>
                           {/* <Card className=" position-relative"> */}
                           <Card
 

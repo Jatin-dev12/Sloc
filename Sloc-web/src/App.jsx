@@ -13,7 +13,8 @@ import Project from './Project/project';
 import './Responsive.css';
 import Scrol from './scrol'
 import 'animate.css';
-
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 
 
@@ -33,7 +34,10 @@ export default function App() {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
-
+  useEffect(() => {
+    AOS.init({
+    });
+  }, []);
   return (
     <BrowserRouter>
     < Scrol />

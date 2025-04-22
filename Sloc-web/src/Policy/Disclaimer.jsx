@@ -13,7 +13,7 @@ const Disclaimer = () => {
 
     <Container className="">
       <Row className="align-items-center">
-        <Col md={12}>
+        <Col md={12} className="animate__animated animate__fadeInLeft">
 
           <h2 className="fw-bold blog-h mt-2">Disclaimer</h2>
           <p className=" blog-p">

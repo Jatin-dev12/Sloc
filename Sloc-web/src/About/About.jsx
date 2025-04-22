@@ -99,7 +99,7 @@ function About() {
          <Container>
            <Row>
              <Col md={6} xs={12} >
-               <h1>Shaping Property Dreams! </h1>
+               <h1 className='animate__animated animate__fadeInLeft'>Shaping Property Dreams! </h1>
                <p>SLOC is your trusted partner in discovering premium homes, top locations, and lifestyle investments.
                </p>
              </Col>
@@ -121,16 +121,19 @@ function About() {
             <Row className="mb-4 d-flex">
               <Col md={6} className=" align-content-end head">
                 <img src={Round} alt="scroling" className="scrol-top" />
-                <h2 className="same-head" >About Sloc</h2>
-                <p className="same-head-p">
+                <h2 className="same-head "data-aos="fade-right" data-aos-easing="ease-in-sine" data-aos-offset="300"
+ >About Sloc</h2>
+                <p className="same-head-p" data-aos="fade-right" data-aos-easing="ease-in-sine" data-aos-offset="300"
+                >
                 We’re more than just real estate advisors; we’re a team that understands how important the right space can be. A home isn’t just four walls; it’s where life happens. An investment is more than simply a number; it represents the shaping of your future. That's why we do what we do: with heart, honesty, and a genuine desire to assist you in finding what works best for you. Whether you're buying, selling, or simply exploring your options, we're here to guide you with relevant insights and support you as a friend would.<br/>Real people + Real spaces + Real connections = the SLOC Success.
 
                 </p>
               </Col>
               <Col md={6} className="d-flex flex-wrap four-col-st">
-              <Container>
+              <Container data-aos="fade-left" data-aos-easing="ease-in-sine" data-aos-offset="300"
+              >
         {/* Mission */}
-        <Row className="align-items-center my-4 p-3">
+        <Row className="align-items-center my-4 p-3 " >
           <Col xs={3} className="text-center">
           <img src={Mision} />
           </Col>
@@ -170,7 +173,8 @@ function About() {
         </p>
         </div>
         {services.map((service, idx) => (
-          <Row key={idx} className="service-row py-3 align-items-center border-bottom border-white">
+          <Row key={idx} className="service-row py-3 align-items-center border-bottom border-white" data-aos="fade-up" data-aos-easing="ease-in-sine" data-aos-offset="500"
+>
             <Col md={5} xs={12}>
               <h5 className="mb-1">{service.title}</h5>
 
@@ -189,7 +193,7 @@ function About() {
     </section>
 
 
-    <section className="assistance-section position-relative ">
+    <section className="assistance-section position-relative " >
     <Container>
         <h3 className="section-title same-head">END TO END ASSISTANCE</h3>
         <p className="section-subtitle same-head-p">
@@ -197,7 +201,8 @@ function About() {
         </p>
         <img src={side} className='side-set' />
 
-        <Row className="gy-5 flex-column">
+        <Row className="gy-5 flex-column" data-aos="fade-up" data-aos-easing="ease-in-sine" data-aos-offset="300"
+        >
           <Col md={12} className="connect">
           <div className='step-text'>
           <img src={Line} alt="" />
@@ -259,39 +264,41 @@ function About() {
     <section className="assistance-section position-relative same-space aline ">
     <Container fluid className=''>
     <Row className=" px-5 ">
-        <h3 className="section-title same-head">Our Alliances</h3>
-        <p className="section-subtitle same-head-p">
+        <h3 className="section-title same-head" data-aos="fade-right" data-aos-easing="ease-in-sine" data-aos-offset="200"
+        >Our Alliances</h3>
+        <p className="section-subtitle same-head-p" data-aos="fade-right" data-aos-easing="ease-in-sine" data-aos-offset="200"
+        >
         We’re backed by a network of reputed developers and property experts.
         </p>
         </Row>
 
         <Row className="text text-center alliance mt-5 px-5 ">
           <Col md={3} className='brdr'>
-<img src={god} className='phli'/>
+<img src={god} className='phli' data-aos="zoom-in" data-aos-easing="ease-in-sine" data-aos-offset="100"/>
           </Col>
           <Col md={3} className='brdr'>
-<img src={ats}/>
+<img src={ats} data-aos="zoom-in" data-aos-easing="ease-in-sine" data-aos-offset="100"/>
           </Col>
           <Col md={3} className='brdr'>
-<img src={ace}/>
+<img src={ace} data-aos="zoom-in" data-aos-easing="ease-in-sine" data-aos-offset="100"/>
           </Col>
           <Col md={3} className='brdr'>
-<img src={vtp}/>
+<img src={vtp} data-aos="zoom-in" data-aos-easing="ease-in-sine" data-aos-offset="100"/>
           </Col>
 
         </Row>
         <Row className="text text-center alliance  px-5 ">
           <Col md={3} className='brdr'>
-<img src={Gulshan}/>
+<img src={Gulshan} data-aos="zoom-in" data-aos-easing="ease-in-sine" data-aos-offset="100"/>
           </Col>
           <Col md={3} className='brdr'>
-<img src={lodha}/>
+<img src={lodha} data-aos="zoom-in" data-aos-easing="ease-in-sine" data-aos-offset="100"/>
           </Col>
           <Col md={3} className='brdr'>
-<img src={amo}/>
+<img src={amo} data-aos="zoom-in" data-aos-easing="ease-in-sine" data-aos-offset="100"/>
           </Col>
           <Col md={3} className='brdr'>
-<img src={dlf}/>
+<img src={dlf} data-aos="zoom-in" data-aos-easing="ease-in-sine" data-aos-offset="100"/>
           </Col>
 
 
@@ -299,16 +306,16 @@ function About() {
         </Row>
         <Row className="text text-center alliance px-5 ">
           <Col md={3} className='brdr'>
-<img src={max}/>
+<img src={max} data-aos="zoom-in" data-aos-easing="ease-in-sine" data-aos-offset="100"/>
           </Col>
           <Col md={3} className='brdr'>
-<img src={tri}/>
+<img src={tri} data-aos="zoom-in" data-aos-easing="ease-in-sine" data-aos-offset="100"/>
           </Col>
           <Col md={3} className='brdr'>
-<img src={pirmal}/>
+<img src={pirmal} data-aos="zoom-in" data-aos-easing="ease-in-sine" data-aos-offset="100"/>
           </Col>
           <Col md={3} className='brdr'>
-<img src={shopp}/>
+<img src={shopp} data-aos="zoom-in" data-aos-easing="ease-in-sine" data-aos-offset="100"/>
           </Col>
 
 
@@ -321,7 +328,8 @@ function About() {
     <section className='achivments same-space'>
     <Container className="">
       <Row className="align-items-center ">
-        <Col md={4} className="mb-4 mb-md-0">
+        <Col md={4} className="mb-4 mb-md-0" data-aos="fade-right" data-aos-easing="ease-in-sine" data-aos-offset="50"
+        >
           <h2 className="same-head">
             AWARDS
           </h2>
@@ -335,7 +343,8 @@ function About() {
           <Row className='achivments'>
             {awards.map((award) => (
               <Col md={6} key={award.id} className="mb-4">
-                <Card className=" position-relative overflow-hidden">
+                <Card className=" position-relative overflow-hidden" data-aos="fade-up" data-aos-easing="ease-in-sine" data-aos-offset="300"
+                >
                   <Card.Body className="p-4 achiv">
                     <img src={Achive} className='corner' />
                     <div className=" mb-3">
@@ -366,7 +375,8 @@ function About() {
     </section>
 
 
-    <section className='same-space why-us'>
+    <section className='same-space why-us' data-aos="fade-up" data-aos-easing="ease-in-sine" data-aos-offset="300"
+    >
       <Container>
         <div className=" mb-5">
           <h3 className="same-head" style={{ color: "#ffffff" }}>WHY CHOOSE US</h3>

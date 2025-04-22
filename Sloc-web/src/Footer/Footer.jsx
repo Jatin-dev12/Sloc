@@ -23,9 +23,11 @@ const Footer = () => {
             <div className="footer-logo">
           <Link to='/'><p className='Logo'>SLOC</p></Link>
             </div>
-            <p className="my-3 set-wi">
+            <p className="my-2" >
             We bring you the finest real estate choices with trust and excellence. Get set to Dream, Discover, and Deal.
+
             </p>
+             <p className="my-3 set-wi">HARYANA RERA - HRERA-PKL-REA-3396-2025</p>
 
             <div className="mb-2">
               <h6 className="text-uppercase ft-font">FOLLOW US AT</h6>
@@ -89,7 +91,7 @@ const Footer = () => {
             <p className=" mb-1">Sector-51, Gurugram, Haryana</p>
             <p className=" mb-3">122003 </p>
             <p className=" my-3">contact@sloc.in</p>
-            <p className=" mb-1">+971 4 542 4200</p>
+            <p className=" mb-1">+919971094108</p>
           </Col>
         </Row>
 

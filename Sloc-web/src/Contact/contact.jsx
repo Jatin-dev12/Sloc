@@ -5,6 +5,7 @@ import ofc from '../assets/Imgs/ofc.svg'
 import call from '../assets/Imgs/call.svg'
 import mal from '../assets/Imgs/mal.svg'
 import 'intl-tel-input/build/css/intlTelInput.css';
+import bg from './bg.png'
 
 
 const Contact = () => {
@@ -141,21 +142,26 @@ const Contact = () => {
 
   return (
     <>
-      <section className="disclamer baner-iner">
+      <section className="disclamer baner-iner contact-banner">
         <Container>
-          <Row className="align-items-center">
-            <Col md={12}>
+          <Row className="align-items-center mobile-set">
+            <Col md={6} className="animate__animated animate__fadeInLeft">
               <h2 className="fw-bold blog-h mt-2">Let’s <br/>Connect</h2>
               <p className="blog-p">
               Helping you is what we do best. Whether you need info,<br/> advice, or a friendly chat; we’ve got you!
 
               </p>
             </Col>
+            <Col md={6}>
+            <img src={bg} className="img-fluid"/>
+
+            </Col>
           </Row>
         </Container>
       </section>
 
-      <section className="blog-text ">
+      <section className="blog-text "
+      >
         <Container fluid>
           <Row className="justify-content-center">
             <Col md={10} className="all-border contact-set">

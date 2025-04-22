@@ -14,13 +14,13 @@ const BlogSection = () => {
 
     <Container className="my-5">
       <Row className="align-items-center">
-        <Col md={7}>
+        <Col md={7} className='animate__animated animate__fadeInLeft'>
           <div className="mb-2">
             <Badge bg="" className="date">March 10, 2025</Badge>
             <Badge bg="                                                                                                                                                                                                                                                                                                                                                     " className='apartmanet'>Architecture</Badge>
           </div>
-          <h2 className="fw-bold blog-h mt-3">BLOG 1 HEADING</h2>
-          <p className="text-muted blog-p">
+          <h2 className="fw-bold blog-h mt-3 ">BLOG 1 HEADING</h2>
+          <p className="text-muted blog-p ">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
             Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
           </p>
@@ -40,10 +40,11 @@ const BlogSection = () => {
 
     </section>
 
-    <section className='blog-text'>
+    <section className='blog-text'
+    >
         <Container fluid className="">
     <Row className=' justify-content-center'>
-        <Col md={10} className='all-border'>
+        <Col md={10} className='all-border' data-aos="fade-up" data-aos-easing="ease-in-sine">
           <p>
           At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.
           </p><br/>

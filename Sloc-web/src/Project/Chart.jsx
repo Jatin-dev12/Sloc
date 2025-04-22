@@ -38,22 +38,23 @@ const EMICalculator = () => {
   return (
     <Container className=" emi-chart mt-4">
       <Row className=' justify-content-between p-0'>
-        <Col md={7}  className='bg-chane less-wi'>
+        <Col md={7} className='bg-chane less-wi' data-aos="fade-right" data-aos-easing="ease-in-sine" data-aos-offset="300"
+        >
 
           <Form className="mt-4">
             <Form.Group className="mb-4">
               <Form.Label>Loan Amount (₹)</Form.Label>
               <Form.Range
-  className="custom-range"
-  min={1000000} // 1 million
-  max={100000000} // 100 million
-  step={1000000} // 1 million step
-  value={loanAmount}
-  onChange={(e) => setLoanAmount(Number(e.target.value))}
-  style={{
-    '--range-progress': `${((loanAmount - 1000000) / (100000000 - 1000000)) * 100}%`
-  }}
-/>
+                className="custom-range"
+                min={1000000} // 1 million
+                max={100000000} // 100 million
+                step={1000000} // 1 million step
+                value={loanAmount}
+                onChange={(e) => setLoanAmount(Number(e.target.value))}
+                style={{
+                  '--range-progress': `${((loanAmount - 1000000) / (100000000 - 1000000)) * 100}%`
+                }}
+              />
 
               <div className="d-flex justify-content-between">
                 <span>1L</span>
@@ -64,15 +65,15 @@ const EMICalculator = () => {
             <Form.Group className="mb-4">
               <Form.Label>Tenure (Years)</Form.Label>
               <Form.Range
-  className="custom-range"
-  min={2}
-  max={30}
-  value={tenure}
-  onChange={(e) => setTenure(Number(e.target.value))}
-  style={{
-    '--range-progress': `${((tenure - 2) / (30 - 2)) * 100}%`
-  }}
-/>
+                className="custom-range"
+                min={2}
+                max={30}
+                value={tenure}
+                onChange={(e) => setTenure(Number(e.target.value))}
+                style={{
+                  '--range-progress': `${((tenure - 2) / (30 - 2)) * 100}%`
+                }}
+              />
               <div className="d-flex justify-content-between">
                 <span>2</span>
                 <span>30</span>
@@ -82,16 +83,16 @@ const EMICalculator = () => {
             <Form.Group className="mb-4">
               <Form.Label>Rate of Interest (%)</Form.Label>
               <Form.Range
-  className="custom-range"
-  min={7}
-  max={15}
-  step={0.1}
-  value={interestRate}
-  onChange={(e) => setInterestRate(Number(e.target.value))}
-  style={{
-    '--range-progress': `${((interestRate - 7) / (15 - 7)) * 100}%`
-  }}
-/>
+                className="custom-range"
+                min={7}
+                max={15}
+                step={0.1}
+                value={interestRate}
+                onChange={(e) => setInterestRate(Number(e.target.value))}
+                style={{
+                  '--range-progress': `${((interestRate - 7) / (15 - 7)) * 100}%`
+                }}
+              />
               <div className="d-flex justify-content-between">
                 <span>7%</span>
                 <span>15%</span>
@@ -100,7 +101,8 @@ const EMICalculator = () => {
           </Form>
         </Col>
 
-        <Col md={5} className='bg-chane'>
+        <Col md={5} className='bg-chane'data-aos="fade-left" data-aos-easing="ease-in-sine" data-aos-offset="300"
+        >
           <Card className="set-to">
             <h6 className=" text-center">YOUR EMI PER MONTH</h6>
             <h3 className="text-center  fw-bold mb-4">₹ {Math.round(emi).toLocaleString()}</h3>

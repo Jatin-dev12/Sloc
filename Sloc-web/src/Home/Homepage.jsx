@@ -796,7 +796,7 @@ gsap.to([section2Image], {
           <Container>
             <Row>
               <Col md={6} className="top-co" >
-                <h1 class=" animate__animated animate__fadeInLeft">Search Land Of Choice</h1>
+                <h1 className=" animate__animated animate__fadeInLeft">Search Land Of Choice</h1>
 
                 <p>Explore premium living spaces in the most sought-after locations of India. </p>
               </Col>
@@ -822,7 +822,7 @@ gsap.to([section2Image], {
               </Col>
             </Row>
           </Container>
-          <div className="d-flex align-items-md-center searc-bar  justify-content-between">
+          <div className="d-flex align-items-md-center searc-bar home-serch justify-content-between">
             <DropdownButton
               id="dropdown-city"
               title="City"
@@ -850,7 +850,7 @@ gsap.to([section2Image], {
                 <img src={Search} />
               </InputGroup.Text>
               <Form.Control
-                placeholder="Search by location or property ID....."
+                placeholder="Search by Developer or Project"
                 aria-label="Username"
                 aria-describedby="basic-addon1"
               />
@@ -895,10 +895,10 @@ gsap.to([section2Image], {
       <Col md={6} className="align-content-end head">
         <img src={Round} alt="scroling" className="scrol-top" ref={scrollImageRef} />
 
-        <h2 className="same-head animate__animated animate__slideInLeft" >
+        <h2 className="same-head aos-item" data-aos="fade-right" data-id="1" >
           WELCOME TO SLOC!
         </h2>
-        <p className="same-head-p">
+        <p className="same-head-p" data-aos="fade-up" data-aos-duration="1000">
         SLOC is all about turning property searches into seamless, rewarding experiences. Whether you seek a luxury residence, a strategic investment, or commercial real estate, we present the premier properties from India's leading developers such as Godrej, DLF, and others. Our dedication to honesty and high standards allows us to assist you in your search for, and investment in, real estate opportunities. With us by your side, the search ends and new beginnings start!
         </p>
       </Col>
@@ -906,7 +906,7 @@ gsap.to([section2Image], {
         <Col md={6} lg={6} className="right res">
           <Card className="">
             <h3 className="text-primary">
-              <Counter className="Counter-no" to={10} from={0} />
+              <Counter className="Counter-no" to={5} from={0} />
               +
             </h3>
             <p>Years of Excellence</p>
@@ -915,7 +915,7 @@ gsap.to([section2Image], {
         <Col md={6} lg={6} className="only-bottom res">
           <Card className="">
             <h3 className="text-primary">
-              <Counter className="Counter-no" to={5} from={0} />
+              <Counter className="Counter-no" to={1} from={0} />
               K
             </h3>
             <p>Happy Customers</p>
@@ -933,7 +933,7 @@ gsap.to([section2Image], {
         <Col md={6} lg={6} className="left-brdr res">
           <Card className="">
             <h3 className="text-primary">
-              <Counter className="Counter-no" to={95} from={0} />
+              <Counter className="Counter-no" to={98} from={0} />
              %
             </h3>
             <p>Customer Satisfaction</p>
@@ -944,7 +944,7 @@ gsap.to([section2Image], {
   </Container>
 </section>
 
-<section ref={section1Ref} className="featured">
+<section ref={section1Ref} className="featured" >
   <div className="featured-floating-imgs">
     <div className="image-stack">
       <img
@@ -969,13 +969,13 @@ gsap.to([section2Image], {
   </div>
   <Container className="full">
            <Row className="mb-4 d-flex py-md-4 align-content-center">
-              <Col md={8} className="align-content-center">
-                <h2 className="same-head">Exclusive Listings</h2>
+              <Col md={8} className="align-content-center" data-aos="fade-right" data-aos-easing="ease-in-sine" data-aos-offset="300">
+                <h2 className="same-head" >Exclusive Listings</h2>
                 <p className="same-head-p">
                 Discover a handpicked selection of luxurious homes, prime plots, and commercial landmarks from India’s most trusted developers.
                 </p>
               </Col>
-              <Col md={4} className="align-items-end text-end align-content-center">
+              <Col md={4} className="align-items-end text-end align-content-center" data-aos="fade-left">
                 <div className="custom-swiper-nav d-flex gap-4 justify-content-md-end mb-3">
                   <img src={PrevArrow} alt="Previous" className="swiper-button-prev-custom" />
                   <img src={NextArrow} alt="Next" className="swiper-button-next-custom" />
@@ -1045,7 +1045,7 @@ gsap.to([section2Image], {
   </Container>
 </section>
 
-        <section ref={section2Ref} className="Cta position-relative">
+        <section ref={section2Ref} className="Cta position-relative" >
           <Container>
             <Row className="d-flex align-items-center justify-content-center ">
               <Col md={8}>
@@ -1074,11 +1074,11 @@ gsap.to([section2Image], {
             <Row className="align-items-center justify-content-between">
               <Col md={5} className="mb-4 mb-md-0">
                 <div className="ps-md-4">
-                  <h2 className="same-head">SLOC Stories  </h2>
-                  <p className="same-head-p">
+                  <h2 className="same-head" data-aos="fade-right" data-aos-delay="300">SLOC Stories  </h2>
+                  <p className="same-head-p" data-aos="fade-right" data-aos-delay="300">
                   From search to sold, we make real estate effortless and exciting!
                   </p>
-                  <Button className="Up-arrow-btn res-hide">
+                  <Button className="Up-arrow-btn res-hide d-none">
                     <img src={Arrow} />
                   </Button>
                 </div>
@@ -1161,9 +1161,9 @@ gsap.to([section2Image], {
           </div>
           <Container className="">
             <Row className="mb-4 d-flex py-4 align-content-center">
-              <Col md={8} className="align-content-center">
+              <Col md={8} className="align-content-center" data-aos="fade-right" data-aos-easing="ease-in-sine" data-aos-offset="300">
 
-                <h2 className="same-head">The SLOC Journal</h2>
+                <h2 className="same-head" >The SLOC Journal</h2>
                 <p className="same-head-p">
                 Your go-to source for property trends and investment tips!
                 </p>
@@ -1171,6 +1171,7 @@ gsap.to([section2Image], {
               <Col
                 md={4}
                 className="align-items-md-end text-md-end align-content-center text-center"
+                data-aos="fade-left" data-aos-easing="ease-in-sine" data-aos-offset="300"
               >
                 <Button variant="dark">See more Blogs</Button>
               </Col>
