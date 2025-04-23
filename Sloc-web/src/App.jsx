@@ -16,6 +16,7 @@ import 'animate.css';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import Search from './Search-listing/Search';
+import { FaWhatsapp } from 'react-icons/fa';
 
 export default function App() {
   const [showButton, setShowButton] = useState(false);
@@ -81,6 +82,35 @@ export default function App() {
           ↑
         </button>
       )}
+
+{showButton && (
+  <a
+    href="https://api.whatsapp.com/send?phone=+919910099434&text=Hello%20there!"
+    target="_blank"
+    rel="noopener noreferrer"
+    style={{
+      position: 'fixed',
+      bottom: '100px',
+      right: '30px',
+      padding: '0',
+      fontSize: '30px',
+      backgroundColor: '#25D366',
+      color: '#fff',
+      border: 'none',
+      borderRadius: '50px',
+      cursor: 'pointer',
+      height: '50px',
+      width: '50px',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      zIndex: 9999999999999999999999999999999,
+      boxShadow: '0px 4px 10px rgba(0,0,0,0.3)'
+    }}
+  >
+    <FaWhatsapp />
+  </a>
+)}
     </BrowserRouter>
   );
 }

@@ -1088,7 +1088,9 @@ main.project-page {
   .grid-r img {
     width: 100%;
   }
-
+  section.featured {
+    padding-top: 40px;
+}
   .ps-md-4.text-sm-center {
     text-align: center;
   }
@@ -1172,6 +1174,9 @@ main.project-page {
   .mobile-set {
     flex-direction: column-reverse;
     gap: 35px;
+}
+.mobile-bgp {
+  background-image: url(./Home/Mb.jpg) !important;
 }
 }
 

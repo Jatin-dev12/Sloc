@@ -39,9 +39,9 @@ export default function Header() {
     <Navbar.Collapse id="basic-navbar-nav">
       <Nav className="ml-auto">
         {/* <Nav.Link to="/">Home</Nav.Link> */}
-        <Link to="/">Home</Link>
-        <Link to="/About">About Us</Link>
-        <Link to="/Blogs">Blogs</Link>
+        <Link to="/" data-text="Home">Home</Link>
+        <Link to="/About" data-text="About Us">About Us</Link>
+        <Link to="/Blogs" data-text="Blogs">Blogs</Link>
         <Link to="/contact" className="cntnct all-same-ani">Contact Us</Link>
       </Nav>
     </Navbar.Collapse>

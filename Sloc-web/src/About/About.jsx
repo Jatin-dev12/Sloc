@@ -12,16 +12,26 @@ import cus from '../assets/Imgs/customer.svg';
 import Line from '../assets/Imgs/Line-mid.png'
 import side from '../assets/Imgs/back-scrol.png';
 import god from '../assets/Alliance-imgs/godred.png';
-import ats from '../assets/Alliance-imgs/ats.png';
-import ace from '../assets/Alliance-imgs/ace.png';
-import vtp from '../assets/Alliance-imgs/vtp.png';
-import Gulshan from '../assets/Alliance-imgs/gulshan.png'
-import lodha from '../assets/Alliance-imgs/lodha.png'
-import amo from '../assets/Alliance-imgs/amo.png'
-import dlf from '../assets/Alliance-imgs/dlf.png'
-import max from '../assets/Alliance-imgs/max.png'
-import tri from '../assets/Alliance-imgs/tri.png'
-import pirmal from '../assets/Alliance-imgs/pirmal.png'
+import ats from '../assets/Alliance-imgs/birla.png';
+import ace from '../assets/Alliance-imgs/m.png';
+import emar from '../assets/Alliance-imgs/emar.png';
+import Gulshan from '../assets/Alliance-imgs/smart.png'
+import lodha from '../assets/Alliance-imgs/max.png'
+import amo from '../assets/Alliance-imgs/adnai.png'
+import dlf from '../assets/Alliance-imgs/amb.png'
+import max from '../assets/Alliance-imgs/thar.png'
+import tri from '../assets/Alliance-imgs/kris.png'
+import pirmal from '../assets/Alliance-imgs/puri.png'
+import exp from '../assets/Alliance-imgs/exp.png'
+import tarc from '../assets/Alliance-imgs/tarc.png'
+import ris from '../assets/Alliance-imgs/ris.png'
+
+import pre from '../assets/Alliance-imgs/pre.png'
+import gera from '../assets/Alliance-imgs/gera.png'
+import conc from '../assets/Alliance-imgs/conc.png'
+import global from '../assets/Alliance-imgs/global.png'
+
+
 import Award from '../assets/Imgs/award.svg'
 import shopp from '../assets/Alliance-imgs/shpoji.png'
 import Achive from '../assets/Imgs/Achive.png';
@@ -277,13 +287,13 @@ function About() {
 <img src={god} className='phli' data-aos="zoom-in" data-aos-easing="ease-in-sine" data-aos-offset="100"/>
           </Col>
           <Col md={3} className='brdr'>
+<img src={dlf} data-aos="zoom-in" data-aos-easing="ease-in-sine" data-aos-offset="100"/>
+          </Col>
+          <Col md={3} className='brdr'>
 <img src={ats} data-aos="zoom-in" data-aos-easing="ease-in-sine" data-aos-offset="100"/>
           </Col>
           <Col md={3} className='brdr'>
 <img src={ace} data-aos="zoom-in" data-aos-easing="ease-in-sine" data-aos-offset="100"/>
-          </Col>
-          <Col md={3} className='brdr'>
-<img src={vtp} data-aos="zoom-in" data-aos-easing="ease-in-sine" data-aos-offset="100"/>
           </Col>
 
         </Row>
@@ -315,7 +325,41 @@ function About() {
 <img src={pirmal} data-aos="zoom-in" data-aos-easing="ease-in-sine" data-aos-offset="100"/>
           </Col>
           <Col md={3} className='brdr'>
+<img src={emar} data-aos="zoom-in" data-aos-easing="ease-in-sine" data-aos-offset="100"/>
+          </Col>
+
+
+
+        </Row>
+        <Row className="text text-center alliance px-5 ">
+          <Col md={3} className='brdr'>
+<img src={exp} data-aos="zoom-in" data-aos-easing="ease-in-sine" data-aos-offset="100"/>
+          </Col>
+          <Col md={3} className='brdr'>
 <img src={shopp} data-aos="zoom-in" data-aos-easing="ease-in-sine" data-aos-offset="100"/>
+          </Col>
+          <Col md={3} className='brdr'>
+<img src={tarc} data-aos="zoom-in" data-aos-easing="ease-in-sine" data-aos-offset="100"/>
+          </Col>
+          <Col md={3} className='brdr'>
+<img src={ris} data-aos="zoom-in" data-aos-easing="ease-in-sine" data-aos-offset="100"/>
+          </Col>
+
+
+
+        </Row>
+        <Row className="text text-center alliance px-5 ">
+          <Col md={3} className='brdr'>
+<img src={pre} data-aos="zoom-in" data-aos-easing="ease-in-sine" data-aos-offset="100"/>
+          </Col>
+          <Col md={3} className='brdr'>
+<img src={gera} data-aos="zoom-in" data-aos-easing="ease-in-sine" data-aos-offset="100"/>
+          </Col>
+          <Col md={3} className='brdr'>
+<img src={conc} data-aos="zoom-in" data-aos-easing="ease-in-sine" data-aos-offset="100"/>
+          </Col>
+          <Col md={3} className='brdr'>
+<img src={global} data-aos="zoom-in" data-aos-easing="ease-in-sine" data-aos-offset="100"/>
           </Col>
 
 

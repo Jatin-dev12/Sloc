@@ -595,3 +595,8 @@ button.scroll-to-top-btn {
   transition: .3s all ease-in-out  !important;
 }
 
+button.btn.btn-dark:hover{
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 20px 40px 0px;
+  transform: scale(1.01) rotateX(5deg) rotateY(5deg);
+  background: #1F3B56 !important;
+}
