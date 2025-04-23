@@ -31,6 +31,7 @@ p.Logo {
   text-align: center;
   vertical-align: middle;
   font-family: "Darker Grotesque", sans-serif !important;
+  display: inline;
 }
 
 section.Topbar p {
@@ -1966,18 +1967,93 @@ section.Blog-listing .latest {
   background: #EFF7FE;
   color: #000 !important;
 }
+
 .why-choose.card:hover img {
   scale: 1.2 !important;
 }
+
 .why-choose.card img {
   transition: .3s all ease;
 }
+
 .text-sm-center {
   text-align: left !important;
 }
-.home-serch{
+
+.home-serch {
   background-image: url(./assets/Imgs/Cta-banner.png) !important;
   background-size: cover !important;
   background-repeat: no-repeat !important;
   background-position: center !important;
+}
+
+.listing-maina {
+  background: #fff !important;
+  height: unset !important;
+  padding: 60px 0;
+}
+
+.searchlisting-bar {
+  position: unset;
+  margin: 0;
+}
+
+button.latest.filter.btn.btn-dark {
+  border-radius: 100px !important;
+  padding: 10px 40px;
+  font-size: 18px;
+}
+
+img.pluss {
+  position: relative;
+  left: 10px;
+}
+
+.sortby.dropdown button#Sort\ by {
+  width: 100%;
+  border: 1px solid #1E1E1E;
+  border-radius: 0;
+  color: #1E1E1E;
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 400;
+}
+
+.sortby.dropdown a.dropdown-item {
+  color: #1E1E1E !important;
+
+}
+
+p.Bysearch {
+  font-size: 20px;
+  text-transform: uppercase;
+  font-family: "Bai Jamjuree", sans-serif !important;
+  font-weight: 500;
+
+}
+
+.search-filterr {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.sortby.dropdown {
+  width: 100%;
+  max-width: 400px;
+}
+
+.features-row.listing-ki.row {
+  border-top: 1px solid #B8B8B8;
+  border-bottom: 1px solid #B8B8B8;
+}
+
+.load-more {
+  width: fit-content  !important;
+  margin-top: 40px !important;
+}
+section.blogs {
+  padding-bottom: 10px;
 }

@@ -15,9 +15,7 @@ import Scrol from './scrol'
 import 'animate.css';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-
-
-
+import Search from './Search-listing/Search';
 
 export default function App() {
   const [showButton, setShowButton] = useState(false);
@@ -38,6 +36,9 @@ export default function App() {
     AOS.init({
     });
   }, []);
+
+
+
   return (
     <BrowserRouter>
     < Scrol />
@@ -52,6 +53,8 @@ export default function App() {
           <Route path="/Terms" element={<Terms />} />
           <Route path="/Disclaimer" element={<Disc />} />
           <Route path="/Project" element={<Project />} />
+          <Route path="/Search" element={<Search />} />
+
         </Route>
       </Routes>
 

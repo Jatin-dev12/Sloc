@@ -52,7 +52,9 @@ import PrevArrow from '../assets/Imgs/left.svg';
 import { Accordion } from 'react-bootstrap';
 import Char from './Chart'
 import { Link } from 'react-router-dom';
-
+import Instagram from '../assets/Imgs/ig.svg'
+import Facebook from '../assets/Imgs/facbook.svg'
+import linkdin from '../assets/Imgs/Linkdin.svg'
 
 function project() {
   const [formData, setFormData] = useState({
@@ -276,7 +278,7 @@ const handleSubmit = (e) => {
 
         <section className="Main-banner project-baner" data-speed="1.5">
           <Container >
-            <Navbar expand="md" className="Main-nav pr" collapseOnSelect>
+            <Navbar expand="md" className="Main-nav pr " collapseOnSelect>
               <Container className='end-toend'>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
@@ -290,7 +292,7 @@ const handleSubmit = (e) => {
 
                     <Nav.Link href="#Emi">EMI Calculator</Nav.Link>
 
-                    <Nav.Link href="/contact" className="cntnct">Contact Us</Nav.Link>
+                    <Nav.Link href="/contact" className="cntnct all-same-ani">Contact Us</Nav.Link>
                   </Nav>
                 </Navbar.Collapse>
               </Container>
@@ -370,7 +372,7 @@ const handleSubmit = (e) => {
                   </div>
 
                   <div className="d-grid">
-                    <button type="submit" className="btn btn-light text-dark">
+                    <button type="submit" className="btn btn-light text-dark all-same-ani">
                       Submit
                     </button>
                   </div>
@@ -401,7 +403,7 @@ const handleSubmit = (e) => {
                   This project offers 2.5 acres of Resort-Style Central Greens, a grand Club-House, an olympic-length infinity edge swimming pool, zen garden, yoga deck, multipurpose court, spa and salon.
                   This project ensures seamless connectivity to Delhi and other parts of Gurgaon.
                 </p>
-                <button type="text" className="btn btn-light comn-btn" data-aos="fade-right" data-aos-easing="ease-in-sine" data-aos-offset="300"
+                <button type="text" className="btn btn-light comn-btn all-same-ani" data-aos="fade-right" data-aos-easing="ease-in-sine" data-aos-offset="300"
                 >
                   Get Brochure
                 </button>
@@ -524,7 +526,7 @@ const handleSubmit = (e) => {
 
               <Col md={4} className="text-md-end text-center">
                 {/* <img src={Cta} alt="" className="scroll-img" /> */}
-                <Button variant="dark" className="banner-button">
+                <Button variant="dark" className="banner-button all-same-ani">
                   Contact us for More info
                 </Button>
               </Col>
@@ -633,7 +635,7 @@ const handleSubmit = (e) => {
                 <p>{item.size}</p></div>
 
               </div>
-              <button className="comn-btn">Get Full Pricing & Layout Now</button>
+              <button className="comn-btn all-same-ani">Get Full Pricing & Layout Now</button>
 
             </div>
           </SwiperSlide>
@@ -652,7 +654,7 @@ const handleSubmit = (e) => {
                 >
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                 </p>
-                <Button variant="dark" className="banner-button" data-aos="fade-right" data-aos-easing="ease-in-sine" data-aos-offset="300"
+                <Button variant="dark" className="banner-button all-same-ani" data-aos="fade-right" data-aos-easing="ease-in-sine" data-aos-offset="300"
                 >
                   Contact us for More info
                 </Button>
@@ -698,7 +700,7 @@ const handleSubmit = (e) => {
                           <p className="same-head-p">
                           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                           </p>
-                          <button className="comn-btn">Get Brochure</button>
+                          <Button className="comn-btn all-same-ani">Get Brochure</Button>
 
                         </div>
                         {/* <img src={soback} className="soc-img" alt="" /> */}
@@ -943,6 +945,96 @@ const handleSubmit = (e) => {
     </Row>
   </Container>
         </section>
+
+
+        <section className="Disclamer">
+<Container>
+  <p className='Dis'>Disclaimer : The content provided on this website is for information purposes only and does not constitute an offer to avail any service. The prices mentioned are subject to change without prior notice, and the availability of properties mentioned is not guaranteed. Users of this website are hereby advised to exercise due diligence and to independently validate and verify all information about any property / project before deciding to purchase the same or taking any other action. The images displayed on the website are for representation purposes only and may not reflect the actual properties accurately. Please note that this is the official website of an authorized marketing partner. The content, design, and information on this website are protected by copyright and other intellectual property rights. Any unauthorized use or reproduction of the content may violate applicable laws. All trademarks are the property of their respective owners.</p>
+</Container>
+    </section>
+    <footer className="">
+      <Container>
+        <Row className="mb-4 justify-content-between">
+          <Col lg={5} md={6} className="mb-4 mb-md-0 p-md-0">
+            <div className="footer-logo">
+          <Link to='/'><p className='Logo'>SLOC</p></Link>
+            </div>
+            <p className="my-2" >
+            We bring you the finest real estate choices with trust and excellence. Get set to Dream, Discover, and Deal.
+
+            </p>
+             <p className="my-3 set-wi">HARYANA RERA - HRERA-PKL-REA-3396-2025</p>
+
+            <div className="mb-2">
+              <h6 className="text-uppercase ft-font">FOLLOW US AT</h6>
+            </div>
+            <div className="d-flex gap-4 mt-4">
+                <Link
+                  to="https://www.linkedin.com/company/india-sloc"
+                  target="blank"
+                  className=""
+                >
+                  <img src={linkdin} />
+                </Link>
+
+                <Link to="https://www.instagram.com/sloc.in/" className="" target='blank'>
+                  <img src={Instagram} />
+                </Link>
+                <Link to="https://www.facebook.com/sloc.in" className="" target='blank'>
+                  <img src={Facebook} />
+                </Link>
+              </div>
+          </Col>
+
+          <Col lg={2} md={6} sm={6} className="mb-4 mb-md-0 res-st">
+            <h6 className="text-uppercase ft-font mb-3">QUICK LINKS</h6>
+            <ul className="list-unstyled mb-0">
+              <li className="mb-2">
+               <Link to="/" className="text-decoration-none  ">Home</Link>
+              </li>
+              <li className="mb-2">
+               <Link to="/About" className="text-decoration-none  ">About Us</Link>
+              </li>
+              <li className="mb-2">
+               <Link to="/Blogs" className="text-decoration-none  ">BLOG</Link>
+              </li>
+              <li className="mb-2">
+               <Link to="/contact" className="text-decoration-none  ">CONTACT US</Link>
+              </li>
+
+            </ul>
+          </Col>
+
+          <Col lg={2} md={6} sm={6} className="mb-4 mb-md-0 res-st">
+            <h6 className="text-uppercase ft-font mb-3">Policies</h6>
+            <ul className="list-unstyled mb-0">
+              <li className="mb-2">
+               <Link to="/Disclaimer" className="text-decoration-none  ">Disclaimer </Link>
+              </li>
+              <li className="mb-2">
+               <Link to="/Privacy" className="text-decoration-none  ">Privacy Policy</Link>
+              </li>
+              <li className="mb-2">
+               <Link to="/Terms" className="text-decoration-none  ">Terms & Conditions</Link>
+              </li>
+            </ul>
+          </Col>
+    <Col lg={2} md={6} className="mb-4 mb-md-0 res-st">
+            <h6 className="text-uppercase ft-font mb-3">INFORMATION</h6>
+            <p className=" mb-1">15th Floor, Ocus Quantum,</p>
+            <p className=" mb-1">Sector-51, Gurugram, Haryana, 122003 </p>
+            <p className=" my-3"><a href="mailto:contact@sloc.in">contact@sloc.in</a> </p>
+            <p className=" mb-1"><a href="tel:+919971094108">+919971094108</a></p>
+          </Col>
+        </Row>
+
+        <Row className='border-top-set pt-3 mt-2'>
+          <Col className="text-center ">
+            <p className="mb-0 copyright">© Copyright 2025 | All Rights Reserved</p>
+          </Col>
+        </Row>
+      </Container>
+    </footer>
 
       </main>
 

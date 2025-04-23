@@ -6,14 +6,20 @@ import Footer from "./Footer/Footer";
 const Layout = () => {
   const location = useLocation();
 
-  // Hide header on all routes starting with "/project"
-  const isProjectPage = location.pathname.toLowerCase().startsWith('/project');
+  // Normalize the path
+  const path = location.pathname.toLowerCase();
+
+  // Hide header and footer on routes starting with "/project"
+  const isProjectPage = path.startsWith('/project');
+
+  // Also hide footer on the root "/" route
+  const hideFooter = isProjectPage || path === '/';
 
   return (
     <>
       {!isProjectPage && <Header />}
       <Outlet />
-      <Footer />
+      {!hideFooter && <Footer />}
     </>
   );
 };

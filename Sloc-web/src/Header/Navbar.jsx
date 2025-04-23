@@ -42,7 +42,7 @@ export default function Header() {
         <Link to="/">Home</Link>
         <Link to="/About">About Us</Link>
         <Link to="/Blogs">Blogs</Link>
-        <Link to="/contact" className="cntnct">Contact Us</Link>
+        <Link to="/contact" className="cntnct all-same-ani">Contact Us</Link>
       </Nav>
     </Navbar.Collapse>
   </Container>
