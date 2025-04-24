@@ -178,7 +178,7 @@ function Blogs() {
                               <Card.Text className="text-primary font-weight-bold">
                                 {Blogsdata.text}
                               </Card.Text>
-                              <Button className="Up-arrow-btn" href='/details'>
+                              <Button className="Up-arrow-btn" href='/blog-detail'>
                                 <img src={Arrow} />
                               </Button>
                             </Card.Body>
@@ -194,4 +194,4 @@ function Blogs() {
   )
 }
 
-export default Blogs
+export default Blogs;

@@ -23,7 +23,7 @@ import blog2 from "../assets/Imgs/blog-2.png";
 import blog3 from "../assets/Imgs/blog-3.png";
 import Counter from "../Animations/CountUp/CountUp";
 import back from '../assets/Imgs/back-cta.png'
-import React, { useEffect,  useRef, useState } from 'react';
+import React, { useEffect,  useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import WelcomeLogo from '../assets/Imgs/25_Logo.svg'
@@ -44,8 +44,6 @@ import { FaTwitter, FaFacebook, FaInstagram, FaSnapchat, FaTelegram } from 'reac
 import Instagram from '../assets/Imgs/ig.svg'
 import Facebook from '../assets/Imgs/facbook.svg'
 import linkdin from '../assets/Imgs/Linkdin.svg'
-import axios from 'axios';
-
 const projects = [
   {
     id: 1,
@@ -125,7 +123,6 @@ const testimonials = [
   }
 ];
 
-
 const Blogs = [
   {
     id: 1,
@@ -162,77 +159,16 @@ const Blogs = [
 gsap.registerPlugin(ScrollTrigger);
 function Home() {
 
-//   const [projects, setProjects] = useState([]);
-// const [apiProjectsCount, setApiProjectsCount] = useState(0);
 
-// useEffect(() => {
-//   const baseUrl = import.meta.env.VITE_BASE_URL || 'https://default-api-url.com/';
-//   const apiUrl = `${baseUrl}public/api/projects`;
 
-//   // Define static projects
-//   const staticProjects = [
-//     {
-//       id: 'static-1',
-//       title: 'Luxury Villa',
-//       price: '₹ 5 CR* ONWARDS',
-//       location: 'Downtown City',
-//       size: '4 BHK',
-//       feet: '3000 - 4000 Sq.Ft.',
-//       image: 'https://via.placeholder.com/300',
-//       bottomImage: BottomImg1,
-//     },
-//     {
-//       id: 'static-2',
-//       title: 'Skyline Apartments',
-//       price: 'Price on Request',
-//       location: 'Uptown Area',
-//       size: '3 BHK',
-//       feet: '1800 - 2500 Sq.Ft.',
-//       image: 'https://via.placeholder.com/300',
-//       bottomImage: BottomImg2,
-//     },
-//   ];
 
-//   axios
-//     .get(apiUrl)
-//     .then((response) => {
-//       if (response.data.success) {
-//         console.log('Projects fetched successfully:', response.data.data);
-//         const apiProjects = response.data.data;
-//         setApiProjectsCount(apiProjects.length); // Store API projects count
 
-//         // Map API response to the required project structure
-//         const mappedApiProjects = apiProjects.map((project, index) => ({
-//           id: project.id,
-//           title: project.name || 'Untitled Project',
-//           price: project.tag_price ? `₹ ${project.tag_price} CR* ONWARDS` : 'Price on Request',
-//           location: project.address || 'Unknown Location',
-//           size: project.specification || '3 & 4 BHK',
-//           feet: '1948 - 3700 Sq.Ft.',
-//           image: project.hero_img || 'https://via.placeholder.com/300',
-//           bottomImage: [BottomImg1, BottomImg2, BottomImg3, BottomImg4][index % 4] || BottomImg1,
-//         }));
 
-//         // Combine API projects with static projects
-//         const combinedProjects = [...mappedApiProjects, ...staticProjects];
-//         setProjects(combinedProjects);
-//       }
-//     })
-//     .catch((error) => {
-//       console.error('Error fetching projects:', error);
-//       // Optionally set only static projects on error
-//       setProjects(staticProjects);
-//     })
-//     .finally(() => {
-//       // setLoading(false); // Uncomment if you have a loading state
-//     });
-// }, []);
   // 1. Welcome to SLOC section animation
   const containerRefs = useRef(null);
   const logoRefs = useRef(null); // Transparent SVG
   const scrollImageRef = useRef(null);
   const welcomeTextRef = useRef(null);
-
 
   const getAnimationProps = (width) => {
     // Default values for larger screens (>1920px)
@@ -241,51 +177,41 @@ function Home() {
       logoTo1: { opacity: 1, y: 50, x: 300, scale: 0.6, duration: 1 },
       scrollImageTo: { opacity: 0, duration: 0.2 },
       pathsTo: { fill: '#c1d1e0', stroke: '#c1d1e0', duration: 0.6 },
-      logoTo2: { y: 590, x: 509, scale: 0.1, duration: 2.5 },
+      logoTo2: { y: 460, x: 509, scale: 0.1, duration: 2.5 },
       logoTo3: { opacity: 0, duration: 0.5 },
-      scrollTrigger: { start: 'top 30%', end: 'bottom 62%', scrub: 0.7 },
+      scrollTrigger: { start: 'top center', end: 'bottom center', scrub: 0.5 },
     };
-    if (width <= 375) {
-      props = {
-        logoFrom: { opacity: 0, y: -80, x: 30, scale: 0.8 },
-        logoTo1: { opacity: 1, y: 590, x: 20, scale: 0.5, duration: 7, scrub: 1.2},
-        scrollImageTo: { opacity: 0, duration: 0.15 },
-        pathsTo: { fill: '#c1d1e0', stroke: '#c1d1e0', duration: 1.5 },
-        logoTo2: { y: 916, x: -69, scale: 0.1, duration: 6 },
-        logoTo3: { opacity: 0, duration: 0.1 },
-        scrollTrigger: { start: 'top 30%', end: 'bottom 47%', scrub: 0.7 },
-      };
-    }
+
     // Adjust for specific breakpoints
-    else if (width <= 425) {
+    if (width <= 425) {
       props = {
         logoFrom: { opacity: 0, y: -80, x: 80, scale: 0.8 },
-        logoTo1: { opacity: 1, y: 590, x: 20, scale: 0.5, duration: 7, scrub: 1.2},
+        logoTo1: { opacity: 1, y: 650, x: 100, scale: 0.5, duration: 21, scrub: 1.2},
         scrollImageTo: { opacity: 0, duration: 0.15 },
-        pathsTo: { fill: '#c1d1e0', stroke: '#c1d1e0', duration: 1.5 },
-        logoTo2: { y: 860, x: -39, scale: 0.1, duration: 6 },
+        pathsTo: { fill: '#c1d1e0', stroke: '#c1d1e0', duration: 2.5 },
+        logoTo2: { y: 966, x: -39, scale: 0.1, duration: 29 },
         logoTo3: { opacity: 0, duration: 0.1 },
-        scrollTrigger: { start: 'top 30%', end: 'bottom 47%', scrub: 0.7 },
+        scrollTrigger: { start: 'top 30%', end: 'bottom 77.6%', scrub: 1.2 },
       };
     } else if (width <= 574) {
       props = {
         logoFrom: { opacity: 0, y: -100, x: 100, scale: 0.85 },
-        logoTo1: { opacity: 1, y: 30, x: 70, scale: 0.55, duration: 1.9 },
+        logoTo1: { opacity: 1, y: 30, x: 120, scale: 0.55, duration: 0.9 },
         scrollImageTo: { opacity: 0, duration: 0.18 },
-        pathsTo: { fill: '#c1d1e0', stroke: '#c1d1e0', duration: 2.55, scrub: 1.2 },
-        logoTo2: { y: 790, x: 39, scale: 0.1, duration: 9 },
-        logoTo3: { opacity: 0, duration: 1.45 },
-        scrollTrigger: { start: 'top 69%', end: 'bottom 59%', scrub: 1.4 },
+        pathsTo: { fill: '#c1d1e0', stroke: '#c1d1e0', duration: 0.55 },
+        logoTo2: { y: 910, x: 39, scale: 0.1, duration: 15 },
+        logoTo3: { opacity: 0, duration: 0.45 },
+        scrollTrigger: { start: 'top 69%', end: 'bottom 79%', scrub: 0.4 },
       };
     } else if (width <= 991) {
       props = {
-        logoFrom: { opacity: 0, y: -140, x: 270, scale: 0.9 },
-        logoTo1: { opacity: 1, y: 45, x: 210, scale: 0.58, duration: 1},
+        logoFrom: { opacity: 0, y: -140, x: 340, scale: 0.9 },
+        logoTo1: { opacity: 1, y: 45, x: 350, scale: 0.58, duration: 1},
         scrollImageTo: { opacity: 0, duration: 0.2 },
         pathsTo: { fill: '#c1d1e0', stroke: '#c1d1e0', duration: 0.6 },
-        logoTo2: { y: 235, x: 260, scale: 0.1, duration: 2.6 },
+        logoTo2: { y: 485, x: 250, scale: 0.1, duration: 3.6 },
         logoTo3: { opacity: 0, duration: 0.5 },
-        scrollTrigger: { start: 'top 65%', end: 'bottom 41%', scrub: 1.1 },
+        scrollTrigger: { start: 'top 65%', end: 'bottom 61%', scrub: 0.5 },
       };
     } else if (width <= 1100) {
       props = {
@@ -293,9 +219,9 @@ function Home() {
         logoTo1: { opacity: 1, y: 45, x: 200, scale: 0.58, duration: 1 },
         scrollImageTo: { opacity: 0, duration: 0.2 },
         pathsTo: { fill: '#c1d1e0', stroke: '#c1d1e0', duration: 0.6 },
-        logoTo2: { y: 287, x: 306, scale: 0.1, duration: 4.6 },
+        logoTo2: { y: 405, x: 306, scale: 0.1, duration: 5.6 },
         logoTo3: { opacity: 0, duration: 0.5 },
-        scrollTrigger: { start: 'top 65%', end: 'bottom 45%', scrub: 1.2 },
+        scrollTrigger: { start: 'top 65%', end: 'bottom 63%', scrub: 0.5 },
       };
     }
     else if (width <= 1400) {
@@ -304,9 +230,9 @@ function Home() {
         logoTo1: { opacity: 1, y: 48, x: 250, scale: 0.6, duration: 1 },
         scrollImageTo: { opacity: 0, duration: 0.2 },
         pathsTo: { fill: '#c1d1e0', stroke: '#c1d1e0', duration: 0.6 },
-        logoTo2: { y: 385, x: 470, scale: 0.1, duration: 2.6 },
+        logoTo2: { y: 445, x: 470, scale: 0.1, duration: 2.6 },
         logoTo3: { opacity: 0, duration: 0.5 },
-        scrollTrigger: { start: 'top 60%', end: 'bottom 42%', scrub: 1 },
+        scrollTrigger: { start: 'top 60%', end: 'bottom 59%', scrub: 1 },
       };
     } else if (width <= 1600) {
       props = {
@@ -314,10 +240,10 @@ function Home() {
         logoTo1: { opacity: 1, y: 50, x: 280, scale: 0.6, duration: 1 , scrub: 1},
         scrollImageTo: { opacity: 0, duration: 1.1, scrub: 1 },
         pathsTo: { fill: '#c1d1e0', stroke: '#c1d1e0', scrub: 3 },
-        logoTo2: { y: 432, x: 551, scale: 0.1, duration: 4.6  },
+        logoTo2: { y: 510, x: 551, scale: 0.1, duration: 4.6  },
         logoTo3: { opacity: 0, duration: 0.5 },
         scrollTrigger: { start: 'top 75%',
-          end: 'bottom 49%',
+          end: 'bottom 55%',
         ease: 'power3.out', scrub: 2.3 },
       };
     }  else if (width <= 1750) {
@@ -326,10 +252,10 @@ function Home() {
         logoTo1: { opacity: 1, y: 50, x: 280, scale: 0.6, duration: 1 , scrub: 1},
         scrollImageTo: { opacity: 0, duration: 1.1, scrub: 1 },
         pathsTo: { fill: '#c1d1e0', stroke: '#c1d1e0', scrub: 3 },
-        logoTo2: { y: 435, x: 610, scale: 0.1, duration: 4.6  },
+        logoTo2: { y: 509, x: 597, scale: 0.1, duration: 4.6  },
         logoTo3: { opacity: 0, duration: 0.5 },
         scrollTrigger: { start: 'top 75%',
-          end: 'bottom 49%',
+          end: 'bottom 55%',
         ease: 'power3.out', scrub: 2.3 },
       };
     }
@@ -339,10 +265,10 @@ function Home() {
         logoTo1: { opacity: 1, y: 50, x: 280, scale: 0.6, duration: 1 , scrub: 1},
         scrollImageTo: { opacity: 0, duration: 1.1, scrub: 1 },
         pathsTo: { fill: '#c1d1e0', stroke: '#c1d1e0', scrub: 3 },
-        logoTo2: { y: 433, x: 652, scale: 0.1, duration: 4.6  },
+        logoTo2: { y: 509, x: 650, scale: 0.1, duration: 4.6  },
         logoTo3: { opacity: 0, duration: 0.5 },
         scrollTrigger: { start: 'top 75%',
-          end: 'bottom 49%',
+          end: 'bottom 55%',
         ease: 'power3.out', scrub: 2.3 },
       };
     }else if (width <= 1920) {
@@ -351,9 +277,9 @@ function Home() {
         logoTo1: { opacity: 1, y: 50, x: 300, scale: 0.6, duration: 1 },
         scrollImageTo: { opacity: 0, duration: 0.2 },
         pathsTo: { fill: '#c1d1e0', stroke: '#c1d1e0', duration: 0.6 },
-        logoTo2: { y: 443, x: 725, scale: 0.1, duration: 4.2 },
+        logoTo2: { y: 523, x: 725, scale: 0.1, duration: 3.2 },
         logoTo3: { opacity: 0, duration: 0.5 },
-        scrollTrigger: { start: 'top center', end: 'bottom 49%', scrub: 0.5 },
+        scrollTrigger: { start: 'top center', end: 'bottom 55%', scrub: 0.5 },
       };
     }
 
@@ -461,7 +387,6 @@ function Home() {
     };
   }, []);
 
-
   const section1Ref = useRef(null);
   const section2Ref = useRef(null);
   const imageRefs = useRef([]);
@@ -495,8 +420,8 @@ function Home() {
         gsap.fromTo(
           img,
           {
-            x: 1,
-            y: -210,
+            x: 0,
+            y: -170,
             scale: 1,
             opacity: 1,
             visibility: "hidden",
@@ -671,7 +596,7 @@ gsap.to([section2Image], {
             from: { opacity: 0, y: -390, x: 1170 ,scale: 1.3, scrub: 1},
             to: { opacity: 1, y: 50, x: 660,scale: 0.7, ease: 'power3.out', duration: 6.5, scrub: 1 },
           },
-          to: { opacity: 0, y: 530, x: 549, scale: 0, ease: 'power3.inOut', duration: 5.9 , scrub: ``},
+          to: { opacity: 0, y: 610, x: 589, scale: 0, ease: 'power3.inOut', duration: 5.9 , scrub: ``},
           scrollTrigger: { start: 'top 55%', end: 'bottom 45%', duration: 3.5,scrub: 2.6 },
         };
       }
@@ -681,7 +606,7 @@ gsap.to([section2Image], {
             from: { opacity: 0, y: -390, x: 1170 ,scale: 1.3, scrub: 1},
             to: { opacity: 1, y: 50, x: 660,scale: 0.7, ease: 'power3.out', duration: 3.5, scrub: 1 },
           },
-          to: { opacity: 0, y: 510, x: 630, scale: 0, ease: 'power3.inOut', duration: 3.9 , scrub: 1},
+          to: { opacity: 0, y: 590, x: 600, scale: 0, ease: 'power3.inOut', duration: 3.9 , scrub: 1},
           scrollTrigger: { start: 'top 50%', end: 'bottom 42%', duration: 3.5,scrub: 2.6 },
         };
       }       else if (width <= 1800) {
@@ -690,7 +615,7 @@ gsap.to([section2Image], {
             from: { opacity: 0, y: -390, x: 1270 ,scale: 1.3, scrub: 1},
             to: { opacity: 1, y: 50, x: 730,scale: 0.7, ease: 'power3.out', duration: 3.5, scrub: 1 },
           },
-          to: { opacity: 0, y: 510, x: 630, scale: 0.1, ease: 'power3.inOut', duration: 3.9 , scrub: 1},
+          to: { opacity: 0, y: 610, x: 645, scale: 0.1, ease: 'power3.inOut', duration: 3.9 , scrub: 1},
           scrollTrigger: { start: 'top 55%', end: 'bottom 37%', duration: 3.5,scrub: 1.6 },
         };
       }
@@ -777,12 +702,12 @@ useEffect(() => {
 
   // Customizable offsets for bottom images
   const startOffset = {
-    x: 270,
-    y: -255,
+    x: 230,
+    y: -35,
   };
   const endOffset = {
-    x: 268,
-    y: -245,
+    x: 229,
+    y: -24,
   };
 
   // Animation for top images
@@ -926,17 +851,10 @@ bottomImages.forEach((img) => {
 
 }, []);
 
-const [selectedCity, setSelectedCity] = useState('City');
-  const [selectedProperty, setSelectedProperty] = useState('Property Type');
 
-  // Handlers for dropdown selections
-  const handleCitySelect = (city) => {
-    setSelectedCity(city);
-  };
 
-  const handlePropertySelect = (property) => {
-    setSelectedProperty(property);
-  };
+
+
   return (
     <>
       <main id="All" >
@@ -972,42 +890,41 @@ const [selectedCity, setSelectedCity] = useState('City');
             </Row>
           </Container>
           <div className="d-flex align-items-md-center searc-bar home-serch justify-content-between">
-        <DropdownButton
-          id="dropdown-city"
-          title={selectedCity}
-          variant="outline-light"
-          className="me-2 set-out"
-          onSelect={handleCitySelect}
-        >
-          <Dropdown.Item eventKey="New York">New York</Dropdown.Item>
-          <Dropdown.Item eventKey="Los Angeles">Los Angeles</Dropdown.Item>
-          <Dropdown.Item eventKey="Chicago">Chicago</Dropdown.Item>
-        </DropdownButton>
-        <DropdownButton
-          id="dropdown-property"
-          title={selectedProperty}
-          variant="outline-light"
-          className="me-2 set-out"
-          onSelect={handlePropertySelect}
-        >
-          <Dropdown.Item eventKey="Apartment">Apartment</Dropdown.Item>
-          <Dropdown.Item eventKey="House">House</Dropdown.Item>
-          <Dropdown.Item eventKey="Condo">Condo</Dropdown.Item>
-        </DropdownButton>
-        <InputGroup className="me-2">
-          <InputGroup.Text>
-            <img src={Search} alt="Search Icon" />
-          </InputGroup.Text>
-          <Form.Control
-            placeholder="Search by Developer or Project"
-            aria-label="Username"
-            aria-describedby="basic-addon1"
-          />
-        </InputGroup>
-        <Button className="all-same-ani" variant="primary">
-          Search
-        </Button>
-      </div>
+            <DropdownButton
+              id="dropdown-city"
+              title="City"
+              variant="outline-light"
+              className="me-2 set-out"
+            >
+              <Dropdown.Item href="#">New York</Dropdown.Item>
+              <Dropdown.Item href="#">Los Angeles</Dropdown.Item>
+              <Dropdown.Item href="#">Chicago</Dropdown.Item>
+            </DropdownButton>
+
+            <DropdownButton
+              id="dropdown-property"
+              title="Property Type"
+              variant="outline-light"
+              className="me-2 set-out"
+            >
+              <Dropdown.Item href="#">Apartment</Dropdown.Item>
+              <Dropdown.Item href="#">House</Dropdown.Item>
+              <Dropdown.Item href="#">Condo</Dropdown.Item>
+            </DropdownButton>
+
+            <InputGroup className="me-2 ">
+              <InputGroup.Text>
+                <img src={Search} />
+              </InputGroup.Text>
+              <Form.Control
+                placeholder="Search by Developer or Project"
+                aria-label="Username"
+                aria-describedby="basic-addon1"
+              />
+            </InputGroup>
+
+            <Button className="all-same-ani" variant="primary">Search</Button>
+          </div>
         </section>
 
 <section ref={containerRefs} className="welcome">

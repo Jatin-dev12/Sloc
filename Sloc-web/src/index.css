@@ -533,7 +533,7 @@ button.scroll-to-top-btn {
   z-index: +9999999999999999999999999999999 !important;
 }
 .all-same-ani:hover {
-  background: #1F3B56 !important;
+  background: #1C85EB !important;
   color: #fff !important;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 20px 40px 0px;
   transform: scale(1.01) rotateX(5deg) rotateY(-5deg);
@@ -546,7 +546,13 @@ button.scroll-to-top-btn {
   transform-style: preserve-3d;
   perspective: 800px;
 }
+section.welcome.about-sloc img {
+  transition: .3s all ease-in-out  !important;
 
+}
+section.welcome.about-sloc img:hover{
+  scale: 1.05;
+}
 .custom-swiper-nav img {
   transition: .3s all ease-in-out  !important;
 
@@ -557,7 +563,7 @@ button.scroll-to-top-btn {
 button.Up-arrow-btn.btn.btn-primary:hover {
   box-shadow: rgba(100, 100, 111, 0.2) 0px 20px 40px 0px;
   transform: scale(1.01) rotateX(5deg) rotateY(-5deg);
-  background: #1F3B56 !important
+  background: #1C85EB !important
 }
 button.Up-arrow-btn.btn.btn-primary:hover img {
   transform: rotate(45deg)  !important;
@@ -570,7 +576,7 @@ button.Up-arrow-btn.btn.btn-primary img {
 a.Up-arrow-btn.btn.btn-primary:hover{
   box-shadow: rgba(100, 100, 111, 0.2) 0px 20px 40px 0px;
   transform: scale(1.01) rotateX(5deg) rotateY(-5deg);
-  background: #1F3B56 !important
+  background: #1C85EB !important
 
 }
 a.Up-arrow-btn.all-same-ani.btn.btn-primary img {
@@ -582,7 +588,7 @@ a.Up-arrow-btn.all-same-ani.btn.btn-primary:hover img {
 button.scroll-to-top-btn:hover {
   box-shadow: rgba(100, 100, 111, 0.2) 0px 20px 40px 0px;
   transform: scale(1.01) rotateX(5deg) rotateY(-5deg);
-  background: #1F3B56 !important;
+  background: #1C85EB !important;
 
 }
 a.Up-arrow-btn.btn.btn-primary img {
@@ -598,5 +604,44 @@ button.scroll-to-top-btn {
 button.btn.btn-dark:hover{
   box-shadow: rgba(100, 100, 111, 0.2) 0px 20px 40px 0px;
   transform: scale(1.01) rotateX(5deg) rotateY(5deg);
-  background: #1F3B56 !important;
+  background: #1C85EB !important;
+  color: #fff !important;
+}
+.form-set button.btn.btn-light.text-dark:hover{
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 20px 40px 0px;
+  background: #1C85EB !important;
+  color: #fff !important;
+  border-color: #1C85EB;
+}
+span.link-bl a {
+  color: #212529 !important;
+}
+
+main.menu {
+  margin-bottom: 5em;
+}
+
+/* NAv link css */
+nav.Main-nav.navbar {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: +999999999999;
+  background: #fff;
+}
+
+a.nav-link:hover {
+  color: #1C85EB !important;
+  /* text-decoration: underline !important; */
+}
+a.nav-link.active {
+  color: #1C85EB !important;
+  /* text-decoration: underline !important; */
+}
+
+main.aboutpage {
+  overflow: hidden;
+}
+.pr {
+  background: unset !important;
 }

@@ -1,15 +1,19 @@
-import React from 'react'
-import { Row,Col } from 'react-bootstrap';
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
-import Logo from '../assets/Imgs/SLOC.png'
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Row, Col } from "react-bootstrap";
+import Container from "react-bootstrap/Container";
+import Nav from "react-bootstrap/Nav";
+import Navbar from "react-bootstrap/Navbar";
+import Logo from "../assets/Imgs/SLOC.png";
+import { Link, useLocation } from "react-router-dom";
 export default function Header() {
+  const location = useLocation();
+
+  const isActive = (path) => location.pathname === path;
+
   return (
     <>
-    <main>
-{/* <section className='Topbar'>
+      <main className="menu">
+        {/* <section className='Topbar'>
         <Container>
          <Row className='justify-content-between'>
 <Col>
@@ -26,29 +30,52 @@ export default function Header() {
          </Row>
         </Container>
       </section> */}
-<Navbar expand="md" className="Main-nav" collapseOnSelect>
-  <Container>
-    <Navbar.Brand href="/">
-      <p className="Logo">SLOC</p>
-    </Navbar.Brand>
+        <Navbar expand="md" className="Main-nav" collapseOnSelect>
+          <Container>
+            <Navbar.Brand href="/">
+              <p className="Logo">SLOC</p>
+            </Navbar.Brand>
 
-    {/* Toggle Button */}
-    <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            {/* Toggle Button */}
+            <Navbar.Toggle aria-controls="basic-navbar-nav" />
 
-    {/* Collapsible Nav Items */}
-    <Navbar.Collapse id="basic-navbar-nav">
-      <Nav className="ml-auto">
-        {/* <Nav.Link to="/">Home</Nav.Link> */}
-        <Link to="/" data-text="Home">Home</Link>
-        <Link to="/About" data-text="About Us">About Us</Link>
-        <Link to="/Blogs" data-text="Blogs">Blogs</Link>
-        <Link to="/contact" className="cntnct all-same-ani">Contact Us</Link>
-      </Nav>
-    </Navbar.Collapse>
-  </Container>
-</Navbar>
-
-    </main>
+            {/* Collapsible Nav Items */}
+            <Navbar.Collapse id="basic-navbar-nav">
+              <Nav className="ml-auto">
+                <Link
+                  to="/"
+                  className={`nav-link ${isActive("/") ? "active" : ""}`}
+                  data-text="Home"
+                >
+                  Home
+                </Link>
+                <Link
+                  to="/about-us"
+                  className={`nav-link ${isActive("/about-us") ? "active" : ""}`}
+                  data-text="About Us"
+                >
+                  About Us
+                </Link>
+                <Link
+                  to="/blog-listing"
+                  className={`nav-link ${isActive("/blog-listing") ? "active" : ""}`}
+                  data-text="Blogs"
+                >
+                  Blogs
+                </Link>
+                <Link
+                  to="/contact-us"
+                  className={`nav-link cntnct all-same-ani ${
+                    isActive("/contact") ? "active" : ""
+                  }`}
+                >
+                  Contact Us
+                </Link>
+              </Nav>
+            </Navbar.Collapse>
+          </Container>
+        </Navbar>
+      </main>
     </>
-  )
+  );
 }

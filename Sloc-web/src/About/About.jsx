@@ -104,7 +104,8 @@ icons:very,
 
 function About() {
   return (
-    <>
+
+    <main className="aboutpage">
     <section className="Main-banner About-banner" data-speed="1.5">
          <Container>
            <Row>
@@ -183,7 +184,7 @@ function About() {
         </p>
         </div>
         {services.map((service, idx) => (
-          <Row key={idx} className="service-row py-3 align-items-center border-bottom border-white" data-aos="fade-up" data-aos-easing="ease-in-sine" data-aos-offset="500"
+          <Row key={idx} className="service-row py-3 align-items-center border-bottom border-white" data-aos="fade-up" data-aos-easing="ease-in-sine" data-aos-offset="100"
 >
             <Col md={5} xs={12}>
               <h5 className="mb-1">{service.title}</h5>
@@ -387,7 +388,7 @@ function About() {
           <Row className='achivments'>
             {awards.map((award) => (
               <Col md={6} key={award.id} className="mb-4">
-                <Card className=" position-relative overflow-hidden" data-aos="fade-up" data-aos-easing="ease-in-sine" data-aos-offset="300"
+                <Card className=" position-relative overflow-hidden" data-aos="fade-up" data-aos-easing="ease" data-aos-offset="10"
                 >
                   <Card.Body className="p-4 achiv">
                     <img src={Achive} className='corner' />
@@ -454,7 +455,7 @@ function About() {
 
 
 
-       </>
+       </main>
   )
 }
 

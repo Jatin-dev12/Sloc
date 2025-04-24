@@ -2060,60 +2060,80 @@ section.blogs {
   padding-bottom: 10px;
 }
 
-
-.nav-link {
-  position: relative;
-  display: inline-block;
-  perspective: 1000px;
-  transition: color 0.3s ease;
+h6.aminites-adv{
+  font-family: Poppins;
+  font-weight: 500;
+  font-size: 21px !important;
+  line-height: 25.2px;
+  letter-spacing: 0%;
+  text-align: center;
+  vertical-align: middle;
+  color: #1E1E1E !important;
+  display: inline;
+  margin-left: 10px;
 }
-
-/* Flip container */
-.nav-link::before,
-.nav-link::after {
-  content: attr(data-text);
-  position: absolute;
-  left: 0;
-  top: 0;
+.aminites img.aos-init.aos-animate {
+  width: unset !important;
+  height: unset !important;
+}
+img.kckck {
+  width: 25px;
+  height: 25px;
+}
+.kach h6 {
+  font-family: Bai Jamjuree;
+  font-weight: 700;
+  font-size: 19px;
+  line-height: 22.8px;
+  letter-spacing: 0%;
+  text-align: center;
+  vertical-align: middle;
+  border-bottom: 1px solid #fff;
+  padding-bottom: 13px;
+}
+.kach {
+  background: rgb(255 255 255 / 10%);
   width: 100%;
-  height: 100%;
-  backface-visibility: hidden;
-  transform-origin: center;
-  transition: transform 0.6s ease;
+  display: block;
+  box-shadow: 0px 4px 20px 0px #00000026;
+  text-align: center;
+  padding: 20px;
+  margin-bottom: 30px;
 }
-
-/* Front face (normal) */
-.nav-link::before {
-  transform: rotateY(0deg);
+.kack-inline {
+  color: #fff;
 }
-
-/* Back face (flipped) */
-.nav-link::after {
-  color: #131416 !important;
-  transform: rotateY(180deg);
+.kack-inline img {
+  margin-right: 10px;
 }
-
-/* On hover flip */
-.nav-link:hover::before {
-  transform: rotateY(180deg);
-}
-
-.nav-link:hover::after {
-  transform: rotateY(0deg);
-}
-
-/* Active link style */
-.nav-link.active {
-  color: #000000;
-  font-weight: bold;
-}
-
-/* Add content duplication for animation */
-.nav-link {
+.kack-inline span {
   position: relative;
+  top: 3px;
 }
 
-.nav-link[data-text]::before,
-.nav-link[data-text]::after {
-  content: attr(data-text);
+.kack-inline span {
+
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 17.6px;
+  letter-spacing: 0%;
+  vertical-align: middle;
+}
+.pr a.cntnct.nav-link:hover{
+  color: #fff !important;
+}
+
+.project-baner .searc-bar input#agreeCheck {
+  position: relative;
+  top: 5px;
+}
+section.blog-detailss {
+  margin-top: 10em !important;
+}
+.link-social img {
+  width: 60px;
+  position: relative;
+  bottom: 10px;
+  margin: 0 !important;
+  right: 12px;
 }

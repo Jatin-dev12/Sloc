@@ -46,15 +46,15 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
-          <Route path="/About" element={<About />} />
-          <Route path="/Blogs" element={<Blogs />} />
-          <Route path="/Details" element={<Details />} />
-          <Route path="/Privacy" element={<Privacy />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/Terms" element={<Terms />} />
-          <Route path="/Disclaimer" element={<Disc />} />
-          <Route path="/Project" element={<Project />} />
-          <Route path="/Search" element={<Search />} />
+          <Route path="/about-us" element={<About />} />
+          <Route path="/blog-listing" element={<Blogs />} />
+          <Route path="/blog-detail" element={<Details />} />
+          <Route path="/privacy-policy" element={<Privacy />} />
+          <Route path="/contact-us" element={<Contact />} />
+          <Route path="/terms-and-conditions" element={<Terms />} />
+          <Route path="/disclaimer" element={<Disc />} />
+          <Route path="/project" element={<Project />} />
+          <Route path="/search-Listing" element={<Search />} />
 
         </Route>
       </Routes>
@@ -83,7 +83,7 @@ export default function App() {
         </button>
       )}
 
-{showButton && (
+
   <a
     href="https://api.whatsapp.com/send?phone=+919910099434&text=Hello%20there!"
     target="_blank"
@@ -104,13 +104,13 @@ export default function App() {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      zIndex: 9999999999999999999999999999999,
+      zIndex: 99999,
       boxShadow: '0px 4px 10px rgba(0,0,0,0.3)'
     }}
   >
     <FaWhatsapp />
   </a>
-)}
+
     </BrowserRouter>
   );
 }

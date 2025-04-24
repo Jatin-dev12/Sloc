@@ -12,10 +12,12 @@ import Instagram from "../assets/Imgs/ig.svg";
 import Facebook from "../assets/Imgs/facbook.svg";
 import linkdin from "../assets/Imgs/Linkdin.svg";
 import { Link } from "react-router-dom";
-
+import { useLocation } from "react-router-dom";
 const Footer = () => {
+  const location = useLocation();
   return (
     <>
+          {location.pathname !== "/Disclaimer" && (
       <section className="Disclamer">
         <Container>
           <p className="Dis">
@@ -37,6 +39,8 @@ const Footer = () => {
           </p>
         </Container>
       </section>
+            )}
+
       <footer className="">
         <Container>
           <Row className="mb-4 justify-content-between">
@@ -81,17 +85,17 @@ const Footer = () => {
                   </Link>
                 </li>
                 <li className="mb-2">
-                  <Link to="/About" className="text-decoration-none  ">
+                  <Link to="/about-us" className="text-decoration-none  ">
                     About Us
                   </Link>
                 </li>
                 <li className="mb-2">
-                  <Link to="/Blogs" className="text-decoration-none  ">
+                  <Link to="/blog-listing" className="text-decoration-none  ">
                     BLOG
                   </Link>
                 </li>
                 <li className="mb-2">
-                  <Link to="/contact" className="text-decoration-none  ">
+                  <Link to="/contact-us" className="text-decoration-none  ">
                     CONTACT US
                   </Link>
                 </li>
@@ -102,17 +106,17 @@ const Footer = () => {
               <h6 className="text-uppercase ft-font mb-3">Policies</h6>
               <ul className="list-unstyled mb-0">
                 <li className="mb-2">
-                  <Link to="/Disclaimer" className="text-decoration-none  ">
+                  <Link to="/disclaimer" className="text-decoration-none  ">
                     Disclaimer{" "}
                   </Link>
                 </li>
                 <li className="mb-2">
-                  <Link to="/Privacy" className="text-decoration-none  ">
+                  <Link to="/privacy-policy" className="text-decoration-none  ">
                     Privacy Policy
                   </Link>
                 </li>
                 <li className="mb-2">
-                  <Link to="/Terms" className="text-decoration-none  ">
+                  <Link to="/terms-and-conditions" className="text-decoration-none  ">
                     Terms & Conditions
                   </Link>
                 </li>

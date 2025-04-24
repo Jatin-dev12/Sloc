@@ -33,13 +33,17 @@ import 'swiper/css/navigation';
 import { Navigation } from 'swiper/modules';
 import NextArrow from '../assets/Imgs/right.svg';
 import PrevArrow from '../assets/Imgs/left.svg';
-import Logo1 from '../assets/Imgs/blg.png'
-import BottomImg1 from '../assets/Imgs/blg.png'
-import BottomImg2 from '../assets/Imgs/blg.png'
-import BottomImg3 from '../assets/Imgs/blg.png'
-import BottomImg4 from '../assets/Imgs/blg.png'
+import Logo1 from '../assets/Imgs/Group (3).svg'
+import BottomImg1 from '../assets/Imgs/Group (3).svg'
+import BottomImg2 from '../assets/Imgs/Group (3).svg'
+import BottomImg3 from '../assets/Imgs/Group (3).svg'
+import BottomImg4 from '../assets/Imgs/Group (3).svg'
+import BottomImg11 from '../assets/Imgs/image.svg'
 import Logo from '../assets/Imgs/back-scrol.png'
-
+import { FaTwitter, FaFacebook, FaInstagram, FaSnapchat, FaTelegram } from 'react-icons/fa';
+import Instagram from '../assets/Imgs/ig.svg'
+import Facebook from '../assets/Imgs/facbook.svg'
+import linkdin from '../assets/Imgs/Linkdin.svg'
 const projects = [
   {
     id: 1,
@@ -122,6 +126,7 @@ const Blogs = [
     date: "1 March 19, 2024",
     catagory: "Apartment",
     BlogImage: BottomImg1,
+    BlogImages: BottomImg11,
   },
   {
     id: 2,
@@ -131,6 +136,7 @@ const Blogs = [
     date: "1 March 19, 2024",
     catagory: "Apartment",
     BlogImage: BottomImg1,
+    BlogImages: BottomImg11,
   },
   {
     id: 3,
@@ -140,6 +146,7 @@ const Blogs = [
     date: "1 March 19, 2024",
     catagory: "Apartment",
     BlogImage: BottomImg1,
+    BlogImages: BottomImg11,
   },
 ];
 
@@ -300,34 +307,6 @@ function Home() {
           markers: false,
         },
       })
-
-      // GSAP Timeline with ScrollTrigger
-    // const tl = gsap.timeline({
-    //   scrollTrigger: {
-    //     trigger: containerRefs.current,
-    //     ...props.scrollTrigger,
-    //     anticipatePin: 1,
-    //     fastScrollEnd: true,
-    //     markers: false,
-    //     // Add onEnterBack to control image reappearance
-    //     onEnterBack: () => {
-    //       gsap.to(scrollImageRef.current, {
-    //         opacity: 1, // Fade image back in
-    //         duration: 3.7,
-    //         delay: 6.1, // Delay the appearance when scrolling up
-    //         ease: 'power3.out',
-    //       });
-    //     },
-    //     // Ensure image fades out when scrolling down past the trigger
-    //     onLeave: () => {
-    //       gsap.to(scrollImageRef.current, {
-    //         opacity: 0,
-    //         duration: 0.5,
-    //         ease: 'power3.out',
-    //       });
-    //     },
-    //   },
-    // })
         .fromTo(
           logoRefs.current,
           props.logoFrom,
@@ -396,14 +375,12 @@ function Home() {
     };
   }, []);
 
-
   const section1Ref = useRef(null);
   const section2Ref = useRef(null);
   const imageRefs = useRef([]);
   const boxRefs = useRef([]);
   const bottomImageRefs = useRef([]);
   const section2ImageRef = useRef(null);
-
 
     //3.) Testimonials section
 
@@ -494,15 +471,15 @@ bottomImages.forEach((img) => {
       y: () => getOffsets().y,
       scale: 0.5,
       opacity: 0,
-  duration: 3.5,
+      duration: 7.5,
       visibility: "visible",
       ease: "power2.out",
-      scrub: 2,
+      scrub: 6,
       scrollTrigger: {
         trigger: section2Ref.current,
         start: "top center+=70",
         end: "bottom center-=20",
-        scrub: 2,
+        scrub: 6,
       },
     }
   );
@@ -630,10 +607,10 @@ gsap.to([section2Image], {
         props = {
           fromTo: {
             from: { opacity: 0, y: -390, x: 1170 ,scale: 1.3, scrub: 1},
-            to: { opacity: 1, y: 50, x: 660,scale: 0.7, ease: 'power3.out', duration: 3.5, scrub: 1 },
+            to: { opacity: 1, y: 50, x: 660,scale: 0.7, ease: 'power3.out', duration: 6.5, scrub: 1 },
           },
-          to: { opacity: 0, y: 590, x: 600, scale: 0, ease: 'power3.inOut', duration: 3.9 , scrub: 1},
-          scrollTrigger: { start: 'top 55%', end: 'bottom 55%', duration: 3.5,scrub: 1.6 },
+          to: { opacity: 0, y: 610, x: 589, scale: 0, ease: 'power3.inOut', duration: 5.9 , scrub: ``},
+          scrollTrigger: { start: 'top 55%', end: 'bottom 45%', duration: 3.5,scrub: 2.6 },
         };
       }
       else if (width <= 1700) {
@@ -643,16 +620,16 @@ gsap.to([section2Image], {
             to: { opacity: 1, y: 50, x: 660,scale: 0.7, ease: 'power3.out', duration: 3.5, scrub: 1 },
           },
           to: { opacity: 0, y: 590, x: 600, scale: 0, ease: 'power3.inOut', duration: 3.9 , scrub: 1},
-          scrollTrigger: { start: 'top 55%', end: 'bottom 55%', duration: 3.5,scrub: 1.6 },
+          scrollTrigger: { start: 'top 50%', end: 'bottom 42%', duration: 3.5,scrub: 2.6 },
         };
       }       else if (width <= 1800) {
         props = {
           fromTo: {
-            from: { opacity: 0, y: -390, x: 1170 ,scale: 1.3, scrub: 1},
+            from: { opacity: 0, y: -390, x: 1270 ,scale: 1.3, scrub: 1},
             to: { opacity: 1, y: 50, x: 730,scale: 0.7, ease: 'power3.out', duration: 3.5, scrub: 1 },
           },
-          to: { opacity: 0, y: 590, x: 645, scale: 0, ease: 'power3.inOut', duration: 3.9 , scrub: 1},
-          scrollTrigger: { start: 'top 55%', end: 'bottom 55%', duration: 3.5,scrub: 1.6 },
+          to: { opacity: 0, y: 610, x: 645, scale: 0.1, ease: 'power3.inOut', duration: 3.9 , scrub: 1},
+          scrollTrigger: { start: 'top 55%', end: 'bottom 37%', duration: 3.5,scrub: 1.6 },
         };
       }
       else if (width <= 1920) {
@@ -727,72 +704,175 @@ gsap.to([section2Image], {
   const BlogsboxRefs = useRef([]);
   const BlogBottomImageRefs = useRef([]);
   const BlogsBottomsectionRef = useRef(null);
-  useEffect(() => {
-    const boxes = BlogsboxRefs.current;
-    const images = BlogimageRefs.current;
-    // Bottom Images: Emerge from inside boxes downward
-    images.forEach((img, index) => {
-      const box = boxes[index];
-      const cardImg = box.querySelector('img.card-img-top'); // Get the <Card.Img>
+  const Blogsection2Ref = useRef(null);
 
-      const getOffsets = () => {
-        const cardImgRect = cardImg.getBoundingClientRect();
-        const imgRect = img.getBoundingClientRect();
-        // Target 220px above the top-right corner of the card's top image
-        return {
-          x: cardImgRect.right - imgRect.width / 2 - imgRect.left, // Center at right edge
-          y: cardImgRect.top - 200 + imgRect.height / 2 - imgRect.top, // Center 220px above top
-        };
+
+useEffect(() => {
+  const boxes = BlogsboxRefs.current;
+  const images = BlogimageRefs.current;
+  const bottomImages = BlogBottomImageRefs.current;
+  const logoO = BlogsBottomsectionRef.current;
+
+  // Customizable offsets for bottom images
+  const startOffset = {
+    x: 230,
+    y: -35,
+  };
+  const endOffset = {
+    x: 229,
+    y: -24,
+  };
+
+  // Animation for top images
+  images.forEach((img, index) => {
+    const box = boxes[index];
+    const cardImg = box.querySelector('img.card-img-top');
+
+    const getOffsets = () => {
+      const cardImgRect = cardImg.getBoundingClientRect();
+      const imgRect = img.getBoundingClientRect();
+      return {
+        x: cardImgRect.right - imgRect.width / 2 - imgRect.left,
+        y: cardImgRect.top - 210 + imgRect.height / 2 - imgRect.top,
       };
+    };
 
-      gsap.fromTo(
-        img,
-        {
-          x: 0,
-          y: -170,
-          scale: 1,
-          opacity: 1,
-          duration : 1.5,
-          visibility: "hidden",
-        },
-        {
-          x: () => getOffsets().x,
-          y: () => getOffsets().y,
-          scale: 1,
-          opacity: 1,
-          visibility: "visible",
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: blogsectionRef.current,
-            start: "top center+=105",
-            end: "bottom center",
-            scrub: 0.67,
-            onUpdate: (self) => {
-              const imgRect = img.getBoundingClientRect();
-              const boxRect = box.getBoundingClientRect();
-              const isInside = imgRect.top < boxRect.bottom && imgRect.bottom > boxRect.top;
-              if (isInside) {
-                // box.style.backgroundColor = "#EFF7FE";
-                box.style.backgroundColor = "";
-              } else {
-                box.style.backgroundColor = "";
-              }
-            },
-            onComplete: () => {
-              gsap.set(img, { visibility: "hidden" }); // Hide to "stick" at position
-            },
+    gsap.fromTo(
+      img,
+      {
+        x: 0,
+        y: -170,
+        scale: 1,
+        opacity: 1,
+        visibility: "hidden",
+      },
+      {
+        x: () => getOffsets().x,
+        y: () => getOffsets().y,
+        scale: 1,
+        opacity: 1,
+        visibility: "visible",
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: blogsectionRef.current,
+          start: "top center+=105",
+          end: "bottom center",
+          scrub: 1, // Increased scrub for smoother animation
+          onUpdate: (self) => {
+            const imgRect = img.getBoundingClientRect();
+            const boxRect = box.getBoundingClientRect();
+            const isInside = imgRect.top < boxRect.bottom && imgRect.bottom > boxRect.top;
+            box.style.backgroundColor = isInside ? "" : "";
           },
-        }
-      );
-    });
-// Collapse and vanish images into one at the bottom
+        },
+      }
+    );
+  });
 
-  }, []);
+// Animation for bottomImages: Converge into the "O"
+bottomImages.forEach((img) => {
+  const fadeOutDuration = 0.01; // Configurable fade-out duration (set to 0.01 for near-instant vanish)
+
+  const getOffsets = () => {
+    const imgRect = img.getBoundingClientRect();
+    const logoORect = logoO.getBoundingClientRect();
+    const targetX = logoORect.left + logoORect.width / 2 + endOffset.x;
+    const targetY = logoORect.top + logoORect.height / 2 + endOffset.y;
+    const imgCenterX = imgRect.left + imgRect.width / 2;
+    const imgCenterY = imgRect.top + imgRect.height / 2;
+    return {
+      x: targetX - imgCenterX,
+      y: targetY - imgCenterY,
+    };
+  };
+
+  gsap.fromTo(
+    img,
+    {
+      x: startOffset.x,
+      y: startOffset.y,
+      scale: 1,
+      opacity: 0,
+      visibility: "visible",
+    },
+    {
+      x: () => getOffsets().x,
+      y: () => getOffsets().y,
+      scale: 0.9,
+      opacity: 1,
+      visibility: "visible",
+      duration: 9.1,
+      ease: "sine.out",
+      scrollTrigger: {
+        trigger: Blogsection2Ref.current,
+        start: "top center+=450",
+        end: "bottom center+=500",
+        scrub: 5,
+        onEnter: () => {
+          // Hide initial images
+          images.forEach((topImg) => {
+            gsap.set(topImg, { visibility: "hidden", opacity: 0 });
+            topImg.dataset.hidden = "true";
+          });
+          gsap.set(img, { visibility: "visible", opacity: 1 });
+        },
+        onLeaveBack: () => {
+          // Create a timeline for synchronized transitions
+          const tl = gsap.timeline();
+          // Hide bottom image immediately
+          tl.to(img, {
+            opacity: 0,
+            visibility: "hidden",
+            onComplete: () => {
+              img.dataset.hidden = "true";
+            },
+          });
+          // Restore initial images
+          images.forEach((topImg) => {
+            tl.to(
+              topImg,
+              {
+                visibility: "visible",
+                opacity: 1,
+                duration: 0.5,
+                onStart: () => {
+                  topImg.dataset.hidden = "false";
+                  // Reset to initial position to prevent premature movement
+                  gsap.set(topImg, { x: 0, y: -170 });
+                },
+              },
+              "-=0.3" // Overlap slightly for smoother transition
+            );
+          });
+        },
+      },
+      onComplete: () => {
+        // Fade out the merged image with configurable duration
+        gsap.to(img, {
+          opacity: 0,
+          visibility: "hidden",
+          duration: fadeOutDuration, // Use configurable duration
+          ease: "power2.in",
+          onComplete: () => {
+            img.dataset.hidden = "true";
+          },
+        });
+      },
+    }
+  );
+});
+
+}, []);
+
+
+
+
+
   return (
     <>
       <main id="All" >
 
-        <section className="Main-banner" data-speed="1.5">
+        <section className="Main-banner mobile-bgp" data-speed="1.5">
           <Container>
             <Row>
               <Col md={6} className="top-co" >
@@ -1137,87 +1217,177 @@ gsap.to([section2Image], {
           </Container>
         </section>
         <section className="featured blogs" ref={blogsectionRef}>
-          <div className="featured-floating-imgs">
-            <div className="image-stack image-stack-1">
-              <img
-                ref={(el) => (BlogimageRefs.current[0] = el)}
-                className="initial-image"
-                src={Logo1}
-                alt="img1"
-              />
-              <img
-                ref={(el) => (BlogimageRefs.current[1] = el)}
-                className="initial-image"
-                src={Logo1}
-                alt="img2"
-              />
-              <img
-                ref={(el) => (BlogimageRefs.current[2] = el)}
-                className="initial-image"
-                src={Logo1}
-                alt="img3"
-              />
-            </div>
+  <div className="featured-floating-imgs">
+    <div className="image-stack image-stack-1">
+      <img
+        ref={(el) => (BlogimageRefs.current[0] = el)}
+        className="initial-image"
+        src={Logo1}
+        alt="img1"
+      />
+      <img
+        ref={(el) => (BlogimageRefs.current[1] = el)}
+        className="initial-image"
+        src={Logo1}
+        alt="img2"
+      />
+      <img
+        ref={(el) => (BlogimageRefs.current[2] = el)}
+        className="initial-image"
+        src={Logo1}
+        alt="img3"
+      />
+    </div>
+  </div>
+  <Container>
+    <Row className="mb-4 d-flex py-4 align-content-center">
+      <Col md={8} className="align-content-center">
+        <h2 className="same-head">The SLOC Journal</h2>
+        <p className="same-head-p">
+          Your go-to source for property trends and investment tips!
+        </p>
+      </Col>
+      <Col
+        md={4}
+        className="align-items-md-end text-md-end align-content-center text-center"
+      >
+        <Button variant="dark">See more Blogs</Button>
+      </Col>
+    </Row>
+    <Row>
+      {Blogs.map((Blogs, index) => (
+        <Col md={4} key={Blogs.id} className="features-list p-0">
+          <Card
+            ref={(el) => (BlogsboxRefs.current[index] = el)}
+            className={`position-relative custom-card card-${index} box-${index}`}
+          >
+            <Card.Img variant="top" src={Blogs.image} alt={Blogs.title} />
+            <Card.Body className="uper-space">
+              <Card.Text className="mb-4 btn-loc top-set">
+                <span className="black">{Blogs.date}</span>
+                <span>{Blogs.catagory}</span>
+              </Card.Text>
+              <Card.Title>{Blogs.name}</Card.Title>
+              <Card.Text className="text-primary font-weight-bold">
+                {Blogs.text}
+              </Card.Text>
+              <Button className="Up-arrow-btn" href="/details">
+                <img src={Arrow} />
+              </Button>
+            </Card.Body>
+          </Card>
+          {/* Add bottom images here */}
+          <div className="botom-blog-index-set">
+          <img
+            ref={(el) => (BlogBottomImageRefs.current[index] = el)}
+            className="bottom-image1"
+            src={Blogs.BlogImages || Logo1} // Use a relevant image
+            alt={`bottom-img-${Blogs.id}`}
+          />
           </div>
-          <Container className="">
-            <Row className="mb-4 d-flex py-4 align-content-center">
-              <Col md={8} className="align-content-center" data-aos="fade-right" data-aos-easing="ease-in-sine" data-aos-offset="300">
+        </Col>
+      ))}
+    </Row>
+  </Container>
+</section>
+          <section className="Disclamer new-desclaimer" >
+<Container>
+  <p className='Dis'>Disclaimer : The content provided on this website is for information purposes only and does not constitute an offer to avail any service. The prices mentioned are subject to change without prior notice, and the availability of properties mentioned is not guaranteed. Users of this website are hereby advised to exercise due diligence and to independently validate and verify all information about any property / project before deciding to purchase the same or taking any other action. The images displayed on the website are for representation purposes only and may not reflect the actual properties accurately. Please note that this is the official website of an authorized marketing partner. The content, design, and information on this website are protected by copyright and other intellectual property rights. Any unauthorized use or reproduction of the content may violate applicable laws. All trademarks are the property of their respective owners.</p>
+</Container>
+    </section>
+    <footer className="Disclamer-footer" ref={Blogsection2Ref}>
+      <Container>
+        <Row className="mb-4 justify-content-between">
+          <Col lg={5} md={6} className="mb-4 mb-md-0 p-md-0">
+            <div className="footer-logo">
+           {/* <a href='/'><p className='Logo' ref={BlogBottomImageRefs}>SLOC</p></a> */}
+           <a href="/">
+            <p className="Logo">
+              SL
+              <span className="logo-o" ref={BlogsBottomsectionRef}>O</span>C
+            </p>
+          </a>
+            </div>
+            <p className="my-3 set-wi">
+            We bring you the finest real estate choices with trust and excellence. Get set to Dream, Discover, and Deal.
+            </p>
 
-                <h2 className="same-head" >The SLOC Journal</h2>
-                <p className="same-head-p">
-                Your go-to source for property trends and investment tips!
-                </p>
-              </Col>
-              <Col
-                md={4}
-                className="align-items-md-end text-md-end align-content-center text-center"
-                data-aos="fade-left" data-aos-easing="ease-in-sine" data-aos-offset="300"
-              >
-                <Button className="all-same-ani" variant="dark">See more Blogs</Button>
-              </Col>
-            </Row>
-            <Row>
-              {Blogs.map((Blogs, index) => (
-                <Col md={4} key={Blogs.id} className="features-list p-0">
-                  {/* <Card className=" position-relative"> */}
-                  <Card
-                    ref={(el) => (BlogsboxRefs.current[index] = el)} // Applied ref to each card
-                    className={`position-relative custom-card card-${index}  box-${index}`} // Added box classes
-                  >
-                    <Card.Img
-                      variant="top"
-                      src={Blogs.image}
-                      alt={Blogs.title}
-                    />
-                    <Card.Body className="uper-space">
-                      <Card.Text className="mb-4 btn-loc top-set">
-                        <span className="black">{Blogs.date}</span>
-                        <span>{Blogs.catagory} SDFSDF</span>
-                      </Card.Text>
-                      <Card.Title>{Blogs.name}</Card.Title>
+            <div className="mb-2">
+              <h6 className="text-uppercase ft-font">FOLLOW US AT</h6>
+            </div>
+            <div className="d-flex gap-4 mt-4">
+              <a href="#" className="">
+                <img src={linkdin} />
+              </a>
+              {/* <a href="#" className="">
+              <img src={Twitter} />
+              </a> */}
+              <a href="#" className="">
+              <img src={Instagram} />
+              </a>
+              <a href="#" className="">
+              <img src={Facebook} />
+              </a>
+              {/* <a href="#" className="">
+              <img src={telegram} />
+              </a> */}
+            </div>
+          </Col>
 
-                      <Card.Text className="text-primary font-weight-bold">
-                        {Blogs.text}
-                      </Card.Text>
-                      <Button className="Up-arrow-btn all-same-ani" href="/details">
-                        <img src={Arrow} />
-                      </Button>
-                    </Card.Body>
-                  </Card>
-                  {/* <img
-                    ref={(el) => (BlogBottomImageRefs.current[index] = el)}
-                    className="bottom-image"
-                    src={Blogs.BlogImage}
-                    alt={`bottom-img-${Blogs.id}`}
-                  /> */}
-                </Col>
-              ))}
-            </Row>
-          </Container>
-        </section>
-          <div className="position relative" ref={BlogsBottomsectionRef} >
+          <Col lg={2} md={6} sm={6} className="mb-4 mb-md-0 res-st">
+            <h6 className="text-uppercase ft-font mb-3">QUICK LINKS</h6>
+            <ul className="list-unstyled mb-0">
+              <li className="mb-2">
+                <a href="/" className="text-decoration-none  small zincd">Home</a>
+              </li>
+              <li className="mb-2">
+                <a href="/About" className="text-decoration-none  small zincd">About Us</a>
+              </li>
+              <li className="mb-2">
+                <a href="/Blogs" className="text-decoration-none  small zincd">BLOG</a>
+              </li>
+              <li className="mb-2">
+                <a href="/contact" className="text-decoration-none  small zincd">CONTACT US</a>
+              </li>
 
-        </div>
+            </ul>
+          </Col>
+
+          <Col lg={2} md={6} sm={6} className="mb-4 mb-md-0 res-st">
+            <h6 className="text-uppercase ft-font mb-3">Policies</h6>
+            <ul className="list-unstyled mb-0">
+              <li className="mb-2">
+                <a href="/Disclaimer" className="text-decoration-none  small">Disclaimer </a>
+              </li>
+              <li className="mb-2">
+                <a href="/Privacy" className="text-decoration-none  small">Privacy Policy</a>
+              </li>
+              <li className="mb-2">
+                <a href="/Terms" className="text-decoration-none  small">Terms & Conditions</a>
+              </li>
+            </ul>
+          </Col>
+
+           <Col lg={2} md={6} className="mb-4 mb-md-0 res-st">
+                    <h6 className="text-uppercase ft-font mb-3">INFORMATION</h6>
+                    <p className=" mb-1">15th Floor, Ocus Quantum,</p>
+                    <p className=" mb-1">Sector-51, Gurugram, Haryana, 122003 </p>
+                    <p className=" my-3">
+                      <a href="mailto:contact@sloc.in">contact@sloc.in</a>{" "}
+                    </p>
+                    <p className=" mb-1">
+                      <a href="tel:+919971094108">+919971094108</a>
+                    </p>
+                  </Col>
+        </Row>
+
+        <Row className='border-top-set pt-3 mt-2'>
+          <Col className="text-center small">
+            <p className="mb-0 copyright">© Copyright 2025 | All Rights Reserved</p>
+          </Col>
+        </Row>
+      </Container>
+    </footer>
       </main>
     </>
   );

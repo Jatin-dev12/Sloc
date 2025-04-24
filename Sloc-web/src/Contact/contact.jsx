@@ -6,7 +6,12 @@ import call from '../assets/Imgs/call.svg'
 import mal from '../assets/Imgs/mal.svg'
 import 'intl-tel-input/build/css/intlTelInput.css';
 import bg from './bg.png'
+import Instagram from "../assets/Imgs/ig.svg";
+import Facebook from "../assets/Imgs/facbook.svg";
+import linkdin from "../assets/Imgs/Linkdin.svg";
+import social from "../assets/Imgs/social-media.svg";
 
+import { Link } from "react-router-dom";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -239,14 +244,35 @@ const Contact = () => {
             </li>
             <li className="mb-3 d-flex align-items-center">
             <img src={call} />
-            <span>+919971094108</span>
+            <span className="link-bl"> <a href="tel:+919971094108">+919971094108</a></span>
 
 
             </li>
             <li className="mb-3 d-flex align-items-center">
             <img src={mal} />
-            <span>contact@sloc.in</span>
+            <span className="link-bl"> <a href="mailto:contact@sloc.in" >contact@sloc.in</a></span>
             </li>
+            <li className="mb-3 d-flex align-items-center">
+            <img src={social} />
+            <div className="d-flex  mt-4 link-social">
+                            <Link
+                              to="https://www.linkedin.com/company/india-sloc"
+                              target="blank"
+                              className=""
+                            >
+                              <img src={linkdin} />
+                            </Link>
+
+                            <Link to="https://www.instagram.com/sloc.in/" className="" target='blank'>
+                              <img src={Instagram} />
+                            </Link>
+                            <Link to="https://www.facebook.com/sloc.in" className="" target='blank'>
+                              <img src={Facebook} />
+                            </Link>
+                          </div>
+            </li>
+
+
 
 
           </ul>
