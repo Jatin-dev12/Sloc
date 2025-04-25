@@ -2139,3 +2139,6 @@ section.blog-detailss {
   margin: 0 !important;
   right: 12px;
 }
+.four-col-st .align-items-center.my-4.p-3.row:hover img {
+  scale: 1.05;
+}
