@@ -1356,7 +1356,7 @@ bottomImages.forEach((img) => {
           </Col>
 
            <Col lg={2} md={6} className="mb-4 mb-md-0 res-st">
-                    <h6 className="text-uppercase ft-font mb-3">INFORMATION</h6>
+                    <h6 className="text-uppercase ft-font mb-3">Contact Us</h6>
                     <p className=" mb-1">15th Floor, Ocus Quantum,</p>
                     <p className=" mb-1">Sector-51, Gurugram, Haryana, 122003 </p>
                     <p className=" my-3">

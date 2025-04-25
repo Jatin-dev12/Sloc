@@ -3,8 +3,6 @@ import { Row, Col } from "react-bootstrap";
 import Container from "react-bootstrap/Container";
 import Search from "../assets/Imgs/Search.svg";
 import { Card } from "react-bootstrap";
-import { Link } from "react-router-dom";
-
 import {
   Form,
   Button,
@@ -28,7 +26,7 @@ import back from '../assets/Imgs/back-cta.png'
 import React, { useEffect,  useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import WelcomeLogo from '../assets/Imgs/25_Logo.svg'
+import WelcomeLogo from '../assets/Imgs/25_Logo_1.svg'
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -46,8 +44,9 @@ import { FaTwitter, FaFacebook, FaInstagram, FaSnapchat, FaTelegram } from 'reac
 import Instagram from '../assets/Imgs/ig.svg'
 import Facebook from '../assets/Imgs/facbook.svg'
 import linkdin from '../assets/Imgs/Linkdin.svg'
-import axios from 'axios';
+import { Link } from "react-router-dom";
 
+// import axios from 'axios';
 const projects = [
   {
     id: 1,
@@ -127,7 +126,6 @@ const testimonials = [
   }
 ];
 
-
 const Blogs = [
   {
     id: 1,
@@ -162,7 +160,52 @@ const Blogs = [
 ];
 
 gsap.registerPlugin(ScrollTrigger);
+
+
 function Home() {
+
+  useEffect(() => {
+    // Simulate a click on the "scroll-to-top" button when the page loads
+    const scrollButton = document.getElementById('scroll-to-top-btn');
+    if (scrollButton) {
+      scrollButton.click(); // Simulate click
+    }
+  }, []); // Only run once on component mount
+
+  //   // const [projects, setProjects] = useState([]);
+//   // const [apiProjectsCount, setApiProjectsCount] = useState(0);
+//   // useEffect(() => {
+//   //   const baseUrl = import.meta.env.VITE_BASE_URL || 'https://default-api-url.com/';
+//   //   const apiUrl = `${baseUrl}public/api/projects`;
+
+//   //   axios
+//   //     .get(apiUrl)
+//   //     .then((response) => {
+//   //       if (response.data.success) {
+//   //         console.log('Projects fetched successfully:', response.data.data);
+//   //         const apiProjects = response.data.data;
+//   //         // Map API response to the required project structure
+//   //         setApiProjectsCount(apiProjects.length); // Store API projects count
+//   //         const mappedProjects = response.data.data.map((project, index) => ({
+//   //           id: project.id,
+//   //           title: project.name || 'Untitled Project',
+//   //           price: project.tag_price ? `₹ ${project.tag_price} CR* ONWARDS` : 'Price on Request',
+//   //           location: project.address || 'Unknown Location',
+//   //           size: project.specification || '3 & 4 BHK',
+//   //           feet: '1948 - 3700 Sq.Ft.',
+//   //           image: project.hero_img || 'https://via.placeholder.com/300', // Map hero_img to image
+//   //           bottomImage: [BottomImg1, BottomImg2, BottomImg3, BottomImg4][index % 4] || BottomImg1,
+//   //         }));
+//   //         setProjects(mappedProjects);
+//   //       }
+//   //     })
+//   //     .catch((error) => {
+//   //       console.error('Error fetching projects:', error);
+//   //     })
+//   //     .finally(() => {
+//   //       // setLoading(false); // Uncomment if you have a loading state
+//   //     });
+//   // }, []);
 
 //   const [projects, setProjects] = useState([]);
 // const [apiProjectsCount, setApiProjectsCount] = useState(0);
@@ -235,7 +278,6 @@ function Home() {
   const scrollImageRef = useRef(null);
   const welcomeTextRef = useRef(null);
 
-
   const getAnimationProps = (width) => {
     // Default values for larger screens (>1920px)
     let props = {
@@ -243,51 +285,41 @@ function Home() {
       logoTo1: { opacity: 1, y: 50, x: 300, scale: 0.6, duration: 1 },
       scrollImageTo: { opacity: 0, duration: 0.2 },
       pathsTo: { fill: '#c1d1e0', stroke: '#c1d1e0', duration: 0.6 },
-      logoTo2: { y: 590, x: 509, scale: 0.1, duration: 2.5 },
+      logoTo2: { y: 460, x: 509, scale: 0.1, duration: 2.5 },
       logoTo3: { opacity: 0, duration: 0.5 },
-      scrollTrigger: { start: 'top 30%', end: 'bottom 62%', scrub: 0.7 },
+      scrollTrigger: { start: 'top center', end: 'bottom center', scrub: 0.5 },
     };
-    if (width <= 375) {
-      props = {
-        logoFrom: { opacity: 0, y: -80, x: 30, scale: 0.8 },
-        logoTo1: { opacity: 1, y: 590, x: 20, scale: 0.5, duration: 7, scrub: 1.2},
-        scrollImageTo: { opacity: 0, duration: 0.15 },
-        pathsTo: { fill: '#c1d1e0', stroke: '#c1d1e0', duration: 1.5 },
-        logoTo2: { y: 916, x: -69, scale: 0.1, duration: 6 },
-        logoTo3: { opacity: 0, duration: 0.1 },
-        scrollTrigger: { start: 'top 30%', end: 'bottom 47%', scrub: 0.7 },
-      };
-    }
+
     // Adjust for specific breakpoints
-    else if (width <= 425) {
+    if (width <= 425) {
       props = {
         logoFrom: { opacity: 0, y: -80, x: 80, scale: 0.8 },
-        logoTo1: { opacity: 1, y: 590, x: 20, scale: 0.5, duration: 7, scrub: 1.2},
+        logoTo1: { opacity: 1, y: 650, x: 100, scale: 0.5, duration: 21, scrub: 1.2},
         scrollImageTo: { opacity: 0, duration: 0.15 },
-        pathsTo: { fill: '#c1d1e0', stroke: '#c1d1e0', duration: 1.5 },
-        logoTo2: { y: 860, x: -39, scale: 0.1, duration: 6 },
+        pathsTo: { fill: '#c1d1e0', stroke: '#c1d1e0', duration: 2.5 },
+        logoTo2: { y: 966, x: -39, scale: 0.1, duration: 29 },
         logoTo3: { opacity: 0, duration: 0.1 },
-        scrollTrigger: { start: 'top 30%', end: 'bottom 47%', scrub: 0.7 },
+        scrollTrigger: { start: 'top 30%', end: 'bottom 77.6%', scrub: 1.2 },
       };
     } else if (width <= 574) {
       props = {
         logoFrom: { opacity: 0, y: -100, x: 100, scale: 0.85 },
-        logoTo1: { opacity: 1, y: 30, x: 70, scale: 0.55, duration: 1.9 },
+        logoTo1: { opacity: 1, y: 30, x: 120, scale: 0.55, duration: 0.9 },
         scrollImageTo: { opacity: 0, duration: 0.18 },
-        pathsTo: { fill: '#c1d1e0', stroke: '#c1d1e0', duration: 2.55, scrub: 1.2 },
-        logoTo2: { y: 790, x: 39, scale: 0.1, duration: 9 },
-        logoTo3: { opacity: 0, duration: 1.45 },
-        scrollTrigger: { start: 'top 69%', end: 'bottom 59%', scrub: 1.4 },
+        pathsTo: { fill: '#c1d1e0', stroke: '#c1d1e0', duration: 0.55 },
+        logoTo2: { y: 910, x: 39, scale: 0.1, duration: 15 },
+        logoTo3: { opacity: 0, duration: 0.45 },
+        scrollTrigger: { start: 'top 69%', end: 'bottom 79%', scrub: 0.4 },
       };
     } else if (width <= 991) {
       props = {
-        logoFrom: { opacity: 0, y: -140, x: 270, scale: 0.9 },
-        logoTo1: { opacity: 1, y: 45, x: 210, scale: 0.58, duration: 1},
+        logoFrom: { opacity: 0, y: -140, x: 340, scale: 0.9 },
+        logoTo1: { opacity: 1, y: 45, x: 350, scale: 0.58, duration: 1},
         scrollImageTo: { opacity: 0, duration: 0.2 },
         pathsTo: { fill: '#c1d1e0', stroke: '#c1d1e0', duration: 0.6 },
-        logoTo2: { y: 235, x: 260, scale: 0.1, duration: 2.6 },
+        logoTo2: { y: 485, x: 250, scale: 0.1, duration: 3.6 },
         logoTo3: { opacity: 0, duration: 0.5 },
-        scrollTrigger: { start: 'top 65%', end: 'bottom 41%', scrub: 1.1 },
+        scrollTrigger: { start: 'top 65%', end: 'bottom 61%', scrub: 0.5 },
       };
     } else if (width <= 1100) {
       props = {
@@ -295,9 +327,9 @@ function Home() {
         logoTo1: { opacity: 1, y: 45, x: 200, scale: 0.58, duration: 1 },
         scrollImageTo: { opacity: 0, duration: 0.2 },
         pathsTo: { fill: '#c1d1e0', stroke: '#c1d1e0', duration: 0.6 },
-        logoTo2: { y: 287, x: 306, scale: 0.1, duration: 4.6 },
+        logoTo2: { y: 405, x: 306, scale: 0.1, duration: 5.6 },
         logoTo3: { opacity: 0, duration: 0.5 },
-        scrollTrigger: { start: 'top 65%', end: 'bottom 45%', scrub: 1.2 },
+        scrollTrigger: { start: 'top 65%', end: 'bottom 63%', scrub: 0.5 },
       };
     }
     else if (width <= 1400) {
@@ -306,9 +338,9 @@ function Home() {
         logoTo1: { opacity: 1, y: 48, x: 250, scale: 0.6, duration: 1 },
         scrollImageTo: { opacity: 0, duration: 0.2 },
         pathsTo: { fill: '#c1d1e0', stroke: '#c1d1e0', duration: 0.6 },
-        logoTo2: { y: 385, x: 470, scale: 0.1, duration: 2.6 },
+        logoTo2: { y: 445, x: 470, scale: 0.1, duration: 2.6 },
         logoTo3: { opacity: 0, duration: 0.5 },
-        scrollTrigger: { start: 'top 60%', end: 'bottom 42%', scrub: 1 },
+        scrollTrigger: { start: 'top 60%', end: 'bottom 59%', scrub: 1 },
       };
     } else if (width <= 1600) {
       props = {
@@ -316,10 +348,10 @@ function Home() {
         logoTo1: { opacity: 1, y: 50, x: 280, scale: 0.6, duration: 1 , scrub: 1},
         scrollImageTo: { opacity: 0, duration: 1.1, scrub: 1 },
         pathsTo: { fill: '#c1d1e0', stroke: '#c1d1e0', scrub: 3 },
-        logoTo2: { y: 432, x: 551, scale: 0.1, duration: 4.6  },
+        logoTo2: { y: 510, x: 551, scale: 0.1, duration: 4.6  },
         logoTo3: { opacity: 0, duration: 0.5 },
         scrollTrigger: { start: 'top 75%',
-          end: 'bottom 49%',
+          end: 'bottom 55%',
         ease: 'power3.out', scrub: 2.3 },
       };
     }  else if (width <= 1750) {
@@ -328,10 +360,10 @@ function Home() {
         logoTo1: { opacity: 1, y: 50, x: 280, scale: 0.6, duration: 1 , scrub: 1},
         scrollImageTo: { opacity: 0, duration: 1.1, scrub: 1 },
         pathsTo: { fill: '#c1d1e0', stroke: '#c1d1e0', scrub: 3 },
-        logoTo2: { y: 435, x: 610, scale: 0.1, duration: 4.6  },
+        logoTo2: { y: 509, x: 597, scale: 0.1, duration: 4.6  },
         logoTo3: { opacity: 0, duration: 0.5 },
         scrollTrigger: { start: 'top 75%',
-          end: 'bottom 49%',
+          end: 'bottom 55%',
         ease: 'power3.out', scrub: 2.3 },
       };
     }
@@ -341,10 +373,10 @@ function Home() {
         logoTo1: { opacity: 1, y: 50, x: 280, scale: 0.6, duration: 1 , scrub: 1},
         scrollImageTo: { opacity: 0, duration: 1.1, scrub: 1 },
         pathsTo: { fill: '#c1d1e0', stroke: '#c1d1e0', scrub: 3 },
-        logoTo2: { y: 433, x: 652, scale: 0.1, duration: 4.6  },
+        logoTo2: { y: 509, x: 650, scale: 0.1, duration: 4.6  },
         logoTo3: { opacity: 0, duration: 0.5 },
         scrollTrigger: { start: 'top 75%',
-          end: 'bottom 49%',
+          end: 'bottom 55%',
         ease: 'power3.out', scrub: 2.3 },
       };
     }else if (width <= 1920) {
@@ -353,9 +385,9 @@ function Home() {
         logoTo1: { opacity: 1, y: 50, x: 300, scale: 0.6, duration: 1 },
         scrollImageTo: { opacity: 0, duration: 0.2 },
         pathsTo: { fill: '#c1d1e0', stroke: '#c1d1e0', duration: 0.6 },
-        logoTo2: { y: 443, x: 725, scale: 0.1, duration: 4.2 },
+        logoTo2: { y: 523, x: 725, scale: 0.1, duration: 3.2 },
         logoTo3: { opacity: 0, duration: 0.5 },
-        scrollTrigger: { start: 'top center', end: 'bottom 49%', scrub: 0.5 },
+        scrollTrigger: { start: 'top center', end: 'bottom 55%', scrub: 0.5 },
       };
     }
 
@@ -463,7 +495,6 @@ function Home() {
     };
   }, []);
 
-
   const section1Ref = useRef(null);
   const section2Ref = useRef(null);
   const imageRefs = useRef([]);
@@ -473,142 +504,151 @@ function Home() {
 
     //3.) Testimonials section
 
-    useEffect(() => {
-      const boxes = boxRefs.current;
-      const images = imageRefs.current;
-      const bottomImages = bottomImageRefs.current;
-      const section2Image = section2ImageRef.current;
 
+useEffect(() => {
+  const boxes = boxRefs.current;
+  const images = imageRefs.current;
+  const bottomImages = bottomImageRefs.current;
+  const section2Image = section2ImageRef.current;
 
-      images.forEach((img, index) => {
-        const box = boxes[index];
-        const cardImg = box.querySelector('img.card-img-top'); // Get the <Card.Img>
+  // Wait for projects and boxes to be ready
+  if (!projects.length || !boxes || !images || boxes.length < projects.length) {
+    console.log('Skipping animation: Insufficient projects or refs', {
+      projectsLength: projects.length,
+      boxesLength: boxes.length,
+      imagesLength: images.length,
+    });
+    return;
+  }
 
-        const getOffsets = () => {
-          const cardImgRect = cardImg.getBoundingClientRect();
-          const imgRect = img.getBoundingClientRect();
-          // Target 220px above the top-right corner of the card's top image
-          return {
-            x: cardImgRect.right - imgRect.width / 2 - imgRect.left, // Center at right edge
-            y: cardImgRect.top - 229 + imgRect.height / 2 - imgRect.top, // Center 220px above top
-          };
-        };
-
-        gsap.fromTo(
-          img,
-          {
-            x: 1,
-            y: -210,
-            scale: 1,
-            opacity: 1,
-            visibility: "hidden",
-          },
-          {
-            x: () => getOffsets().x,
-            y: () => getOffsets().y,
-            scale: 1,
-            opacity: 1,
-            visibility: "visible",
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: section1Ref.current,
-              start: "top center+=135",
-              end: "bottom center",
-              scrub: 0.6,
-              onUpdate: (self) => {
-                const imgRect = img.getBoundingClientRect();
-                const boxRect = box.getBoundingClientRect();
-                const isInside = imgRect.top < boxRect.bottom && imgRect.bottom > boxRect.top;
-                if (isInside) {
-                  // box.style.backgroundColor = "#EFF7FE";
-                  box.style.backgroundColor = "";
-                } else {
-                  box.style.backgroundColor = "";
-                }
-              },
-              onComplete: () => {
-                gsap.set(img, { visibility: "hidden" }); // Hide to "stick" at position
-              },
-            },
-          }
-        );
-      });
-
-// Bottom Images Animation: Move into center of section2Image
-// Bottom Images: Animate to center of section2Image
-bottomImages.forEach((img) => {
-  const getOffsets = () => {
-    const imgRect = img.getBoundingClientRect();
-    const targetRect = section2Image.getBoundingClientRect();
-    return {
-      x: targetRect.left + targetRect.width / 2 - (imgRect.left + imgRect.width / 2),
-      y: targetRect.top + targetRect.height / 2 - (imgRect.top + imgRect.height / 2),
-    };
-  };
-
-  gsap.fromTo(
-    img,
-    {
-      x: -110,
-      y: 0,
-      scale: 0,
-      opacity: 1,
-      visibility: "hidden",
-    },
-    {
-      x: () => getOffsets().x,
-      y: () => getOffsets().y,
-      scale: 0.5,
-      opacity: 0,
-      duration: 7.5,
-      visibility: "visible",
-      ease: "power2.out",
-      scrub: 6,
-      scrollTrigger: {
-        trigger: section2Ref.current,
-        start: "top center+=70",
-        end: "bottom center-=20",
-        scrub: 6,
-      },
+  images.forEach((img, index) => {
+    if (index >= projects.length) {
+      console.log(`Skipping index ${index}: Exceeds projects length`);
+      return;
     }
-  );
-});
+    const box = boxes[index];
+    if (!box) {
+      console.log(`Skipping index ${index}: Box is undefined`);
+      return;
+    }
+    const cardImg = box.querySelector('img.card-img-top');
+    if (!cardImg) {
+      console.log(`Skipping index ${index}: card-img-top not found in box`, box);
+      return;
+    }
 
+    const getOffsets = () => {
+      const cardImgRect = cardImg.getBoundingClientRect();
+      const imgRect = img.getBoundingClientRect();
+      return {
+        x: (cardImgRect.right - imgRect.width / 2 - imgRect.left) * 1.05, // Increase by 20%
+        y: cardImgRect.top - 190 + imgRect.height / 2 - imgRect.top,
+      };
+    };
 
+    gsap.fromTo(
+      img,
+      {
+        x: 0,
+        y: -160,
+        scale: 1,
+        opacity: 1,
+        visibility: "hidden",
+      },
+      {
+        x: () => getOffsets().x,
+        y: () => getOffsets().y,
+        scale: 1,
+        opacity: 1,
+        visibility: "visible",
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: section1Ref.current,
+          start: "top center+=135",
+          end: "bottom center",
+          scrub: 0.6,
+          onUpdate: (self) => {
+            const imgRect = img.getBoundingClientRect();
+            const boxRect = box.getBoundingClientRect();
+            const isInside = imgRect.top < boxRect.bottom && imgRect.bottom > boxRect.top;
+            box.style.backgroundColor = isInside ? "" : "";
+          },
+          onComplete: () => {
+            gsap.set(img, { visibility: "hidden" });
+          },
+        },
+      }
+    );
+  });
 
-gsap.to([section2Image], {
-  opacity: 0,
-  scale: 0.4,
-  // duration: 3.5,
-  ease: "power2.out",
-  scrollTrigger: {
-    trigger: section2Ref.current,
-    start: "bottom center-=20",
-    end: "bottom center-=20",
-    scrub: 5,
-    onEnter: () => {
-      section2Image.classList.add("new_hover");
-    },
-    onLeave: () => {
-      section2Image.classList.remove("new_hover");
-    },
-    onComplete: () => {
-      // Lock hidden state
-      gsap.set([section2Image, ...bottomImages], {
+  // Bottom Images Animation
+  bottomImages.forEach((img) => {
+    const getOffsets = () => {
+      const imgRect = img.getBoundingClientRect();
+      const targetRect = section2Image.getBoundingClientRect();
+      return {
+        x: targetRect.left + targetRect.width / 2 - (imgRect.left + imgRect.width / 2),
+        y: targetRect.top + targetRect.height / 2 - (imgRect.top + imgRect.height / 2),
+      };
+    };
+
+    gsap.fromTo(
+      img,
+      {
+        x: -110,
+        y: 0,
+        scale: 0.1,
         opacity: 0,
         visibility: "hidden",
-        overwrite: true, // Prevent other animations from overriding
-      });
-      // Mark as hidden to block onEnter
-      bottomImages.forEach((img) => {
-        img.dataset.hidden = "true";
-      });
-      section2Image.dataset.hidden = "true";
-    },
-  },
-});
+      },
+      {
+        x: () => getOffsets().x,
+        y: () => getOffsets().y,
+        scale: 0.5,
+        opacity: 1,
+        duration: 7.5,
+        visibility: "visible",
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: section2Ref.current,
+          start: "top center+=70",
+          end: "bottom center-=20",
+          scrub: 6,
+        },
+      }
+    );
+  });
 
-    }, []);
+  // Synchronized Fade-Out
+  gsap.to([section2Image], {
+    opacity: 0,
+    scale: 0.4,
+    ease: "power2.out",
+    scrollTrigger: {
+      trigger: section2Ref.current,
+      start: "bottom center-=20",
+      end: "bottom center-=20",
+      scrub: 5,
+      onEnter: () => {
+        section2Image.classList.add("new_hover");
+      },
+      onLeave: () => {
+        section2Image.classList.remove("new_hover");
+      },
+      onComplete: () => {
+        gsap.set([section2Image, ...bottomImages], {
+          opacity: 0,
+          visibility: "hidden",
+          overwrite: true,
+        });
+        bottomImages.forEach((img) => {
+          img.dataset.hidden = "true";
+        });
+        section2Image.dataset.hidden = "true";
+      },
+    },
+  });
+}, [projects]); // Depend on projects
     const logoRefs1 = useRef(null);
     const containerRefs1 = useRef(null);
     const getAnimationProps1 = (width) => {
@@ -673,7 +713,7 @@ gsap.to([section2Image], {
             from: { opacity: 0, y: -390, x: 1170 ,scale: 1.3, scrub: 1},
             to: { opacity: 1, y: 50, x: 660,scale: 0.7, ease: 'power3.out', duration: 6.5, scrub: 1 },
           },
-          to: { opacity: 0, y: 530, x: 549, scale: 0, ease: 'power3.inOut', duration: 5.9 , scrub: ``},
+          to: { opacity: 0, y: 610, x: 589, scale: 0, ease: 'power3.inOut', duration: 5.9 , scrub: ``},
           scrollTrigger: { start: 'top 55%', end: 'bottom 45%', duration: 3.5,scrub: 2.6 },
         };
       }
@@ -683,7 +723,7 @@ gsap.to([section2Image], {
             from: { opacity: 0, y: -390, x: 1170 ,scale: 1.3, scrub: 1},
             to: { opacity: 1, y: 50, x: 660,scale: 0.7, ease: 'power3.out', duration: 3.5, scrub: 1 },
           },
-          to: { opacity: 0, y: 510, x: 630, scale: 0, ease: 'power3.inOut', duration: 3.9 , scrub: 1},
+          to: { opacity: 0, y: 590, x: 600, scale: 0, ease: 'power3.inOut', duration: 3.9 , scrub: 1},
           scrollTrigger: { start: 'top 50%', end: 'bottom 42%', duration: 3.5,scrub: 2.6 },
         };
       }       else if (width <= 1800) {
@@ -692,7 +732,7 @@ gsap.to([section2Image], {
             from: { opacity: 0, y: -390, x: 1270 ,scale: 1.3, scrub: 1},
             to: { opacity: 1, y: 50, x: 730,scale: 0.7, ease: 'power3.out', duration: 3.5, scrub: 1 },
           },
-          to: { opacity: 0, y: 510, x: 630, scale: 0.1, ease: 'power3.inOut', duration: 3.9 , scrub: 1},
+          to: { opacity: 0, y: 610, x: 645, scale: 0.1, ease: 'power3.inOut', duration: 3.9 , scrub: 1},
           scrollTrigger: { start: 'top 55%', end: 'bottom 37%', duration: 3.5,scrub: 1.6 },
         };
       }
@@ -770,7 +810,6 @@ gsap.to([section2Image], {
   const BlogsBottomsectionRef = useRef(null);
   const Blogsection2Ref = useRef(null);
 
-
 useEffect(() => {
   const boxes = BlogsboxRefs.current;
   const images = BlogimageRefs.current;
@@ -779,12 +818,12 @@ useEffect(() => {
 
   // Customizable offsets for bottom images
   const startOffset = {
-    x: 270,
-    y: -255,
+    x: 230,
+    y: -35,
   };
   const endOffset = {
-    x: 268,
-    y: -245,
+    x: 229,
+    y: -24,
   };
 
   // Animation for top images
@@ -795,8 +834,10 @@ useEffect(() => {
     const getOffsets = () => {
       const cardImgRect = cardImg.getBoundingClientRect();
       const imgRect = img.getBoundingClientRect();
+      const spacing = 17; // Increase this value to widen the gap between images
       return {
-        x: cardImgRect.right - imgRect.width / 2 - imgRect.left,
+        // x: cardImgRect.right - imgRect.width / 2 - imgRect.left,
+        x: cardImgRect.right - imgRect.width / 2 - imgRect.left + index * spacing, // Add spacing per image
         y: cardImgRect.top - 210 + imgRect.height / 2 - imgRect.top,
       };
     };
@@ -804,7 +845,7 @@ useEffect(() => {
     gsap.fromTo(
       img,
       {
-        x: 0,
+        x: 10,
         y: -170,
         scale: 1,
         opacity: 1,
@@ -927,18 +968,6 @@ bottomImages.forEach((img) => {
 });
 
 }, []);
-
-const [selectedCity, setSelectedCity] = useState('City');
-  const [selectedProperty, setSelectedProperty] = useState('Property Type');
-
-  // Handlers for dropdown selections
-  const handleCitySelect = (city) => {
-    setSelectedCity(city);
-  };
-
-  const handlePropertySelect = (property) => {
-    setSelectedProperty(property);
-  };
   return (
     <>
       <main id="All" >
@@ -947,8 +976,7 @@ const [selectedCity, setSelectedCity] = useState('City');
           <Container>
             <Row>
               <Col md={6} className="top-co" >
-                <h1 className=" animate__animated animate__fadeInLeft">Search Land Of Choice</h1>
-
+                <h1>Search Land Of Choice</h1>
                 <p>Explore premium living spaces in the most sought-after locations of India. </p>
               </Col>
               <Col>
@@ -973,43 +1001,42 @@ const [selectedCity, setSelectedCity] = useState('City');
               </Col>
             </Row>
           </Container>
-          <div className="d-flex align-items-md-center searc-bar home-serch justify-content-between">
-        <DropdownButton
-          id="dropdown-city"
-          title={selectedCity}
-          variant="outline-light"
-          className="me-2 set-out"
-          onSelect={handleCitySelect}
-        >
-          <Dropdown.Item eventKey="New York">New York</Dropdown.Item>
-          <Dropdown.Item eventKey="Los Angeles">Los Angeles</Dropdown.Item>
-          <Dropdown.Item eventKey="Chicago">Chicago</Dropdown.Item>
-        </DropdownButton>
-        <DropdownButton
-          id="dropdown-property"
-          title={selectedProperty}
-          variant="outline-light"
-          className="me-2 set-out"
-          onSelect={handlePropertySelect}
-        >
-          <Dropdown.Item eventKey="Apartment">Apartment</Dropdown.Item>
-          <Dropdown.Item eventKey="House">House</Dropdown.Item>
-          <Dropdown.Item eventKey="Condo">Condo</Dropdown.Item>
-        </DropdownButton>
-        <InputGroup className="me-2">
-          <InputGroup.Text>
-            <img src={Search} alt="Search Icon" />
-          </InputGroup.Text>
-          <Form.Control
-            placeholder="Search by Developer or Project"
-            aria-label="Username"
-            aria-describedby="basic-addon1"
-          />
-        </InputGroup>
-        <Button className="all-same-ani" variant="primary">
-          Search
-        </Button>
-      </div>
+          <div className="d-flex align-items-md-center searc-bar  justify-content-between">
+            <DropdownButton
+              id="dropdown-city"
+              title="City"
+              variant="outline-light"
+              className="me-2 set-out"
+            >
+              <Dropdown.Item href="#">New York</Dropdown.Item>
+              <Dropdown.Item href="#">Los Angeles</Dropdown.Item>
+              <Dropdown.Item href="#">Chicago</Dropdown.Item>
+            </DropdownButton>
+
+            <DropdownButton
+              id="dropdown-property"
+              title="Property Type"
+              variant="outline-light"
+              className="me-2 set-out"
+            >
+              <Dropdown.Item href="#">Apartment</Dropdown.Item>
+              <Dropdown.Item href="#">House</Dropdown.Item>
+              <Dropdown.Item href="#">Condo</Dropdown.Item>
+            </DropdownButton>
+
+            <InputGroup className="me-2 ">
+              <InputGroup.Text>
+                <img src={Search} />
+              </InputGroup.Text>
+              <Form.Control
+                placeholder="Search by location or property ID....."
+                aria-label="Username"
+                aria-describedby="basic-addon1"
+              />
+            </InputGroup>
+
+            <Button variant="primary all-same-ani">Search</Button>
+          </div>
         </section>
 
 <section ref={containerRefs} className="welcome">
@@ -1047,10 +1074,10 @@ const [selectedCity, setSelectedCity] = useState('City');
       <Col md={6} className="align-content-center head">
         <img src={Round} alt="scroling" className="scrol-top" ref={scrollImageRef} />
 
-        <h2 className="same-head aos-item" data-aos="fade-right" data-id="1" >
+        <h2 className="same-head" >
           WELCOME TO SLOC!
         </h2>
-        <p className="same-head-p" data-aos="fade-up" data-aos-duration="1000">
+        <p className="same-head-p">
         SLOC is all about turning property searches into seamless, rewarding experiences. Whether you seek a luxury residence, a strategic investment, or commercial real estate, we present the premier properties from India's leading developers such as Godrej, DLF, and others. Our dedication to honesty and high standards allows us to assist you in your search for, and investment in, real estate opportunities. With us by your side, the search ends and new beginnings start!
         </p>
       </Col>
@@ -1068,7 +1095,7 @@ const [selectedCity, setSelectedCity] = useState('City');
           <Card className="">
             <h3 className="text-primary">
               <Counter className="Counter-no" to={5} from={0} />
-              K+
+              K
             </h3>
             <p>Happy Customers</p>
           </Card>
@@ -1096,7 +1123,7 @@ const [selectedCity, setSelectedCity] = useState('City');
   </Container>
 </section>
 
-<section ref={section1Ref} className="featured" >
+<section ref={section1Ref} className="featured">
   <div className="featured-floating-imgs">
     <div className="image-stack">
       <img
@@ -1121,15 +1148,15 @@ const [selectedCity, setSelectedCity] = useState('City');
   </div>
   <Container className="full">
            <Row className="mb-4 d-flex py-md-4 align-content-center">
-              <Col md={8} className="align-content-center" data-aos="fade-right" data-aos-easing="ease-in-sine" data-aos-offset="300">
-                <h2 className="same-head" >Exclusive Listings</h2>
+              <Col md={8} className="align-content-center">
+                <h2 className="same-head">Exclusive Listings</h2>
                 <p className="same-head-p">
                 Discover a handpicked selection of luxurious homes, prime plots, and commercial landmarks from India’s most trusted developers.
                 </p>
               </Col>
-              <Col md={4} className="align-items-end text-end align-content-center" data-aos="fade-left">
+              <Col md={4} className="align-items-end text-end align-content-center">
                 <div className="custom-swiper-nav d-flex gap-4 justify-content-md-end mb-3">
-                  <img src={PrevArrow} alt="Previous" className="swiper-button-prev-custom " />
+                  <img src={PrevArrow} alt="Previous" className="swiper-button-prev-custom" />
                   <img src={NextArrow} alt="Next" className="swiper-button-next-custom" />
                 </div>
               </Col>
@@ -1151,23 +1178,23 @@ const [selectedCity, setSelectedCity] = useState('City');
         {projects.map((project, index) => (
           <SwiperSlide key={project.id}>
             <Col className="features-list p-0 dip-column">
-                              {index < 3 && (
-                    <img
-                      ref={(el) => (bottomImageRefs.current[index] = el)}
-                      className="bottom-image"
-                      src={project.bottomImage}
-                      alt={`bottom-img-${project.id}`}
-                      style={{
-                        position: 'absolute',
-                        top: 0,
-                        left: 0,
-                        zIndex: -1, // Below the card
-                        pointerEvents: 'none', // Prevent interaction
-                        width: '40%',
-                        height: 'auto',
-                      }}
-                    />
-                  )}
+            {index < 3 && (
+              <img
+                ref={(el) => (bottomImageRefs.current[index] = el)}
+                className="bottom-image"
+                src={project.bottomImage}
+                alt={`bottom-img-${project.id}`}
+                style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  zIndex: -1,
+                  pointerEvents: 'none',
+                  width: '40%',
+                  height: 'auto',
+                }}
+              />
+            )}
                 <Card
                   ref={(el) => (boxRefs.current[index] = el)}
                   className={`custom-card card-${index} box-${index}`}
@@ -1183,7 +1210,7 @@ const [selectedCity, setSelectedCity] = useState('City');
                     <Card.Text className="text-primary font-weight-bold">
                       {project.price}
                     </Card.Text>
-                    <Button className="Up-arrow-btn all-same-ani">
+                    <Button className="Up-arrow-btn">
                       <img src={Arrow} />
                     </Button>
                   </Card.Body>
@@ -1197,7 +1224,7 @@ const [selectedCity, setSelectedCity] = useState('City');
   </Container>
 </section>
 
-        <section ref={section2Ref} className="Cta position-relative" >
+        <section ref={section2Ref} className="Cta position-relative">
           <Container>
             <Row className="d-flex align-items-center justify-content-center ">
               <Col md={8}>
@@ -1212,7 +1239,7 @@ const [selectedCity, setSelectedCity] = useState('City');
 
               <Col md={4} className="text-md-end text-center">
                 {/* <img src={Cta} alt="" className="scroll-img" /> */}
-                <Button variant="dark" className="banner-button all-same-ani">
+                <Button variant="dark" className="banner-button">
                   Contact us for More info
                 </Button>
               </Col>
@@ -1226,11 +1253,11 @@ const [selectedCity, setSelectedCity] = useState('City');
             <Row className="align-items-center justify-content-between">
               <Col md={5} className="mb-4 mb-md-0">
                 <div className="ps-md-4">
-                  <h2 className="same-head" data-aos="fade-right" data-aos-delay="300">SLOC Stories  </h2>
-                  <p className="same-head-p" data-aos="fade-right" data-aos-delay="300">
+                  <h2 className="same-head">SLOC Stories  </h2>
+                  <p className="same-head-p">
                   From search to sold, we make real estate effortless and exciting!
                   </p>
-                  <Button className="Up-arrow-btn res-hide d-none all-same-ani">
+                  <Button className="Up-arrow-btn res-hide d-none">
                     <img src={Arrow} />
                   </Button>
                 </div>
@@ -1343,7 +1370,7 @@ const [selectedCity, setSelectedCity] = useState('City');
               <Card.Text className="text-primary font-weight-bold">
                 {Blogs.text}
               </Card.Text>
-              <Button className="Up-arrow-btn" href="/blog-detail">
+              <Button className="Up-arrow-btn" href="/details">
                 <img src={Arrow} />
               </Button>
             </Card.Body>
@@ -1454,7 +1481,7 @@ const [selectedCity, setSelectedCity] = useState('City');
 
 
            <Col lg={2} md={6} className="mb-4 mb-md-0 res-st">
-                    <h6 className="text-uppercase ft-font mb-3">INFORMATION</h6>
+                    <h6 className="text-uppercase ft-font mb-3">Contact Us</h6>
                     <p className=" mb-1">15th Floor, Ocus Quantum,</p>
                     <p className=" mb-1">Sector-51, Gurugram, Haryana, 122003 </p>
                     <p className=" my-3">

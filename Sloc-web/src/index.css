@@ -645,3 +645,6 @@ main.aboutpage {
 .pr {
   background: unset !important;
 }
+button{
+  text-transform: capitalize !important;
+}

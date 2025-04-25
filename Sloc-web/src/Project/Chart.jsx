@@ -38,7 +38,7 @@ const EMICalculator = () => {
   return (
     <Container className=" emi-chart mt-4">
       <Row className=' justify-content-between p-0'>
-        <Col md={7} className='bg-chane less-wi' data-aos="fade-right" data-aos-easing="ease-in-sine" data-aos-offset="300"
+        <Col lg={7} md={12} className='bg-chane less-wi' data-aos="fade-right" data-aos-easing="ease-in-sine" data-aos-offset="300"
         >
 
           <Form className="mt-4">
@@ -101,7 +101,7 @@ const EMICalculator = () => {
           </Form>
         </Col>
 
-        <Col md={5} className='bg-chane'data-aos="fade-left" data-aos-easing="ease-in-sine" data-aos-offset="300"
+        <Col lg={5} md={12} className='bg-chane'data-aos="fade-left" data-aos-easing="ease-in-sine" data-aos-offset="300"
         >
           <Card className="set-to">
             <h6 className=" text-center">YOUR EMI PER MONTH</h6>

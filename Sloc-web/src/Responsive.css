@@ -1249,6 +1249,9 @@ section.blog-detailss {
 .baner-iner h2 {
   padding-top: 2em;
 }
+section.blog-detailss {
+  margin-top: 0em !important;
+}
 }
 
 
