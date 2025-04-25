@@ -1,27 +1,21 @@
 body {
   font-family: "Bai Jamjuree", sans-serif !important;
 }
-
 p {
   font-family: "Nunito Sans", sans-serif !important;
   margin-bottom: 5px !important;
   font-size: 16px;
 }
-
 section.Topbar {
   background: #323232;
   padding: 10px 0;
 }
-
 .navbar-expand-md .navbar-collapse {
-
   justify-content: end;
 }
-
 .top-co p {
   font-size: 18px;
 }
-
 p.Logo {
   font-family: "Darker Grotesque", sans-serif;
   font-weight: 500;
@@ -33,28 +27,22 @@ p.Logo {
   font-family: "Darker Grotesque", sans-serif !important;
   display: inline;
 }
-
 section.Topbar p {
   color: #fff;
-
 }
-
 .Side {
   border-right: 1px solid white;
   margin-right: 20px;
   padding: 0 20px;
 }
-
 .Main-nav {
   padding: 20px 0 !important;
   border-bottom: 1px solid #B8B8B8;
 }
-
 .Main-nav .navbar-nav {
   gap: 40px;
   align-items: center;
 }
-
 .Main-nav .navbar-nav a {
   font-family: "Poppins", sans-serif !important;
   font-weight: 700;
@@ -63,7 +51,6 @@ section.Topbar p {
   color: #1E1E1E;
   vertical-align: middle;
 }
-
 .Main-nav .navbar-nav a.cntnct {
   background: #064685;
   font-size: 20px !important;
@@ -72,9 +59,7 @@ section.Topbar p {
   margin-left: 40px;
   padding: 16px 40px !important;
 }
-
 /* Hero Banner */
-
 section.Main-banner {
   background-image: url(./assets/Imgs/Baner.png);
   height: 658px;
@@ -85,7 +70,6 @@ section.Main-banner {
   position: relative;
   z-index: 11;
 }
-
 section.Main-banner h1 {
   font-family: "Bai Jamjuree", sans-serif !important;
   font-weight: 600;
@@ -94,7 +78,6 @@ section.Main-banner h1 {
   color: #064685;
   text-transform: uppercase;
 }
-
 .searc-bar {
   background: #064685 !important;
   padding: 20px 50px;
@@ -104,11 +87,9 @@ section.Main-banner h1 {
   bottom: 0;
   width: 100%;
 }
-
 .searc-bar a.dropdown-item {
   color: #064685 !important;
 }
-
 .set-out button {
   width: 300px;
   display: flex;
@@ -116,22 +97,18 @@ section.Main-banner h1 {
   justify-content: space-between;
   padding: 10px 30px;
   border-radius: 0;
-
 }
-
 .searc-bar .input-group input.form-control {
   background: unset;
   border-radius: 0;
   border-left: none;
   padding: 10px;
 }
-
 .searc-bar span.input-group-text {
   background: unset;
   border-right: none;
   border-radius: 0;
 }
-
 .searc-bar button.btn.btn-primary {
   background: #ffffff;
   color: #000;
@@ -143,23 +120,19 @@ section.Main-banner h1 {
   border-radius: 0;
   border: none;
 }
-
 input.form-control::placeholder {
   color: rgba(255, 255, 255, 0.514);
 }
-
 input.form-control:focus {
   box-shadow: unset;
   color: unset;
   border-color: #fff;
 }
-
 .searc-bar .me-2.input-group {
   width: 635px;
   color: #fff !important;
   border-color: #fff;
 }
-
 input.form-control {
   color: white;
   font-family: "Bai Jamjuree", sans-serif !important;
@@ -167,16 +140,13 @@ input.form-control {
   font-size: 20px;
   line-height: 100%;
   letter-spacing: 0%;
-
 }
-
 /* Welcom Section */
 section.welcome {
   padding: 80px 0px;
   background: #EFF7FE;
   position: relative;
 }
-
 section.welcome h3.text-primary {
   font-family: "Bai Jamjuree", sans-serif !important;
   font-weight: 700;
@@ -185,7 +155,6 @@ section.welcome h3.text-primary {
   color: #064685 !important;
   text-align: left;
 }
-
 section.welcome .card p {
   font-family: "Bai Jamjuree", sans-serif !important;
   font-weight: 400;
@@ -193,29 +162,22 @@ section.welcome .card p {
   color: #323232;
   line-height: 188%;
   text-align: left;
-
 }
-
 section.welcome .card {
   border: none;
   padding: 0 0px 20px 20px;
   background: unset;
 }
-
 .right {
   border-bottom: 1px solid #0000003D;
   border-right: 1px solid #0000003D;
 }
-
 .only-right {
   border-right: 1px solid #0000003D;
 }
-
 .only-bottom {
   border-bottom: 1px solid #0000003D;
-
 }
-
 .same-head {
   font-family: "Bai Jamjuree", sans-serif !important;
   font-weight: 700;
@@ -226,16 +188,13 @@ section.welcome .card {
   color: #064685;
   position: relative;
   z-index: +9999;
-
 }
-
 .same-head p {
   width: 100%;
   max-width: 85%;
   position: relative;
   z-index: +9999;
 }
-
 .same-head-p {
   font-weight: 400;
   font-size: 18px;
@@ -244,19 +203,15 @@ section.welcome .card {
   z-index: +9999;
   line-height: 150%;
 }
-
 .scrol-top {
   position: absolute;
   top: -50%;
 }
-
 /* Featurs Section */
-
 section.featured {
   padding-top: 80px;
   padding-bottom: 80px;
 }
-
 button.btn.btn-dark {
   font-family: "Poppins", sans-serif !important;
   font-weight: 500;
@@ -264,54 +219,38 @@ button.btn.btn-dark {
   line-height: 100%;
   padding: 12px 42px;
   border-radius: 0 !important;
-  transition: .3s all ease-in-out  !important;
-
+  transition: .3s all ease-in-out !important;
 }
-
 section.featured .row .features-list {
   border-right: 1px solid #B8B8B8;
   z-index: +1;
-
-
 }
-
 section.featured .row .features-list .card {
   border: none !important;
   padding: 25px;
   border-radius: 0;
   z-index: -1;
-
-
 }
-
 section.featured .row .features-list .card img {
   border-radius: 0;
   z-index: -1;
-
 }
-
 .full.container {
   max-width: 100% !important;
 }
-
 section.featured .row {
   padding: 0px 60px;
 }
-
 section.featured .row:nth-child(2) {
   border-top: 1px solid #B8B8B8;
   border-bottom: 1px solid #B8B8B8;
 }
-
 .blogs .row {
   padding: unset !important;
 }
-
 section.featured .row .features-list:nth-child(1) {
   border-left: 1px solid #B8B8B8;
-
 }
-
 a.Up-arrow-btn.btn.btn-primary {
   background: #064685 !important;
   border: none;
@@ -321,7 +260,6 @@ a.Up-arrow-btn.btn.btn-primary {
   width: 70px;
   align-content: center;
 }
-
 button.Up-arrow-btn.btn.btn-primary {
   background: #064685 !important;
   border: none;
@@ -330,26 +268,21 @@ button.Up-arrow-btn.btn.btn-primary {
   margin-top: 20px;
   width: 70px;
 }
-
 section.featured .card-title.h5 {
   font-family: "Bai Jamjuree", sans-serif !important;
   font-weight: 500;
   font-size: 30px;
   text-transform: uppercase;
   color: #064685;
-
 }
-
 section.featured p.card-text {
   font-weight: 700;
   font-size: 18px;
   line-height: 120%;
   letter-spacing: 0%;
   color: #064685 !important;
-
   text-transform: uppercase;
 }
-
 .btn-loc span {
   font-family: "Bai Jamjuree", sans-serif !important;
   font-weight: 500;
@@ -362,14 +295,11 @@ section.featured p.card-text {
   border-radius: 100px;
   margin-right: 10px;
 }
-
 .uper-space {
   padding: 0 !important;
   padding-top: 35px !important;
 }
-
 /* Cta Section */
-
 section.Cta {
   padding: 80px 0px;
   background-image: url(./assets/Imgs/Cta-banner.png);
@@ -377,19 +307,16 @@ section.Cta {
   background-repeat: no-repeat;
   background-position: center;
 }
-
 section.Cta h2 {
   color: #fff;
   position: relative;
   z-index: 2;
 }
-
 section.Cta p {
   color: #fff;
   position: relative;
   z-index: 2;
 }
-
 section.Cta button.btn.btn-dark {
   position: relative;
   z-index: 2;
@@ -397,7 +324,6 @@ section.Cta button.btn.btn-dark {
   color: #1E1E1E;
   border: none !important;
 }
-
 img.back-roll {
   position: absolute;
   top: -45%;
@@ -406,14 +332,11 @@ img.back-roll {
   width: 500px;
   animation: rotate-animation 10s infinite linear;
 }
-
 /* Social Section */
 section.social-proof {
   padding-top: 80px;
   padding-bottom: 40px;
 }
-
-
 .socail-name {
   font-family: "Bai Jamjuree", sans-serif !important;
   font-weight: 400;
@@ -422,59 +345,48 @@ section.social-proof {
   letter-spacing: 0%;
   text-transform: uppercase;
 }
-
 .social-p {
   font-weight: 400;
   font-size: 18px;
   line-height: 150%;
   letter-spacing: 0%;
 }
-
 .inner-set {
   padding: 20px;
   padding-top: 50px;
 }
-
 .sticky-box.card {
   background-color: unset !important;
 }
-
 .sticky-box .card-body {
   /* backdrop-filter: blur(4px); */
   background: #FFFFFF33;
   height: 600px;
   overflow: scroll;
-
 }
-
 .sticky-box .card-body div:first-child {
   backdrop-filter: blur(2px);
 }
-
 /* Hide scrollbar for Chrome, Safari, and Opera */
 .sticky-box .card-body::-webkit-scrollbar {
   display: none;
   /* Hide scrollbar */
 }
-
 /* Hide scrollbar for Firefox */
 .sticky-box .card-body {
   scrollbar-width: none;
   /* Firefox */
 }
-
 /* Hide scrollbar for Internet Explorer and Edge */
 .sticky-box .card-body {
   -ms-overflow-style: none;
   /* Internet Explorer and Edge */
 }
-
 /* Optional: If you want to ensure that the content is still scrollable */
 .sticky-box .card-body {
   overflow: auto;
   /* Ensure the content can still be scrolled */
 }
-
 /* section.social-proof:before {
     background-image: url(./assets/Imgs/back-scrol.png);
     position: absolute;
@@ -499,13 +411,11 @@ img.soc-img {
   HEIGHT: 500PX;
   animation: rotate-animation 10s infinite linear;
 }
-
 section.featured .row .features-list .card img {
   border-radius: 0;
   position: relative;
   z-index: +1;
 }
-
 /* Blogs  */
 /* section.featured .features-list .card:before{
     background-image: url(./assets/Imgs/blg.png);
@@ -521,30 +431,21 @@ section.featured .row .features-list .card img {
     object-fit: contain;
     background-position: top right;
     z-index: -1;
-
   } */
-
-
-
 .blogs .row {
   border: none !important;
 }
-
 .blogs .card {
-
   padding: 0;
 }
-
 .blogs .features-list {
   border: none !important;
 }
-
 .blogs .uper-space.card-body {
   border: 0.5px solid #B8B8B8 !important;
   padding: 20px !important;
   border-top: none !important;
 }
-
 .blogs .uper-space.card-body p {
   font-family: "Nunito Sans", sans-serif !important;
   font-weight: 400 !important;
@@ -552,40 +453,33 @@ section.featured .row .features-list .card img {
   line-height: 180%;
   color: #323232 !important;
 }
-
 .top-set {
   position: absolute;
   top: 45px;
   z-index: +99999999999999999;
 }
-
 span.black {
   background: #064685;
   color: white;
 }
-
 /* Footer */
 footer {
   background: #064685;
   padding-top: 60px;
   padding-bottom: 20px;
 }
-
 .footer-logo p.Logo {
   text-align: left;
   font-size: 96px;
 }
-
 .ft-font {
   font-weight: 700;
   font-size: 24px;
   line-height: 100%;
 }
-
 footer ul {
   gap: 15px;
 }
-
 footer ul a {
   font-family: "Nunito Sans", sans-serif !important;
   font-weight: 400;
@@ -595,12 +489,10 @@ footer ul a {
   text-align: center;
   text-transform: uppercase;
 }
-
 .border-top-set {
   border-color: #ffffff78 !important;
   border-top: 1px solid;
 }
-
 .copyright {
   font-family: "Nunito Sans", sans-serif !important;
   font-weight: 400;
@@ -609,12 +501,9 @@ footer ul a {
   letter-spacing: 0%;
   text-transform: uppercase;
 }
-
 .scrol-top {
   animation: rotate-animation 10s infinite linear;
-
 }
-
 span.Counter-no {
   font-family: "Bai Jamjuree", sans-serif !important;
   font-weight: 700;
@@ -623,38 +512,29 @@ span.Counter-no {
   color: #064685 !important;
   text-align: left;
 }
-
 img.foter-logo {
   width: 200px;
 }
-
 footer p,
 a,
 h6 {
   color: #ffffff !important;
 }
-
 .set-wi {
   width: 90%;
   border-bottom: 1px solid #ffffff78;
   padding-bottom: 20px;
 }
-
 .Main-nav a {
   color: #064685 !important;
 }
-
 .cntnct.nav-link {
-
   color: #fff !important;
-
 }
-
 section.Disclamer {
   background: #EFF7FE;
   padding: 60px 0;
 }
-
 .Dis {
   font-family: "Bai Jamjuree", sans-serif !important;
   font-weight: 400;
@@ -663,15 +543,11 @@ section.Disclamer {
   text-align: center;
   color: #323232 !important;
 }
-
 /* Blog Page */
-
-
 .Blogs-banner {
   background-image: url(/src/assets/Imgs/Blog-banner.png) !important;
   background-position: unset !important;
 }
-
 .blog-select button {
   font-family: "Bai Jamjuree", sans-serif !important;
   font-weight: 700;
@@ -681,23 +557,18 @@ section.Disclamer {
   text-transform: uppercase;
   margin-right: 15px;
 }
-
 button.active {
   background: #064685 !important;
   border: none;
-
 }
-
 button.latest {
   background: #EFF7FE;
   border: none;
   color: #1E1E1E;
 }
-
 .all-blogs {
   padding-top: 0 !important;
 }
-
 span.date.badge {
   background: #064685 !important;
   color: #fff !important;
@@ -708,7 +579,6 @@ span.date.badge {
   line-height: 110.00000000000001%;
   text-transform: uppercase;
 }
-
 span.apartmanet.badge {
   background: #EFF7FE !important;
   font-weight: 500;
@@ -721,7 +591,6 @@ span.apartmanet.badge {
   border-radius: 100px;
   margin-left: 20px;
 }
-
 .blog-h {
   font-family: "Bai Jamjuree", sans-serif !important;
   font-weight: 600;
@@ -730,7 +599,6 @@ span.apartmanet.badge {
   text-transform: uppercase;
   color: #064685;
 }
-
 .blog-p {
   font-weight: 400;
   font-size: 18px;
@@ -738,7 +606,6 @@ span.apartmanet.badge {
   color: #323232 !important;
   width: 88%;
 }
-
 p.author {
   color: #064685 !important;
   font-family: Nunito Sans;
@@ -747,21 +614,17 @@ p.author {
   line-height: 180%;
   margin-top: 20px;
 }
-
 section.blog-text {
   border: 1px solid #B8B8B8;
   border-left: none;
   border-radius: none;
-
 }
-
 .all-border {
   padding: 50px 40px !important;
   border: 1px solid #B8B8B8;
   border-bottom: none;
   border-top: none;
 }
-
 .all-border p {
   font-weight: 500;
   font-size: 22px;
@@ -769,17 +632,13 @@ section.blog-text {
   letter-spacing: 0%;
   vertical-align: middle;
 }
-
 /* About us page */
-
 .About-banner {
   background-image: url(/src/assets/Imgs/About.jpg) !important;
 }
-
 .about-sloc img.scrol-top {
   top: -68%;
 }
-
 .services-section {
   background-image: url(/src/assets/Imgs/Serv-about.jpg);
   padding: 80px 0;
@@ -788,59 +647,43 @@ section.blog-text {
   background-position: center;
   background-repeat: no-repeat;
 }
-
 .services-section .section-title {
   font-weight: bold;
 }
-
 .services-section .section-subtitle {}
-
 .head-serv {
   padding-bottom: 50px;
 }
-
 .service-row p {
   width: 90%;
 }
-
 .service-row.border-white {
   border-color: #fffffe94 !important;
   padding: 50px 0px !important;
 }
-
 .service-row {
   padding: 25px 0px !important;
 }
-
 .head-serv h3.section-title {
   font-size: 48px;
 }
-
 .services-section p {
   font-size: 18px;
 }
-
 .services-section h5 {
   font-size: 36px;
 }
-
 .assistance-section {
   padding-top: 80px !important;
   position: relative;
 }
-
-
 .assistance-section h6 {
   color: #323232 !important;
   font-size: 36px;
 }
-
-
-
 .assistance-section p {
   font-size: 18px;
 }
-
 .step-text {
   display: flex;
   align-items: center;
@@ -849,7 +692,6 @@ section.blog-text {
   padding: 40PX 0;
   margin-left: 10%;
 }
-
 .connect,
 .select,
 .buy,
@@ -858,12 +700,10 @@ section.blog-text {
   flex-direction: column;
   gap: 30px;
 }
-
 .step-text img {
   position: relative;
   top: 37px;
 }
-
 .assistance-section h5.step-number {
   font-weight: 700;
   font-size: 64px;
@@ -873,64 +713,49 @@ section.blog-text {
   text-stroke: 2px #808080;
   margin-top: 10px;
 }
-
 .step-box img {
   position: relative;
   left: 30px;
 }
-
-
 .connect {
   position: relative;
-
 }
-
 .select {
   position: relative;
   padding-left: 18% !important;
   margin-top: -11em !important;
 }
-
 .buy {
   position: relative;
   padding-left: 35% !important;
   margin-top: -11em !important;
 }
-
 .cus {
   position: relative;
   padding-left: 53% !important;
   margin-top: -11em !important;
 }
-
 .side-set {
   position: absolute;
   right: 0;
   animation: rotate-animation 10s infinite linear;
 }
-
 .alliance.row .brdr {
   border-right: 1px solid #B8B8B8;
   align-content: center;
   padding: 30px;
-
 }
-
 .alliance.row .brdr:nth-child(1) {
   border-left: 1px solid #B8B8B8;
 }
-
 .alliance.row {
   border: 1px solid #B8B8B8;
   border-left: none;
   border-right: none;
 }
-
 section.achivments {
   background: #F3F3F3;
 }
-
-
 section.achivments .card {
   --bs-card-border-width: var(--bs-border-width);
   --bs-card-border-color: var(--bs-border-color-translucent);
@@ -958,90 +783,70 @@ section.achivments .card {
   border: unset !important;
   border-radius: unset !important;
 }
-
 .achiv h5 {
   font-size: 32px;
   font-weight: 400 !important;
   color: #323232 !important;
 }
-
 .achiv p {
   font-size: 20px;
   font-weight: bold !important;
   color: #323232 !important;
-
 }
-
-
 .achiv {
   border: 1px solid #B8B8B8 !important;
   backdrop-filter: blur(10px) !important;
   background: #FFFFFF4D !important;
 }
-
-
 img.corner {
   position: absolute;
   right: -32px;
   top: -60px;
 }
-
-
 .achivments.row .mb-4.col-md-6:nth-child(2) {
   margin-top: 80px;
 }
-
 .achivments.row .mb-4.col-md-6:nth-child(3) {
   margin-top: -80px;
 }
-
 .achivments.row .mb-4.col-md-6:nth-child(5) {
   margin-top: -80px;
 }
-
 .achivments.row .mb-4.col-md-6:nth-child(7) {
   margin-top: -80px;
 }
-
 .over {
   height: 640px;
 }
-
 .over::-webkit-scrollbar-thumb {
   border-radius: 10px;
   box-shadow: inset 0 0 0px rgb(255, 254, 254);
   background-color: #ffffff;
   border: 1px solid #ffffff;
 }
-
 /* Hide scrollbar for Chrome, Safari, and Opera */
 .over::-webkit-scrollbar {
   display: none;
   /* Hide scrollbar */
 }
-
 /* Hide scrollbar for Firefox */
 .over {
   scrollbar-width: none;
   /* Firefox */
 }
-
 /* Hide scrollbar for Internet Explorer and Edge */
 .over {
   -ms-overflow-style: none;
   /* Internet Explorer and Edge */
 }
-
 /* Optional: If you want to ensure that the content is still scrollable */
 .over {
   overflow: auto;
   /* Ensure the content can still be scrolled */
 }
-
 section.achivments {
   padding-bottom: 0 !important;
 }
-
 .why-us {
   background-image: url(/src/assets/Imgs/Serv-about.jpg);
   align-content: center;
@@ -1049,7 +854,6 @@ section.achivments {
   background-position: center;
   background-repeat: no-repeat;
 }
-
 .why-choose.card {
   background: unset !important;
   border: 1px solid #fff !important;
@@ -1058,21 +862,17 @@ section.achivments {
   min-height: 300px;
   justify-content: center;
 }
-
 .why-choose.card h5 {
   color: #fff;
   font-size: 26px;
 }
-
 .why-choose.card p {
   color: #fff !important;
   font-size: 18px;
 }
-
 .blog-page .features-list {
   z-index: +111 !important;
 }
-
 .baner-iner {
   height: 100%;
   min-height: 560px;
@@ -1081,46 +881,32 @@ section.achivments {
   background-repeat: no-repeat;
   background-size: contain;
 }
-
-
 .privacy {
   background-image: url(./assets/Imgs/privacy.jpg);
-
 }
-
 .terms {
   background-image: url(./assets/Imgs/Term.jpg);
-
 }
-
 .disclamer {
   background-image: url(./assets/Imgs/Dis.jpg);
-
 }
-
 .btm-space {
   margin-bottom: 80px;
 }
-
 .list-term li {
   font-size: 20px;
   color: #1E1E1E !important;
   font-weight: 500;
   font-family: "Nunito Sans", sans-serif !important;
   margin-bottom: 30px !important;
-
-
 }
-
 .list-term p {
   font-size: 18px;
 }
-
 .form-set {
   background: #064685;
   padding: 60px 50px;
 }
-
 .form-set h5 {
   color: #fff;
   text-align: center;
@@ -1129,18 +915,15 @@ section.achivments {
   font-size: 24px;
   font-weight: 600;
 }
-
 .form-control {
   background: unset !important;
   border-width: 0.5px !important;
   border-radius: 0 !important;
   color: #fff !important;
 }
-
 input#agreeCheck {
   border-radius: 0;
 }
-
 .form-set button.btn.btn-light.text-dark {
   font-size: 20px;
   font-family: "Poppins", sans-serif !important;
@@ -1151,203 +934,155 @@ input#agreeCheck {
   border-radius: 0;
   margin-top: 1em;
 }
-
 .cntnct {
   padding-left: 50px;
 }
-
 .cntnct li {
   font-size: 24px;
   font-weight: 500;
   margin-bottom: 40px !important;
 }
-
 .cntnct li img {
   margin-right: 30px;
 }
-
 .cntnct {
   padding-left: 50px;
   border-left: 1px solid #B8B8B8;
 }
-
 .contact-set {
   padding: 0 !important;
-
 }
-
 .btm-s {
   padding: 50px !important;
-
 }
-
 .project-baner {
   height: 100% !important;
   min-height: 778px;
   background-image: url(./Project/imgs/p.jpg) !important;
   padding-top: 20px;
-
-
 }
-
 .pr {
   border: none;
-
 }
-
 .pr {
   position: absolute !important;
   top: 10px;
   width: 100%;
   left: 0;
 }
-
 .info {
   position: absolute;
   bottom: 0;
   width: 100%;
 }
-
 .pr div#basic-navbar-nav {
   justify-content: center;
 }
-
 span.brkr {
   margin: 0 10px;
 }
-
 .project-baner h1 {
   color: #fff !important;
 }
-
 .project-baner p {
   color: #fff !important;
 }
-
 .project-baner a {
   color: #fff !important;
 }
-
 .navbar-nav a {
   font-family: 'Nunito Sans' !important;
 }
-
 .pr a.nav-link {
   font-family: 'Nunito Sans' !important;
-
 }
-
 .pr a.cntnct.nav-link {
   color: #000 !important;
   background: #fff;
   font-weight: 600 !important;
-
 }
-
 p.loction {
   margin: 30px 0 !important;
 }
-
 .project-baner .searc-bar {
   position: relative !important;
   margin-top: 40px !important;
   padding: 20px;
   background: #fff !important;
-
-
 }
-
 .top-line-info p {
   text-align: right;
   width: 95%;
   font-size: 20px;
   font-family: "Bai Jamjuree", sans-serif !important;
 }
-
 .project-baner form {
   display: flex;
   gap: 35px;
   justify-content: center;
   align-items: center;
 }
-
 span.diff-color {
   color: #064685 !important;
 }
-
 .set-ww {
   width: 100%;
   max-width: 250px !important;
 }
-
 .long-one {
   width: 365px !important;
 }
-
 .project-baner .searc-bar input {
   height: 40px !important;
   color: #000 !important;
 }
-
 .project-baner .searc-bar input::placeholder {
   color: #000;
 }
-
 input#agreeCheck {
   height: 1em !important;
 }
-
 .project-baner .searc-bar .form-set {
   padding: 0;
   background: #fff !important;
-
 }
-
 .project-baner .searc-bar .form-set button {
   margin: 0 !important;
   padding: 5px 20px !important;
   height: 40px;
 }
-
 label.form-check-label {
   margin: 0;
   font-size: 12px;
   color: #323232;
   font-weight: 500;
 }
-
 .form-check.text-white {
   width: 11%;
   margin: 0;
   padding: 0;
 }
-
 .project-baner .searc-bar .form-set h5 {
   color: #064685 !important;
 }
-
 .project-baner .searc-bar button.btn.btn-light.text-dark {
   background: #064685;
   color: #fff !important;
   padding: 5px 40px !important;
 }
-
 .project-baner .searc-bar p {
   color: #000 !important;
 }
-
 .lastbar {
   padding: 20px 0px;
   text-align: center;
   background: #064685;
 }
-
 .lastbar h6 {
   margin: 0;
   font-size: 28px;
   text-transform: capitalize;
 }
-
 .comn-btn {
   background: #064685 !important;
   color: #fff !important;
@@ -1358,21 +1093,17 @@ label.form-check-label {
   border: none !important;
   font-family: "Poppins", sans-serif !important;
 }
-
 .card-content img.text-primary.me-2 {
   width: 100%;
 }
-
 .res img {
   width: 100px;
   height: 100px;
   margin-bottom: 20px;
 }
-
 .res .card {
   padding: 25px !important;
 }
-
 .btm-s .form-check.mb-3.text-white {
   width: unset;
   padding: unset;
@@ -1380,51 +1111,35 @@ label.form-check-label {
   position: relative;
   left: 25px;
 }
-
 .btm-s .form-check.mb-3.text-white label.form-check-label {
   margin: unset;
   color: unset;
   font-size: unset;
 }
-
 img.home-struct {
   width: 100%;
 }
-
 section.list-home {
   padding-top: 80px;
 }
-
 .struk-li li {
   font-size: 20px;
 }
-
 .home-text {
   margin-bottom: 80px;
 }
-
-
 h4.amni-details {
   display: inline;
   margin-left: 15px;
   font-size: 21px;
   font-family: "Poppins", sans-serif !important;
-
 }
-
 .amni .brdr {
   padding: 40px !important;
 }
-
-
-
-
-
-
 .slider-container {
   margin: 50px;
 }
-
 .property-card {
   position: relative;
   background-color: #EFF7FE;
@@ -1433,25 +1148,19 @@ h4.amni-details {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
   padding-top: 90px;
 }
-
-
-
 .card-content {
   margin-top: 40px;
 }
-
 .card-content h3 {
   font-size: 36px;
   font-weight: 400;
   margin-bottom: 8px;
 }
-
 .card-content p {
   font-size: 16px;
   color: #323232;
   margin-bottom: 15px;
 }
-
 .cta-btn {
   background-color: #002f6c;
   color: white;
@@ -1460,87 +1169,66 @@ h4.amni-details {
   border-radius: 4px;
   cursor: pointer;
 }
-
 .pricing {
   background-image: url(./Project//pricing-bg.jpg) !important;
   background-position: center;
   background-size: cover;
-
 }
-
 .ribbon-set img {
   position: absolute;
   right: 0;
   top: 35px;
 }
-
-
-
 .card-content {
   display: flex;
   align-items: center;
   gap: 15px;
 }
-
 .left-side-move img.back-roll {
   left: -14%;
   width: 325px;
   height: 325px;
   top: 10%;
 }
-
 .pricing .swiper {
   overflow: hidden !important;
 }
-
 .grid-r {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
 }
-
 .grid-r img {
   width: 320px;
 }
-
 .image-showcase img {
   width: 100%;
 }
-
 .img-scrol {
   padding-bottom: 0px !important;
 }
-
-
-
 .image-showcase {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 60px;
 }
-
 .image-showcase img:nth-child(2) {
   margin-top: 60px;
 }
-
 .image-showcase img:nth-child(3) {
   margin-top: -80px;
 }
-
 .img-scrol img.Move {
   left: 28%;
   z-index: -1;
   animation: rotate-animation 10s infinite linear;
 }
-
 section.faqs {
   padding: 80px 0;
   padding-bottom: 20px;
 }
-
 .faqqs .all-border {
   padding: 0 !important;
 }
-
 button.accordion-button {
   border: none !important;
   border-radius: 0 !important;
@@ -1552,22 +1240,17 @@ button.accordion-button {
   flex-direction: row-reverse;
   padding: 30px;
 }
-
 .accordion-button:not(.collapsed) {
   background-color: unset !important;
-
 }
-
 .accordion-body {
   padding: 30px !important;
   padding-top: 10px !important;
 }
-
 /* Hide default arrow */
 .accordion-button::after {
   display: none;
 }
-
 /* Add custom plus icon */
 .accordion-button::before {
   content: "+";
@@ -1576,9 +1259,7 @@ button.accordion-button {
   color: #000000;
   /* Bootstrap primary color */
   font-weight: bold;
-
 }
-
 /* Change plus to minus when expanded */
 .accordion-button:not(.collapsed)::before {
   content: "−";
@@ -1587,86 +1268,65 @@ button.accordion-button {
   color: #000000;
   font-weight: bold;
 }
-
 .meeting hr {
   color: #FFFFFF !important;
   opacity: 1;
   /* border: 0.3px solid !important; */
   width: 80%;
 }
-
 .meeting .form-check.mb-3.text-white {
   width: unset;
   padding-left: 1.5rem !important;
   text-align: left;
 }
-
 .meeting .form-check.mb-3.text-white label.form-check-label {
   color: #fff;
   font-size: 18px !important;
-
 }
-
 .meeting .form-check.text-white {
   padding-left: unset !important;
 }
-
 .meeting .form-set {
   backdrop-filter: blur(8px) !important;
   background: #00000010 !important;
   margin-left: 30px;
 }
-
 /* Rotating Animation */
-
 @keyframes rotate-animation {
   0% {
     transform: rotate(0deg);
   }
-
   50% {
     transform: rotate(180deg);
   }
-
   100% {
     transform: rotate(360deg);
   }
 }
-
-
 .custom-range::-webkit-slider-thumb {
-
-
   cursor: pointer;
   z-index: 3;
   position: relative;
 }
-
 .custom-range::-webkit-slider-runnable-track {
   height: 10px;
   background: linear-gradient(to right, #064685 var(--range-progress), #ccc var(--range-progress));
   border-radius: 3px;
 }
-
 .custom-range::-moz-range-track {
   height: 10px;
   background: linear-gradient(to right, #064685 var(--range-progress), #ccc var(--range-progress));
   border-radius: 3px;
 }
-
 .emi-chart .row {
   padding: 0px !important;
-
-
 }
-
 .emi-chart label.form-label {
   font-size: 24px;
   font-weight: bold;
   font-family: "Nunito Sans", sans-serif !important;
   text-transform: capitalize;
 }
-
 .custom-range::-webkit-slider-thumb {
   appearance: none;
   width: 50px !important;
@@ -1680,15 +1340,12 @@ button.accordion-button {
   bottom: 14px !important;
   z-index: 2;
   right: 5px;
-
 }
-
 .custom-range::-webkit-slider-runnable-track {
   height: 10px !important;
   background: linear-gradient(to right, #003366 var(--range-progress), #ccc var(--range-progress));
   border-radius: 3px;
 }
-
 .custom-range::-moz-range-thumb {
   width: 50px !important;
   height: 50px !important;
@@ -1702,124 +1359,96 @@ button.accordion-button {
   background-position: center;
   cursor: pointer;
 }
-
 .emi-chart span {
   font-size: 24px;
   color: #808080;
 }
-
 .bg-chane {
   background: #eff7fe;
   border: none;
   padding: 30px !important;
 }
-
 .set-to.card {
   background: unset;
   border: none;
 }
-
 .bg-chane.less-wi {
   width: 56%;
 }
-
 .bg-chane .set-to.card canvas {
   width: 370px !important;
   height: 370px !important;
   margin: 0 auto;
 }
-
 .bg-chane h6 {
   font-size: 24px;
   color: #1E1E1E !important;
 }
-
 .bg-chane h3 {
   font-size: 40px;
 }
-
 .iti.iti--allow-dropdown.iti--show-flags.iti--inline-dropdown {
   width: 100%;
 }
-
 .iti .iti__selected-dial-code {
   margin-left: 0;
   color: #ffffff;
   border-right: 1px solid #fff;
   padding-right: 10px;
 }
-
 input.form-control.iti__tel-input {
   padding-left: 90px !important;
 }
-
 .searc-bar .iti__selected-dial-code {
   border: none !important;
   padding: 0 !important;
   color: unset !important;
 }
-
 .searc-bar input.form-control.iti__tel-input {
   padding-left: 120px !important;
 }
-
 button.iti__selected-country {
   border-left: 1px solid #dee2e6;
 }
-
 input.form-control:focus {
-
   border-color: #B8B8B8 !important;
 }
-
 button.btn.btn-dark {
-
   background: #064685;
   border: none;
 }
-
 .iti {
   width: 100%;
-
 }
-
 button.scroll-to-top-btn {
   border: 1px solid #fff !important;
   background: #064685 !important;
 }
-
 .services-section h3.same-head {
   color: #fff;
 }
-
 .custom-range::-webkit-slider-thumb:focus {
   box-shadow: none;
 }
-
 .custom-range:focus {
   outline: none !important;
 }
-
 .custom-range:focus::-webkit-slider-thumb {
   outline: none !important;
   box-shadow: none !important;
 }
-
 .custom-range::-webkit-slider-thumb:focus {
   outline: none !important;
   box-shadow: none !important;
 }
-
 .custom-range::-moz-range-thumb:focus {
   outline: none !important;
   box-shadow: none !important;
 }
-
 .custom-range::-ms-thumb:focus {
   outline: none !important;
   box-shadow: none !important;
 }
-
 .timeline-container h2 {
   font-weight: 700;
   font-size: 100px;
@@ -1829,31 +1458,23 @@ button.scroll-to-top-btn {
   text-stroke: 2px #808080;
   margin-top: 10px;
 }
-
 .timeline-container h5 {
   font-size: 36px;
   font-weight: 400;
-
 }
-
 .timeline-container p {
   font-size: 18px;
 }
-
 .timeline-item {
-
   display: flex;
   align-items: center;
   gap: 5em;
   justify-content: space-between;
 }
-
 .timeline-observer {
   height: 1px;
   /* Height to detect intersection */
 }
-
-
 .line {
   height: 350px;
   position: absolute;
@@ -1864,17 +1485,14 @@ button.scroll-to-top-btn {
   background-color: rgb(12, 12, 12);
   opacity: 0.5;
 }
-
 .line--animated {
   background-color: #c1c1c1;
   opacity: 1;
 }
-
 .year-data {
   padding: 60px;
   padding-right: 0;
   border-bottom: 1px solid #ccc;
-
   width: 100%;
   max-width: 1000px;
   backdrop-filter: blur(4px);
@@ -1882,39 +1500,30 @@ button.scroll-to-top-btn {
   align-content: center;
   min-height: 300px;
 }
-
 .timeline-item:first-child .year-data {
   border-top: 1px solid #ccc !important;
 }
-
 .tip-two p {
   font-size: 18px !important;
 }
-
 .new-lis li {
   margin-bottom: 10px !important;
 }
-
 li.mb-3.set-to-down.align-items-start {
   margin-bottom: 40px !important;
 }
-
 .alliance img {
   filter: saturate(0);
   transition: cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
-
 .alliance img:hover {
   filter: unset !important;
 }
-
-
 .timeline-container {
   position: relative;
   padding: 20px 0;
   min-height: 600px;
 }
-
 .timeline-line {
   position: absolute;
   left: 26%;
@@ -1924,18 +1533,15 @@ li.mb-3.set-to-down.align-items-start {
   background: #e5e7eb;
   z-index: 1;
 }
-
 .timeline-line-progress {
   width: 100%;
   background: #064685;
   height: 0;
   transition: height 0.3s ease;
 }
-
 .timeline-item {
   position: relative;
 }
-
 .timeline-item::before {
   content: "";
   position: absolute;
@@ -1948,71 +1554,57 @@ li.mb-3.set-to-down.align-items-start {
   z-index: 2;
   transition: background 0.3s ease, transform 0.3s ease;
 }
-
 .timeline-item.touched::before {
   background: #064685;
   transform: scale(1.2);
 }
-
 .Yearr h2 {
   transition: color 0.3s ease;
 }
-
 .year-data {
   transition: opacity 0.3s ease;
   opacity: 0.7;
 }
-
 .timeline-item.active .year-data {
   opacity: 1;
 }
-
 section.Blog-listing .latest {
   background: #EFF7FE;
   color: #000 !important;
 }
-
 .why-choose.card:hover img {
   scale: 1.2 !important;
 }
-
 .why-choose.card img {
   transition: .3s all ease;
 }
-
 .text-sm-center {
   text-align: left !important;
 }
-
 .home-serch {
   background-image: url(./assets/Imgs/Cta-banner.png) !important;
   background-size: cover !important;
   background-repeat: no-repeat !important;
   background-position: center !important;
 }
-
 .listing-maina {
   background: #fff !important;
   height: unset !important;
   padding: 60px 0;
 }
-
 .searchlisting-bar {
   position: unset;
   margin: 0;
 }
-
 button.latest.filter.btn.btn-dark {
   border-radius: 100px !important;
   padding: 10px 40px;
   font-size: 18px;
 }
-
 img.pluss {
   position: relative;
   left: 10px;
 }
-
 .sortby.dropdown button#Sort\ by {
   width: 100%;
   border: 1px solid #1E1E1E;
@@ -2024,45 +1616,36 @@ img.pluss {
   align-items: center;
   font-weight: 400;
 }
-
 .sortby.dropdown a.dropdown-item {
   color: #1E1E1E !important;
-
 }
-
 p.Bysearch {
   font-size: 20px;
   text-transform: uppercase;
   font-family: "Bai Jamjuree", sans-serif !important;
   font-weight: 500;
-
 }
-
 .search-filterr {
   display: flex;
   gap: 20px;
   align-items: center;
 }
-
 .sortby.dropdown {
   width: 100%;
   max-width: 400px;
 }
-
 .features-row.listing-ki.row {
   border-top: 1px solid #B8B8B8;
   border-bottom: 1px solid #B8B8B8;
 }
-
 .load-more {
-  width: fit-content  !important;
+  width: fit-content !important;
   margin-top: 40px !important;
 }
 section.blogs {
   padding-bottom: 10px;
 }
-
-h6.aminites-adv{
+h6.aminites-adv {
   font-family: Poppins;
   font-weight: 500;
   font-size: 21px !important;
@@ -2112,19 +1695,16 @@ img.kckck {
   position: relative;
   top: 3px;
 }
-
 .kack-inline span {
-
   font-weight: 400;
   font-size: 16px;
   line-height: 17.6px;
   letter-spacing: 0%;
   vertical-align: middle;
 }
-.pr a.cntnct.nav-link:hover{
+.pr a.cntnct.nav-link:hover {
   color: #fff !important;
 }
-
 .project-baner .searc-bar input#agreeCheck {
   position: relative;
   top: 5px;

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import "../App.css";
 import { Row, Col } from "react-bootstrap";
 import Container from "react-bootstrap/Container";
@@ -23,7 +24,7 @@ import blog2 from "../assets/Imgs/blog-2.png";
 import blog3 from "../assets/Imgs/blog-3.png";
 import Counter from "../Animations/CountUp/CountUp";
 import back from '../assets/Imgs/back-cta.png'
-import React, { useEffect,  useRef, useState } from 'react';
+import React, { useEffect,  useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import WelcomeLogo from '../assets/Imgs/25_Logo_1.svg'
@@ -45,7 +46,6 @@ import Instagram from '../assets/Imgs/ig.svg'
 import Facebook from '../assets/Imgs/facbook.svg'
 import linkdin from '../assets/Imgs/Linkdin.svg'
 import { Link } from "react-router-dom";
-
 // import axios from 'axios';
 const projects = [
   {
@@ -65,7 +65,6 @@ const projects = [
     location: "SECTOR 66, GURGAON",
     size: "3 & 4 BHK",
     feet: "1948 - 3700 Sq.Ft.",
-
     image: f2,
     bottomImage: BottomImg2,
   },
@@ -75,7 +74,6 @@ const projects = [
     price: "₹ 5.53 CR* ONWARDS",
     location: "SECTOR 62, GURGAON",
     feet: "1948 - 3700 Sq.Ft.",
-
     size: "3 & 4 BHK",
     image: f3,
     bottomImage: BottomImg3,
@@ -86,13 +84,11 @@ const projects = [
     price: "₹ 5.53 CR* ONWARDS",
     location: "SECTOR 62, GURGAON",
     feet: "1948 - 3700 Sq.Ft.",
-
     size: "3 & 4 BHK",
     image: f3,
     bottomImage: BottomImg4,
   },
 ];
-
 const testimonials = [
   {
     id: 1,
@@ -125,7 +121,6 @@ const testimonials = [
     text: "Vivek Ruhil - Godrej Aristocrat",
   }
 ];
-
 const Blogs = [
   {
     id: 1,
@@ -158,12 +153,8 @@ const Blogs = [
     BlogImages: BottomImg11,
   },
 ];
-
 gsap.registerPlugin(ScrollTrigger);
-
-
 function Home() {
-
   useEffect(() => {
     // Simulate a click on the "scroll-to-top" button when the page loads
     const scrollButton = document.getElementById('scroll-to-top-btn');
@@ -171,13 +162,11 @@ function Home() {
       scrollButton.click(); // Simulate click
     }
   }, []); // Only run once on component mount
-
   //   // const [projects, setProjects] = useState([]);
 //   // const [apiProjectsCount, setApiProjectsCount] = useState(0);
 //   // useEffect(() => {
 //   //   const baseUrl = import.meta.env.VITE_BASE_URL || 'https://default-api-url.com/';
 //   //   const apiUrl = `${baseUrl}public/api/projects`;
-
 //   //   axios
 //   //     .get(apiUrl)
 //   //     .then((response) => {
@@ -206,14 +195,11 @@ function Home() {
 //   //       // setLoading(false); // Uncomment if you have a loading state
 //   //     });
 //   // }, []);
-
 //   const [projects, setProjects] = useState([]);
 // const [apiProjectsCount, setApiProjectsCount] = useState(0);
-
 // useEffect(() => {
 //   const baseUrl = import.meta.env.VITE_BASE_URL || 'https://default-api-url.com/';
 //   const apiUrl = `${baseUrl}public/api/projects`;
-
 //   // Define static projects
 //   const staticProjects = [
 //     {
@@ -237,7 +223,6 @@ function Home() {
 //       bottomImage: BottomImg2,
 //     },
 //   ];
-
 //   axios
 //     .get(apiUrl)
 //     .then((response) => {
@@ -245,7 +230,6 @@ function Home() {
 //         console.log('Projects fetched successfully:', response.data.data);
 //         const apiProjects = response.data.data;
 //         setApiProjectsCount(apiProjects.length); // Store API projects count
-
 //         // Map API response to the required project structure
 //         const mappedApiProjects = apiProjects.map((project, index) => ({
 //           id: project.id,
@@ -257,7 +241,6 @@ function Home() {
 //           image: project.hero_img || 'https://via.placeholder.com/300',
 //           bottomImage: [BottomImg1, BottomImg2, BottomImg3, BottomImg4][index % 4] || BottomImg1,
 //         }));
-
 //         // Combine API projects with static projects
 //         const combinedProjects = [...mappedApiProjects, ...staticProjects];
 //         setProjects(combinedProjects);
@@ -277,7 +260,6 @@ function Home() {
   const logoRefs = useRef(null); // Transparent SVG
   const scrollImageRef = useRef(null);
   const welcomeTextRef = useRef(null);
-
   const getAnimationProps = (width) => {
     // Default values for larger screens (>1920px)
     let props = {
@@ -289,7 +271,6 @@ function Home() {
       logoTo3: { opacity: 0, duration: 0.5 },
       scrollTrigger: { start: 'top center', end: 'bottom center', scrub: 0.5 },
     };
-
     // Adjust for specific breakpoints
     if (width <= 425) {
       props = {
@@ -390,10 +371,8 @@ function Home() {
         scrollTrigger: { start: 'top center', end: 'bottom 55%', scrub: 0.5 },
       };
     }
-
     return props;
   };
-
   useEffect(() => {
     // Ensure logoRefs exists
     const paths = logoRefs.current?.querySelectorAll('path');
@@ -401,22 +380,18 @@ function Home() {
       console.warn('No paths found in logoRefs');
       return;
     }
-
     // Set initial faded color using GSAP to avoid FOUC
     gsap.set(paths, {
       fill: '#b3b3b3',
       stroke: '#b3b3b3',
     });
-
     // Function to create or update animation
     const createAnimation = () => {
       // Get current width
       const width = window.innerWidth;
       const props = getAnimationProps(width);
-
       // Kill existing ScrollTriggers to avoid duplicates
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-
       // GSAP Timeline with ScrollTrigger
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -468,13 +443,10 @@ function Home() {
           },
           '-=1.1'
         );
-
       return tl;
     };
-
     // Initial animation
     let tl = createAnimation();
-
     // Optimized resize handler
     let timeout;
     const handleResize = () => {
@@ -486,7 +458,6 @@ function Home() {
       }, 200);
     };
     window.addEventListener('resize', handleResize);
-
     // Cleanup
     return () => {
       tl.kill();
@@ -494,23 +465,18 @@ function Home() {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
-
   const section1Ref = useRef(null);
   const section2Ref = useRef(null);
   const imageRefs = useRef([]);
   const boxRefs = useRef([]);
   const bottomImageRefs = useRef([]);
   const section2ImageRef = useRef(null);
-
     //3.) Testimonials section
-
-
 useEffect(() => {
   const boxes = boxRefs.current;
   const images = imageRefs.current;
   const bottomImages = bottomImageRefs.current;
   const section2Image = section2ImageRef.current;
-
   // Wait for projects and boxes to be ready
   if (!projects.length || !boxes || !images || boxes.length < projects.length) {
     console.log('Skipping animation: Insufficient projects or refs', {
@@ -520,7 +486,6 @@ useEffect(() => {
     });
     return;
   }
-
   images.forEach((img, index) => {
     if (index >= projects.length) {
       console.log(`Skipping index ${index}: Exceeds projects length`);
@@ -536,7 +501,6 @@ useEffect(() => {
       console.log(`Skipping index ${index}: card-img-top not found in box`, box);
       return;
     }
-
     const getOffsets = () => {
       const cardImgRect = cardImg.getBoundingClientRect();
       const imgRect = img.getBoundingClientRect();
@@ -545,7 +509,6 @@ useEffect(() => {
         y: cardImgRect.top - 190 + imgRect.height / 2 - imgRect.top,
       };
     };
-
     gsap.fromTo(
       img,
       {
@@ -580,7 +543,6 @@ useEffect(() => {
       }
     );
   });
-
   // Bottom Images Animation
   bottomImages.forEach((img) => {
     const getOffsets = () => {
@@ -591,7 +553,6 @@ useEffect(() => {
         y: targetRect.top + targetRect.height / 2 - (imgRect.top + imgRect.height / 2),
       };
     };
-
     gsap.fromTo(
       img,
       {
@@ -618,7 +579,6 @@ useEffect(() => {
       }
     );
   });
-
   // Synchronized Fade-Out
   gsap.to([section2Image], {
     opacity: 0,
@@ -661,7 +621,6 @@ useEffect(() => {
         to: { opacity: 0, y: 550, x: 550, scale: 0, ease: 'power3.inOut', duration: 7.5 },
         scrollTrigger: { start: 'top center+=30px', end: 'bottom center-=-30px', scrub: 1.2 },
       };
-
       // Adjust for specific breakpoints
       if (width <= 425) {
         props = {
@@ -746,14 +705,12 @@ useEffect(() => {
           scrollTrigger: { start: 'top center+=30px', end: 'bottom center-=-30px', scrub: 1.2 },
         };
       }
-
       return props;
     };
     useEffect(() => {
       // Get initial width
       let width = window.innerWidth;
       let animationProps = getAnimationProps1(width);
-
       // Create GSAP timeline
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -768,7 +725,6 @@ useEffect(() => {
           animationProps.fromTo.to
         )
         .to(logoRefs1.current, animationProps.to);
-
       // Handle resize to refresh animation with new props
       let timeout;
       const handleResize = () => {
@@ -793,29 +749,24 @@ useEffect(() => {
             .to(logoRefs1.current, animationProps.to);
         }, 100);
       };
-
       window.addEventListener('resize', handleResize);
-
       // Cleanup
       return () => {
         ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
         window.removeEventListener('resize', handleResize);
       };
     }, []);
-
   const blogsectionRef = useRef(null);
   const BlogimageRefs = useRef([]);
   const BlogsboxRefs = useRef([]);
   const BlogBottomImageRefs = useRef([]);
   const BlogsBottomsectionRef = useRef(null);
   const Blogsection2Ref = useRef(null);
-
 useEffect(() => {
   const boxes = BlogsboxRefs.current;
   const images = BlogimageRefs.current;
   const bottomImages = BlogBottomImageRefs.current;
   const logoO = BlogsBottomsectionRef.current;
-
   // Customizable offsets for bottom images
   const startOffset = {
     x: 230,
@@ -825,12 +776,10 @@ useEffect(() => {
     x: 229,
     y: -24,
   };
-
   // Animation for top images
   images.forEach((img, index) => {
     const box = boxes[index];
     const cardImg = box.querySelector('img.card-img-top');
-
     const getOffsets = () => {
       const cardImgRect = cardImg.getBoundingClientRect();
       const imgRect = img.getBoundingClientRect();
@@ -841,7 +790,6 @@ useEffect(() => {
         y: cardImgRect.top - 210 + imgRect.height / 2 - imgRect.top,
       };
     };
-
     gsap.fromTo(
       img,
       {
@@ -873,11 +821,9 @@ useEffect(() => {
       }
     );
   });
-
 // Animation for bottomImages: Converge into the "O"
 bottomImages.forEach((img) => {
   const fadeOutDuration = 0.01; // Configurable fade-out duration (set to 0.01 for near-instant vanish)
-
   const getOffsets = () => {
     const imgRect = img.getBoundingClientRect();
     const logoORect = logoO.getBoundingClientRect();
@@ -890,7 +836,6 @@ bottomImages.forEach((img) => {
       y: targetY - imgCenterY,
     };
   };
-
   gsap.fromTo(
     img,
     {
@@ -966,12 +911,10 @@ bottomImages.forEach((img) => {
     }
   );
 });
-
 }, []);
   return (
     <>
       <main id="All" >
-
         <section className="Main-banner mobile-bgp" data-speed="1.5">
           <Container>
             <Row>
@@ -997,7 +940,6 @@ bottomImages.forEach((img) => {
                   </div>
                 </div>
                 {/* Dont Edit this this for animation End */}
-
               </Col>
             </Row>
           </Container>
@@ -1012,7 +954,6 @@ bottomImages.forEach((img) => {
               <Dropdown.Item href="#">Los Angeles</Dropdown.Item>
               <Dropdown.Item href="#">Chicago</Dropdown.Item>
             </DropdownButton>
-
             <DropdownButton
               id="dropdown-property"
               title="Property Type"
@@ -1023,7 +964,6 @@ bottomImages.forEach((img) => {
               <Dropdown.Item href="#">House</Dropdown.Item>
               <Dropdown.Item href="#">Condo</Dropdown.Item>
             </DropdownButton>
-
             <InputGroup className="me-2 ">
               <InputGroup.Text>
                 <img src={Search} />
@@ -1034,13 +974,10 @@ bottomImages.forEach((img) => {
                 aria-describedby="basic-addon1"
               />
             </InputGroup>
-
             <Button variant="primary all-same-ani">Search</Button>
           </div>
         </section>
-
 <section ref={containerRefs} className="welcome">
-
   {/* Blue SVG */}
 <svg
   className="Move move_logo"
@@ -1073,7 +1010,6 @@ bottomImages.forEach((img) => {
     <Row className="mb-4 d-flex">
       <Col md={6} className="align-content-center head">
         <img src={Round} alt="scroling" className="scrol-top" ref={scrollImageRef} />
-
         <h2 className="same-head" >
           WELCOME TO SLOC!
         </h2>
@@ -1122,7 +1058,6 @@ bottomImages.forEach((img) => {
     </Row>
   </Container>
 </section>
-
 <section ref={section1Ref} className="featured">
   <div className="featured-floating-imgs">
     <div className="image-stack">
@@ -1214,7 +1149,6 @@ bottomImages.forEach((img) => {
                       <img src={Arrow} />
                     </Button>
                   </Card.Body>
-
                 </Card>
             </Col>
           </SwiperSlide>
@@ -1223,7 +1157,6 @@ bottomImages.forEach((img) => {
     </Row>
   </Container>
 </section>
-
         <section ref={section2Ref} className="Cta position-relative">
           <Container>
             <Row className="d-flex align-items-center justify-content-center ">
@@ -1234,9 +1167,7 @@ bottomImages.forEach((img) => {
                 </p>
                 <img src={back} alt="" className="back-roll" ref={section2ImageRef}
                 />
-
               </Col>
-
               <Col md={4} className="text-md-end text-center">
                 {/* <img src={Cta} alt="" className="scroll-img" /> */}
                 <Button variant="dark" className="banner-button">
@@ -1246,7 +1177,6 @@ bottomImages.forEach((img) => {
             </Row>
           </Container>
         </section>
-
         <section ref={containerRefs1} className="social-proof position-relative">
           <img className="Move" src={WelcomeLogo} ref={logoRefs1} />
           <Container className="">
@@ -1263,7 +1193,6 @@ bottomImages.forEach((img) => {
                 </div>
                 {/* <img src={soback} className="soc-img" alt="" /> */}
               </Col>
-
               <Col md={6} className="align-items-top rounded-0">
                 <Card className="sticky-box position-sticky rounded-0">
                   <Card.Body className="p-0 pt-2">
@@ -1410,7 +1339,6 @@ bottomImages.forEach((img) => {
             <p className="my-3 set-wi">
             We bring you the finest real estate choices with trust and excellence. Get set to Dream, Discover, and Deal.
             </p>
-
             <div className="mb-2">
               <h6 className="text-uppercase ft-font">FOLLOW US AT</h6>
             </div>
@@ -1457,7 +1385,6 @@ bottomImages.forEach((img) => {
                 </li>
               </ul>
             </Col>
-
             <Col lg={2} md={6} sm={6} className="mb-4 mb-md-0 res-st">
               <h6 className="text-uppercase ft-font mb-3">Policies</h6>
               <ul className="list-unstyled mb-0">
@@ -1478,8 +1405,6 @@ bottomImages.forEach((img) => {
                 </li>
               </ul>
             </Col>
-
-
            <Col lg={2} md={6} className="mb-4 mb-md-0 res-st">
                     <h6 className="text-uppercase ft-font mb-3">Contact Us</h6>
                     <p className=" mb-1">15th Floor, Ocus Quantum,</p>
@@ -1492,7 +1417,6 @@ bottomImages.forEach((img) => {
                     </p>
                   </Col>
         </Row>
-
         <Row className='border-top-set pt-3 mt-2'>
           <Col className="text-center small">
             <p className="mb-0 copyright">© Copyright 2025 | All Rights Reserved</p>
@@ -1504,7 +1428,4 @@ bottomImages.forEach((img) => {
     </>
   );
 }
-
 export default Home;
-
-

@@ -16,7 +16,6 @@ html {
   .container {
     max-width: 1440px !important;
   }
-
 }
 img.Move {
   position: absolute;
@@ -27,15 +26,12 @@ main#All {
 body {
   overflow-x: hidden;
 }
-
 a{
   text-decoration: none !important;
 }
 .same-space{
   padding: 80px 0 !important;
 }
-
-
 .dots {
   position: absolute;
   top: 50%;
@@ -46,7 +42,6 @@ a{
   align-items: center;
   gap: 15px;
 }
-
 .dot {
   width: 10px;
   height: 10px;
@@ -55,14 +50,12 @@ a{
   opacity: 0;
   transform: scale(0);
 }
-
 .cursor-down {
   position: absolute;
   bottom: 20px;
   font-size: 40px;
   color: #333;
 }
-
 .scroll-section {
   height: 100vh;
   display: flex;
@@ -83,7 +76,6 @@ a{
   transition: opacity 0.3s ease, transform 0.3s ease;
   margin: 0 20px;
 }
-
 .rocket-image {
   position: absolute;
   top: 47px;
@@ -91,20 +83,15 @@ a{
   transition: transform 0.3s ease;
   z-index: +999999999999999999999999999999999999999;
 }
-
-
-
 .animated-logo {
   position: relative;
   width: 100%;
 }
-
 .image-wrapper {
   position: absolute;
   width: 100%;
   height: 100%;
 }
-
 .rocket-image.main-image {
   width: 100%;
   max-width: 300px;
@@ -114,7 +101,6 @@ a{
   transform: translateX(-50%);
   z-index: 2;
 }
-
 .split-images {
   position: absolute;
   top: 0;
@@ -126,42 +112,32 @@ a{
   opacity: 0;
   z-index: 1;
 }
-
 .split-image {
   width: 100px;
   height: auto;
   transition: filter 0.3s ease;
 }
-
 .features-row {
   position: relative;
 }
-
 .dip-column {
   transition: background-color 0.3s ease;
   position: relative;
   min-height: 200px;
 }
-
 .dipped {
   filter: hue-rotate(90deg);
 }
-
-
-
 .Cta .banner-button {
   transition: transform 0.3s ease-out;
 }
-
 .split-images img {
   transition: opacity 0.5s, transform 0.5s;
 }
-
 .card {
   transition: background-color 0.5s all ease;
 z-index: +9999;
 }
-
 img#rocket-image {
   opacity: 0 !important;
 }
@@ -169,24 +145,17 @@ img#rocket-image {
 .img-hide {
   display: none;
 }
-
 .swiper-button-prev-custom,
 .swiper-button-next-custom {
   cursor: pointer;
-
 }
-
 .custom-swiper-nav {
   position: relative;
   z-index: 10;
 }
-
-
-
 .featured-floating-imgs {
   position: relative;
 }
-
 .image-stack {
   position: absolute;
   top: 0;
@@ -196,31 +165,25 @@ img#rocket-image {
   gap: 20px;
   z-index: 9999;
 }
-
 .initial-image {
   width: 100px;
   height:100px;
   object-fit: cover;
 }
-
 .box-container {
   position: absolute;
   bottom: 0;
   width: 100%;
   gap: 50px;
 }
-
 .box-wrapper {
   position: relative;
 }
-
 .box {
   width: 100px;
   height: 100px;
   background: #ccc;
 }
-
-
 .bottom-image {
   width: 150px;
   height: 150px;
@@ -229,9 +192,7 @@ img#rocket-image {
   left: 50%;
   transform: translateX(-50%);
 }
-
 .initial-image {
-
   object-fit: cover;
   position: absolute;
   left: -80px;
@@ -240,16 +201,12 @@ img#rocket-image {
 img.Move {
   left: -25px;
 }
-
 .swiper{
   overflow: unset !important;
 }
 .image-stack-1 {
   top: 100px !important;
 }
-
-
-
 .dots {
   position: absolute;
   top: 50%;
@@ -260,7 +217,6 @@ img.Move {
   align-items: center;
   gap: 15px;
 }
-
 .dot {
   width: 10px;
   height: 10px;
@@ -269,14 +225,12 @@ img.Move {
   opacity: 0;
   transform: scale(0);
 }
-
 .cursor-down {
   position: absolute;
   bottom: 20px;
   font-size: 40px;
   color: #333;
 }
-
 .scroll-section {
   height: 100vh;
   display: flex;
@@ -297,7 +251,6 @@ img.Move {
   transition: opacity 0.3s ease, transform 0.3s ease;
   margin: 0 20px;
 }
-
 .rocket-image {
   position: absolute;
   top: 47px;
@@ -305,20 +258,15 @@ img.Move {
   transition: transform 0.3s ease;
   z-index: +9999999999999999;
 }
-
-
-
 .animated-logo {
   position: relative;
   width: 100%;
 }
-
 .image-wrapper {
   position: absolute;
   width: 100%;
   height: 100%;
 }
-
 .rocket-image.main-image {
   width: 100%;
   max-width: 300px;
@@ -328,7 +276,6 @@ img.Move {
   transform: translateX(-50%);
   z-index: 2;
 }
-
 .split-images {
   position: absolute;
   top: 0;
@@ -340,67 +287,49 @@ img.Move {
   opacity: 0;
   z-index: 1;
 }
-
 .split-image {
   width: 100px;
   height: auto;
   transition: filter 0.3s ease;
 }
-
 .features-row {
   position: relative;
 }
-
 .dip-column {
   transition: background-color 0.3s ease;
   position: relative;
   min-height: 200px;
 }
-
 .dipped {
   filter: hue-rotate(90deg);
 }
-
-
-
 .Cta .banner-button {
   transition: transform 0.3s ease-out;
 }
-
 .split-images img {
   transition: opacity 0.5s, transform 0.5s;
 }
-
 .card {
   transition: background-color 0.5s all ease;
 z-index: +9999;
 }
-
 img#rocket-image {
   opacity: 0 !important;
 }
-
 .img-hide {
   display: none;
 }
-
 .swiper-button-prev-custom,
 .swiper-button-next-custom {
   cursor: pointer;
-
 }
-
 .custom-swiper-nav {
   position: relative;
   z-index: 10;
 }
-
-
-
 .featured-floating-imgs {
   position: relative;
 }
-
 .image-stack {
   position: absolute;
   top: 0;
@@ -409,26 +338,20 @@ img#rocket-image {
   display: flex;
   gap: 20px;
 }
-
-
 .box-container {
   position: absolute;
   bottom: 0;
   width: 100%;
   gap: 50px;
 }
-
 .box-wrapper {
   position: relative;
 }
-
 .box {
   width: 100px;
   height: 100px;
   background: #ccc;
 }
-
-
 .bottom-image {
   height: 50px;
   position: absolute;
@@ -443,11 +366,9 @@ img#rocket-image {
   position: absolute;
    z-index: 1;
 }
-
 img.Move {
   left: -25px;
 }
-
 svg.Move {
   top: -150px;
   left: -7px;
@@ -455,20 +376,15 @@ svg.Move {
 .image-stack img.initial-image {
   transition: .2s all linear !important;
 }
-
-
-
 .timeline-container {
   position: relative;
   max-height: 500px;
   overflow-y: auto;
 }
-
 .timeline-item {
   position: relative;
   padding-left: 1.5rem;
 }
-
 .timeline-dot {
   position: absolute;
   top: 0.4rem;
@@ -480,11 +396,9 @@ svg.Move {
   border-radius: 50%;
   z-index: 1;
 }
-
 .timeline-dot.active {
   background-color: #000;
 }
-
 .year-display {
   font-size: 2.5rem;
   color: #dee2e6;
@@ -498,33 +412,27 @@ button.navbar-toggler {
   padding: 8px;
 }
 .navbar-toggler-icon {
-
   background-image:url(./assets//Imgs/Togle.svg) !important;
   padding: 10px;
 }
-
 .timeline-container::-webkit-scrollbar {
   display: none;
   /* Hide scrollbar */
 }
-
 /* Hide scrollbar for Firefox */
 .timeline-container {
   scrollbar-width: none;
   /* Firefox */
 }
-
 /* Hide scrollbar for Internet Explorer and Edge */
 .timeline-container {
   -ms-overflow-style: none;
   /* Internet Explorer and Edge */
 }
-
 /* Optional: If you want to ensure that the content is still scrollable */
 .timeline-container {
   overflow: auto;
   border-right: 1px solid #ccc;
-
   /* Ensure the content can still be scrolled */
 }
 button.scroll-to-top-btn {
@@ -548,14 +456,12 @@ button.scroll-to-top-btn {
 }
 section.welcome.about-sloc img {
   transition: .3s all ease-in-out  !important;
-
 }
 section.welcome.about-sloc img:hover{
   scale: 1.05;
 }
 .custom-swiper-nav img {
   transition: .3s all ease-in-out  !important;
-
 }
 .custom-swiper-nav img:hover {
   scale: 1.05;
@@ -567,17 +473,14 @@ button.Up-arrow-btn.btn.btn-primary:hover {
 }
 button.Up-arrow-btn.btn.btn-primary:hover img {
   transform: rotate(45deg)  !important;
-
 }
 button.Up-arrow-btn.btn.btn-primary img {
   transition: .3s all ease-in-out  !important;
-
 }
 a.Up-arrow-btn.btn.btn-primary:hover{
   box-shadow: rgba(100, 100, 111, 0.2) 0px 20px 40px 0px;
   transform: scale(1.01) rotateX(5deg) rotateY(-5deg);
   background: #1C85EB !important
-
 }
 a.Up-arrow-btn.all-same-ani.btn.btn-primary img {
   transition: .3s all ease-in-out  !important;
@@ -589,7 +492,6 @@ button.scroll-to-top-btn:hover {
   box-shadow: rgba(100, 100, 111, 0.2) 0px 20px 40px 0px;
   transform: scale(1.01) rotateX(5deg) rotateY(-5deg);
   background: #1C85EB !important;
-
 }
 a.Up-arrow-btn.btn.btn-primary img {
   transition: .3s all ease-in-out  !important;
@@ -600,7 +502,6 @@ a.Up-arrow-btn.btn.btn-primary:hover img {
 button.scroll-to-top-btn {
   transition: .3s all ease-in-out  !important;
 }
-
 button.btn.btn-dark:hover{
   box-shadow: rgba(100, 100, 111, 0.2) 0px 20px 40px 0px;
   transform: scale(1.01) rotateX(5deg) rotateY(5deg);
@@ -616,11 +517,9 @@ button.btn.btn-dark:hover{
 span.link-bl a {
   color: #212529 !important;
 }
-
 main.menu {
   margin-bottom: 5em;
 }
-
 /* NAv link css */
 nav.Main-nav.navbar {
   position: fixed;
@@ -629,7 +528,6 @@ nav.Main-nav.navbar {
   z-index: +999999999999;
   background: #fff;
 }
-
 a.nav-link:hover {
   color: #1C85EB !important;
   /* text-decoration: underline !important; */
@@ -638,7 +536,6 @@ a.nav-link.active {
   color: #1C85EB !important;
   /* text-decoration: underline !important; */
 }
-
 main.aboutpage {
   overflow: hidden;
 }
