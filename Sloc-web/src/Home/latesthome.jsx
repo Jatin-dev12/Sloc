@@ -1258,7 +1258,7 @@ bottomImages.forEach((img) => {
               <Card.Text className="text-primary font-weight-bold">
                 {Blogs.text}
               </Card.Text>
-              <Button className="Up-arrow-btn" href="/details">
+              <Button className="Up-arrow-btn" href="/blog-detail">
                 <img src={Arrow} />
               </Button>
             </Card.Body>

@@ -1284,52 +1284,56 @@ function project() {
                 </div>
               </Col>
 
-              <Col lg={2} md={6} sm={6} className="mb-4 mb-md-0 res-st">
-                <h6 className="text-uppercase ft-font mb-3">QUICK LINKS</h6>
-                <ul className="list-unstyled mb-0">
-                  <li className="mb-2">
-                    <Link to="/" className="text-decoration-none  ">
-                      Home
-                    </Link>
-                  </li>
-                  <li className="mb-2">
-                    <Link to="/About" className="text-decoration-none  ">
-                      About Us
-                    </Link>
-                  </li>
-                  <li className="mb-2">
-                    <Link to="/Blogs" className="text-decoration-none  ">
-                      BLOG
-                    </Link>
-                  </li>
-                  <li className="mb-2">
-                    <Link to="/contact" className="text-decoration-none  ">
-                      CONTACT US
-                    </Link>
-                  </li>
-                </ul>
-              </Col>
+            <Col lg={2} md={6} sm={6} className="mb-4 mb-md-0 res-st">
+              <h6 className="text-uppercase ft-font mb-3">QUICK LINKS</h6>
+              <ul className="list-unstyled mb-0">
+                <li className="mb-2">
+                  <Link to="/" className="text-decoration-none  ">
+                    Home
+                  </Link>
+                </li>
+                <li className="mb-2">
+                  <Link to="/about-us" className="text-decoration-none  ">
+                    About Us
+                  </Link>
+                </li>
+                <li className="mb-2">
+                  <Link to="/blog-listing" className="text-decoration-none  ">
+                    BLOG
+                  </Link>
+                </li>
+                <li className="mb-2">
+                  <Link to="/contact-us" className="text-decoration-none  ">
+                    CONTACT US
+                  </Link>
+                </li>
+              </ul>
+            </Col>
 
-              <Col lg={2} md={6} sm={6} className="mb-4 mb-md-0 res-st">
-                <h6 className="text-uppercase ft-font mb-3">Policies</h6>
-                <ul className="list-unstyled mb-0">
-                  <li className="mb-2">
-                    <Link to="/Disclaimer" className="text-decoration-none  ">
-                      Disclaimer{" "}
-                    </Link>
-                  </li>
-                  <li className="mb-2">
-                    <Link to="/Privacy" className="text-decoration-none  ">
-                      Privacy Policy
-                    </Link>
-                  </li>
-                  <li className="mb-2">
-                    <Link to="/Terms" className="text-decoration-none  ">
-                      Terms & Conditions
-                    </Link>
-                  </li>
-                </ul>
-              </Col>
+            <Col lg={2} md={6} sm={6} className="mb-4 mb-md-0 res-st">
+              <h6 className="text-uppercase ft-font mb-3">Policies</h6>
+              <ul className="list-unstyled mb-0">
+                <li className="mb-2">
+                  <Link to="/disclaimer" className="text-decoration-none  ">
+                    Disclaimer
+                  </Link>
+                </li>
+                <li className="mb-2">
+                  <Link to="/privacy-policy" className="text-decoration-none  ">
+                    Privacy Policy
+                  </Link>
+                </li>
+                <li className="mb-2">
+                  <Link to="/terms-and-conditions" className="text-decoration-none  ">
+                    Terms & Conditions
+                  </Link>
+                </li>
+              </ul>
+            </Col>
+
+
+
+
               <Col lg={2} md={6} className="mb-4 mb-md-0 res-st">
                 <h6 className="text-uppercase ft-font mb-3">INFORMATION</h6>
                 <p className=" mb-1">15th Floor, Ocus Quantum,</p>

@@ -1345,6 +1345,7 @@ label.form-check-label {
 .lastbar h6 {
   margin: 0;
   font-size: 28px;
+  text-transform: capitalize;
 }
 
 .comn-btn {
@@ -1663,6 +1664,7 @@ button.accordion-button {
   font-size: 24px;
   font-weight: bold;
   font-family: "Nunito Sans", sans-serif !important;
+  text-transform: capitalize;
 }
 
 .custom-range::-webkit-slider-thumb {

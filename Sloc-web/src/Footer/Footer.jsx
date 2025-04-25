@@ -107,7 +107,7 @@ const Footer = () => {
               <ul className="list-unstyled mb-0">
                 <li className="mb-2">
                   <Link to="/disclaimer" className="text-decoration-none  ">
-                    Disclaimer{" "}
+                    Disclaimer
                   </Link>
                 </li>
                 <li className="mb-2">

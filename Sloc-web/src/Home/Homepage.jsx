@@ -3,6 +3,8 @@ import { Row, Col } from "react-bootstrap";
 import Container from "react-bootstrap/Container";
 import Search from "../assets/Imgs/Search.svg";
 import { Card } from "react-bootstrap";
+import { Link } from "react-router-dom";
+
 import {
   Form,
   Button,
@@ -1056,7 +1058,7 @@ const [selectedCity, setSelectedCity] = useState('City');
         <Col md={6} lg={6} className="right res">
           <Card className="">
             <h3 className="text-primary">
-              <Counter className="Counter-no" to={5} from={0} />
+              <Counter className="Counter-no" to={10} from={0} />
               +
             </h3>
             <p>Years of Excellence</p>
@@ -1065,8 +1067,8 @@ const [selectedCity, setSelectedCity] = useState('City');
         <Col md={6} lg={6} className="only-bottom res">
           <Card className="">
             <h3 className="text-primary">
-              <Counter className="Counter-no" to={1} from={0} />
-              K
+              <Counter className="Counter-no" to={5} from={0} />
+              K+
             </h3>
             <p>Happy Customers</p>
           </Card>
@@ -1083,7 +1085,7 @@ const [selectedCity, setSelectedCity] = useState('City');
         <Col md={6} lg={6} className="left-brdr res">
           <Card className="">
             <h3 className="text-primary">
-              <Counter className="Counter-no" to={98} from={0} />
+              <Counter className="Counter-no" to={95} from={0} />
              %
             </h3>
             <p>Customer Satisfaction</p>
@@ -1341,7 +1343,7 @@ const [selectedCity, setSelectedCity] = useState('City');
               <Card.Text className="text-primary font-weight-bold">
                 {Blogs.text}
               </Card.Text>
-              <Button className="Up-arrow-btn" href="/details">
+              <Button className="Up-arrow-btn" href="/blog-detail">
                 <img src={Arrow} />
               </Button>
             </Card.Body>
@@ -1403,40 +1405,53 @@ const [selectedCity, setSelectedCity] = useState('City');
               </a> */}
             </div>
           </Col>
+            <Col lg={2} md={6} sm={6} className="mb-4 mb-md-0 res-st">
+              <h6 className="text-uppercase ft-font mb-3">QUICK LINKS</h6>
+              <ul className="list-unstyled mb-0">
+                <li className="mb-2">
+                  <Link to="/" className="text-decoration-none  ">
+                    Home
+                  </Link>
+                </li>
+                <li className="mb-2">
+                  <Link to="/about-us" className="text-decoration-none  ">
+                    About Us
+                  </Link>
+                </li>
+                <li className="mb-2">
+                  <Link to="/blog-listing" className="text-decoration-none  ">
+                    BLOG
+                  </Link>
+                </li>
+                <li className="mb-2">
+                  <Link to="/contact-us" className="text-decoration-none  ">
+                    CONTACT US
+                  </Link>
+                </li>
+              </ul>
+            </Col>
 
-          <Col lg={2} md={6} sm={6} className="mb-4 mb-md-0 res-st">
-            <h6 className="text-uppercase ft-font mb-3">QUICK LINKS</h6>
-            <ul className="list-unstyled mb-0">
-              <li className="mb-2">
-                <a href="/" className="text-decoration-none  small zincd">Home</a>
-              </li>
-              <li className="mb-2">
-                <a href="/About" className="text-decoration-none  small zincd">About Us</a>
-              </li>
-              <li className="mb-2">
-                <a href="/Blogs" className="text-decoration-none  small zincd">BLOG</a>
-              </li>
-              <li className="mb-2">
-                <a href="/contact" className="text-decoration-none  small zincd">CONTACT US</a>
-              </li>
+            <Col lg={2} md={6} sm={6} className="mb-4 mb-md-0 res-st">
+              <h6 className="text-uppercase ft-font mb-3">Policies</h6>
+              <ul className="list-unstyled mb-0">
+                <li className="mb-2">
+                  <Link to="/disclaimer" className="text-decoration-none  ">
+                    Disclaimer
+                  </Link>
+                </li>
+                <li className="mb-2">
+                  <Link to="/privacy-policy" className="text-decoration-none  ">
+                    Privacy Policy
+                  </Link>
+                </li>
+                <li className="mb-2">
+                  <Link to="/terms-and-conditions" className="text-decoration-none  ">
+                    Terms & Conditions
+                  </Link>
+                </li>
+              </ul>
+            </Col>
 
-            </ul>
-          </Col>
-
-          <Col lg={2} md={6} sm={6} className="mb-4 mb-md-0 res-st">
-            <h6 className="text-uppercase ft-font mb-3">Policies</h6>
-            <ul className="list-unstyled mb-0">
-              <li className="mb-2">
-                <a href="/Disclaimer" className="text-decoration-none  small">Disclaimer </a>
-              </li>
-              <li className="mb-2">
-                <a href="/Privacy" className="text-decoration-none  small">Privacy Policy</a>
-              </li>
-              <li className="mb-2">
-                <a href="/Terms" className="text-decoration-none  small">Terms & Conditions</a>
-              </li>
-            </ul>
-          </Col>
 
            <Col lg={2} md={6} className="mb-4 mb-md-0 res-st">
                     <h6 className="text-uppercase ft-font mb-3">INFORMATION</h6>
