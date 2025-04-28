@@ -291,8 +291,8 @@ function project() {
 
   useEffect(() => {
     ScrollTrigger.create({
-      trigger: "#second-section", // ID of your second section
-      start: "bottom center", // when the top of second section hits center of viewport
+      trigger: "#second-section",
+      start: "bottom center",
       onEnter: () => {
         navbarRef.current.classList.add("nav-bg-change");
       },
