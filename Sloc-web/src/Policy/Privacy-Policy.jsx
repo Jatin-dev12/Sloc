@@ -52,10 +52,10 @@ const Privacy = () => {
                           Contact us using our website.
                         </li>
                         <li className="align-items-start">
-                          Contact us using our website.
+                        Subscribe to our marketing emails.
                         </li>
                         <li className="align-items-start">
-                          Contact us using our website.
+                        Use cookies and tracking tools to interact with our site.
                         </li>
                       </ul>
 
@@ -152,7 +152,7 @@ const Privacy = () => {
                         Correct or update your information
                         </li>
                         <li className="align-items-start">
-                        Correct or update your information
+                        Withdraw consent or request data deletion
                         </li>
                       </ul>
 
