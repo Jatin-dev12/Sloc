@@ -17,7 +17,7 @@ const Disclaimer = () => {
 
           <h2 className="fw-bold blog-h mt-2">Disclaimer</h2>
           <p className=" blog-p">
-          Transparency matters! Here's everything you need to know before you proceed.
+          Transparency matters! Here's everything you <span className='bl-full'>need to know before you proceed.</span>
           </p>
         </Col>
 

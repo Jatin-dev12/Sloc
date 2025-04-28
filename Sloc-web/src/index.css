@@ -522,10 +522,10 @@ main.menu {
 }
 /* NAv link css */
 nav.Main-nav.navbar {
-  position: fixed;
+  position: fixed !important;
   width: 100%;
   top: 0;
-  z-index: +999999999999;
+  z-index: 99999;
   background: #fff;
 }
 a.nav-link:hover {
@@ -544,4 +544,7 @@ main.aboutpage {
 }
 button{
   text-transform: capitalize !important;
+}
+.nav-bg-change {
+  background-color: #064685  !important; /* or whatever color you want */
 }

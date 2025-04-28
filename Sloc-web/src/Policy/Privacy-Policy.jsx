@@ -13,8 +13,8 @@ const Privacy = () => {
             <Col md={12} className="animate__animated animate__fadeInLeft">
               <h2 className="fw-bold blog-h mt-2">Privacy Policy</h2>
               <p className=" blog-p">
-                We handle your data with the same care we take when finding your
-                dream home
+                We handle your data with the same care we take when<span className='bl-full'>finding your
+                dream home,</span>
               </p>
             </Col>
           </Row>

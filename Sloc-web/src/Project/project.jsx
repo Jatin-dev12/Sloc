@@ -28,7 +28,7 @@ import jog from "./imgs/joging.png";
 import silent from "./imgs/silent.png";
 import spa from "./imgs/spa.png";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation } from "swiper/modules";
+import { Navigation,Autoplay  } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import lib from "./imgs/lib.png";
@@ -37,11 +37,7 @@ import stake from "./imgs/staking.png";
 import gym from "./imgs/gym.png";
 import red from "./imgs/red.png";
 import Time from "./imgs/timer.png";
-
-import kach from "./imgs/kach.png";
-import dubai from "./imgs/dubai.png";
 import WelcomeLogo from "../assets/Imgs/back-scrol-BsNhHslO.png";
-import air from "./imgs/air.png";
 import f1 from "./imgs/1st.png";
 import f2 from "./imgs/2nd.png";
 import f3 from "./imgs/3rd.png";
@@ -57,6 +53,10 @@ import { Link } from "react-router-dom";
 import Instagram from "../assets/Imgs/ig.svg";
 import Facebook from "../assets/Imgs/facbook.svg";
 import linkdin from "../assets/Imgs/Linkdin.svg";
+import gsap from "gsap";
+import ScrollTrigger from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 function project() {
   const [formData, setFormData] = useState({
@@ -285,12 +285,28 @@ function project() {
       console.log("Form has errors, not submitting");
     }
   };
+
+
+  const navbarRef = useRef(null);
+
+  useEffect(() => {
+    ScrollTrigger.create({
+      trigger: "#second-section", // ID of your second section
+      start: "bottom center", // when the top of second section hits center of viewport
+      onEnter: () => {
+        navbarRef.current.classList.add("nav-bg-change");
+      },
+      onLeaveBack: () => {
+        navbarRef.current.classList.remove("nav-bg-change");
+      },
+    });
+  }, []);
   return (
     <>
       <main className="project-page">
         <section className="Main-banner project-baner" data-speed="1.5">
           <Container>
-            <Navbar expand="lg" className="Main-nav pr " collapseOnSelect>
+            <Navbar expand="lg" className="Main-nav pr " ref={navbarRef} collapseOnSelect>
               <Container className="end-toend">
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
@@ -304,7 +320,7 @@ function project() {
 
                     <Nav.Link href="#Emi">EMI Calculator</Nav.Link>
 
-                    <Nav.Link href="/contact" className="cntnct all-same-ani">
+                    <Nav.Link href="#call" className="cntnct all-same-ani">
                       Contact Us
                     </Nav.Link>
                   </Nav>
@@ -402,7 +418,7 @@ function project() {
                 </form>
               </div>
             </div>
-            <div className="lastbar">
+            <div className="lastbar" id="second-section">
               <h6>
                 Find Your Perfect Home with Unbeatable Disc ounts – Up to XX%
                 OFF!
@@ -762,12 +778,17 @@ function project() {
           </Container>
           <div className="slider-container">
             <Swiper
+
               slidesPerView={3}
               spaceBetween={40}
               navigation={false}
-              modules={[Navigation]}
               loop={true}
-              autoplay={true}
+              autoplay={{
+                delay: 3000,
+                disableOnInteraction: false,
+              }}
+              modules={[Navigation, Autoplay]}
+
               breakpoints={{
                 0: { slidesPerView: 1 },
                 768: { slidesPerView: 2 },
@@ -990,7 +1011,7 @@ function project() {
           </Container>
         </section>
 
-        <section className="Cta position-relative left-side-move meeting">
+        <section className="Cta position-relative left-side-move meeting" id="call">
           <Container>
             <Row className="d-flex align-items-center justify-content-center px-5 ">
               <Col md={6}>

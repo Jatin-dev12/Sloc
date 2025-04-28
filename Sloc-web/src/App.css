@@ -187,20 +187,20 @@ section.welcome .card {
   text-transform: uppercase;
   color: #064685;
   position: relative;
-  z-index: +9999;
+  z-index: 9;
 }
 .same-head p {
   width: 100%;
   max-width: 85%;
   position: relative;
-  z-index: +9999;
+  z-index: 9;
 }
 .same-head-p {
   font-weight: 400;
   font-size: 18px;
   font-family: "Nunito Sans", sans-serif !important;
   position: relative;
-  z-index: +9999;
+  z-index: 9;
   line-height: 150%;
 }
 .scrol-top {
