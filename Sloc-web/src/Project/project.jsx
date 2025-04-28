@@ -290,7 +290,7 @@ function project() {
       <main className="project-page">
         <section className="Main-banner project-baner" data-speed="1.5">
           <Container>
-            <Navbar expand="md" className="Main-nav pr " collapseOnSelect>
+            <Navbar expand="lg" className="Main-nav pr " collapseOnSelect>
               <Container className="end-toend">
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">

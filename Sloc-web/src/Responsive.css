@@ -336,6 +336,15 @@ main.project-page {
   .timeline-container h5 {
     font-size: 20px;
   }
+  .pr a.cntnct.nav-link {
+    padding: 10px 20px !important;
+    font-size: 16px !important;
+    margin: 0 !important;
+}
+.pr a.nav-link {
+  font-family: 'Nunito Sans' !important;
+  font-size: 14px;
+}
 }
 @media screen and (max-width: 1100px) {
   section.Main-banner h1 {
@@ -467,6 +476,7 @@ main.project-page {
   .comn-btn {
     font-size: 10px;
   }
+
 }
 @media screen and (max-width: 991px) {
   section.Main-banner {
@@ -518,9 +528,7 @@ main.project-page {
     gap: 25px;
     align-items: end;
   }
-  br {
-    display: none;
-  }
+
   .step-text img {
     display: none;
   }
@@ -556,7 +564,7 @@ main.project-page {
     display: none;
   }
   .step-text {
-    margin-left: 1%;
+    margin-left: 0;
   }
   .alliance.row .brdr {
     border: 1px solid #B8B8B8;
@@ -659,9 +667,30 @@ main.project-page {
     font-family: 'Nunito Sans' !important;
     font-size: 14px !important;
   }
-  /* .show .ml-auto.navbar-nav a.nav-link a.cntnct{
-    color: #fff !important;
-  } */
+.end-toend.container .show a.nav-link {
+  color: #064685 !important;
+  padding-right: 15px;
+  font-size: 16px !important;
+  font-weight: bold !important;
+}
+.pr .show .ml-auto.navbar-nav{
+  padding-bottom: 10px !important;
+}
+.project-baner .top-co {
+
+  padding-bottom: 10em !important;
+}
+.about-sloc img {
+  width: 100%;
+}
+.connect .dumy-ass {
+  position: relative;
+  right: 20px;
+}
+.all-border {
+  padding: 40px 25px !important;
+
+}
 }
 @media screen and (max-width: 778px) {
   .info {
@@ -918,6 +947,24 @@ section.blog-detailss {
 section.blog-detailss {
   margin-top: 0em !important;
 }
+.project-baner .top-co {
+
+  padding-bottom: 0em !important;
+}
+.connect .dumy-ass {
+  position: relative;
+  right: 0px;
+}
+.about-sloc img {
+  width: unset;
+}
+br {
+  display: none;
+}
+.cntnct {
+
+  border: none;
+}
 }
 @media screen and (max-width: 578px) {
   section.Main-banner h1 {
@@ -981,4 +1028,11 @@ section.blog-detailss {
   .info {
     padding: 20px 0;
   }
+  .top-line-info p {
+    width: 100%;
+
+}
+.btm-s {
+  padding: 20px !important;
+}
 }

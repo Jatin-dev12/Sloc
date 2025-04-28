@@ -30,7 +30,7 @@ export default function Header() {
          </Row>
         </Container>
       </section> */}
-        <Navbar expand="md" className="Main-nav" collapseOnSelect>
+        <Navbar expand="lg" className="Main-nav" collapseOnSelect>
           <Container>
             <Navbar.Brand href="/">
               <p className="Logo">SLOC</p>
