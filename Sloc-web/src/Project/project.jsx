@@ -49,16 +49,58 @@ import NextArrow from "../assets/Imgs/right.svg";
 import PrevArrow from "../assets/Imgs/left.svg";
 import { Accordion } from "react-bootstrap";
 import Char from "./Chart";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Instagram from "../assets/Imgs/ig.svg";
 import Facebook from "../assets/Imgs/facbook.svg";
 import linkdin from "../assets/Imgs/Linkdin.svg";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
+import axios from "axios";
 
 gsap.registerPlugin(ScrollTrigger);
 
 function project() {
+  const projects = [
+    {
+      id: 1,
+      title: "GODREJ VRIKSHYA",
+      price: "₹ 3.30 CR* ONWARDS",
+      location: "SECTOR 49, GURGAON",
+      size: "3 & 4 BHK",
+      feet: "1948 - 3700 Sq.Ft.",
+      image: pro1, // Replace with actual image URL
+    },
+    {
+      id: 2,
+      title: "SMARTWORLD THE EDITION",
+      price: "₹ 6.50 CR* ONWARDS",
+      location: "SECTOR 66, GURGAON",
+      size: "3 & 4 BHK",
+      feet: "1948 - 3700 Sq.Ft.",
+
+      image: pro2,
+    },
+    {
+      id: 3,
+      title: "GODREJ ARISTOCRAT",
+      price: "₹ 5.53 CR* ONWARDS",
+      location: "SECTOR 62, GURGAON",
+      feet: "1948 - 3700 Sq.Ft.",
+
+      size: "3 & 4 BHK",
+      image: pro3,
+    },
+    {
+      id: 4,
+      title: "GODREJ ARISTOCRAT",
+      price: "₹ 5.53 CR* ONWARDS",
+      location: "SECTOR 62, GURGAON",
+      feet: "1948 - 3700 Sq.Ft.",
+
+      size: "3 & 4 BHK",
+      image: pro3,
+    },
+  ];
   const [formData, setFormData] = useState({
     name: "",
     mobile: "",
@@ -170,47 +212,47 @@ function project() {
     { type: "4.5 BHK + SQ", size: "3605 SQ. FT ONWARDS" },
   ];
 
-  const projects = [
-    {
-      id: 1,
-      title: "GODREJ VRIKSHYA",
-      price: "₹ 3.30 CR* ONWARDS",
-      location: "SECTOR 49, GURGAON",
-      size: "3 & 4 BHK",
-      feet: "1948 - 3700 Sq.Ft.",
-      image: pro1, // Replace with actual image URL
-    },
-    {
-      id: 2,
-      title: "SMARTWORLD THE EDITION",
-      price: "₹ 6.50 CR* ONWARDS",
-      location: "SECTOR 66, GURGAON",
-      size: "3 & 4 BHK",
-      feet: "1948 - 3700 Sq.Ft.",
+  // const projects = [
+  //   {
+  //     id: 1,
+  //     title: "GODREJ VRIKSHYA",
+  //     price: "₹ 3.30 CR* ONWARDS",
+  //     location: "SECTOR 49, GURGAON",
+  //     size: "3 & 4 BHK",
+  //     feet: "1948 - 3700 Sq.Ft.",
+  //     image: pro1, // Replace with actual image URL
+  //   },
+  //   {
+  //     id: 2,
+  //     title: "SMARTWORLD THE EDITION",
+  //     price: "₹ 6.50 CR* ONWARDS",
+  //     location: "SECTOR 66, GURGAON",
+  //     size: "3 & 4 BHK",
+  //     feet: "1948 - 3700 Sq.Ft.",
 
-      image: pro2,
-    },
-    {
-      id: 3,
-      title: "GODREJ ARISTOCRAT",
-      price: "₹ 5.53 CR* ONWARDS",
-      location: "SECTOR 62, GURGAON",
-      feet: "1948 - 3700 Sq.Ft.",
+  //     image: pro2,
+  //   },
+  //   {
+  //     id: 3,
+  //     title: "GODREJ ARISTOCRAT",
+  //     price: "₹ 5.53 CR* ONWARDS",
+  //     location: "SECTOR 62, GURGAON",
+  //     feet: "1948 - 3700 Sq.Ft.",
 
-      size: "3 & 4 BHK",
-      image: pro3,
-    },
-    {
-      id: 4,
-      title: "GODREJ ARISTOCRAT",
-      price: "₹ 5.53 CR* ONWARDS",
-      location: "SECTOR 62, GURGAON",
-      feet: "1948 - 3700 Sq.Ft.",
+  //     size: "3 & 4 BHK",
+  //     image: pro3,
+  //   },
+  //   {
+  //     id: 4,
+  //     title: "GODREJ ARISTOCRAT",
+  //     price: "₹ 5.53 CR* ONWARDS",
+  //     location: "SECTOR 62, GURGAON",
+  //     feet: "1948 - 3700 Sq.Ft.",
 
-      size: "3 & 4 BHK",
-      image: pro3,
-    },
-  ];
+  //     size: "3 & 4 BHK",
+  //     image: pro3,
+  //   },
+  // ];
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -301,6 +343,126 @@ function project() {
       },
     });
   }, []);
+
+  const { slug } = useParams();
+  const [project, setProject] = useState(null);
+  const [allProjects, setAllProjects] = useState([]);
+  console.log('allprojectss...................',allProjects);
+  console.log("Immediately after useState: ", project);
+
+
+  const generateSlug = (name) => {
+    console.log('generateSlug: Input name:', name);
+    const result = name
+      ? name
+          .trim()
+          .toLowerCase()
+          .normalize('NFKD') // Normalize Unicode characters
+          .replace(/[\u0300-\u036f]/g, '') // Remove diacritics
+          .replace(/[^a-z0-9]+/g, '-')
+          .replace(/(^-|-$)/g, '')
+      : 'untitled-project';
+    console.log('generateSlug: Output slug:', result);
+    return result;
+  };
+
+  useEffect(() => {
+    console.log('useEffect: Starting with slug:', slug);
+
+    const baseUrl = import.meta.env.VITE_BASE_URL || 'https://default-api-url.com/';
+    console.log('useEffect: Base URL:', baseUrl);
+
+    const apiUrl = `${baseUrl}api/projects`;
+    console.log('useEffect: API URL:', apiUrl);
+
+    console.log('useEffect: Initiating axios GET request');
+    axios
+      .get(apiUrl, {
+        headers: {
+          Authorization: `Bearer AzlrVK30FVdEx0TwrRwqYrQTL`,
+        },
+      })
+      .then((response) => {
+        console.log('useEffect: Axios response received:', response);
+        console.log('useEffect: Response data:', response.data);
+
+        if (response.data.success) {
+          console.log('useEffect: API request successful');
+          console.log('useEffect: Searching for project with slug:', slug);
+
+          const projectData = response.data.data.find((p) => {
+            const projectSlug = generateSlug(p.name);
+            console.log(
+              'useEffect: Comparing project slug:',
+              projectSlug,
+              'with target slug:',
+              slug
+            );
+            return projectSlug === slug;
+          });
+          setAllProjects(response.data); // Set all projects
+
+          console.log('useEffect: Found project data:', projectData);
+          console.log('useEffect: All projects data:', response.data.data);
+
+          if (projectData) {
+            console.log('useEffect: Project found, setting project state');
+            const projectState = {
+              id: projectData.id,
+              project_id: projectData.project_id,
+              title: projectData.name || 'Untitled Project',
+              slug: projectData.slug || generateSlug(projectData.name),
+              price: projectData.tag_price
+                ? `₹ ${projectData.tag_price} CR* ONWARDS`
+                : 'Price on Request',
+              location: projectData.address || 'Unknown Location',
+              size: projectData.specification || 'N/A',
+              feet: projectData.feet || 'Contact for details', // Replace hardcoded value
+              image: projectData.hero_img || 'https://via.placeholder.com/300',
+              overview: projectData.overview_content || 'No overview available.',
+              amenities: projectData.amenities || [],
+              properties: projectData.property_types || [
+                { type: 'N/A', size: 'Contact for details' },
+              ],
+              // Add all missing fields
+              calling_number: projectData.calling_number || 'N/A',
+              disclaimer: projectData.disclaimer || 'No disclaimer available.',
+              highlights: projectData.highlights || 'No highlights available.',
+              rera_num_on_img: projectData.rera_num_on_img || 'N/A',
+              schedule_meeting: projectData.schedule_meeting || 'N/A',
+              sectors: projectData.sectors || 'N/A',
+              specification: projectData.specification || 'N/A',
+              state: projectData.state || { name: 'Unknown', city: {} },
+              state_rera_num_on_img: projectData.state_rera_num_on_img || 'N/A',
+              tag_line: projectData.tag_line || 'N/A',
+              url: projectData.url || 'N/A',
+              whatsapp_number: projectData.whatsapp_number || 'N/A',
+              property: projectData.property || { id: null, name: 'N/A' },
+            };
+
+            console.log('useEffect: Setting project state with:', projectState);
+            setProject(projectState);
+          } else {
+            console.log('useEffect: Project not found in data');
+            // setError('Project not found');
+          }
+        } else {
+          console.log('useEffect: API request unsuccessful');
+          // setError('Project not found');
+        }
+      })
+      .catch((err) => {
+        console.error('useEffect: Error fetching project:', err);
+        console.error('useEffect: Error details:', {
+          message: err.message,
+          response: err.response,
+          request: err.request,
+        });
+      })
+      .finally(() => {
+        console.log('useEffect: Request completed, setting loading to false');
+      });
+  }, [slug]);
   return (
     <>
       <main className="project-page">
@@ -337,10 +499,12 @@ function project() {
                 data-aos-easing="ease-in-sine"
                 data-aos-offset="300"
               >
-                <h1>GODREJ VRIKSHYA</h1>
+                {/* <h1>GODREJ VRIKSHYA</h1> */}
+                <h1>{project?.title}</h1>
                 <p className="loction">
                   <img src={location} style={{ marginRight: "10px" }} />{" "}
-                  SECTOR-103, GURUGRAM
+                  {/* SECTOR-103, GURUGRAM */}
+                  {project?.location}
                 </p>
               </Col>
               <Col></Col>
@@ -350,8 +514,12 @@ function project() {
           <div className="info">
             <div className="top-line-info">
               <p>
-                Project RERA No: RC/REP/HARERA/GGM/846/578/2024/73{" "}
-                <span className="brkr"> | </span>https://haryanarera.gov.in
+                {/* Project RERA No: RC/REP/HARERA/GGM/846/578/2024/73 */}
+                {project?.rera_num_on_img}
+                {" "}
+                <span className="brkr"> | </span>
+                {/* https://haryanarera.gov.in */}
+                {project?.url}
               </p>
             </div>
             <div className="d-flex align-items-md-center searc-bar  justify-content-between">
@@ -447,7 +615,7 @@ function project() {
                   data-aos-easing="ease-in-sine"
                   data-aos-offset="300"
                 >
-                  Godrej Vrikshya – Inspired by Trees, is a luxury residential
+                  {/* Godrej Vrikshya – Inspired by Trees, is a luxury residential
                   project situated in Sector-103, Gurugram, along the Dwarka
                   Expressway. Spanning approximately 15 acres, the development
                   comprises six towers, each rising up to 30 floors, offering a
@@ -455,7 +623,8 @@ function project() {
                   Resort-Style Central Greens, a grand Club-House, an
                   olympic-length infinity edge swimming pool, zen garden, yoga
                   deck, multipurpose court, spa and salon. This project ensures
-                  seamless connectivity to Delhi and other parts of Gurgaon.
+                  seamless connectivity to Delhi and other parts of Gurgaon. */}
+                  {project?.overview}
                 </p>
                 <button
                   type="text"
@@ -512,8 +681,10 @@ function project() {
               <Col md={12} className="align-content-center px-5">
                 <h2 className="same-head">Highlights</h2>
                 <p className="same-head-p">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.{" "}
+                  {/* Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                  do eiusmod tempor incididunt ut labore et dolore magna aliqua. */}
+                  {project?.highlights}
+                  {" "}
                 </p>
               </Col>
             </Row>
@@ -605,7 +776,7 @@ function project() {
           id="Amenities"
         >
           <Container fluid className=" amni">
-            <Row className=" px-5 ">
+            <Row className=" px-5 mb-5 ">
               <h3 className="section-title same-head">Amenities </h3>
               <p className="section-subtitle same-head-p">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -613,156 +784,47 @@ function project() {
               </p>
             </Row>
 
-            <Row className="text text-center alliance mt-5 px-5 ">
-              <Col md={4} className="brdr">
-                <img
-                  src={Temp}
-                  data-aos="zoom-in"
-                  data-aos-easing="ease-in-sine"
-                  data-aos-offset="100"
-                />
-                <h6
-                  className="aminites-adv"
-                  data-aos="zoom-in"
-                  data-aos-easing="ease-in-sine"
-                  data-aos-offset="100"
-                >
-                  Temprature-Controlled Pool
-                </h6>
-              </Col>
-              <Col md={4} className="brdr">
-                <img
-                  src={jog}
-                  data-aos="zoom-in"
-                  data-aos-easing="ease-in-sine"
-                  data-aos-offset="100"
-                />
-                <h6
-                  className="aminites-adv"
-                  data-aos="zoom-in"
-                  data-aos-easing="ease-in-sine"
-                  data-aos-offset="100"
-                >
-                  Jogging Track
-                </h6>
-              </Col>
-              <Col md={4} className="brdr">
-                <img
-                  src={silent}
-                  data-aos="zoom-in"
-                  data-aos-easing="ease-in-sine"
-                  data-aos-offset="100"
-                />
-                <h6
-                  className="aminites-adv"
-                  data-aos="zoom-in"
-                  data-aos-easing="ease-in-sine"
-                  data-aos-offset="100"
-                >
-                  Silent Cinema
-                </h6>
-              </Col>
-            </Row>
-            <Row className="text text-center alliance  px-5 ">
-              <Col md={4} className="brdr">
-                <img
-                  src={spa}
-                  data-aos="zoom-in"
-                  data-aos-easing="ease-in-sine"
-                  data-aos-offset="100"
-                />
-                <h6
-                  className="aminites-adv "
-                  data-aos="zoom-in"
-                  data-aos-easing="ease-in-sine"
-                  data-aos-offset="100"
-                >
-                  Spa & Salon
-                </h6>
-              </Col>
-              <Col md={4} className="brdr">
-                <img
-                  src={lib}
-                  data-aos="zoom-in"
-                  data-aos-easing="ease-in-sine"
-                  data-aos-offset="100"
-                />
-                <h6
-                  className="aminites-adv"
-                  data-aos="zoom-in"
-                  data-aos-easing="ease-in-sine"
-                  data-aos-offset="100"
-                >
-                  Library
-                </h6>
-              </Col>
-              <Col md={4} className="brdr">
-                <img
-                  src={tr}
-                  data-aos="zoom-in"
-                  data-aos-easing="ease-in-sine"
-                  data-aos-offset="100"
-                />
-                <h6
-                  className="aminites-adv"
-                  data-aos="zoom-in"
-                  data-aos-easing="ease-in-sine"
-                  data-aos-offset="100"
-                >
-                  24/7 Security
-                </h6>
-              </Col>
-            </Row>
-            <Row className="text text-center alliance px-5 ">
-              <Col md={4} className="brdr">
-                <img
-                  src={stake}
-                  data-aos="zoom-in"
-                  data-aos-easing="ease-in-sine"
-                  data-aos-offset="100"
-                />
-                <h6
-                  className="aminites-adv"
-                  data-aos="zoom-in"
-                  data-aos-easing="ease-in-sine"
-                  data-aos-offset="100"
-                >
-                  Skating Rink
-                </h6>
-              </Col>
-              <Col md={4} className="brdr">
-                <img
-                  src={gym}
-                  data-aos="zoom-in"
-                  data-aos-easing="ease-in-sine"
-                  data-aos-offset="100"
-                />
-                <h6
-                  className="aminites-adv"
-                  data-aos="zoom-in"
-                  data-aos-easing="ease-in-sine"
-                  data-aos-offset="100"
-                >
-                  Gymnasium
-                </h6>
-              </Col>
-              <Col md={4} className="brdr">
-                <img
-                  src={silent}
-                  data-aos="zoom-in"
-                  data-aos-easing="ease-in-sine"
-                  data-aos-offset="100"
-                />
-                <h6
-                  className="aminites-adv"
-                  data-aos="zoom-in"
-                  data-aos-easing="ease-in-sine"
-                  data-aos-offset="100"
-                >
-                  Silent Cinema
-                </h6>
-              </Col>
-            </Row>
+
+
+    {/* Dynamically rendering amenities in rows of three columns */}
+    {project?.amenities?.reduce((rows, amenity, index) => {
+      // Create a new row every 3 items
+      if (index % 3 === 0) {
+        rows.push([]);
+      }
+      rows[rows.length - 1].push(amenity);
+      return rows;
+    }, []).map((row, rowIndex) => (
+      <Row key={rowIndex} className="text text-center alliance px-5">
+        {row.map((amenity) => (
+          <Col md={4} className="brdr" key={amenity.id}>
+            <div
+              className="amenity-placeholder"
+              data-aos="zoom-in"
+              data-aos-easing="ease-in-sine"
+              data-aos-offset="100"
+            >
+              {/* Placeholder or icon can go here */}
+            </div>
+            <img
+              src={Temp} // Use dynamic source for the image if needed
+              data-aos="zoom-in"
+              data-aos-easing="ease-in-sine"
+              data-aos-offset="100"
+              alt={amenity.name}
+            />
+            <h6
+              className="aminites-adv"
+              data-aos="zoom-in"
+              data-aos-easing="ease-in-sine"
+              data-aos-offset="100"
+            >
+              {amenity.name}
+            </h6>
+          </Col>
+        ))}
+      </Row>
+    ))}
           </Container>
         </section>
 
@@ -795,7 +857,7 @@ function project() {
                 1024: { slidesPerView: 3 },
               }}
             >
-              {properties.map((item, index) => (
+              {project?.properties.map((item, index) => (
                 <SwiperSlide key={index}>
                   <div
                     className="property-card position-relative"
@@ -1183,40 +1245,48 @@ function project() {
                   1024: { slidesPerView: 3 },
                 }}
               >
-                {projects.map((project, index) => (
-                  <SwiperSlide key={project.id}>
-                    <Col
-                      className="features-list p-0 dip-column"
-                      data-aos="fade-up"
-                      data-aos-easing="ease-in-sine"
-                    >
-                      <Card
-                        className={`custom-card card-${index} box-${index}`}
-                        style={{ position: "relative", zIndex: 2 }}
-                      >
-                        <Card.Img
-                          variant="top"
-                          src={project.image}
-                          alt={project.title}
-                        />
-                        <Card.Body className="uper-space">
-                          <Card.Text className="mb-4 btn-loc">
-                            <span>{project.size}</span>{" "}
-                            <span>{project.feet}</span>
-                            <span>{project.location}</span>
-                          </Card.Text>
-                          <Card.Title>{project.title}</Card.Title>
-                          <Card.Text className="text-primary font-weight-bold">
-                            {project.price}
-                          </Card.Text>
-                          <Button className="Up-arrow-btn">
-                            <img src={Arrow} />
-                          </Button>
-                        </Card.Body>
-                      </Card>
-                    </Col>
-                  </SwiperSlide>
-                ))}
+        {allProjects?.data && allProjects?.data.map((project, index) => (
+          <SwiperSlide key={project.id}>
+            <Col
+              className="features-list p-0 dip-column"
+              data-aos="fade-up"
+              data-aos-easing="ease-in-sine"
+            >
+              <Card
+                className={`custom-card card-${index} box-${index}`}
+                style={{ position: "relative", zIndex: 2 }}
+              >
+                <Card.Img
+                  variant="top"
+                  src={project.hero_img}
+                  alt={project.name}
+                />
+                <Card.Body className="uper-space">
+                  <Card.Text className="mb-4 btn-loc">
+                    {project.specification ? (
+                      <>
+                        <span>{project.specification.split(' ')[0]}</span>{" "}
+                        <span>Sq.Ft.</span>
+                      </>
+                    ) : null}
+                    {project.sectors ? <span>{project.sectors}</span> : null}
+                  </Card.Text>
+                  <Card.Title>{project.name}</Card.Title>
+                  <Card.Text className="text-primary font-weight-bold">
+                    ₹{project.tag_price} {project.tag_price ? 'Lakh' : 'N/A'}
+                  </Card.Text>
+                  <Button
+                    as={Link}
+                    to={`/project/${project.slug || generateSlug(project.name)}`}
+                    className="Up-arrow-btn"
+                  >
+                    <img src={Arrow} alt="Arrow" />
+                  </Button>
+                </Card.Body>
+              </Card>
+            </Col>
+          </SwiperSlide>
+        ))}
               </Swiper>
             </Row>
           </Container>

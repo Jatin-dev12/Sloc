@@ -1035,6 +1035,9 @@ br {
     width: 100%;
 
 }
+img.back-roll {
+  right: -10%;
+}
 .btm-s {
   padding: 20px !important;
 }

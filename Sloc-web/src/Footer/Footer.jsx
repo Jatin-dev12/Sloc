@@ -17,8 +17,8 @@ const Footer = () => {
   const location = useLocation();
   return (
     <>
-          {location.pathname !== "/Disclaimer" && (
-      <section className="Disclamer">
+{location.pathname.toLowerCase() !== "/disclaimer" && (
+        <section className="Disclamer">
         <Container>
           <p className="Dis">
             Disclaimer : The content provided on this website is for information

@@ -1728,3 +1728,29 @@ section.blog-detailss {
 .alliance.row .brdr:hover img {
   scale: 1.10;
 }
+button.latest.filter.active.btn.btn-dark {
+  background-color: #1C85EB !important; /* Example: Blue background for active filters */
+  color: white !important;
+}
+
+.filter .pluss {
+  margin-left: 8px;
+  cursor: pointer;
+}
+main.char {
+  margin-top: 10em;
+  margin-bottom: 5em;
+}
+
+.noti {
+  place-items: center;
+}
+.noti h1 {
+  color: #064685;
+  font-size: 150px;
+}
+
+.noti h2 {
+  font-size: 50px;
+  margin-bottom: 1em;
+}

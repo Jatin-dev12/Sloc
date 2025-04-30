@@ -548,3 +548,33 @@ button{
 .nav-bg-change {
   background-color: #064685  !important; /* or whatever color you want */
 }
+
+
+a.banner-button.all-same-ani.btn.btn-dark{
+  background: #064685;
+  border: none;
+  font-family: "Poppins", sans-serif !important;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 100%;
+  padding: 12px 42px;
+  border-radius: 0 !important;
+  transition: .3s all ease-in-out !important;
+}
+a.btn.btn-dark{
+  background: #064685;
+  border: none;
+  font-family: "Poppins", sans-serif !important;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 100%;
+  padding: 12px 42px;
+  border-radius: 0 !important;
+  transition: .3s all ease-in-out !important;
+}
+a.btn.btn-dark:hover{
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 20px 40px 0px;
+  transform: scale(1.01) rotateX(5deg) rotateY(5deg);
+  background: #1C85EB !important;
+  color: #fff !important;
+}

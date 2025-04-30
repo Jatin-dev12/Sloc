@@ -17,6 +17,8 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 import Search from './Search-listing/Search';
 import { FaWhatsapp } from 'react-icons/fa';
+import Four from './Policy/Nothing'
+import Gopu from './Home/gopu'
 
 export default function App() {
   const [showButton, setShowButton] = useState(false);
@@ -45,7 +47,7 @@ export default function App() {
     < Scrol />
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
+          <Route index element={<Gopu />} />
           <Route path="/about-us" element={<About />} />
           <Route path="/blog-listing" element={<Blogs />} />
           <Route path="/blog-detail" element={<Details />} />
@@ -53,9 +55,9 @@ export default function App() {
           <Route path="/contact-us" element={<Contact />} />
           <Route path="/terms-and-conditions" element={<Terms />} />
           <Route path="/disclaimer" element={<Disc />} />
-          <Route path="/project" element={<Project />} />
+          <Route path="/project/:slug" element={<Project />} />
           <Route path="/search-Listing" element={<Search />} />
-
+          <Route path="*" element={<Four />} />
         </Route>
       </Routes>
 
