@@ -17,6 +17,7 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 import Search from './Search-listing/Search';
 import { FaWhatsapp } from 'react-icons/fa';
+import { FiPhoneCall } from "react-icons/fi";
 import Four from './Policy/Nothing'
 import Gopu from './Home/gopu'
 
@@ -47,7 +48,7 @@ export default function App() {
     < Scrol />
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route index element={<Gopu />} />
+          <Route index element={<Home />} />
           <Route path="/about-us" element={<About />} />
           <Route path="/blog-listing" element={<Blogs />} />
           <Route path="/blog-detail" element={<Details />} />
@@ -111,6 +112,33 @@ export default function App() {
     }}
   >
     <FaWhatsapp />
+  </a>
+  <a
+    href="tel:+919971094108"
+    target="_blank"
+    className='calling'
+    rel="noopener noreferrer"
+    style={{
+      position: 'fixed',
+      bottom: '170px',
+      right: '30px',
+      padding: '5px',
+      fontSize: '25px',
+      backgroundColor: '#064685',
+      color: '#fff',
+     
+      borderRadius: '50px',
+      cursor: 'pointer',
+      height: '50px',
+      width: '50px',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      zIndex: 99999,
+      boxShadow: '0px 4px 10px rgba(0,0,0,0.3)'
+    }}
+  >
+    <FiPhoneCall />
   </a>
 
     </BrowserRouter>

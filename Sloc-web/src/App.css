@@ -533,7 +533,7 @@ h6 {
 }
 section.Disclamer {
   background: #EFF7FE;
-  padding: 60px 0;
+  padding: 40px 0;
 }
 .Dis {
   font-family: "Bai Jamjuree", sans-serif !important;
@@ -1012,8 +1012,8 @@ p.loction {
 }
 .top-line-info p {
   text-align: right;
-  width: 95%;
-  font-size: 20px;
+  width: 97%;
+  font-size: 16px;
   font-family: "Bai Jamjuree", sans-serif !important;
 }
 .project-baner form {
@@ -1290,6 +1290,7 @@ button.accordion-button {
   backdrop-filter: blur(8px) !important;
   background: #00000010 !important;
   margin-left: 30px;
+ border: solid 1px #fff !important;
 }
 /* Rotating Animation */
 @keyframes rotate-animation {
@@ -1753,4 +1754,8 @@ main.char {
 .noti h2 {
   font-size: 50px;
   margin-bottom: 1em;
+}
+
+a.calling {
+  border: 1px solid #fff !important;
 }

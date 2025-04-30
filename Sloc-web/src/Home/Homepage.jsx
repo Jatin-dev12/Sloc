@@ -223,8 +223,11 @@ useEffect(() => {
           title: project.name || 'Untitled Project',
           slug: generateSlug(project.name), // Generate slug from name
           price: project.tag_price ? `₹ ${project.tag_price} CR* ONWARDS` : 'Price on Request',
-          location: project.address || 'Unknown Location',
-          size: project.specification || '',
+          // location: project.address || 'Unknown Location',
+          // size: project.specification || '',
+          // feet: project.disclaimer || '',
+          // location: project.address || 'Unknown Location',
+          size: project.property.name || '',
           // feet: project.disclaimer || '',
           feet: '',
           image: project.hero_img || 'https://admin.sloc.in/public/feature_image/1745472810_f1.png',
@@ -256,19 +259,38 @@ useEffect(() => {
     // Default values for larger screens (>1920px)
     let props = {
       logoFrom: { opacity: 0, y: -160, x: 160, scale: 0.9 },
-      logoTo1: { opacity: 1, y: 50, x: 300, scale: 0.6, duration: 1 },
+      logoTo1: { opacity: 1, y: 50, x: -300, scale: 0.6, duration: 1 },
       scrollImageTo: { opacity: 0, duration: 0.2 },
       pathsTo: { fill: '#c1d1e0', stroke: '#c1d1e0', duration: 0.6 },
-      logoTo2: { y: 460, x: 509, scale: 0.1, duration: 2.5 },
+      logoTo2: { y: 460, x: 100, scale: 0.1, duration: 2.5 },
       logoTo3: { opacity: 0, duration: 0.5 },
       scrollTrigger: { start: 'top center', end: 'bottom center', scrub: 0.5 },
     };
 
-    // Adjust for specific breakpoints
-    if (width <= 425) {
+    if (width <= 320) {
       props = {
-        logoFrom: { opacity: 0, y: -80, x: 80, scale: 0.8 },
-        logoTo1: { opacity: 1, y: 650, x: 100, scale: 0.5, duration: 21, scrub: 1.2},
+        logoFrom: { opacity: 0, y: -80, x: 0, scale: 0.8 },
+        logoTo1: { opacity: 1, y: 650, x: 0, scale: 0.5, duration: 21, scrub: 1.2},
+        scrollImageTo: { opacity: 0, duration: 0.15 },
+        pathsTo: { fill: '#c1d1e0', stroke: '#c1d1e0', duration: 2.5 },
+        logoTo2: { y: 966, x: -39, scale: 0.1, duration: 29 },
+        logoTo3: { opacity: 0, duration: 0.1 },
+        scrollTrigger: { start: 'top 30%', end: 'bottom 77.6%', scrub: 1.2 },
+      };
+    }  else   if (width <= 370) {
+      props = {
+        logoFrom: { opacity: 0, y: -80, x: 0, scale: 0.8 },
+        logoTo1: { opacity: 1, y: 650, x: 0, scale: 0.5, duration: 21, scrub: 1.2},
+        scrollImageTo: { opacity: 0, duration: 0.15 },
+        pathsTo: { fill: '#c1d1e0', stroke: '#c1d1e0', duration: 2.5 },
+        logoTo2: { y: 966, x: -39, scale: 0.1, duration: 29 },
+        logoTo3: { opacity: 0, duration: 0.1 },
+        scrollTrigger: { start: 'top 30%', end: 'bottom 77.6%', scrub: 1.2 },
+      };
+    }  else  if (width <= 425) {
+      props = {
+        logoFrom: { opacity: 0, y: -80, x: 0, scale: 0.8 },
+        logoTo1: { opacity: 1, y: 650, x: 0, scale: 0.5, duration: 21, scrub: 1.2},
         scrollImageTo: { opacity: 0, duration: 0.15 },
         pathsTo: { fill: '#c1d1e0', stroke: '#c1d1e0', duration: 2.5 },
         logoTo2: { y: 966, x: -39, scale: 0.1, duration: 29 },
@@ -643,171 +665,221 @@ useEffect(() => {
 // });
 
 //     }, []);
-
 useEffect(() => {
-  // Exit early if projects or refs aren't ready
-  if (
-    !projects.length ||
-    !boxRefs.current ||
-    !imageRefs.current ||
-    !bottomImageRefs.current ||
-    !section2ImageRef.current ||
-    boxRefs.current.length < projects.length
-  ) {
-    console.log('Animation setup skipped: Waiting for projects or refs', {
-      projectsLength: projects.length,
-      boxesLength: boxRefs.current?.length || 0,
-      imagesLength: imageRefs.current?.length || 0,
-    });
-    return;
-  }
+    // Configure ScrollTrigger
+    ScrollTrigger.config({ limitCallbacks: true, syncInterval: 100 });
 
-  const boxes = boxRefs.current;
-  const images = imageRefs.current;
-  const bottomImages = bottomImageRefs.current;
-  const section2Image = section2ImageRef.current;
+    // Only enable normalizeScroll for mobile
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+    ScrollTrigger.normalizeScroll(isMobile);
 
-  // Animation logic for images
-  images.forEach((img, index) => {
-    if (index >= projects.length) {
-      console.log(`Skipping index ${index}: Exceeds projects length`);
-      return;
-    }
-    const box = boxes[index];
-    if (!box) {
-      console.log(`Skipping index ${index}: Box is undefined`);
-      return;
-    }
-    const cardImg = box.querySelector('img.card-img-top');
-    if (!cardImg) {
-      console.log(`Skipping index ${index}: card-img-top not found in box`, box);
+    // Exit early if projects or refs aren't ready
+    if (
+      !projects.length ||
+      !boxRefs.current ||
+      !imageRefs.current ||
+      !bottomImageRefs.current ||
+      !section2ImageRef.current ||
+      boxRefs.current.length < projects.length
+    ) {
+      console.log('Animation setup skipped: Waiting for projects or refs', {
+        projectsLength: projects.length,
+        boxesLength: boxRefs.current?.length || 0,
+        imagesLength: imageRefs.current?.length || 0,
+      });
       return;
     }
 
-    const getOffsets = () => {
-      const cardImgRect = cardImg.getBoundingClientRect();
-      const imgRect = img.getBoundingClientRect();
-      return {
-        x: (cardImgRect.right - imgRect.width / 2 - imgRect.left) * 1.05,
-        y: cardImgRect.top - 190 + imgRect.height / 2 - imgRect.top,
+    const boxes = boxRefs.current;
+    const images = imageRefs.current;
+    const bottomImages = bottomImageRefs.current;
+    const section2Image = section2ImageRef.current;
+
+    // Respect prefers-reduced-motion
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      gsap.set([...images, ...bottomImages, section2Image], {
+        opacity: 1,
+        x: 0,
+        y: 0,
+        scale: 1,
+        visibility: 'visible',
+      });
+      return;
+    }
+
+    // Throttle utility for onUpdate (increased interval for desktop)
+    const throttle = (func, limit) => {
+      let inThrottle;
+      return function (...args) {
+        if (!inThrottle) {
+          func.apply(this, args);
+          inThrottle = true;
+          setTimeout(() => (inThrottle = false), limit);
+        }
       };
     };
 
-    gsap.fromTo(
-      img,
-      {
-        x: 0,
-        y: -160,
-        scale: 1,
-        opacity: 1,
-        visibility: 'hidden',
-      },
-      {
-        x: () => getOffsets().x,
-        y: () => getOffsets().y,
-        scale: 1,
-        opacity: 1,
-        visibility: 'visible',
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: section1Ref.current,
-          start: 'top center+=135',
-          end: 'bottom center',
-          scrub: 0.6,
-          onUpdate: (self) => {
-            const imgRect = img.getBoundingClientRect();
-            const boxRect = box.getBoundingClientRect();
-            const isInside = imgRect.top < boxRect.bottom && imgRect.bottom > boxRect.top;
-            box.style.backgroundColor = isInside ? '' : '';
-          },
-          onComplete: () => {
-            gsap.set(img, { visibility: 'hidden' });
-          },
-        },
+    // Animation logic for images
+    images.forEach((img, index) => {
+      if (index >= projects.length || !boxes[index]) {
+        console.log(`Skipping index ${index}: Invalid data`);
+        return;
       }
-    );
-  });
+      const box = boxes[index];
+      const cardImg = box.querySelector('img.card-img-top');
+      if (!cardImg) {
+        console.log(`Skipping index ${index}: card-img-top not found`);
+        return;
+      }
 
-  // Bottom images animation
-  bottomImages.forEach((img) => {
-    const getOffsets = () => {
+      // Calculate offsets once
+      const cardImgRect = cardImg.getBoundingClientRect();
+      const imgRect = img.getBoundingClientRect();
+      const offsets = {
+        x: (cardImgRect.right - imgRect.width / 2 - imgRect.left) * 1.05,
+        y: cardImgRect.top - 50 + imgRect.height / 2 - imgRect.top,
+      };
+
+      // Use IntersectionObserver for background color change on desktop
+      if (!isMobile) {
+        const observer = new IntersectionObserver(
+          ([entry]) => {
+            box.style.backgroundColor = entry.isIntersecting ? '' : '';
+          },
+          { rootMargin: '0px', threshold: 0.1 }
+        );
+        observer.observe(img);
+      }
+
+      gsap.fromTo(
+        img,
+        {
+          x: 0,
+          y: -160,
+          scale: 1,
+          opacity: 1,
+          visibility: 'hidden',
+        },
+        {
+          x: offsets.x,
+          y: offsets.y,
+          scale: 1,
+          opacity: 1,
+          visibility: 'visible',
+          ease: 'power2.out',
+          willChange: isMobile ? 'transform, opacity' : '', // Conditional willChange
+          scrollTrigger: {
+            trigger: section1Ref.current,
+            start: isMobile ? 'top 60%' : 'top 70%',
+            end: isMobile ? 'bottom 80%' : 'bottom 30%',
+            scrub: isMobile ? 1 : 0.5, // Lighter scrub for desktop
+            onUpdate: isMobile
+              ? throttle((self) => {
+                  const imgRect = img.getBoundingClientRect();
+                  const boxRect = box.getBoundingClientRect();
+                  const isInside = imgRect.top < boxRect.bottom && imgRect.bottom > boxRect.top;
+                  box.style.backgroundColor = isInside ? '' : '';
+                }, 200) // Increased throttle for desktop
+              : null,
+            onComplete: () => {
+              gsap.set(img, { visibility: 'hidden' });
+            },
+          },
+        }
+      );
+    });
+
+    // Bottom images animation
+    bottomImages.forEach((img) => {
       const imgRect = img.getBoundingClientRect();
       const targetRect = section2Image.getBoundingClientRect();
-      return {
+      const offsets = {
         x: targetRect.left + targetRect.width / 2 - (imgRect.left + imgRect.width / 2),
         y: targetRect.top + targetRect.height / 2 - (imgRect.top + imgRect.height / 2),
       };
-    };
 
-    gsap.fromTo(
-      img,
-      {
-        x: -110,
-        y: 0,
-        scale: 0.1,
-        opacity: 0,
-        visibility: 'hidden',
-      },
-      {
-        x: () => getOffsets().x,
-        y: () => getOffsets().y,
-        scale: 0.5,
-        opacity: 1,
-        duration: 7.5,
-        visibility: 'visible',
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: section2Ref.current,
-          start: 'top center+=70',
-          end: 'bottom center-=20',
-          scrub: 6,
-        },
-      }
-    );
-  });
-
-  // Synchronized fade-out
-  gsap.to([section2Image], {
-    opacity: 0,
-    scale: 0.4,
-    ease: 'power2.out',
-    scrollTrigger: {
-      trigger: section2Ref.current,
-      start: 'bottom center-=20',
-      end: 'bottom center-=20',
-      scrub: 5,
-      onEnter: () => {
-        section2Image.classList.add('new_hover');
-      },
-      onLeave: () => {
-        section2Image.classList.remove('new_hover');
-      },
-      onComplete: () => {
-        gsap.set([section2Image, ...bottomImages], {
+      gsap.fromTo(
+        img,
+        {
+          x: -50,
+          y: 0,
+          scale: 0.1,
           opacity: 0,
           visibility: 'hidden',
-          overwrite: true,
-        });
-        bottomImages.forEach((img) => {
-          img.dataset.hidden = 'true';
-        });
-        section2Image.dataset.hidden = 'true';
-      },
-    },
-  });
-
-  // Cleanup: Kill ScrollTriggers on unmount or projects change
-  return () => {
-    ScrollTrigger.getAll().forEach((trigger) => {
-      if (
-        trigger.trigger === section1Ref.current ||
-        trigger.trigger === section2Ref.current
-      ) {
-        trigger.kill();
-      }
+        },
+        {
+          x: offsets.x,
+          y: offsets.y,
+          scale: 0.5,
+          opacity: 1,
+          duration: isMobile ? 3 : 2, // Shorter for desktop
+          visibility: 'visible',
+          ease: 'power2.out',
+          willChange: isMobile ? 'transform, opacity' : '',
+          scrollTrigger: {
+            trigger: section2Ref.current,
+            start: isMobile ? 'top 70%' : 'top 60%',
+            end: isMobile ? 'bottom 90%' : 'bottom 80%',
+            scrub: isMobile ? 7 : 7,
+          },
+        }
+      );
     });
-  };
-}, [projects]);
+
+    // Synchronized fade-out
+    gsap.to([section2Image], {
+      opacity: 0,
+      scale: 0.4,
+      ease: 'power2.out',
+      scrollTrigger: {
+        trigger: section2Ref.current,
+        start: isMobile ? 'bottom 90%' : 'bottom 80%',
+        end: isMobile ? 'bottom 90%' : 'bottom 80%',
+        scrub: isMobile ? 7 : 7,
+        onEnter: () => {
+          section2Image.classList.add('new_hover');
+        },
+        onLeave: () => {
+          section2Image.classList.remove('new_hover');
+        },
+        onComplete: () => {
+          gsap.set([section2Image, ...bottomImages], {
+            opacity: 0,
+            visibility: 'hidden',
+          });
+          bottomImages.forEach((img) => {
+            img.dataset.hidden = 'true';
+          });
+          section2Image.dataset.hidden = 'true';
+        },
+      },
+    });
+
+    // Debounced resize/orientation handler
+    let resizeTimeout;
+    const handleResize = () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => {
+        ScrollTrigger.refresh();
+      }, 200);
+    };
+    window.addEventListener('resize', handleResize);
+    window.addEventListener('orientationchange', handleResize);
+
+    // Cleanup
+    return () => {
+      ScrollTrigger.getAll().forEach((trigger) => {
+        if (
+          trigger.trigger === section1Ref.current ||
+          trigger.trigger === section2Ref.current
+        ) {
+          trigger.kill();
+        }
+      });
+      window.removeEventListener('resize', handleResize);
+      window.removeEventListener('orientationchange', handleResize);
+    };
+  }, [projects]);
     const logoRefs1 = useRef(null);
     const containerRefs1 = useRef(null);
     const getAnimationProps1 = (width) => {
@@ -846,7 +918,7 @@ useEffect(() => {
             to: { opacity: 1, y: 40, x: 350, ease: 'power3.out', duration: 5 },
           },
           to: { opacity: 0, y: 550, x: 300, scale: 0, ease: 'power3.inOut', duration: 7 },
-          scrollTrigger: { start: 'top 70%', end: 'bottom 33%', scrub: 1 },
+          scrollTrigger: { start: 'top -30%', end: 'bottom -65%', scrub: 1 },
         };
       } else if (width <= 1100) {
         props = {
@@ -855,7 +927,7 @@ useEffect(() => {
             to: { opacity: 1, y: 45, x: 390,scale: 0.7, ease: 'power3.out', duration: 5.2 },
           },
           to: { opacity: 0, y: 550, x: 370, scale: 0, ease: 'power3.inOut', duration: 7.2 },
-          scrollTrigger: { start: 'top 65%', end: 'bottom 45%', scrub: 2 },
+          scrollTrigger: { start: 'top -30%', end: 'bottom -65%', scrub: 2 },
         };
       } else if (width <= 1400) {
         props = {
@@ -864,7 +936,7 @@ useEffect(() => {
             to: { opacity: 1, y: 8, x: 570,scale: 0.7, ease: 'power3.out', duration: 5.3 },
           },
           to: { opacity: 0, y: 570, x: 497, scale: 0, ease: 'power3.inOut', duration: 7.3 },
-          scrollTrigger: { start: 'top 60%', end: 'bottom 45%', scrub: 2.1 },
+          scrollTrigger: { start: 'top -30%', end: 'bottom -65%', scrub: 2.1 },
         };
       } else if (width <= 1600) {
         props = {
@@ -873,7 +945,7 @@ useEffect(() => {
             to: { opacity: 1, y: 50, x: 660,scale: 0.7, ease: 'power3.out', duration: 6.5, scrub: 1 },
           },
           to: { opacity: 0, y: 610, x: 589, scale: 0, ease: 'power3.inOut', duration: 11.9 , scrub: ``},
-          scrollTrigger: { start: 'top -20%', end: 'bottom -1%', duration: 3.5,scrub: 5.6 },
+          scrollTrigger: { start: 'top -30%', end: 'bottom -30%', duration: 3.5,scrub: 5.6 },
         };
       }
       else if (width <= 1700) {
@@ -883,7 +955,7 @@ useEffect(() => {
             to: { opacity: 1, y: 50, x: 660,scale: 0.7, ease: 'power3.out', duration: 3.5, scrub: 1 },
           },
           to: { opacity: 0, y: 590, x: 600, scale: 0, ease: 'power3.inOut', duration: 3.9 , scrub: 1},
-          scrollTrigger: { start: 'top 50%', end: 'bottom 42%', duration: 3.5,scrub: 2.6 },
+          scrollTrigger: { start: 'top -20%', end: 'bottom -50%', duration: 3.5,scrub: 2.6 },
         };
       }       else if (width <= 1800) {
         props = {
@@ -892,7 +964,7 @@ useEffect(() => {
             to: { opacity: 1, y: 50, x: 730,scale: 0.7, ease: 'power3.out', duration: 3.5, scrub: 1 },
           },
           to: { opacity: 0, y: 610, x: 645, scale: 0.1, ease: 'power3.inOut', duration: 3.9 , scrub: 1},
-          scrollTrigger: { start: 'top 55%', end: 'bottom 37%', duration: 3.5,scrub: 1.6 },
+          scrollTrigger: { start: 'top -20%', end: 'bottom -50%', duration: 3.5,scrub: 1.6 },
         };
       }
       else if (width <= 1920) {
@@ -901,8 +973,8 @@ useEffect(() => {
             from: { opacity: 0, y: -390, x: 1550,scale: 1.3 },
             to: { opacity: 1, y: 10, x: 790, scale: 1, ease: 'power3.out', duration: 5.5 },
           },
-          to: { opacity: 0, y: 550, x: 760, scale: 0, ease: 'power3.inOut', duration: 5.6, scrub: 3.2 },
-          scrollTrigger: { start: 'top center+=30px', end: 'bottom center-=-30px', scrub: 1.2 },
+          to: { opacity: 0, y: 650, x: 760, scale: 0, ease: 'power3.inOut', duration: 5.6, scrub: 3.2 },
+          scrollTrigger: { start: 'top -20%', end: 'bottom -70%', scrub: 1.2 },
         };
       }
 
@@ -1299,7 +1371,7 @@ useEffect(() => {
       return {
         // x: cardImgRect.right - imgRect.width / 2 - imgRect.left,
         x: cardImgRect.right - imgRect.width / 2 - imgRect.left + index * spacing, // Add spacing per image
-        y: cardImgRect.top - 210 + imgRect.height / 2 - imgRect.top,
+        y: cardImgRect.top - 190 + imgRect.height / 2 - imgRect.top,
       };
     };
 
@@ -1307,7 +1379,7 @@ useEffect(() => {
       img,
       {
         x: 10,
-        y: -170,
+        y: -145,
         scale: 1,
         opacity: 1,
         visibility: "hidden",
@@ -1321,7 +1393,7 @@ useEffect(() => {
         ease: "power2.out",
         scrollTrigger: {
           trigger: blogsectionRef.current,
-          start: "top center-=525",
+          start: "top center-=575",
           end: "bottom center",
           scrub: 2, // Increased scrub for smoother animation
           onUpdate: (self) => {
@@ -1367,13 +1439,13 @@ bottomImages.forEach((img) => {
       scale: 0.9,
       opacity: 1,
       visibility: "visible",
-      duration: 9.1,
+      duration: 6.1,
       ease: "sine.out",
       scrollTrigger: {
         trigger: Blogsection2Ref.current,
         start: "top center+=10",
-        end: "bottom center-=70",
-        scrub: 1,
+        end: "bottom center-=170",
+        scrub: 3,
         onEnter: () => {
           // Hide initial images
           images.forEach((topImg) => {
@@ -1501,20 +1573,85 @@ const handleProjectIdInput = (event) => {
   setProjectId(event.target.value);
 };
 
+// const handleSearch = () => {
+//   const params = new URLSearchParams();
+//   if (selectedCity.id) {
+//     params.append('city', selectedCity.id);
+//   }
+//   if (selectedProperty.id) {
+//     params.append('property_type', selectedProperty.id);
+//   }
+//   if (projectId.trim()) {
+//     params.append('project_id', projectId.trim());
+//   }
+
+//   navigate(`/search-Listing?${params.toString()}`);
+// };
+
+
+const [errorMessage, setErrorMessage] = useState(""); // To store the error message
+
+
+// const handleSearch = () => {
+//   // Validation: Check if at least one field has a value
+//   if (!selectedCity.id && !selectedProperty.id && !projectId.trim()) {
+//     setErrorMessage("Please select a city, property type, or enter a project ID.");
+//     return; // Stop the search if no value is provided
+//   }
+
+//   // Reset error message if validation passes
+//   setErrorMessage("");
+
+//   const params = new URLSearchParams();
+
+//   if (selectedCity.id) {
+//     params.append('city', selectedCity.id);
+//   }
+//   if (selectedProperty.id) {
+//     params.append('property_type', selectedProperty.id);
+//   }
+//   if (projectId.trim()) {
+//     params.append('project_id', projectId.trim());
+//   }
+
+//   // Perform the navigation with the search parameters
+//   navigate(`/search-Listing?${params.toString()}`);
+// };
+
+
 const handleSearch = () => {
+  // Validation: Check if at least one field has a value
+  if (
+    (!selectedCity.id && selectedCity.name !== "City") &&
+    (!selectedProperty.id && selectedProperty.name !== "Property Type") &&
+    !projectId.trim()
+  ) {
+    setErrorMessage("Please select a city, property type, or enter a project ID.");
+    return; // Stop the search if no value is provided
+  }
+
+  // Reset error message if validation passes
+  setErrorMessage("");
+
   const params = new URLSearchParams();
-  if (selectedCity.id) {
+
+  // Only append the city parameter if it's not the "All Cities" static option
+  if (selectedCity.id && selectedCity.name !== "All Cities") {
     params.append('city', selectedCity.id);
   }
-  if (selectedProperty.id) {
+  // Only append the property type parameter if it's not the "Any Property Type" static option
+  if (selectedProperty.id && selectedProperty.name !== "Any Property Type") {
     params.append('property_type', selectedProperty.id);
   }
+  // Append project_id if provided
   if (projectId.trim()) {
     params.append('project_id', projectId.trim());
   }
 
+  // Perform the navigation with the search parameters
   navigate(`/search-Listing?${params.toString()}`);
 };
+
 
   return (
     <>
@@ -1554,6 +1691,12 @@ const handleSearch = () => {
           variant="outline-light"
           className="me-2 set-out"
         >
+            <Dropdown.Item
+    key="all-cities"
+    onClick={() => handleCitySelect({ id: null, name: "City" })}
+  >
+  City
+  </Dropdown.Item>
           {cities.length > 0 ? (
             cities.map((city) => (
               <Dropdown.Item
@@ -1574,6 +1717,12 @@ const handleSearch = () => {
           variant="outline-light"
           className="me-2 set-out"
         >
+            <Dropdown.Item
+    key="any-property"
+    onClick={() => handlePropertySelect({ id: null, name: "Property Type" })}
+  >
+  Property Type
+  </Dropdown.Item>
           {propertyTypes.length > 0 ? (
             propertyTypes.map((property) => (
               <Dropdown.Item
@@ -1591,15 +1740,19 @@ const handleSearch = () => {
         <InputGroup className="me-2">
           <InputGroup.Text>
             <img src={Search} alt="Search" />
+
           </InputGroup.Text>
+
           <Form.Control
-            placeholder="Search by project ID..."
+            placeholder="Search By Project Name..."
             aria-label="Project ID"
             aria-describedby="basic-addon1"
             value={projectId}
             onChange={handleProjectIdInput}
           />
+
         </InputGroup>
+              {/* Error Message */}
 
         <Button
           variant="primary all-same-ani"
@@ -1609,7 +1762,13 @@ const handleSearch = () => {
           {/* {searchLoading ? 'Searching...' : 'Search'} */}
           Search
         </Button>
+        {errorMessage && (
+        <span className="error-message" style={{ color: 'red', marginTop: '10px' }}>
+          {errorMessage}
+        </span>
+      )}
       </div>
+
 {/*
       {searchError && <div className="text-danger mt-2">{searchError}</div>}
 

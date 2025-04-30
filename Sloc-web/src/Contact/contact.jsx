@@ -229,7 +229,7 @@ const Contact = () => {
 
                       <div className="d-grid">
                         <button type="submit" className="btn btn-light text-dark">
-                          Connect Us
+                          Submit
                         </button>
                       </div>
                     </form>
