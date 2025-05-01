@@ -51,7 +51,7 @@ export default function App() {
           <Route index element={<Home />} />
           <Route path="/about-us" element={<About />} />
           <Route path="/blog-listing" element={<Blogs />} />
-          <Route path="/blog-detail" element={<Details />} />
+          <Route path="/blog-detail/:slug" element={<Details />} />
           <Route path="/privacy-policy" element={<Privacy />} />
           <Route path="/contact-us" element={<Contact />} />
           <Route path="/terms-and-conditions" element={<Terms />} />
@@ -126,7 +126,7 @@ export default function App() {
       fontSize: '25px',
       backgroundColor: '#064685',
       color: '#fff',
-     
+
       borderRadius: '50px',
       cursor: 'pointer',
       height: '50px',

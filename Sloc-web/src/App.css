@@ -340,10 +340,12 @@ section.social-proof {
 .socail-name {
   font-family: "Bai Jamjuree", sans-serif !important;
   font-weight: 400;
-  font-size: 36px;
+  font-size: 28px;
   line-height: 110.00000000000001%;
   letter-spacing: 0%;
   text-transform: uppercase;
+  position: relative;
+    z-index: +999;
 }
 .social-p {
   font-weight: 400;
@@ -467,6 +469,8 @@ footer {
   background: #064685;
   padding-top: 60px;
   padding-bottom: 20px;
+  position: relative;
+  z-index: +11;
 }
 .footer-logo p.Logo {
   text-align: left;
@@ -486,7 +490,6 @@ footer ul a {
   font-size: 16px;
   line-height: 150%;
   letter-spacing: 0%;
-  text-align: center;
   text-transform: uppercase;
 }
 .border-top-set {
@@ -636,8 +639,11 @@ section.blog-text {
 .About-banner {
   background-image: url(/src/assets/Imgs/About.jpg) !important;
 }
-.about-sloc img.scrol-top {
-  top: -68%;
+img.uper-set {
+    position: absolute;
+    top: -68%;
+    animation: rotate-animation 10s infinite linear;
+
 }
 .services-section {
   background-image: url(/src/assets/Imgs/Serv-about.jpg);
@@ -920,6 +926,20 @@ section.achivments {
   border-width: 0.5px !important;
   border-radius: 0 !important;
   color: #fff !important;
+
+
+}
+.searc-bar .form-control{
+  border: 1px solid #fff !important;
+  border-left: none !important;
+}
+.input-group{
+    border-color: #fff !important;
+
+}
+.searc-bar span.input-group-text {
+  border: 1px solid #fff !important;
+  border-right: none !important;
 }
 input#agreeCheck {
   border-radius: 0;
@@ -958,7 +978,6 @@ input#agreeCheck {
 .project-baner {
   height: 100% !important;
   min-height: 778px;
-  background-image: url(./Project/imgs/p.jpg) !important;
   padding-top: 20px;
 }
 .pr {
@@ -1009,6 +1028,7 @@ p.loction {
   margin-top: 40px !important;
   padding: 20px;
   background: #fff !important;
+  z-index: +999999;
 }
 .top-line-info p {
   text-align: right;
@@ -1398,7 +1418,7 @@ button.accordion-button {
   padding-right: 10px;
 }
 input.form-control.iti__tel-input {
-  padding-left: 90px !important;
+  padding-left: 100px !important;
 }
 .searc-bar .iti__selected-dial-code {
   border: none !important;
@@ -1408,9 +1428,9 @@ input.form-control.iti__tel-input {
 .searc-bar input.form-control.iti__tel-input {
   padding-left: 120px !important;
 }
-button.iti__selected-country {
+/* button.iti__selected-country {
   border-left: 1px solid #dee2e6;
-}
+} */
 input.form-control:focus {
   border-color: #B8B8B8 !important;
 }
@@ -1703,9 +1723,8 @@ img.kckck {
   letter-spacing: 0%;
   vertical-align: middle;
 }
-.pr a.cntnct.nav-link:hover {
-  color: #fff !important;
-}
+
+
 .project-baner .searc-bar input#agreeCheck {
   position: relative;
   top: 5px;
@@ -1758,4 +1777,139 @@ main.char {
 
 a.calling {
   border: 1px solid #fff !important;
+}
+.mobile-bgp .searc-bar {
+  z-index: +999999;
+}
+.project-baner .searc-bar input {
+
+  border: 1px solid #d0d0d0 !important;
+}
+
+section.Cta form {
+  text-align: left;
+}
+.project-baner .searc-bar input::placeholder {
+  opacity: 0.4; /* Adjust from 0 (invisible) to 1 (fully visible) */
+}
+
+
+.newfotr ul {
+  display: flex;
+  gap: 20px;
+  justify-content: end;
+}
+.rerera {
+  text-align: right;
+}
+.alliance.row .brdr img {
+  transition: .3s all ease;
+  width: 177px;
+  height: 77px;
+  object-fit: contain;
+}
+
+
+.popup-modal .modal-dialog {
+  transform: perspective(1000px) rotateX(5deg);
+}
+
+.popup-card {
+  background: linear-gradient(to right, #ffffff, #f9f9ff);
+  border-radius: 20px;
+  padding: 1rem;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  transform: perspective(800px) rotateY(0deg);
+  animation: popupAnimation 0.6s ease-out;
+  text-align: center;
+  height: 400px;
+  align-content: center;
+}
+
+.popup-header,
+.popup-body,
+.popup-footer {
+  background-color: transparent;
+  border: none;
+  text-align: center;
+}
+.modal-content {
+
+  top: 50px !important;
+}
+
+@keyframes popupAnimation {
+  0% {
+    opacity: 0;
+    transform: perspective(800px) rotateX(-15deg) scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: perspective(800px) rotateX(0deg) scale(1);
+  }
+}
+p.Logo {
+
+  color: #064685;
+}
+
+.modal-header p.Logo {
+  position: relative;
+  left: 35%;
+  bottom: 30px;
+}
+.modal-header .btn-close {
+  bottom: 25px;
+  position: absolute;
+
+  border-radius: 100px;
+  top: 15px;
+  right: 30px;
+}
+
+
+button.ssksk.btn.btn-dark {
+  border-radius: 100px !important;
+  padding: 10px !important;
+  height: 2em;
+  width: 2em;
+  position: absolute;
+  top: 10px;
+  right: 20px;
+}
+
+.input-group>.form-control:focus{
+  border-color: #fff !important;
+}
+.uprkro {
+  position: absolute;
+  top: 45px;
+  left: 36px;
+  z-index: 2;
+  /* Safari/Mac compatibility tips */
+  -webkit-transform: translateZ(0); /* Force hardware acceleration in Safari */
+  will-change: transform; /* Hint for performance optimization */
+}
+
+
+section.blog-text span {
+  font-weight: 500;
+  font-size: 22px;
+  line-height: 180%;
+  letter-spacing: 0%;
+  vertical-align: middle;
+  font-family: "Nunito Sans", sans-serif !important;
+}
+section.blog-text li {
+  font-weight: 500;
+  font-size: 22px;
+  line-height: 180%;
+  letter-spacing: 0%;
+  vertical-align: middle;
+  font-family: "Nunito Sans", sans-serif !important;
+}
+
+.project-baner {
+
+  box-shadow: inset 0 0 0 2000px rgb(0 0 0 / 35%);
 }

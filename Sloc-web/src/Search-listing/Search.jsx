@@ -69,7 +69,7 @@ function list() {
           .replace(/[^a-z0-9]+/g, '-') // Replace non-alphanumeric characters with hyphens
           .replace(/(^-|-$)/g, '') // Remove leading/trailing hyphens
       : 'untitled-project'; // Fallback slug
-  };  
+  };
   const [selectedCity, setSelectedCity] = useState({ id: null, name: 'City' });
   const [selectedProperty, setSelectedProperty] = useState({ id: null, name: 'Property Type' });
   const [projectId, setProjectId] = useState('');
@@ -277,22 +277,22 @@ function list() {
 
   const handleSort = (propertyTypeId) => {
     const selectedType = propertyTypes.find(pt => pt.id === propertyTypeId);
-    
+
     setSelectedProperty({
       id: propertyTypeId,
       name: selectedType ? selectedType.name : 'Sort By', // Default to 'Sort By' if something goes wrong
     });
-  
+
     // Trigger the search with the selected property type and reset to page 1
     handleSearch(1);
   };
-  
+
   // const clearFilter = (filter) => {
   //   // Create a copy of current state to modify
   //   let newCity = { ...selectedCity };
   //   let newProperty = { ...selectedProperty };
   //   let newProjectId = projectId;
-  
+
   //   // Clear the specified filter
   //   if (filter === 'city') {
   //     newCity = { id: null, name: 'City' };
@@ -304,14 +304,14 @@ function list() {
   //     newProjectId = '';
   //     setProjectId(newProjectId);
   //   }
-  
+
   //   // Update URL with remaining filters
   //   const params = new URLSearchParams();
   //   if (newCity.id) params.append('city', newCity.id);
   //   if (newProperty.id) params.append('property_type', newProperty.id);
   //   if (newProjectId.trim()) params.append('project_id', newProjectId.trim());
   //   navigate(`/search-Listing?${params.toString()}`);
-  
+
   //   // Trigger new search with updated filters
   //   const payload = {};
   //   if (newCity.id) payload.city = newCity.id.toString();
@@ -319,7 +319,7 @@ function list() {
   //   if (newProjectId.trim()) payload.project_id = newProjectId.trim();
   //   payload.page = 1;
   //   payload.per_page = 6;
-  
+
   //   setSearchLoading(true);
   //   axios
   //     .post(`${baseUrl}/api/project-search`, payload, {
@@ -348,7 +348,7 @@ function list() {
     let newCity = { ...selectedCity };
     let newProperty = { ...selectedProperty };
     let newProjectId = projectId;
-  
+
     if (filter === 'city') {
       newCity = { id: null, name: 'City' };
       setSelectedCity(newCity);
@@ -360,14 +360,14 @@ function list() {
       newProjectId = '';
       setProjectId(newProjectId);
     }
-  
+
     // Update URL
     const params = new URLSearchParams();
     if (newCity.id) params.append('city', newCity.id);
     if (newProperty.id) params.append('property_type', newProperty.id);
     if (newProjectId.trim()) params.append('project_id', newProjectId.trim());
     navigate(`/search-Listing?${params.toString()}`);
-  
+
     // Trigger search
     const payload = {};
     if (newCity.id) payload.city = newCity.id.toString();
@@ -375,7 +375,7 @@ function list() {
     if (newProjectId.trim()) payload.project_id = newProjectId.trim();
     payload.page = 1;
     payload.per_page = 6;
-  
+
     setSearchLoading(true);
     axios
       .post(`${baseUrl}/api/project-search`, payload, {
@@ -383,10 +383,14 @@ function list() {
       })
       .then((response) => {
         if (response.data.success) {
-          setSearchResults(response.data.data);
-          setHasMore(response.data.data.length >= 6 && response.data.data.length < totalProjects);
-          setPage(1);
-          setDisplayCount(6);
+          const results = response.data.data;
+          setSearchResults(results);
+          // Assume totalProjects comes from API or use results length
+          const total = response.data.total || results.length; // Adjust based on actual API response
+          setTotalProjects(total);
+          // Set hasMore based on whether there are more projects to load
+          setHasMore(results.length >= 6 && results.length < total);
+          console.log('Initial search results:', results, 'Total:', total);
         } else {
           setSearchError(response.data.message || 'Search failed.');
         }
@@ -437,6 +441,12 @@ function list() {
             variant="outline-light"
             className="me-2 set-out"
           >
+                        <Dropdown.Item
+                key="all-cities"
+                onClick={() => handleCitySelect({ id: null, name: "City" })}
+              >
+              City
+              </Dropdown.Item>
             {cities.length > 0 ? (
               cities.map((city) => (
                 <Dropdown.Item
@@ -457,6 +467,12 @@ function list() {
             variant="outline-light"
             className="me-2 set-out"
           >
+                        <Dropdown.Item
+                key="any-property"
+                onClick={() => handlePropertySelect({ id: null, name: "Property Type" })}
+              >
+              Property Type
+              </Dropdown.Item>
             {propertyTypes.length > 0 ? (
               propertyTypes.map((property) => (
                 <Dropdown.Item
@@ -477,7 +493,7 @@ function list() {
             </InputGroup.Text>
             <Form.Control
               // placeholder="Search by Developer or Project"
-              placeholder="Search by Project ID"
+              placeholder="Search by Project Name"
               aria-label="Project ID"
               aria-describedby="basic-addon1"
               value={projectId}
@@ -533,6 +549,12 @@ function list() {
   variant="outline-light"
   className="me-2 sortby"
 >
+              <Dropdown.Item
+      key="any-property"
+      onClick={() => handlePropertySelect({ id: null, name: "Sort By" })}
+    >
+    Sort By
+    </Dropdown.Item>
   {propertyTypes.length > 0 ? (
     propertyTypes.map((propertyType) => (
       <Dropdown.Item
@@ -578,7 +600,7 @@ function list() {
                 {rowProjects.map((project, index) => (
                   <Col key={project.id} className="features-list p-0 dip-column" md={4}>
                     <Card className={`custom-card card-${index} box-${index}`}>
-                      <Card.Img variant="top" 
+                      <Card.Img variant="top"
                       // src={project.image}
                       src={project.image || 'https://admin.sloc.in/feature_image/1745473057_f1.png'}
                       alt={project.title} />

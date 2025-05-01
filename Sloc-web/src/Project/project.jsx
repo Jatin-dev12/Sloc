@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, { useEffect, useRef, useState } from "react";
-import { Row, Col } from "react-bootstrap";
+import { Row, Col, Modal } from "react-bootstrap";
 import Container from "react-bootstrap/Container";
 import Search from "../assets/Imgs/Search.svg";
 import { Card } from "react-bootstrap";
@@ -56,10 +56,16 @@ import linkdin from "../assets/Imgs/Linkdin.svg";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import axios from "axios";
+import logo from './imgs/logo.png';
+import backpg from './imgs/p.jpg'
 
 gsap.registerPlugin(ScrollTrigger);
 
 function project() {
+
+
+
+
   const projects = [
     {
       id: 1,
@@ -114,10 +120,90 @@ function project() {
     email: "",
     agree: "",
   });
+  const [formData1, setFormData1] = useState({
+    name: "",
+    mobile: "",
+    email: "",
+    agree: false,
+  });
+
+  const [errors1, setErrors1] = useState({
+    name: "",
+    mobile: "",
+    email: "",
+    agree: "",
+  });
   const phoneInputRef1 = useRef(null);
   const phoneInputRef = useRef(null);
   const intlTelInstance = useRef(null);
+  const handleChange1 = (e) => {
+    const { name, value, type, checked } = e.target;
 
+    setFormData1((prev) => ({
+      ...prev,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+
+    if (name === "name") {
+      setErrors1((prev) => ({ ...prev, name: "" }));
+    }
+
+    if (name === "email") {
+      setErrors1((prev) => ({ ...prev, email: "" }));
+    }
+
+    if (name === "agree") {
+      setErrors1((prev) => ({ ...prev, agree: "" }));
+    }
+  };
+  const validateForm1 = () => {
+    const newErrors = {
+      name: "",
+      mobile: "",
+      email: "",
+      agree: "",
+    };
+    let isValid = true;
+
+    // Check if name is entered (you can add more specific validation here)
+    if (!formData1.name.trim()) {
+      newErrors.name = "Name is required";
+      isValid = false;
+    }
+
+    // Validate mobile number (only digits, 6-10 digits)
+    if (!formData.mobile) {
+      newErrors.mobile = "Phone number is required";
+      isValid = false;
+    } else if (!/^\d+$/.test(formData.mobile)) {
+      newErrors.mobile = "Phone number must contain only digits";
+      isValid = false;
+    }
+    // else if (formData.mobile.length < 6 || formData.mobile.length > 10) {
+    //   newErrors.mobile = "Phone number must be between 6 and 10 digits";
+    //   isValid = false;
+    // }
+
+    // Check if email is entered (basic validation can be done here if needed)
+  // Validate email format
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!formData1.email) {
+    newErrors.email = "Email is required";
+    isValid = false;
+  } else if (!emailRegex.test(formData1.email)) {
+    newErrors.email = "Invalid email format";
+    isValid = false;
+  }
+
+    // Check if the user agrees to the terms
+    if (!formData1.agree) {
+      newErrors.agree = "You must agree to the terms";
+      isValid = false;
+    }
+
+    setErrors1(newErrors);
+    return isValid;
+  };
   // Initialize intl-tel-input
   useEffect(() => {
     if (phoneInputRef.current) {
@@ -274,6 +360,30 @@ function project() {
       setErrors((prev) => ({ ...prev, agree: "" }));
     }
   };
+  // const handleChange = (e) => {
+  //   const { name, value, type, checked } = e.target;
+  //   setFormData({
+  //     ...formData,
+  //     [name]: type === "checkbox" ? checked : value,
+  //   });
+  // };
+
+  // const handleSubmit1 = (e) => {
+  //   e.preventDefault();
+  //   let newErrors = {};
+
+  //   if (!formData.name.trim()) newErrors.name = "Name is required.";
+  //   if (!formData.mobile.trim()) newErrors.mobile = "Mobile number is required.";
+  //   if (!formData.email.trim()) newErrors.email = "Email is required.";
+  //   if (!formData.agree) newErrors.agree = "You must agree before submitting.";
+
+  //   setErrors(newErrors);
+
+  //   if (Object.keys(newErrors).length === 0) {
+  //     // Proceed with form submit
+  //     console.log("Form submitted:", formData);
+  //   }
+  // };
 
   const validateForm = () => {
     const newErrors = {
@@ -297,16 +407,22 @@ function project() {
     } else if (!/^\d+$/.test(formData.mobile)) {
       newErrors.mobile = "Phone number must contain only digits";
       isValid = false;
-    } else if (formData.mobile.length < 6 || formData.mobile.length > 10) {
-      newErrors.mobile = "Phone number must be between 6 and 10 digits";
-      isValid = false;
     }
+    // else if (formData.mobile.length < 6 || formData.mobile.length > 10) {
+    //   newErrors.mobile = "Phone number must be between 6 and 10 digits";
+    //   isValid = false;
+    // }
 
     // Check if email is entered (basic validation can be done here if needed)
-    if (!formData.email) {
-      newErrors.email = "Email is required";
-      isValid = false;
-    }
+  // Validate email format
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!formData.email) {
+    newErrors.email = "Email is required";
+    isValid = false;
+  } else if (!emailRegex.test(formData.email)) {
+    newErrors.email = "Invalid email format";
+    isValid = false;
+  }
 
     // Check if the user agrees to the terms
     if (!formData.agree) {
@@ -318,16 +434,325 @@ function project() {
     return isValid;
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (validateForm()) {
-      console.log("Form is valid, submitting data:", formData);
-      // Add form submission logic here (e.g., API call)
-    } else {
-      console.log("Form has errors, not submitting");
-    }
-  };
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   if (validateForm()) {
+  //     console.log("Form is valid, submitting data:", formData);
+  //     // Add form submission logic here (e.g., API call)
+  //     handleShow();
+  //   } else {
+  //     console.log("Form has errors, not submitting");
+  //   }
+  // };
+  // const handleSubmit1 = (e) => {
+  //   e.preventDefault();
+  //   if (validateForm1()) {
+  //     console.log("Form is valid, submitting data:", formData);
+  //     // Add form submission logic here (e.g., API call)
 
+  //     // Reset the form fields after successful submit
+  //     setFormData1({
+  //       name: '',
+  //       mobile: '',
+  //       email: '',
+  //       agree: false,
+  //     });
+  //     setErrors1({}); // Optional: also clear any old errors
+
+  //     handleShow(); // Show success modal
+  //   } else {
+  //     console.log("Form has errors, not submitting");
+  //   }
+  // };
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   if (validateForm()) {
+  //     console.log("Form is valid, submitting data:", formData);
+  //     // Add form submission logic here (e.g., API call)
+
+  //     // Reset the form fields after successful submit
+  //     setFormData({
+  //       name: '',
+  //       mobile: '',
+  //       email: '',
+  //       agree: false,
+  //     });
+  //     setErrors({}); // Optional: also clear any old errors
+
+  //     handleShow(); // Show success modal
+  //   } else {
+  //     console.log("Form has errors, not submitting");
+  //   }
+  // };
+
+
+
+  // const handleSubmit1 = (e) => {
+  //   e.preventDefault();
+  //   if (validateForm1()) {
+  //     console.log("Form is valid, submitting data:", formData1);
+
+  //     // Extract project name from URL
+  //     const url = window.location.href; // e.g., http://localhost:5173/project/godrej-miraya
+  //     const projectSlug = url.split('/project/')[1]?.replace(/-/g, ' ') || 'Unknown Project';
+  //     const projectName = projectSlug
+  //       .split(' ')
+  //       .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+  //       .join(' '); // e.g., Godrej Miraya
+
+  //     // Prepare API URL with form data
+  //     const apiUrl = `https://sloc.bitrix24.in/rest/1/s94cvkguwyrljt7f/crm.lead.add.json?` +
+  //       `FIELDS[TITLE]=SLOC_Webform` +
+  //       `&FIELDS[NAME]=${encodeURIComponent(formData1.name)}` +
+  //       `&FIELDS[EMAIL][0][VALUE]=${encodeURIComponent(formData1.email)}` +
+  //       `&FIELDS[EMAIL][0][VALUE_TYPE]=WORK` +
+  //       `&FIELDS[PHONE][0][VALUE]=${encodeURIComponent(formData1.mobile)}` +
+  //       `&FIELDS[PHONE][0][VALUE_TYPE]=WORK` +
+  //       `&FIELDS[SOURCE_ID]=UC_R2M98V` +
+  //       `&FIELDS[SOURCE_DESCRIPTION]=${encodeURIComponent(projectName)}` +
+  //       `&FIELDS[UF_CRM_1745260289]=${encodeURIComponent(url)}`;
+
+  //     // Make API call
+  //     fetch(apiUrl, {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //     })
+  //       .then(response => response.json())
+  //       .then(data => {
+  //         console.log('API response:', data);
+  //         // Reset the form fields after successful submit
+  //         setFormData1({
+  //           name: '',
+  //           mobile: '',
+  //           email: '',
+  //           agree: false,
+  //         });
+  //         setFormData({
+  //           mobile: '',
+  //         });
+  //         setErrors1({}); // Clear any old errors
+  //         handleShow(); // Show success modal
+  //       })
+  //       .catch(error => {
+  //         console.error('API error:', error);
+  //       });
+  //   } else {
+  //     console.log("Form has errors, not submitting");
+  //   }
+  // };
+
+    // Handle form submission
+    const handleSubmit1 = async (e) => {
+      e.preventDefault();
+      if (validateForm1()) {
+        console.log('Form is valid, submitting data:', formData);
+
+        try {
+          // 1. Bitrix24 API call
+          const url = window.location.href;
+          const bitrixApiUrl = `https://sloc.bitrix24.in/rest/1/${bitrixToken}/crm.lead.add.json?` +
+            `FIELDS[TITLE]=SLOC_Webform` +
+            `&FIELDS[NAME]=${encodeURIComponent(formData.name)}` +
+            `&FIELDS[EMAIL][0][VALUE]=${encodeURIComponent(formData.email)}` +
+            `&FIELDS[EMAIL][0][VALUE_TYPE]=WORK` +
+            `&FIELDS[PHONE][0][VALUE]=${encodeURIComponent(formData.mobile)}` +
+            `&FIELDS[PHONE][0][VALUE_TYPE]=WORK` +
+            `&FIELDS[SOURCE_ID]=UC_R2M98V` +
+            `&FIELDS[SOURCE_DESCRIPTION]=Contact Page` +
+            `&FIELDS[UF_CRM_1745260289]=${encodeURIComponent(url)}`;
+
+          const bitrixResponse = await fetch(bitrixApiUrl, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          });
+          const bitrixData = await bitrixResponse.json();
+          if (!bitrixResponse.ok || !bitrixData.result) {
+            throw new Error('Bitrix API failed: ' + (bitrixData.error_description || 'Unknown error'));
+          }
+          console.log('Bitrix API response:', bitrixData);
+
+          // 2. Contact Us API call
+          const contactUsUrl = `${baseUrl}api/contact-us`;
+          const contactUsResponse = await axios.post(
+            contactUsUrl,
+            {
+              name: formData1.name,
+              email: formData1.email,
+              mobile: formData1.mobile,
+            },
+            {
+              headers: {
+                Authorization: `Bearer ${apiToken}`,
+                'Content-Type': 'application/json',
+              },
+            }
+          );
+          if (!contactUsResponse.data.success) {
+            throw new Error('Contact Us API failed: ' + (contactUsResponse.data.message || 'Unknown error'));
+          }
+          console.log('Contact Us API response:', contactUsResponse.data);
+
+          // Reset form and show modal
+          setFormData1({ name: '', mobile: '', email: '', agree: false });
+          setErrors1({});
+          handleShow(true);
+        } catch (error) {
+          console.error('API error:', error);
+          setErrors({ submit: 'Failed to submit form. Please try again.' });
+        }
+      } else {
+        console.log('Form has errors, not submitting');
+      }
+    };
+
+
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   if (validateForm()) {
+  //     console.log("Form is valid, submitting data:", formData);
+  //     // Add form submission logic here (e.g., API call)
+
+  //     // Reset the form fields after successful submit
+  //     setFormData({
+  //       name: '',
+  //       mobile: '',
+  //       email: '',
+  //       agree: false,
+  //     });
+  //     setErrors({}); // Optional: also clear any old errors
+
+  //     handleShow(); // Show success modal
+  //   } else {
+  //     console.log("Form has errors, not submitting");
+  //   }
+  // };
+
+
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   if (validateForm()) {
+  //     console.log('Form is valid, submitting data:', formData);
+
+  //     // Extract project name from URL
+  //     const url = window.location.href; // e.g., http://localhost:5173/project/godrej-miraya
+  //     const projectSlug = url.split('/project/')[1]?.replace(/-/g, ' ') || 'Unknown Project';
+  //     const projectName = projectSlug
+  //       .split(' ')
+  //       .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+  //       .join(' '); // e.g., Godrej Miraya
+
+  //     // Prepare API URL with form data
+  //     const apiUrl = `https://sloc.bitrix24.in/rest/1/s94cvkguwyrljt7f/crm.lead.add.json?` +
+  //       `FIELDS[TITLE]=SLOC_Webform` +
+  //       `&FIELDS[NAME]=${encodeURIComponent(formData.name)}` +
+  //       `&FIELDS[EMAIL][0][VALUE]=${encodeURIComponent(formData.email)}` +
+  //       `&FIELDS[EMAIL][0][VALUE_TYPE]=WORK` +
+  //       `&FIELDS[PHONE][0][VALUE]=${encodeURIComponent(formData.mobile)}` +
+  //       `&FIELDS[PHONE][0][VALUE_TYPE]=WORK` +
+  //       `&FIELDS[SOURCE_ID]=UC_R2M98V` +
+  //       `&FIELDS[SOURCE_DESCRIPTION]=${encodeURIComponent(projectName)}` +
+  //       `&FIELDS[UF_CRM_1745260289]=${encodeURIComponent(url)}`;
+
+  //     // Make API call
+  //     fetch(apiUrl, {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //     })
+  //       .then(response => response.json())
+  //       .then(data => {
+  //         console.log('API response:', data);
+  //         // Reset the form fields after successful submit
+  //         setFormData({
+  //           name: '',
+  //           mobile: '',
+  //           email: '',
+  //           agree: false,
+  //         });
+  //         setErrors({}); // Clear any old errors
+  //         handleShow(); // Open the modal
+  //       })
+  //       .catch(error => {
+  //         console.error('API error:', error);
+  //       });
+  //   } else {
+  //     console.log('Form has errors, not submitting');
+  //   }
+  // };
+
+   const baseUrl = import.meta.env.VITE_BASE_URL || 'https://admin.sloc.in/';
+    const bitrixToken = import.meta.env.VITE_BITRIX_TOKEN || 's94cvkguwyrljt7f';
+    const apiToken = import.meta.env.VITE_API_TOKEN || 'AzlrVK30FVdEx0TwrRwqYrQTL';
+    // Handle form submission
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+      if (validateForm()) {
+        console.log('Form is valid, submitting data:', formData);
+
+        try {
+          // 1. Bitrix24 API call
+          const url = window.location.href;
+          const bitrixApiUrl = `https://sloc.bitrix24.in/rest/1/${bitrixToken}/crm.lead.add.json?` +
+            `FIELDS[TITLE]=SLOC_Webform` +
+            `&FIELDS[NAME]=${encodeURIComponent(formData.name)}` +
+            `&FIELDS[EMAIL][0][VALUE]=${encodeURIComponent(formData.email)}` +
+            `&FIELDS[EMAIL][0][VALUE_TYPE]=WORK` +
+            `&FIELDS[PHONE][0][VALUE]=${encodeURIComponent(formData.mobile)}` +
+            `&FIELDS[PHONE][0][VALUE_TYPE]=WORK` +
+            `&FIELDS[SOURCE_ID]=UC_R2M98V` +
+            `&FIELDS[SOURCE_DESCRIPTION]=Contact Page` +
+            `&FIELDS[UF_CRM_1745260289]=${encodeURIComponent(url)}`;
+
+          const bitrixResponse = await fetch(bitrixApiUrl, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          });
+          const bitrixData = await bitrixResponse.json();
+          if (!bitrixResponse.ok || !bitrixData.result) {
+            throw new Error('Bitrix API failed: ' + (bitrixData.error_description || 'Unknown error'));
+          }
+          console.log('Bitrix API response:', bitrixData);
+
+          // 2. Contact Us API call
+          const contactUsUrl = `${baseUrl}api/contact-us`;
+          const contactUsResponse = await axios.post(
+            contactUsUrl,
+            {
+              name: formData.name,
+              email: formData.email,
+              mobile: formData.mobile,
+            },
+            {
+              headers: {
+                Authorization: `Bearer ${apiToken}`,
+                'Content-Type': 'application/json',
+              },
+            }
+          );
+          if (!contactUsResponse.data.success) {
+            throw new Error('Contact Us API failed: ' + (contactUsResponse.data.message || 'Unknown error'));
+          }
+          console.log('Contact Us API response:', contactUsResponse.data);
+
+          // Reset form and show modal
+          setFormData({ name: '', mobile: '', email: '', agree: false });
+          setErrors({});
+          handleShow(true);
+        } catch (error) {
+          console.error('API error:', error);
+          setErrors({ submit: 'Failed to submit form. Please try again.' });
+        }
+      } else {
+        console.log('Form has errors, not submitting');
+      }
+    };
 
   const navbarRef = useRef(null);
 
@@ -365,108 +790,231 @@ function project() {
     console.log('generateSlug: Output slug:', result);
     return result;
   };
+  const [bannerImage, setBannerImage] = useState(''); // Default fallback image
+
+  // useEffect(() => {
+  //   console.log('useEffect: Starting with slug:', slug);
+
+  //   const baseUrl = import.meta.env.VITE_BASE_URL || 'https://default-api-url.com/';
+  //   console.log('useEffect: Base URL:', baseUrl);
+
+  //   const apiUrl = `${baseUrl}api/projects`;
+  //   console.log('useEffect: API URL:', apiUrl);
+
+  //   console.log('useEffect: Initiating axios GET request');
+  //   axios
+  //     .get(apiUrl, {
+  //       headers: {
+  //         Authorization: `Bearer AzlrVK30FVdEx0TwrRwqYrQTL`,
+  //       },
+  //     })
+  //     .then((response) => {
+  //       console.log('useEffect: Axios response received:', response);
+  //       console.log('useEffect: Response data:', response.data);
+
+  //       if (response.data.success) {
+  //         console.log('useEffect: API request successful');
+  //         console.log('useEffect: Searching for project with slug:', slug);
+
+  //         const projectData = response.data.data.find((p) => {
+  //           const projectSlug = generateSlug(p.name);
+  //           console.log(
+  //             'useEffect: Comparing project slug:',
+  //             projectSlug,
+  //             'with target slug:',
+  //             slug
+  //           );
+  //           return projectSlug === slug;
+  //         });
+  //         setAllProjects(response.data); // Set all projects
+
+  //         console.log('useEffect: Found project data:', projectData);
+  //         console.log('useEffect: All projects data:', response.data.data);
+
+  //         if (projectData) {
+  //           console.log('useEffect: Project found, setting project state');
+  //           const projectState = {
+  //             id: projectData.id,
+  //             project_id: projectData.project_id,
+  //             title: projectData.name || 'Untitled Project',
+  //             slug: projectData.slug || generateSlug(projectData.name),
+  //             price: projectData.tag_price
+  //               ? `₹ ${projectData.tag_price} CR* ONWARDS`
+  //               : 'Price on Request',
+  //             // location: projectData.address || 'Unknown Location',
+  //             // size: projectData.specification || 'N/A',
+  //             // feet: projectData.feet || 'Contact for details', // Replace hardcoded value
+
+  //         size: projectData.pricing_layout[0]?.title || '', // Use title from first index of pricing_layout
+  //         feet: projectData.pricing_layout[0]?.description || '', // Use description from first index of pricing_layout
+  //         location: projectData.property.name || '',
+  //             image: projectData.hero_img || 'https://via.placeholder.com/300',
+  //             overview: projectData.overview_content || 'No overview available.',
+  //             amenities: projectData.amenities || [],
+  //             properties: projectData.property_types || [
+  //               { type: 'N/A', size: 'Contact for details' },
+  //             ],
+  //             // Add all missing fields
+  //             calling_number: projectData.calling_number || 'N/A',
+  //             gallery_images: projectData.gallery_image || [],
+  //             disclaimer: projectData.disclaimer || 'No disclaimer available.',
+  //             highlights: projectData.highlights || 'No highlights available.',
+  //             rera_num_on_img: projectData.rera_num_on_img || 'N/A',
+  //             schedule_meeting: projectData.schedule_meeting || 'N/A',
+  //             sectors: projectData.sectors || 'N/A',
+  //             specification: projectData.specification || 'N/A',
+  //             state: projectData.state || { name: 'Unknown', city: {} },
+  //             state_rera_num_on_img: projectData.state_rera_num_on_img || 'N/A',
+  //             tag_line: projectData.tag_line || 'N/A',
+  //             url: projectData.url || 'N/A',
+  //             whatsapp_number: projectData.whatsapp_number || 'N/A',
+  //             property: projectData.property || { id: null, name: 'N/A' },
+  //             location_advantages: projectData.location_advantages || [],
+  //           };
+
+  //           console.log('useEffect: Setting project state with:', projectState);
+
+  //           setProject(projectState);
+
+  //             // Set banner image with validation
+
+  //         } else {
+  //           console.log('useEffect: Project not found in data');
+  //           // setError('Project not found');
+  //         }
+  //       } else {
+  //         console.log('useEffect: API request unsuccessful');
+  //         // setError('Project not found');
+  //       }
+  //     })
+  //     .catch((err) => {
+  //       console.error('useEffect: Error fetching project:', err);
+  //       console.error('useEffect: Error details:', {
+  //         message: err.message,
+  //         response: err.response,
+  //         request: err.request,
+  //       });
+  //     })
+  //     .finally(() => {
+  //       console.log('useEffect: Request completed, setting loading to false');
+  //     });
+  // }, [slug]);
 
   useEffect(() => {
     console.log('useEffect: Starting with slug:', slug);
 
     const baseUrl = import.meta.env.VITE_BASE_URL || 'https://default-api-url.com/';
-    console.log('useEffect: Base URL:', baseUrl);
-
     const apiUrl = `${baseUrl}api/projects`;
+
+    console.log('useEffect: Base URL:', baseUrl);
     console.log('useEffect: API URL:', apiUrl);
 
-    console.log('useEffect: Initiating axios GET request');
-    axios
-      .get(apiUrl, {
-        headers: {
-          Authorization: `Bearer AzlrVK30FVdEx0TwrRwqYrQTL`,
-        },
-      })
-      .then((response) => {
-        console.log('useEffect: Axios response received:', response);
-        console.log('useEffect: Response data:', response.data);
-
-        if (response.data.success) {
-          console.log('useEffect: API request successful');
-          console.log('useEffect: Searching for project with slug:', slug);
-
-          const projectData = response.data.data.find((p) => {
-            const projectSlug = generateSlug(p.name);
-            console.log(
-              'useEffect: Comparing project slug:',
-              projectSlug,
-              'with target slug:',
-              slug
-            );
-            return projectSlug === slug;
-          });
-          setAllProjects(response.data); // Set all projects
-
-          console.log('useEffect: Found project data:', projectData);
-          console.log('useEffect: All projects data:', response.data.data);
-
-          if (projectData) {
-            console.log('useEffect: Project found, setting project state');
-            const projectState = {
-              id: projectData.id,
-              project_id: projectData.project_id,
-              title: projectData.name || 'Untitled Project',
-              slug: projectData.slug || generateSlug(projectData.name),
-              price: projectData.tag_price
-                ? `₹ ${projectData.tag_price} CR* ONWARDS`
-                : 'Price on Request',
-              location: projectData.address || 'Unknown Location',
-              size: projectData.specification || 'N/A',
-              feet: projectData.feet || 'Contact for details', // Replace hardcoded value
-              image: projectData.hero_img || 'https://via.placeholder.com/300',
-              overview: projectData.overview_content || 'No overview available.',
-              amenities: projectData.amenities || [],
-              properties: projectData.property_types || [
-                { type: 'N/A', size: 'Contact for details' },
-              ],
-              // Add all missing fields
-              calling_number: projectData.calling_number || 'N/A',
-              disclaimer: projectData.disclaimer || 'No disclaimer available.',
-              highlights: projectData.highlights || 'No highlights available.',
-              rera_num_on_img: projectData.rera_num_on_img || 'N/A',
-              schedule_meeting: projectData.schedule_meeting || 'N/A',
-              sectors: projectData.sectors || 'N/A',
-              specification: projectData.specification || 'N/A',
-              state: projectData.state || { name: 'Unknown', city: {} },
-              state_rera_num_on_img: projectData.state_rera_num_on_img || 'N/A',
-              tag_line: projectData.tag_line || 'N/A',
-              url: projectData.url || 'N/A',
-              whatsapp_number: projectData.whatsapp_number || 'N/A',
-              property: projectData.property || { id: null, name: 'N/A' },
-            };
-
-            console.log('useEffect: Setting project state with:', projectState);
-            setProject(projectState);
-          } else {
-            console.log('useEffect: Project not found in data');
-            // setError('Project not found');
-          }
-        } else {
-          console.log('useEffect: API request unsuccessful');
-          // setError('Project not found');
-        }
-      })
-      .catch((err) => {
-        console.error('useEffect: Error fetching project:', err);
-        console.error('useEffect: Error details:', {
-          message: err.message,
-          response: err.response,
-          request: err.request,
+    const fetchProjectData = async () => {
+      try {
+        console.log('useEffect: Initiating axios GET request');
+        const response = await axios.get(apiUrl, {
+          headers: {
+            Authorization: `Bearer AzlrVK30FVdEx0TwrRwqYrQTL`,
+          },
         });
-      })
-      .finally(() => {
-        console.log('useEffect: Request completed, setting loading to false');
-      });
+
+        console.log('useEffect: Axios response received:', response);
+        const projects = response.data?.data || [];
+
+        setAllProjects(response.data); // Store all raw response data
+
+        const projectData = projects.find((p) => {
+          const projectSlug = generateSlug(p.name);
+          return projectSlug === slug;
+        });
+
+        console.log('useEffect: Found project data:', projectData);
+
+        if (projectData) {
+          const heroImage = projectData.hero_img_original?.startsWith('http')
+            ? projectData.hero_img_original
+            : '';
+
+          const projectState = {
+            id: projectData.id,
+            project_id: projectData.project_id,
+            title: projectData.name || 'Untitled Project',
+            slug: projectData.slug || generateSlug(projectData.name),
+            price: projectData.tag_price
+              ? `₹ ${projectData.tag_price} CR* ONWARDS`
+              : 'Price on Request',
+            size: projectData.pricing_layout?.[0]?.title || '',
+            feet: projectData.pricing_layout?.[0]?.description || '',
+            location: projectData.property?.name || '',
+            image: projectData.hero_img || 'https://via.placeholder.com/300',
+            overview: projectData.overview_content || 'No overview available.',
+            amenities: projectData.amenities || [],
+            properties: projectData.property_types || [{ type: 'N/A', size: 'Contact for details' }],
+            calling_number: projectData.calling_number || 'N/A',
+            gallery_images: projectData.gallery_image_original || [],
+            disclaimer: projectData.disclaimer || 'No disclaimer available.',
+            highlights: projectData.highlights || 'No highlights available.',
+            rera_num_on_img: projectData.rera_num_on_img || 'N/A',
+            schedule_meeting: projectData.schedule_meeting || 'N/A',
+            sectors: projectData.sectors || 'N/A',
+            specification: projectData.specification || 'N/A',
+            state: projectData.state || { name: 'Unknown', city: {} },
+            state_rera_num_on_img: projectData.state_rera_num_on_img || 'N/A',
+            tag_line: projectData.tag_line || 'N/A',
+            url: projectData.url || 'N/A',
+            whatsapp_number: projectData.whatsapp_number || 'N/A',
+            property: projectData.property || { id: null, name: 'N/A' },
+            location_advantages: projectData.location_advantages || [],
+          };
+
+          console.log('useEffect: Setting project state with:', projectState);
+          setProject(projectState);
+          setBannerImage(heroImage);
+        } else {
+          console.warn('useEffect: Project not found for slug:', slug);
+          setBannerImage(backpg);
+        }
+      } catch (err) {
+        console.error('useEffect: Error fetching project:', err.message);
+        console.error('Details:', err.response || err.request || err);
+      } finally {
+        console.log('useEffect: Request completed');
+      }
+    };
+
+    fetchProjectData();
   }, [slug]);
+
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+
   return (
     <>
       <main className="project-page">
-        <section className="Main-banner project-baner" data-speed="1.5">
+              <Modal show={show} onHide={handleClose} centered dialogClassName="popup-modal">
+                <div className="popup-card">
+                <Button variant="dark" className='ssksk' onClick={handleClose}>
+                      x
+                    </Button>
+                  <Modal.Header className="popup-header">
+        <p class="Logo">SLOC</p>
+                  </Modal.Header>
+                  <Modal.Body className="popup-body">
+                  <Modal.Title>Thank you for reaching out!</Modal.Title>
+                    One of our representatives will get in touch with you soon.
+                  </Modal.Body>
+                  <Modal.Footer className="popup-footer">
+
+                  </Modal.Footer>
+                </div>
+              </Modal>
+        <section className="Main-banner project-baner" data-speed="1.5"
+  style={{
+    backgroundImage: `url(${bannerImage || ''})`,
+  }}>
           <Container>
             <Navbar expand="lg" className="Main-nav pr " ref={navbarRef} collapseOnSelect>
               <Container className="end-toend">
@@ -497,7 +1045,7 @@ function project() {
                 className="top-co text-center"
                 data-aos="fade-right"
                 data-aos-easing="ease-in-sine"
-                data-aos-offset="300"
+                data-aos-offset="100"
               >
                 {/* <h1>GODREJ VRIKSHYA</h1> */}
                 <h1>{project?.title}</h1>
@@ -524,66 +1072,92 @@ function project() {
             </div>
             <div className="d-flex align-items-md-center searc-bar  justify-content-between">
               <div className="form-set">
-                <form>
-                  <h5 className="m-0">Enquire Now</h5>
+              <form onSubmit={handleSubmit}>
+            <h5 className="m-0">Enquire Now</h5>
 
-                  <div className=" set-ww">
-                    <input
-                      type="text"
-                      className="form-control "
-                      placeholder="Enter Name"
-                      name="name"
-                      required
-                    />
-                  </div>
+            <div className="set-ww">
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Enter Name"
+                name="name"
+                value={formData.name}
+                // onChange={handleChange}
+                onChange={(e) => {
+                  // Allow only alphabets and spaces
+                  const value = e.target.value.replace(/[^a-zA-Z\s]/g, '');
+                  setFormData((prev) => ({
+                    ...prev,
+                    name: value,
+                  }));
+                }}
+              />
+              {errors.name && <span className="text-danger">{errors.name}</span>}
+            </div>
 
-                  <div className=" input-group long-one">
-                    {/* <span className="input-group-text">🇮🇳 +91</span> */}
-                    <input
-                      type="tel"
-                      className="form-control"
-                      placeholder="Enter Mobile Number"
-                      name="mobile"
-                      ref={phoneInputRef1}
-                      required
-                    />
-                  </div>
+            <div className="input-group long-one">
+              <input
+                type="tel"
+                className="form-control"
+                placeholder="Enter Mobile Number"
+                name="mobile"
+                value={formData.mobile}
+                ref={phoneInputRef1}
+                minLength={6}
+                maxLength={15}
+                onKeyPress={(e) => {
+                  // Allow only numeric input
+                  const isNumeric = /^[0-9]*$/.test(e.key);
+                  if (!isNumeric) {
+                    e.preventDefault();
+                  }
+                }}
+                onChange={(e) => {
+                  // Ensure only numbers are set in the value
+                  const value = e.target.value.replace(/[^0-9]/g, '');
+                  setFormData((prev) => ({
+                    ...prev,
+                    mobile: value,
+                  }));
+                }}
+              />
+              {errors.mobile && <span className="text-danger">{errors.mobile}</span>}
+            </div>
 
-                  <div className=" set-ww">
-                    <input
-                      type="email"
-                      className="form-control "
-                      placeholder="Enter Email"
-                      name="email"
-                      required
-                    />
-                  </div>
+            <div className="set-ww">
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Enter Email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+              />
+              {errors.email && <span className="text-danger">{errors.email}</span>}
+            </div>
 
-                  <div className="form-check  text-white">
-                    <input
-                      className="form-check-input"
-                      type="checkbox"
-                      name="agree"
-                      id="agreeCheck"
-                      required
-                    />
-                    <label className="form-check-label" htmlFor="agreeCheck">
-                      I agree to be contacted via{" "}
-                      <span className="diff-color">
-                        Call, SMS, WhatsApp & Email
-                      </span>
-                    </label>
-                  </div>
+            <div className="form-check text-white">
+              <input
+                className="form-check-input"
+                type="checkbox"
+                name="agree"
+                checked={formData.agree}
+                onChange={handleChange}
+                id="agreeCheck"
+              />
+              <label className="form-check-label" htmlFor="agreeCheck">
+                I agree to be contacted via{" "}
+                <span className="diff-color">Call, SMS, WhatsApp & Email</span>
+              </label>
+              {errors.agree && <span className="text-danger">{errors.agree}</span>}
+            </div>
 
-                  <div className="d-grid">
-                    <button
-                      type="submit"
-                      className="btn btn-light text-dark all-same-ani"
-                    >
-                      Submit
-                    </button>
-                  </div>
-                </form>
+            <div className="d-grid">
+              <button type="submit" className="btn btn-light text-dark all-same-ani">
+                Submit
+              </button>
+            </div>
+          </form>
               </div>
             </div>
             <div className="lastbar" id="second-section">
@@ -929,7 +1503,7 @@ function project() {
                 data-aos-offset="300"
               >
                 <div className="row">
-                  <Col md={6}>
+                  {/* <Col md={6}>
                     <div className="kach">
                           <h6>Burj Khalifa </h6>
                           <div className="kack-inline">
@@ -964,7 +1538,18 @@ function project() {
                             <span>40 Min</span>
                           </div>
                     </div>
-                  </Col>
+                  </Col> */}
+                  {project?.location_advantages.map((advantage, index) => (
+                <Col md={6} key={index}>
+                  <div className="kach">
+                    <h6>{advantage.location}</h6>
+                    <div className="kack-inline">
+                      <img src={Time} className="kckck" alt="Time icon" />
+                      <span>{advantage.distance}</span>
+                    </div>
+                  </div>
+                </Col>
+              ))}
                 </div>
               </Col>
             </Row>
@@ -997,10 +1582,13 @@ function project() {
                 <div className="over">
                   <Row className="achivments">
                     <Col className="image-showcase">
-                      <img src={f1} />
-                      <img src={f2} />
-                      <img src={f3} />
-                      <img src={f1} />
+                    {project?.gallery_images && project.gallery_images.length > 0 ? (
+  project.gallery_images.map((imgUrl, idx) => (
+    <img key={idx} src={imgUrl} alt={`gallery-${idx}`} />
+  ))
+) : (
+  <p>No images available</p>
+)}
                     </Col>
                   </Row>
                 </div>
@@ -1081,7 +1669,7 @@ function project() {
                   className="same-head"
                   data-aos="fade-right"
                   data-aos-easing="ease-in-sine"
-                  data-aos-offset="300"
+                  data-aos-offset="100"
                 >
                   Schedule Meeting
                 </h2>
@@ -1089,7 +1677,7 @@ function project() {
                   className="same-head-p"
                   data-aos="fade-right"
                   data-aos-easing="ease-in-sine"
-                  data-aos-offset="300"
+                  data-aos-offset="100"
                 >
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
                   do eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -1097,13 +1685,13 @@ function project() {
                 <hr
                   data-aos="fade-right"
                   data-aos-easing="ease-in-sine"
-                  data-aos-offset="300"
+                  data-aos-offset="100"
                 />
                 <p
                   className="mb-4"
                   data-aos="fade-right"
                   data-aos-easing="ease-in-sine"
-                  data-aos-offset="300"
+                  data-aos-offset="100"
                 >
                   15th Floor, Ocus Quantum, Sector-51,
                   <br /> Gurugram, Haryana - 122003
@@ -1113,7 +1701,7 @@ function project() {
                   className="banner-button"
                   data-aos="fade-right"
                   data-aos-easing="ease-in-sine"
-                  data-aos-offset="300"
+                  data-aos-offset="100"
                 >
                   Contact us for More info
                 </Button>
@@ -1125,10 +1713,10 @@ function project() {
                   className="form-set"
                   data-aos="fade-left"
                   data-aos-easing="ease-in-sine"
-                  data-aos-offset="300"
+                  data-aos-offset="100"
                 >
                   <h5>Enter details to schedule meeting</h5>
-                  <form onSubmit={handleSubmit}>
+                  <form onSubmit={handleSubmit1}>
                     <div className="mb-3">
                       <input
                         type="text"
@@ -1136,26 +1724,45 @@ function project() {
                         placeholder="Enter Name"
                         name="name"
                         value={formData.name}
-                        onChange={handleChange}
+                        // onChange={handleChange1}
+                        onChange={(e) => {
+                          // Allow only alphabets and spaces
+                          const value = e.target.value.replace(/[^a-zA-Z\s]/g, '');
+                          setFormData((prev) => ({
+                            ...prev,
+                            name: value,
+                          }));
+                        }}
                       />
-                      {errors.name && (
-                        <span style={{ color: "red" }}>{errors.name}</span>
+                      {errors1.name && (
+                        <span style={{ color: "red" }}>{errors1.name}</span>
                       )}
                     </div>
 
                     <div className="mb-3">
-                      <input
-                        type="tel"
-                        className="form-control"
-                        placeholder="Enter Mobile Number"
-                        name="mobile"
-                        ref={phoneInputRef}
-                        minLength={6}
-                        maxLength={15}
-                      />
+                    <input
+                type="tel"
+                className="form-control"
+                placeholder="Enter Mobile Number"
+                name="mobile"
+                value={formData.mobile}
+                ref={phoneInputRef}
+                minLength={6}
+                maxLength={15}
+
+                onChange={(e) => {
+                  // Ensure only numbers are set in the value
+                  const value = e.target.value.replace(/[^0-9]/g, '');
+                  setFormData((prev) => ({
+                    ...prev,
+                    mobile: value,
+                  }));
+                }}
+              />
+
                     </div>
-                    {errors.mobile && (
-                      <span style={{ color: "red" }}>{errors.mobile}</span>
+                    {errors1.mobile && (
+                      <span style={{ color: "red" }}>{errors1.mobile}</span>
                     )}
 
                     <div className="mb-3">
@@ -1164,11 +1771,11 @@ function project() {
                         className="form-control"
                         placeholder="Enter Email"
                         name="email"
-                        value={formData.email}
-                        onChange={handleChange}
+                        value={formData1.email}
+                        onChange={handleChange1}
                       />
-                      {errors.email && (
-                        <span style={{ color: "red" }}>{errors.email}</span>
+                      {errors1.email && (
+                        <span style={{ color: "red" }}>{errors1.email}</span>
                       )}
                     </div>
 
@@ -1177,16 +1784,16 @@ function project() {
                         className="form-check-input"
                         type="checkbox"
                         name="agree"
-                        checked={formData.agree}
-                        onChange={handleChange}
+                        checked={formData1.agree}
+                        onChange={handleChange1}
                         id="agreeCheck"
                       />
                       <label className="form-check-label" htmlFor="agreeCheck">
                         I agree to be contacted via Call, SMS, WhatsApp & Email
                       </label>
                     </div>
-                    {errors.agree && (
-                      <span style={{ color: "red" }}>{errors.agree}</span>
+                    {errors1.agree && (
+                      <span style={{ color: "red" }}>{errors1.agree}</span>
                     )}
 
                     <div className="d-grid">
@@ -1262,7 +1869,7 @@ function project() {
                   alt={project.name}
                 />
                 <Card.Body className="uper-space">
-                  <Card.Text className="mb-4 btn-loc">
+                  <Card.Text className="mb-4 btn-loc uprkro">
                     {project.specification ? (
                       <>
                         <span>{project.specification.split(' ')[0]}</span>{" "}
@@ -1273,7 +1880,7 @@ function project() {
                   </Card.Text>
                   <Card.Title>{project.name}</Card.Title>
                   <Card.Text className="text-primary font-weight-bold">
-                    ₹{project.tag_price} {project.tag_price ? 'Lakh' : 'N/A'}
+                    ₹{project.tag_price} {project.tag_price ? 'CR* ONWARDS' : 'Price on Request'}
                   </Card.Text>
                   <Button
                     as={Link}
@@ -1331,78 +1938,26 @@ function project() {
         </section>
         <footer className="">
           <Container>
-            <Row className="mb-4 justify-content-between">
-              <Col lg={5} md={6} className="mb-4 mb-md-0 p-md-0">
+            <Row className="mb-4 ">
+              <Col lg={3} md={6} className="mb-4 mb-md-0 p-md-0 align-content-center">
                 <div className="footer-logo">
                   <Link to="/">
-                    <p className="Logo">SLOC</p>
+                    <img src={logo} />
                   </Link>
                 </div>
-                <p className="my-2">
-                  We bring you the finest real estate choices with trust and
-                  excellence. Get set to Dream, Discover, and Deal.
-                </p>
-                <p className="my-3 set-wi">
+
+
+
+
+              </Col>
+              <Col lg={4} md={6} sm={12 } className="mb-4 mb-md-0 res-st wi align-content-center justify-content-center">
+               <p className="my-3 rerera ">
                   HARYANA RERA - HRERA-PKL-REA-3396-2025
                 </p>
+                </Col>
 
-                <div className="mb-2">
-                  <h6 className="text-uppercase ft-font">FOLLOW US AT</h6>
-                </div>
-                <div className="d-flex gap-4 mt-4">
-                  <Link
-                    to="https://www.linkedin.com/company/india-sloc"
-                    target="blank"
-                    className=""
-                  >
-                    <img src={linkdin} />
-                  </Link>
 
-                  <Link
-                    to="https://www.instagram.com/sloc.in/"
-                    className=""
-                    target="blank"
-                  >
-                    <img src={Instagram} />
-                  </Link>
-                  <Link
-                    to="https://www.facebook.com/sloc.in"
-                    className=""
-                    target="blank"
-                  >
-                    <img src={Facebook} />
-                  </Link>
-                </div>
-              </Col>
-
-            <Col lg={2} md={6} sm={6} className="mb-4 mb-md-0 res-st">
-              <h6 className="text-uppercase ft-font mb-3">QUICK LINKS</h6>
-              <ul className="list-unstyled mb-0">
-                <li className="mb-2">
-                  <Link to="/" className="text-decoration-none  ">
-                    Home
-                  </Link>
-                </li>
-                <li className="mb-2">
-                  <Link to="/about-us" className="text-decoration-none  ">
-                    About Us
-                  </Link>
-                </li>
-                <li className="mb-2">
-                  <Link to="/blog-listing" className="text-decoration-none  ">
-                    BLOG
-                  </Link>
-                </li>
-                <li className="mb-2">
-                  <Link to="/contact-us" className="text-decoration-none  ">
-                    CONTACT US
-                  </Link>
-                </li>
-              </ul>
-            </Col>
-
-            <Col lg={2} md={6} sm={6} className="mb-4 mb-md-0 res-st">
-              <h6 className="text-uppercase ft-font mb-3">Policies</h6>
+            <Col lg={5} md={12} sm={12} className="mb-4 mb-md-0 res-st  wi newfotr align-content-center justify-content-end">
               <ul className="list-unstyled mb-0">
                 <li className="mb-2">
                   <Link to="/disclaimer" className="text-decoration-none  ">
@@ -1425,17 +1980,6 @@ function project() {
 
 
 
-              <Col lg={2} md={6} className="mb-4 mb-md-0 res-st">
-                <h6 className="text-uppercase ft-font mb-3">Contact Us</h6>
-                <p className=" mb-1">15th Floor, Ocus Quantum,</p>
-                <p className=" mb-1">Sector-51, Gurugram, Haryana, 122003 </p>
-                <p className=" my-3">
-                  <a href="mailto:contact@sloc.in">contact@sloc.in</a>{" "}
-                </p>
-                <p className=" mb-1">
-                  <a href="tel:+919971094108">+919971094108</a>
-                </p>
-              </Col>
             </Row>
 
             <Row className="border-top-set pt-3 mt-2">

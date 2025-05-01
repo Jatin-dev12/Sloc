@@ -7,6 +7,10 @@ main.project-page {
 .text-sm-center {
   text-align: left !important;
 }
+.pr {
+  position: fixed !important;
+
+}
 @media screen and (max-width: 1650px) {
   .timeline-line {
     height: 194vh;
@@ -44,7 +48,7 @@ main.project-page {
     font-size: 42px;
   }
   .socail-name {
-    font-size: 30px;
+    font-size: 24px;
   }
   .social-p {
     font-size: 15px;
@@ -166,6 +170,31 @@ main.project-page {
   .project-baner form {
     flex-wrap: wrap;
   }
+  .project-baner .searc-bar .form-set h5 {
+    color: #064685!important;
+    font-size: 20px !important;
+}
+.project-baner .searc-bar button.iti__selected-country {
+  padding-left: 0px !important;
+}
+.searc-bar input.form-control.iti__tel-input {
+  padding-left: 100px !important;
+}
+.enqiur {
+  display: block;
+  width: 100%;
+}
+.project-baner form {
+
+  row-gap: 20px;
+}
+.rerera {
+  text-align: center;
+  font-size: 14px;
+}
+.newfotr ul a.text-decoration-none {
+font-size: 14px;
+}
 }
 @media screen and (max-width: 1300px) {
   p.Logo {
@@ -190,7 +219,7 @@ main.project-page {
     font-size: 16px;
   }
   .socail-name {
-    font-size: 26px;
+    font-size: 24px;
   }
   span.Counter-no {
     font-size: 65px;
@@ -236,6 +265,7 @@ main.project-page {
     margin: 0;
     padding: 0;
   }
+
 }
 @media screen and (max-width: 1200px) {
   section.Main-banner h1 {
@@ -387,7 +417,6 @@ main.project-page {
     font-size: 16px;
   }
   .alliance.row .brdr img {
-    /* width: 70%; */
     object-fit: contain;
     height: 70%;
   }
@@ -447,9 +476,7 @@ main.project-page {
   .achiv p {
     font-size: 14px;
   }
-  .alliance.row .brdr img {
-    width: 100%;
-  }
+
   .top-co p {
     font-size: 16px;
   }
@@ -870,6 +897,9 @@ span.bl-full {
   .about-sloc img.scrol-top {
     display: none;
   }
+  img.uper-set{
+    display: none;
+  }
   section.welcome {
     padding-top: 40px !important;
   }
@@ -968,6 +998,20 @@ br {
 
   border: none;
 }
+p.my-3.rerera {
+  text-align: left;
+}
+.newfotr ul {
+
+  justify-content: start;
+}
+.wi {
+  width: unset !important;
+}
+.pr {
+  position: absolute !important;
+
+}
 }
 @media screen and (max-width: 578px) {
   section.Main-banner h1 {
@@ -975,6 +1019,9 @@ br {
   }
   h6.aminites-adv {
     font-size: 14px !important;
+}
+.newfotr ul{
+  flex-direction: column;
 }
   section.welcome {
     padding-top: 40px !important;
@@ -1008,9 +1055,7 @@ br {
   .why-us .row {
     padding: 15px;
   }
-  .alliance.row .brdr img {
-    width: unset;
-  }
+
   .service-row.border-white {
     padding: 20px !important;
     gap: 10px;
@@ -1040,5 +1085,12 @@ img.back-roll {
 }
 .btm-s {
   padding: 20px !important;
+}
+.wi {
+  width: unset !important;
+}
+.project-baner .searc-bar {
+  margin-top: 145px!important;
+
 }
 }

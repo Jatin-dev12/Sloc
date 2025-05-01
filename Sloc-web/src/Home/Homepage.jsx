@@ -158,6 +158,82 @@ gsap.registerPlugin(ScrollTrigger);
 function Home() {
 
 
+  const [Blogs, setBlogs] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const stripHtmlAndTruncate = (html, maxLength = 100) => {
+    if (!html) return 'No description available';
+
+    // Remove HTML tags
+    const plainText = html.replace(/<[^>]+>/g, '');
+
+    // Remove extra whitespace and truncate
+    const trimmedText = plainText.replace(/\s+/g, ' ').trim();
+    return trimmedText.length > maxLength
+      ? `${trimmedText.substring(0, maxLength)}...`
+      : trimmedText;
+  };
+  // Function to generate slug (reused from your code)
+  const generateBlogsSlug = (name) => {
+    return name
+      ? name
+          .toLowerCase()
+          .replace(/[^a-z0-9]+/g, '-') // Replace non-alphanumeric characters with hyphens
+          .replace(/(^-|-$)/g, '') // Remove leading/trailing hyphens
+      : 'untitled-blog'; // Fallback slug
+  };
+  useEffect(() => {
+    const baseUrl = import.meta.env.VITE_BASE_URL || 'https://default-api-url.com/';
+    const apiUrl = `${baseUrl}api/blogs`;
+
+    axios
+      .get(apiUrl, {
+        headers: {
+          Authorization: `Bearer AzlrVK30FVdEx0TwrRwqYrQTL`,
+        },
+      })
+      .then((response) => {
+        if (response.data.success) {
+          console.log('Blogs fetched successfully:', response.data.data);
+          const apiBlogs = response.data.data;
+
+          // Map API response to the required blog structure
+          const mappedBlogs = apiBlogs.map((blog, index) => ({
+            id: blog.id || `blog-${index + 1}`, // Use API id or fallback
+            name: blog.name || 'Untitled Blog', // Use 'name' from API
+            slug: generateBlogsSlug(blog.name), // Generate slug from 'name'
+            image: blog.banner
+              ? `${blog.banner}` // Prepend baseUrl to banner image path
+              : [blog1, blog2, blog3][index % 3] || blog1, // Fallback to static images
+              text: stripHtmlAndTruncate(blog.short_description || blog.description, 100), // Strip HTML and truncate
+              date: blog.created_at
+              ? new Date(blog.created_at).toLocaleDateString('en-US', {
+                  day: 'numeric',
+                  month: 'long',
+                  year: 'numeric',
+                }) // Format created_at
+              : 'Unknown Date',
+            catagory: blog.keywords || 'General', // Use keywords as category or fallback
+            BlogImage: BottomImg1, // Static fallback
+            BlogImages: BottomImg11, // Static fallback
+          }));
+
+          setBlogs(mappedBlogs);
+        } else {
+          throw new Error('API response was not successful');
+        }
+      })
+      .catch((error) => {
+        console.error('Error fetching blogs:', error);
+        setError('Failed to load blogs. Please try again later.');
+        // Optionally, fallback to static data
+        // setBlogs(staticBlogs);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, []);
+
   useEffect(() => {
     // Simulate a click on the "scroll-to-top" button when the page loads
     const scrollButton = document.getElementById('scroll-to-top-btn');
@@ -180,30 +256,6 @@ useEffect(() => {
   const baseUrl = import.meta.env.VITE_BASE_URL || 'https://default-api-url.com/';
   const apiUrl = `${baseUrl}api/projects`;
 
-  // Define static projects
-  // const staticProjects = [
-  //   {
-  //     id: 'static-1',
-  //     title: 'Luxury Villa',
-  //     price: '₹ 5 CR* ONWARDS',
-  //     location: 'Downtown City',
-  //     size: '4 BHK',
-  //     feet: '3000 - 4000 Sq.Ft.',
-  //     image: 'https://via.placeholder.com/300',
-  //     bottomImage: BottomImg1,
-  //   },
-  //   {
-  //     id: 'static-2',
-  //     title: 'Skyline Apartments',
-  //     price: 'Price on Request',
-  //     location: 'Uptown Area',
-  //     size: '3 BHK',
-  //     feet: '1800 - 2500 Sq.Ft.',
-  //     image: 'https://via.placeholder.com/300',
-  //     bottomImage: BottomImg2,
-  //   },
-  // ];
-
   axios
     // .get(apiUrl)
     .get(apiUrl, {
@@ -215,27 +267,20 @@ useEffect(() => {
       if (response.data.success) {
         console.log('Projects fetched successfully:', response.data.data);
         const apiProjects = response.data.data;
-        setApiProjectsCount(apiProjects.length); // Store API projects count
-
-        // Map API response to the required project structure
+        setApiProjectsCount(apiProjects.length);
         const mappedApiProjects = apiProjects.map((project, index) => ({
           id: project.id,
           title: project.name || 'Untitled Project',
           slug: generateSlug(project.name), // Generate slug from name
           price: project.tag_price ? `₹ ${project.tag_price} CR* ONWARDS` : 'Price on Request',
-          // location: project.address || 'Unknown Location',
-          // size: project.specification || '',
-          // feet: project.disclaimer || '',
-          // location: project.address || 'Unknown Location',
-          size: project.property.name || '',
-          // feet: project.disclaimer || '',
-          feet: '',
-          image: project.hero_img || 'https://admin.sloc.in/public/feature_image/1745472810_f1.png',
+          // size: project.property.name || '',
+          // feet: '',
+          size: project.pricing_layout[0]?.title || '', // Use title from first index of pricing_layout
+          feet: project.pricing_layout[0]?.description || '', // Use description from first index of pricing_layout
+          location: project.property.name || '',
+          image: project.hero_img_original || 'https://admin.sloc.in/public/feature_image/1745472810_f1.png',
           bottomImage: [BottomImg1, BottomImg2, BottomImg3, BottomImg4][index % 4] || BottomImg1,
         }));
-
-        // Combine API projects with static projects
-        // const combinedProjects = [...mappedApiProjects, ...staticProjects];
         const combinedProjects = [...mappedApiProjects];
         setProjects(combinedProjects);
       }
@@ -498,410 +543,259 @@ useEffect(() => {
   const bottomImageRefs = useRef([]);
   const section2ImageRef = useRef(null);
 
-    //3.) Testimonials section
-
-//     useEffect(() => {
-//       const boxes = boxRefs.current;
-//       const images = imageRefs.current;
-//       const bottomImages = bottomImageRefs.current;
-//       const section2Image = section2ImageRef.current;
-
-
-//       images.forEach((img, index) => {
-//         const box = boxes[index];
-//         // const cardImg = box.querySelector('img.card-img-top'); // Get the <Card.Img>
-
-//         if (!box) return; // Skip if box is undefined
-//     const cardImg = box.querySelector('img.card-img-top');
-//     if (!cardImg) return; // Skip if cardImg is not found
-
-//         const getOffsets = () => {
-//           const cardImgRect = cardImg.getBoundingClientRect();
-//           const imgRect = img.getBoundingClientRect();
-//           // Target 220px above the top-right corner of the card's top image
-//           return {
-//             x: cardImgRect.right - imgRect.width / 2 - imgRect.left, // Center at right edge
-//             y: cardImgRect.top - 229 + imgRect.height / 2 - imgRect.top, // Center 220px above top
-//           };
-//         };
-
-//         gsap.fromTo(
-//           img,
-//           {
-//             x: 0,
-//             y: -170,
-//             scale: 1,
-//             opacity: 1,
-//             visibility: "hidden",
-//           },
-//           {
-//             x: () => getOffsets().x,
-//             y: () => getOffsets().y,
-//             scale: 1,
-//             opacity: 1,
-//             visibility: "visible",
-//             ease: "power2.out",
-//             scrollTrigger: {
-//               trigger: section1Ref.current,
-//               start: "top center+=135",
-//               end: "bottom center",
-//               scrub: 0.6,
-//               onUpdate: (self) => {
-//                 const imgRect = img.getBoundingClientRect();
-//                 const boxRect = box.getBoundingClientRect();
-//                 const isInside = imgRect.top < boxRect.bottom && imgRect.bottom > boxRect.top;
-//                 if (isInside) {
-//                   // box.style.backgroundColor = "#EFF7FE";
-//                   box.style.backgroundColor = "";
-//                 } else {
-//                   box.style.backgroundColor = "";
-//                 }
-//               },
-//               onComplete: () => {
-//                 gsap.set(img, { visibility: "hidden" }); // Hide to "stick" at position
-//               },
-//             },
-//           }
-//         );
-//       });
-
-// // Bottom Images Animation: Move into center of section2Image
-// // Bottom Images: Animate to center of section2Image
-// bottomImages.forEach((img) => {
-//   const getOffsets = () => {
-//     const imgRect = img.getBoundingClientRect();
-//     const targetRect = section2Image.getBoundingClientRect();
-//     return {
-//       x: targetRect.left + targetRect.width / 2 - (imgRect.left + imgRect.width / 2),
-//       y: targetRect.top + targetRect.height / 2 - (imgRect.top + imgRect.height / 2),
-//     };
-//   };
-
-//   gsap.fromTo(
-//     img,
-//     {
-//       x: -110,
-//       y: 0,
-//       scale: 0.1,
-//       opacity: 0,
-//       visibility: "hidden",
-//     },
-//     {
-//       x: () => getOffsets().x,
-//       y: () => getOffsets().y,
-//       scale: 0.5,
-//       opacity: 1,
-//       duration: 7.5,
-//       visibility: "visible",
-//       ease: "power2.out",
-//       scrub: 6,
-//       scrollTrigger: {
-//         trigger: section2Ref.current,
-//         start: "top center+=70",
-//         end: "bottom center-=20",
-//         scrub: 6,
-//       },
-//     }
-//   );
-// });
-
-// // Synchronized Fade-Out: section2Image and bottomImages
-// // gsap.to([section2Image], {
-// //   opacity: 0,
-// //   scale: 0.4,
-// //   // duration: 3.5,
-// //   ease: "power2.out",
-// //   scrollTrigger: {
-// //     trigger: section2Ref.current,
-// //     start: "bottom center-=20",
-// //     end: "bottom center-=20",
-// //     scrub: 5,
-// //     onComplete: () => {
-// //       // Lock hidden state
-// //       gsap.set([section2Image, ...bottomImages], {
-// //         opacity: 0,
-// //         visibility: "hidden",
-// //         overwrite: true, // Prevent other animations from overriding
-// //       });
-// //       // Mark as hidden to block onEnter
-// //       bottomImages.forEach((img) => {
-// //         img.dataset.hidden = "true";
-// //       });
-// //       section2Image.dataset.hidden = "true";
-// //     },
-// //   },
-// // });
-
-// gsap.to([section2Image], {
-//   opacity: 0,
-//   scale: 0.4,
-//   // duration: 3.5,
-//   ease: "power2.out",
-//   scrollTrigger: {
-//     trigger: section2Ref.current,
-//     start: "bottom center-=20",
-//     end: "bottom center-=20",
-//     scrub: 5,
-//     onEnter: () => {
-//       section2Image.classList.add("new_hover");
-//     },
-//     onLeave: () => {
-//       section2Image.classList.remove("new_hover");
-//     },
-//     onComplete: () => {
-//       // Lock hidden state
-//       gsap.set([section2Image, ...bottomImages], {
-//         opacity: 0,
-//         visibility: "hidden",
-//         overwrite: true, // Prevent other animations from overriding
-//       });
-//       // Mark as hidden to block onEnter
-//       bottomImages.forEach((img) => {
-//         img.dataset.hidden = "true";
-//       });
-//       section2Image.dataset.hidden = "true";
-//     },
-//   },
-// });
-
-//     }, []);
 useEffect(() => {
-    // Configure ScrollTrigger
-    ScrollTrigger.config({ limitCallbacks: true, syncInterval: 100 });
+  // Configure ScrollTrigger
+  ScrollTrigger.config({ limitCallbacks: true, syncInterval: 100 });
 
-    // Only enable normalizeScroll for mobile
-    const isMobile = window.matchMedia('(max-width: 768px)').matches;
-    ScrollTrigger.normalizeScroll(isMobile);
+  // Only enable normalizeScroll for mobile
+  const isMobile = window.matchMedia('(max-width: 768px)').matches;
+  ScrollTrigger.normalizeScroll(isMobile);
 
-    // Exit early if projects or refs aren't ready
-    if (
-      !projects.length ||
-      !boxRefs.current ||
-      !imageRefs.current ||
-      !bottomImageRefs.current ||
-      !section2ImageRef.current ||
-      boxRefs.current.length < projects.length
-    ) {
-      console.log('Animation setup skipped: Waiting for projects or refs', {
-        projectsLength: projects.length,
-        boxesLength: boxRefs.current?.length || 0,
-        imagesLength: imageRefs.current?.length || 0,
-      });
+  // Exit early if projects or refs aren't ready
+  if (
+    !projects.length ||
+    !boxRefs.current ||
+    !imageRefs.current ||
+    !bottomImageRefs.current ||
+    !section2ImageRef.current ||
+    boxRefs.current.length < projects.length
+  ) {
+    console.log('Animation setup skipped: Waiting for projects or refs', {
+      projectsLength: projects.length,
+      boxesLength: boxRefs.current?.length || 0,
+      imagesLength: imageRefs.current?.length || 0,
+    });
+    return;
+  }
+
+  const boxes = boxRefs.current;
+  const images = imageRefs.current;
+  const bottomImages = bottomImageRefs.current;
+  const section2Image = section2ImageRef.current;
+
+  // Respect prefers-reduced-motion
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    gsap.set([...images, ...bottomImages, section2Image], {
+      opacity: 1,
+      x: 0,
+      y: 0,
+      scale: 1,
+      visibility: 'visible',
+    });
+    return;
+  }
+
+  // Throttle utility for onUpdate (increased interval for desktop)
+  const throttle = (func, limit) => {
+    let inThrottle;
+    return function (...args) {
+      if (!inThrottle) {
+        func.apply(this, args);
+        inThrottle = true;
+        setTimeout(() => (inThrottle = false), limit);
+      }
+    };
+  };
+
+  // Animation logic for images
+  images.forEach((img, index) => {
+    if (index >= projects.length || !boxes[index]) {
+      console.log(`Skipping index ${index}: Invalid data`);
       return;
     }
 
-    const boxes = boxRefs.current;
-    const images = imageRefs.current;
-    const bottomImages = bottomImageRefs.current;
-    const section2Image = section2ImageRef.current;
-
-    // Respect prefers-reduced-motion
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      gsap.set([...images, ...bottomImages, section2Image], {
-        opacity: 1,
-        x: 0,
-        y: 0,
-        scale: 1,
-        visibility: 'visible',
-      });
+    const box = boxes[index];
+    const cardImg = box.querySelector('img.card-img-top');  // Targeting card image
+    if (!cardImg) {
+      console.log(`Skipping index ${index}: card-img-top not found`);
       return;
     }
 
-    // Throttle utility for onUpdate (increased interval for desktop)
-    const throttle = (func, limit) => {
-      let inThrottle;
-      return function (...args) {
-        if (!inThrottle) {
-          func.apply(this, args);
-          inThrottle = true;
-          setTimeout(() => (inThrottle = false), limit);
-        }
-      };
+    // Calculate offsets based on cardImg's position
+    const cardImgRect = cardImg.getBoundingClientRect();
+    const imgRect = img.getBoundingClientRect();
+    const offsets = {
+      x: (cardImgRect.right - imgRect.width / 2 - imgRect.left) * 1.07,
+      y: cardImgRect.top - 50 + imgRect.height / 2 - imgRect.top,
     };
 
-    // Animation logic for images
-    images.forEach((img, index) => {
-      if (index >= projects.length || !boxes[index]) {
-        console.log(`Skipping index ${index}: Invalid data`);
-        return;
-      }
-      const box = boxes[index];
-      const cardImg = box.querySelector('img.card-img-top');
-      if (!cardImg) {
-        console.log(`Skipping index ${index}: card-img-top not found`);
-        return;
-      }
-
-      // Calculate offsets once
-      const cardImgRect = cardImg.getBoundingClientRect();
-      const imgRect = img.getBoundingClientRect();
-      const offsets = {
-        x: (cardImgRect.right - imgRect.width / 2 - imgRect.left) * 1.05,
-        y: cardImgRect.top - 50 + imgRect.height / 2 - imgRect.top,
-      };
-
-      // Use IntersectionObserver for background color change on desktop
-      if (!isMobile) {
-        const observer = new IntersectionObserver(
-          ([entry]) => {
-            box.style.backgroundColor = entry.isIntersecting ? '' : '';
-          },
-          { rootMargin: '0px', threshold: 0.1 }
-        );
-        observer.observe(img);
-      }
-
-      gsap.fromTo(
-        img,
-        {
-          x: 0,
-          y: -160,
-          scale: 1,
-          opacity: 1,
-          visibility: 'hidden',
+    // Use IntersectionObserver for background color change on desktop
+    if (!isMobile) {
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          box.style.backgroundColor = entry.isIntersecting ? '' : '';
         },
-        {
-          x: offsets.x,
-          y: offsets.y,
-          scale: 1,
-          opacity: 1,
-          visibility: 'visible',
-          ease: 'power2.out',
-          willChange: isMobile ? 'transform, opacity' : '', // Conditional willChange
-          scrollTrigger: {
-            trigger: section1Ref.current,
-            start: isMobile ? 'top 60%' : 'top 70%',
-            end: isMobile ? 'bottom 80%' : 'bottom 30%',
-            scrub: isMobile ? 1 : 0.5, // Lighter scrub for desktop
-            onUpdate: isMobile
-              ? throttle((self) => {
-                  const imgRect = img.getBoundingClientRect();
-                  const boxRect = box.getBoundingClientRect();
-                  const isInside = imgRect.top < boxRect.bottom && imgRect.bottom > boxRect.top;
-                  box.style.backgroundColor = isInside ? '' : '';
-                }, 200) // Increased throttle for desktop
-              : null,
-            onComplete: () => {
-              gsap.set(img, { visibility: 'hidden' });
-            },
-          },
-        }
+        { rootMargin: '0px', threshold: 0.1 }
       );
-    });
+      observer.observe(img);
+    }
 
-    // Bottom images animation
-    bottomImages.forEach((img) => {
-      const imgRect = img.getBoundingClientRect();
-      const targetRect = section2Image.getBoundingClientRect();
-      const offsets = {
-        x: targetRect.left + targetRect.width / 2 - (imgRect.left + imgRect.width / 2),
-        y: targetRect.top + targetRect.height / 2 - (imgRect.top + imgRect.height / 2),
-      };
+    gsap.fromTo(
+      img,
+      {
+        x: -10,
+        y: -160,
+        scale: 1,
+        opacity: 1,
+        visibility: 'hidden',
+      },
+      {
+        x: offsets.x,
+        y: offsets.y,
+        scale: 1,
+        opacity: 1,
+        visibility: 'visible',
+        ease: 'power2.out',
+        willChange: isMobile ? 'transform, opacity' : '', // Conditional willChange
+        scrollTrigger: {
+          trigger: section1Ref.current,
+          start: isMobile ? 'top 60%' : 'top 70%',
+          end: isMobile ? 'bottom 80%' : 'bottom 30%',
+          scrub: isMobile ? 1 : 0.5, // Lighter scrub for desktop
+          onUpdate: isMobile
+            ? throttle((self) => {
+                const imgRect = img.getBoundingClientRect();
+                const boxRect = box.getBoundingClientRect();
+                const isInside = imgRect.top < boxRect.bottom && imgRect.bottom > boxRect.top;
+                box.style.backgroundColor = isInside ? '' : '';
+              }, 200) // Increased throttle for desktop
+            : null,
+          onComplete: () => {
+            gsap.set(img, { visibility: 'hidden' });
+          },
+        },
+      }
+    );
+  });
 
-      gsap.fromTo(
-        img,
-        {
-          x: -50,
-          y: 0,
-          scale: 0.1,
+  // Bottom images animation
+  bottomImages.forEach((img) => {
+    const imgRect = img.getBoundingClientRect();
+    const targetRect = section2Image.getBoundingClientRect();
+    const offsets = {
+      x: targetRect.left + targetRect.width / 2 - (imgRect.left + imgRect.width / 2),
+      y: targetRect.top + targetRect.height / 2 - (imgRect.top + imgRect.height / 2),
+    };
+
+    gsap.fromTo(
+      img,
+      {
+        x: -50,
+        y: 0,
+        scale: 0.1,
+        opacity: 0,
+        visibility: 'hidden',
+      },
+      {
+        x: offsets.x,
+        y: offsets.y,
+        scale: 0.5,
+        opacity: 1,
+        duration: isMobile ? 3 : 2, // Shorter for desktop
+        visibility: 'visible',
+        ease: 'power2.out',
+        willChange: isMobile ? 'transform, opacity' : '',
+        scrollTrigger: {
+          trigger: section2Ref.current,
+          start: isMobile ? 'top 70%' : 'top 60%',
+          end: isMobile ? 'bottom 90%' : 'bottom 80%',
+          scrub: isMobile ? 7 : 7,
+        },
+      }
+    );
+  });
+
+  // Synchronized fade-out
+  gsap.to([section2Image], {
+    opacity: 0,
+    scale: 0.4,
+    ease: 'power2.out',
+    scrollTrigger: {
+      trigger: section2Ref.current,
+      start: isMobile ? 'bottom 90%' : 'bottom 80%',
+      end: isMobile ? 'bottom 90%' : 'bottom 80%',
+      scrub: isMobile ? 7 : 7,
+      onEnter: () => {
+        section2Image.classList.add('new_hover');
+      },
+      onLeave: () => {
+        section2Image.classList.remove('new_hover');
+      },
+      onComplete: () => {
+        gsap.set([section2Image, ...bottomImages], {
           opacity: 0,
           visibility: 'hidden',
-        },
-        {
-          x: offsets.x,
-          y: offsets.y,
-          scale: 0.5,
-          opacity: 1,
-          duration: isMobile ? 3 : 2, // Shorter for desktop
-          visibility: 'visible',
-          ease: 'power2.out',
-          willChange: isMobile ? 'transform, opacity' : '',
-          scrollTrigger: {
-            trigger: section2Ref.current,
-            start: isMobile ? 'top 70%' : 'top 60%',
-            end: isMobile ? 'bottom 90%' : 'bottom 80%',
-            scrub: isMobile ? 7 : 7,
-          },
-        }
-      );
-    });
-
-    // Synchronized fade-out
-    gsap.to([section2Image], {
-      opacity: 0,
-      scale: 0.4,
-      ease: 'power2.out',
-      scrollTrigger: {
-        trigger: section2Ref.current,
-        start: isMobile ? 'bottom 90%' : 'bottom 80%',
-        end: isMobile ? 'bottom 90%' : 'bottom 80%',
-        scrub: isMobile ? 7 : 7,
-        onEnter: () => {
-          section2Image.classList.add('new_hover');
-        },
-        onLeave: () => {
-          section2Image.classList.remove('new_hover');
-        },
-        onComplete: () => {
-          gsap.set([section2Image, ...bottomImages], {
-            opacity: 0,
-            visibility: 'hidden',
-          });
-          bottomImages.forEach((img) => {
-            img.dataset.hidden = 'true';
-          });
-          section2Image.dataset.hidden = 'true';
-        },
+        });
+        bottomImages.forEach((img) => {
+          img.dataset.hidden = 'true';
+        });
+        section2Image.dataset.hidden = 'true';
       },
+    },
+  });
+
+  // Debounced resize/orientation handler
+  let resizeTimeout;
+  const handleResize = () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 200);
+  };
+  window.addEventListener('resize', handleResize);
+  window.addEventListener('orientationchange', handleResize);
+
+  // Cleanup
+  return () => {
+    ScrollTrigger.getAll().forEach((trigger) => {
+      if (
+        trigger.trigger === section1Ref.current ||
+        trigger.trigger === section2Ref.current
+      ) {
+        trigger.kill();
+      }
     });
+    window.removeEventListener('resize', handleResize);
+    window.removeEventListener('orientationchange', handleResize);
+  };
+}, [projects]);
 
-    // Debounced resize/orientation handler
-    let resizeTimeout;
-    const handleResize = () => {
-      clearTimeout(resizeTimeout);
-      resizeTimeout = setTimeout(() => {
-        ScrollTrigger.refresh();
-      }, 200);
-    };
-    window.addEventListener('resize', handleResize);
-    window.addEventListener('orientationchange', handleResize);
-
-    // Cleanup
-    return () => {
-      ScrollTrigger.getAll().forEach((trigger) => {
-        if (
-          trigger.trigger === section1Ref.current ||
-          trigger.trigger === section2Ref.current
-        ) {
-          trigger.kill();
-        }
-      });
-      window.removeEventListener('resize', handleResize);
-      window.removeEventListener('orientationchange', handleResize);
-    };
-  }, [projects]);
     const logoRefs1 = useRef(null);
     const containerRefs1 = useRef(null);
     const getAnimationProps1 = (width) => {
       // Default values for larger screens (>1920px)
-      let props = {
+      let         props = {
         fromTo: {
-          from: { opacity: 0, y: -490, x: 1150 },
-          to: { opacity: 1, y: 50, x: 550, ease: 'power3.out', duration: 5.5 },
+          from: { opacity: 0, y: -450,scale:1.3, x: 90 },
+          to: { opacity: 1, y: -30, x: 100,scale: 0.7, ease: 'power3.out', duration: 4.8 },
         },
-        to: { opacity: 0, y: 550, x: 550, scale: 0, ease: 'power3.inOut', duration: 7.5 },
-        scrollTrigger: { start: 'top center+=30px', end: 'bottom center-=-30px', scrub: 1.2 },
-      };
-
-      // Adjust for specific breakpoints
-      if (width <= 425) {
+        to: { opacity: 0, y: 600, x: 20, scale: 0, ease: 'power3.inOut', duration: 6.5 },
+        scrollTrigger: { start: 'top 105%', end: 'bottom 35%', scrub: 0.9 },};
+      if (width <= 320) {
         props = {
           fromTo: {
-            from: { opacity: 0, y: -300,scale:1.3, x: 90 },
+            from: { opacity: 0, y: -450,scale:1.3, x: 90 },
+            to: { opacity: 1, y: -330, x: 100,scale: 0.7, ease: 'power3.out', duration: 4.8 },
+          },
+          to: { opacity: 0, y: 600, x: 20, scale: 0, ease: 'power3.inOut', duration: 6.5 },
+          scrollTrigger: { start: 'top 105%', end: 'bottom 35%', scrub: 0.9 },};
+      }  else   if (width <= 370) {
+        props = {
+          fromTo: {
+            from: { opacity: 0, y: -450,scale:1.3, x: 90 },
+            to: { opacity: 1, y: -330, x: 100,scale: 0.7, ease: 'power3.out', duration: 4.8 },
+          },
+          to: { opacity: 0, y: 600, x: 20, scale: 0, ease: 'power3.inOut', duration: 6.5 },
+          scrollTrigger: { start: 'top 105%', end: 'bottom 35%', scrub: 0.9 },};
+      } else if (width <= 425) {
+      // Adjust for specific breakpoints
+        props = {
+          fromTo: {
+            from: { opacity: 0, y: -450,scale:1.3, x: 90 },
             to: { opacity: 1, y: 30, x: 100,scale: 0.7, ease: 'power3.out', duration: 4.8 },
           },
           to: { opacity: 0, y: 600, x: 20, scale: 0, ease: 'power3.inOut', duration: 6.5 },
-          scrollTrigger: { start: 'top 75%', end: 'bottom 35%', scrub: 0.9 },};
+          scrollTrigger: { start: 'top 65%', end: 'bottom 35%', scrub: 0.9 },};
       } else if (width <= 574) {
         props = {
           fromTo: {
@@ -918,7 +812,7 @@ useEffect(() => {
             to: { opacity: 1, y: 40, x: 350, ease: 'power3.out', duration: 5 },
           },
           to: { opacity: 0, y: 550, x: 300, scale: 0, ease: 'power3.inOut', duration: 7 },
-          scrollTrigger: { start: 'top -30%', end: 'bottom -65%', scrub: 1 },
+          scrollTrigger: { start: 'top -30%', end: 'bottom -35%', scrub: 1 },
         };
       } else if (width <= 1100) {
         props = {
@@ -1044,483 +938,128 @@ useEffect(() => {
   const BlogBottomImageRefs = useRef([]);
   const BlogsBottomsectionRef = useRef(null);
   const Blogsection2Ref = useRef(null);
-  // useEffect(() => {
-  //   const boxes = BlogsboxRefs.current;
-  //   const images = BlogimageRefs.current;
-  //   const bottomImages = BlogBottomImageRefs.current;
-  //   const logoO = BlogsBottomsectionRef.current; // The <span> with "O"
+  useEffect(() => {
+    if (!Blogs.length || loading) return; // Skip if Blogs is empty or still loading
 
-  //   // Existing animation for images (unchanged)
-  //   images.forEach((img, index) => {
-  //     const box = boxes[index];
-  //     const cardImg = box.querySelector('img.card-img-top');
+    const boxes = BlogsboxRefs.current;
+    const images = BlogimageRefs.current;
+    const bottomImages = BlogBottomImageRefs.current;
+    const logoO = BlogsBottomsectionRef.current;
 
-  //     const getOffsets = () => {
-  //       const cardImgRect = cardImg.getBoundingClientRect();
-  //       const imgRect = img.getBoundingClientRect();
-  //       return {
-  //         x: cardImgRect.right - imgRect.width / 2 - imgRect.left,
-  //         y: cardImgRect.top - 200 + imgRect.height / 2 - imgRect.top,
-  //       };
-  //     };
+    // Customizable offsets for bottom images
+    const startOffset = { x: 230, y: -35 };
+    const endOffset = { x: 229, y: -24 };
 
-  //     gsap.fromTo(
-  //       img,
-  //       {
-  //         x: 0,
-  //         y: -170,
-  //         scale: 1,
-  //         opacity: 1,
-  //         visibility: "hidden",
-  //       },
-  //       {
-  //         x: () => getOffsets().x,
-  //         y: () => getOffsets().y,
-  //         scale: 1,
-  //         opacity: 1,
-  //         visibility: "visible",
-  //         ease: "power2.out",
-  //         scrollTrigger: {
-  //           trigger: blogsectionRef.current,
-  //           start: "top center+=105",
-  //           end: "bottom center",
-  //           scrub: 0.67,
-  //           onUpdate: (self) => {
-  //             const imgRect = img.getBoundingClientRect();
-  //             const boxRect = box.getBoundingClientRect();
-  //             const isInside = imgRect.top < boxRect.bottom && imgRect.bottom > boxRect.top;
-  //             box.style.backgroundColor = isInside ? "" : "";
-  //           },
-  //           onComplete: () => {
-  //             gsap.set(img, { visibility: "hidden" });
-  //           },
-  //         },
-  //       }
-  //     );
-  //   });
+    // Create a GSAP context for easy cleanup
+    const ctx = gsap.context(() => {
+      // Animation for top images
+      images.forEach((img, index) => {
+        const box = boxes[index];
+        if (!box || !img) return;
 
-  //   // New animation for bottomImages: Converge into the "O"
-  //   bottomImages.forEach((img) => {
-  //     const getOffsets = () => {
-  //       const imgRect = img.getBoundingClientRect();
-  //       const logoORect = logoO.getBoundingClientRect();
-  //       return {
-  //         x: logoORect.left + logoORect.width / 2 - (imgRect.left + imgRect.width / 2),
-  //         y: logoORect.top + logoORect.height / 2 - (imgRect.top + imgRect.height / 2),
-  //       };
-  //     };
+        const cardImg = box.querySelector('img.card-img-top');
+        if (!cardImg) return;
 
-  //     gsap.fromTo(
-  //       img,
-  //       {
-  //         x: 230, // Starting position (adjust as needed)
-  //         y: -60,
-  //         scale: 1,
-  //         opacity: 1,
-  //         visibility: "visible",
-  //       },
-  //       {
-  //         x: () => getOffsets().x,
-  //         y: () => getOffsets().y,
-  //         scale: 1, // Shrink to merge into "O"
-  //         opacity: 0, // Fade out as they converge
-  //         duration: 2,
-  //         ease: "power2.out",
-  //         scrollTrigger: {
-  //           trigger: Blogsection2Ref.current,
-  //           start: "top center+=420",
-  //           end: "bottom center-=20",
-  //           scrub: 2, // Smooth scroll-linked animation
-  //           onComplete: () => {
-  //             gsap.set(img, { visibility: "hidden", opacity: 0 });
-  //             img.dataset.hidden = "true";
-  //           },
-  //         },
-  //       }
-  //     );
-  //   });
+        const getOffsets = () => {
+          const cardImgRect = cardImg.getBoundingClientRect();
+          const imgRect = img.getBoundingClientRect();
+          const spacing = 13;
+          return {
+            x: cardImgRect.right - imgRect.width / 2 - imgRect.left + index * spacing,
+            y: cardImgRect.top - 180 + imgRect.height / 2 - imgRect.top,
+          };
+        };
 
-  //   // Optional: Add a subtle animation to the "O" to emphasize the merge
-  //   gsap.fromTo(
-  //     logoO,
-  //     { scale: 1, opacity: 1 },
-  //     {
-  //       scale: 1.6, // Slight pulse effect
-  //       opacity: 1,
-  //       duration: 1,
-  //       ease: "power2.out",
-  //       scrollTrigger: {
-  //         trigger: Blogsection2Ref.current,
-  //         start: "top center+=170",
-  //         end: "bottom center-=20",
-  //         scrub: 2,
-  //         onComplete: () => {
-  //           gsap.set(logoO, { scale: 1 });
-  //           logoO.dataset.hidden = "true";
-  //         },
-  //       },
-  //     }
-  //   );
-  // }, []);
-//   useEffect(() => {
-//     const boxes = BlogsboxRefs.current;
-//     const images = BlogimageRefs.current;
-//     const bottomImages = BlogBottomImageRefs.current;
-//     const logoO = BlogsBottomsectionRef.current;
+        gsap.fromTo(
+          img,
+          { x: 10, y: -145, scale: 1, opacity: 1, visibility: 'hidden' },
+          {
+            x: () => getOffsets().x,
+            y: () => getOffsets().y,
+            scale: 1,
+            opacity: 1,
+            visibility: 'visible',
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: blogsectionRef.current,
+              start: 'top 50%',
+              end: 'bottom center',
+              scrub: 1,
+              toggleActions: 'play none none reverse', // Explicitly reverse on scroll up
+              onUpdate: (self) => {
+                const imgRect = img.getBoundingClientRect();
+                const boxRect = box.getBoundingClientRect();
+                const isInside = imgRect.top < boxRect.bottom && imgRect.bottom > boxRect.top;
+                box.style.backgroundColor = isInside ? '' : '';
+              },
+            },
+          }
+        );
+      });
 
-//     // Customizable offsets for bottom images
-//     const startOffset = {
-//       x: 230,
-//       y: -35,
-//     };
-//     const endOffset = {
-//       x: 170,
-//       y: 60,
-//     };
+      // Animation for bottom images: Converge into the "O"
+      bottomImages.forEach((img, index) => {
+        if (!img || !logoO) return;
 
-//     // Animation for top images (unchanged except for removing onComplete hiding)
-//     images.forEach((img, index) => {
-//       const box = boxes[index];
-//       const cardImg = box.querySelector('img.card-img-top');
+        const fadeOutDuration = 0.01;
 
-//       const getOffsets = () => {
-//         const cardImgRect = cardImg.getBoundingClientRect();
-//         const imgRect = img.getBoundingClientRect();
-//         return {
-//           x: cardImgRect.right - imgRect.width / 2 - imgRect.left,
-//           y: cardImgRect.top - 210 + imgRect.height / 2 - imgRect.top,
-//         };
-//       };
+        const getOffsets = () => {
+          const imgRect = img.getBoundingClientRect();
+          const logoORect = logoO.getBoundingClientRect();
+          const targetX = logoORect.left + logoORect.width / 2 + endOffset.x;
+          const targetY = logoORect.top + logoORect.height / 2 + endOffset.y;
+          const imgCenterX = imgRect.left + imgRect.width / 2;
+          const imgCenterY = imgRect.top + imgRect.height / 2;
+          return {
+            x: targetX - imgCenterX,
+            y: targetY - imgCenterY,
+          };
+        };
 
-//       gsap.fromTo(
-//         img,
-//         {
-//           x: 0,
-//           y: -170,
-//           scale: 1,
-//           opacity: 1,
-//           visibility: "hidden",
-//         },
-//         {
-//           x: () => getOffsets().x,
-//           y: () => getOffsets().y,
-//           scale: 1,
-//           // opacity: 0,
-//           opacity: 1,
-//           visibility: "visible",
-//           ease: "power2.out",
-//           scrollTrigger: {
-//             trigger: blogsectionRef.current,
-//             start: "top center+=105",
-//             end: "bottom center",
-//             scrub: 0.67,
-//             onUpdate: (self) => {
-//               const imgRect = img.getBoundingClientRect();
-//               const boxRect = box.getBoundingClientRect();
-//               const isInside = imgRect.top < boxRect.bottom && imgRect.bottom > boxRect.top;
-//               box.style.backgroundColor = isInside ? "" : "";
-//               // gsap.set(img, { visibility: "hidden", opacity: 0 });
-//             },
-//             // Removed onComplete to prevent premature hiding
-//             // onComplete: () => {
-//             //   img.dataset.hidden = "true";
-//             // },
-//           },
-//         }
-//       );
-//     });
+        gsap.fromTo(
+          img,
+          { x: startOffset.x, y: startOffset.y, scale: 1, opacity: 0.3, visibility: 'visible' },
+          {
+            x: () => getOffsets().x,
+            y: () => getOffsets().y,
+            scale: 0.9,
+            opacity: 1,
+            visibility: 'visible',
+            duration: 6.1,
+            ease: 'sine.out',
+            scrollTrigger: {
+              trigger: Blogsection2Ref.current,
+              start: 'top 90%', // Adjusted to avoid premature start
+              end: 'bottom center+=370',
+              scrub: 3,
+              toggleActions: 'play none none reverse', // Explicitly reverse on scroll up
+              onEnter: () => {
+                images.forEach((topImg) => {
+                  gsap.set(topImg, { visibility: 'hidden', opacity: 0 });
+                  topImg.dataset.hidden = 'true';
+                });
+                gsap.set(img, { visibility: 'visible', opacity: 1 });
+              },
+            },
+            onComplete: () => {
+              gsap.to(img, {
+                opacity: 0,
+                visibility: 'hidden',
+                duration: fadeOutDuration,
+                ease: 'power2.in',
+                onComplete: () => {
+                  img.dataset.hidden = 'true';
+                },
+              });
+            },
+          }
+        );
+      });
+    });
 
-// // Animation for bottomImages: Converge into the "O"
-// bottomImages.forEach((img) => {
-//   const getOffsets = () => {
-//     const imgRect = img.getBoundingClientRect();
-//     const logoORect = logoO.getBoundingClientRect();
-//     const targetX = logoORect.left + logoORect.width / 2 + endOffset.x;
-//     const targetY = logoORect.top + logoORect.height / 2 + endOffset.y;
-//     const imgCenterX = imgRect.left + imgRect.width / 2;
-//     const imgCenterY = imgRect.top + imgRect.height / 2;
-//     return {
-//       x: targetX - imgCenterX,
-//       y: targetY - imgCenterY,
-//     };
-//   };
-
-//   gsap.fromTo(
-//     img,
-//     {
-//       x: startOffset.x,
-//       y: startOffset.y,
-//       scale: 1,
-//       opacity: 1,
-//       visibility: "hidden",
-//     },
-//     {
-//       x: () => getOffsets().x,
-//       y: () => getOffsets().y,
-//       scale: 0.9,
-//       opacity: 0,
-//       visibility: "visible",
-//       duration: 4, // Increased duration for a slower, longer animation
-//       ease: "power2.out",
-//       scrollTrigger: {
-//         trigger: Blogsection2Ref.current,
-//         start: "top center+=450",
-//         end: "bottom center+=500", // Extended end point to give more scroll time
-//         scrub: 1.5, // Increased scrub for smoother, slower animation
-//         onEnter: () => {
-//           // Hide initial images with display: none
-//           images.forEach((topImg) => {
-//             gsap.set(topImg, { display: "none" });
-//             topImg.dataset.hidden = "true";
-//           });
-//           // Ensure bottom image visibility
-//           gsap.set(img, { visibility: "visible", opacity: 1 });
-//         },
-//         onLeaveBack: () => {
-//           images.forEach((topImg) => {
-//             gsap.set(topImg, {
-//               display: topImg.dataset.originalDisplay || "block",
-//               opacity: 1, // Ensure opacity transitions back to 1
-//               delay: 1.3, // Delay restoration by 0.5 seconds
-//             });
-//             topImg.dataset.hidden = "false";
-//           });
-//           gsap.set(img, { visibility: "hidden", opacity: 0 });
-//         },
-//         onUpdate: (self) => {
-//           const offsets = getOffsets();
-//           gsap.set(img, { x: offsets.x, y: offsets.y });
-
-//           // Fade out early when scrolling back (progress < 0.3)
-//           if (self.direction === -1 && self.progress < 0.3) {
-//             const fadeProgress = self.progress / 0.3; // Normalize progress for fade
-//             gsap.set(img, { opacity: fadeProgress });
-//           } else if (self.direction === 1 && self.progress < 0.3) {
-//             // Ensure full opacity when scrolling forward at the start
-//             gsap.set(img, { opacity: 1 });
-//           }
-//         },
-//         onComplete: () => {
-//           gsap.set(img, { visibility: "hidden", opacity: 0 });
-//           img.dataset.hidden = "true";
-//         },
-//         onLeave: () => {
-//           // Delay hiding to ensure animation completion
-//           gsap.to(img, {
-//             visibility: "hidden",
-//             opacity: 0,
-//             delay: 0.5, // Add a 0.5-second delay before hiding
-//             onComplete: () => {
-//               img.dataset.hidden = "true";
-//             },
-//           });
-//         },
-//       },
-//     }
-//   );
-// });
-
-//     // Animation for the "O" (pulse effect)
-//     gsap.fromTo(
-//       logoO,
-//       { scale: 1, opacity: 1 },
-//       {
-//         scale: 1.2,
-//         opacity: 1,
-//         duration: 1,
-//         ease: "power2.out",
-//         scrollTrigger: {
-//           trigger: Blogsection2Ref.current,
-//           start: "top center+=260",
-//           end: "bottom center",
-//           scrub: 1,
-//           onComplete: () => {
-//             gsap.set(logoO, { scale: 1 });
-//             logoO.dataset.hidden = "true";
-//           },
-//         },
-//       }
-//     );
-//   }, []);
-
-useEffect(() => {
-  const boxes = BlogsboxRefs.current;
-  const images = BlogimageRefs.current;
-  const bottomImages = BlogBottomImageRefs.current;
-  const logoO = BlogsBottomsectionRef.current;
-
-  // Customizable offsets for bottom images
-  const startOffset = {
-    x: 230,
-    y: -35,
-  };
-  const endOffset = {
-    x: 229,
-    y: -24,
-  };
-
-  // Animation for top images
-  images.forEach((img, index) => {
-    const box = boxes[index];
-    const cardImg = box.querySelector('img.card-img-top');
-
-    const getOffsets = () => {
-      const cardImgRect = cardImg.getBoundingClientRect();
-      const imgRect = img.getBoundingClientRect();
-      const spacing = 7; // Increase this value to widen the gap between images
-      return {
-        // x: cardImgRect.right - imgRect.width / 2 - imgRect.left,
-        x: cardImgRect.right - imgRect.width / 2 - imgRect.left + index * spacing, // Add spacing per image
-        y: cardImgRect.top - 190 + imgRect.height / 2 - imgRect.top,
-      };
-    };
-
-    gsap.fromTo(
-      img,
-      {
-        x: 10,
-        y: -145,
-        scale: 1,
-        opacity: 1,
-        visibility: "hidden",
-      },
-      {
-        x: () => getOffsets().x,
-        y: () => getOffsets().y,
-        scale: 1,
-        opacity: 1,
-        visibility: "visible",
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: blogsectionRef.current,
-          start: "top center-=575",
-          end: "bottom center",
-          scrub: 2, // Increased scrub for smoother animation
-          onUpdate: (self) => {
-            const imgRect = img.getBoundingClientRect();
-            const boxRect = box.getBoundingClientRect();
-            const isInside = imgRect.top < boxRect.bottom && imgRect.bottom > boxRect.top;
-            box.style.backgroundColor = isInside ? "" : "";
-          },
-        },
-      }
-    );
-  });
-
-// Animation for bottomImages: Converge into the "O"
-bottomImages.forEach((img) => {
-  const fadeOutDuration = 0.01; // Configurable fade-out duration (set to 0.01 for near-instant vanish)
-
-  const getOffsets = () => {
-    const imgRect = img.getBoundingClientRect();
-    const logoORect = logoO.getBoundingClientRect();
-    const targetX = logoORect.left + logoORect.width / 2 + endOffset.x;
-    const targetY = logoORect.top + logoORect.height / 2 + endOffset.y;
-    const imgCenterX = imgRect.left + imgRect.width / 2;
-    const imgCenterY = imgRect.top + imgRect.height / 2;
-    return {
-      x: targetX - imgCenterX,
-      y: targetY - imgCenterY,
-    };
-  };
-
-  gsap.fromTo(
-    img,
-    {
-      x: startOffset.x,
-      y: startOffset.y,
-      scale: 1,
-      opacity: 0,
-      visibility: "visible",
-    },
-    {
-      x: () => getOffsets().x,
-      y: () => getOffsets().y,
-      scale: 0.9,
-      opacity: 1,
-      visibility: "visible",
-      duration: 6.1,
-      ease: "sine.out",
-      scrollTrigger: {
-        trigger: Blogsection2Ref.current,
-        start: "top center+=10",
-        end: "bottom center-=170",
-        scrub: 3,
-        onEnter: () => {
-          // Hide initial images
-          images.forEach((topImg) => {
-            gsap.set(topImg, { visibility: "hidden", opacity: 0 });
-            topImg.dataset.hidden = "true";
-          });
-          gsap.set(img, { visibility: "visible", opacity: 1 });
-        },
-        // onLeaveBack: () => {
-        //   // Create a timeline for synchronized transitions
-        //   const tl = gsap.timeline();
-        //   // Hide bottom image immediately
-        //   tl.to(img, {
-        //     opacity: 0,
-        //     visibility: "hidden",
-        //     onComplete: () => {
-        //       img.dataset.hidden = "true";
-        //     },
-        //   });
-        //   // Restore initial images
-        //   images.forEach((topImg) => {
-        //     tl.to(
-        //       topImg,
-        //       {
-        //         visibility: "visible",
-        //         opacity: 1,
-        //         duration: 0.5,
-        //         onStart: () => {
-        //           topImg.dataset.hidden = "false";
-        //           // Reset to initial position to prevent premature movement
-        //           gsap.set(topImg, { x: 0, y: -170 });
-        //         },
-        //       },
-        //       "-=0.3" // Overlap slightly for smoother transition
-        //     );
-        //   });
-        // },
-      },
-      onComplete: () => {
-        // Fade out the merged image with configurable duration
-        gsap.to(img, {
-          opacity: 0,
-          visibility: "hidden",
-          duration: fadeOutDuration, // Use configurable duration
-          ease: "power2.in",
-          onComplete: () => {
-            img.dataset.hidden = "true";
-          },
-        });
-      },
-    }
-  );
-});
-  // Animation for the "O" (pulse effect)
-  // gsap.fromTo(
-  //   logoO,
-  //   { scale: 1, opacity: 1 },
-  //   {
-  //     scale: 1.2,
-  //     opacity: 0,
-  //     duration: 1,
-  //     ease: "power2.out",
-  //     scrollTrigger: {
-  //       trigger: Blogsection2Ref.current,
-  //       start: "top center+=260",
-  //       end: "bottom center",
-  //       scrub: 1,
-  //       onComplete: () => {
-  //         gsap.set(logoO, { scale: 1 });
-  //         logoO.dataset.hidden = "true";
-  //       },
-  //     },
-  //   }
-  // );
-}, []);
+    // Cleanup on unmount or when Blogs changes
+    return () => ctx.revert();
+  }, [Blogs, loading]); // Include loading in dependencies
 const [selectedCity, setSelectedCity] = useState({ id: null, name: 'City' });
 const [selectedProperty, setSelectedProperty] = useState({ id: null, name: 'Property Type' });
 const [projectId, setProjectId] = useState('');
@@ -1573,51 +1112,7 @@ const handleProjectIdInput = (event) => {
   setProjectId(event.target.value);
 };
 
-// const handleSearch = () => {
-//   const params = new URLSearchParams();
-//   if (selectedCity.id) {
-//     params.append('city', selectedCity.id);
-//   }
-//   if (selectedProperty.id) {
-//     params.append('property_type', selectedProperty.id);
-//   }
-//   if (projectId.trim()) {
-//     params.append('project_id', projectId.trim());
-//   }
-
-//   navigate(`/search-Listing?${params.toString()}`);
-// };
-
-
 const [errorMessage, setErrorMessage] = useState(""); // To store the error message
-
-
-// const handleSearch = () => {
-//   // Validation: Check if at least one field has a value
-//   if (!selectedCity.id && !selectedProperty.id && !projectId.trim()) {
-//     setErrorMessage("Please select a city, property type, or enter a project ID.");
-//     return; // Stop the search if no value is provided
-//   }
-
-//   // Reset error message if validation passes
-//   setErrorMessage("");
-
-//   const params = new URLSearchParams();
-
-//   if (selectedCity.id) {
-//     params.append('city', selectedCity.id);
-//   }
-//   if (selectedProperty.id) {
-//     params.append('property_type', selectedProperty.id);
-//   }
-//   if (projectId.trim()) {
-//     params.append('project_id', projectId.trim());
-//   }
-
-//   // Perform the navigation with the search parameters
-//   navigate(`/search-Listing?${params.toString()}`);
-// };
-
 
 const handleSearch = () => {
   // Validation: Check if at least one field has a value
@@ -1691,12 +1186,12 @@ const handleSearch = () => {
           variant="outline-light"
           className="me-2 set-out"
         >
-            <Dropdown.Item
+            {/* <Dropdown.Item
     key="all-cities"
     onClick={() => handleCitySelect({ id: null, name: "City" })}
   >
   City
-  </Dropdown.Item>
+  </Dropdown.Item> */}
           {cities.length > 0 ? (
             cities.map((city) => (
               <Dropdown.Item
@@ -1717,12 +1212,12 @@ const handleSearch = () => {
           variant="outline-light"
           className="me-2 set-out"
         >
-            <Dropdown.Item
+            {/* <Dropdown.Item
     key="any-property"
     onClick={() => handlePropertySelect({ id: null, name: "Property Type" })}
   >
   Property Type
-  </Dropdown.Item>
+  </Dropdown.Item> */}
           {propertyTypes.length > 0 ? (
             propertyTypes.map((property) => (
               <Dropdown.Item
@@ -1832,19 +1327,20 @@ const handleSearch = () => {
         <Col md={6} lg={6} className="right res">
           <Card className="">
             <h3 className="text-primary">
-              <Counter className="Counter-no" to={10} from={0} />
+
+              <Counter className="Counter-no" to={5} from={0} />
               +
             </h3>
-            <p>Years of Excellence</p>
+            <p>Years </p>
           </Card>
         </Col>
         <Col md={6} lg={6} className="only-bottom res">
           <Card className="">
             <h3 className="text-primary">
-              <Counter className="Counter-no" to={5} from={0} />
-              K
+              <Counter className="Counter-no" to={1} from={0} />
+              K+
             </h3>
-            <p>Happy Customers</p>
+            <p> Customers</p>
           </Card>
         </Col>
         <Col md={6} lg={6} className="only-right res" ref={welcomeTextRef}>
@@ -1853,16 +1349,16 @@ const handleSearch = () => {
               <Counter className="Counter-no" to={100} from={0} />
               +
             </h3>
-            <p>Premium Projects</p>
+            <p> Projects</p>
           </Card>
         </Col>
         <Col md={6} lg={6} className="left-brdr res">
           <Card className="">
             <h3 className="text-primary">
-              <Counter className="Counter-no" to={95} from={0} />
+              <Counter className="Counter-no" to={99} from={0} />
              %
             </h3>
-            <p>Customer Satisfaction</p>
+            <p> Satisfaction</p>
           </Card>
         </Col>
       </Col>
@@ -1954,7 +1450,7 @@ const handleSearch = () => {
   style={{ width: '428px', height: '253px', objectFit: 'cover' }}
 />
                   <Card.Body className="uper-space">
-                    <Card.Text className="mb-4 btn-loc">
+                    <Card.Text className="mb-4 btn-loc uprkro">
                       {/* <span>{project.size}</span> <span>{project.feet}</span>
                       <span>{project.location}</span> */}
                           {project.size && <span>{project.size}</span>}
@@ -2104,13 +1600,19 @@ const handleSearch = () => {
       </Col>
     </Row>
     <Row>
-      {Blogs.map((Blogs, index) => (
-        <Col md={4} key={Blogs.id} className="features-list p-0">
+    {Blogs.slice(0, 3).map((Blogs, index) => (
+      <Col md={4} key={Blogs.id} className="features-list p-0">
           <Card
             ref={(el) => (BlogsboxRefs.current[index] = el)}
             className={`position-relative custom-card card-${index} box-${index}`}
           >
-            <Card.Img variant="top" src={Blogs.image} alt={Blogs.title} />
+            {/* <Card.Img variant="top" src={Blogs.image} alt={Blogs.title} /> */}
+            <Card.Img
+  variant="top"
+  src={Blogs.image || "data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22428%22%20height%3D%2525253%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20428%20253%22%20preserveAspectRatio%3D%22none%22%3E%3Crect%20width%3D%22428%22%20height%3D%2525253%22%20fill%3D%22%23ececec%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20dominant-baseline%3D%22middle%22%20text-anchor%3D%22middle%22%20fill%3D%22%23666%22%20font-family%3D%22Arial%22%20font-size%3D%2216%22%3EImage%20Placeholder%3C%2Ftext%3E%3C%2Fsvg%3E"}
+  alt={Blogs.title}
+  style={{ width: '428px', height: '253px', objectFit: 'cover' }}
+/>
             <Card.Body className="uper-space">
               <Card.Text className="mb-4 btn-loc top-set">
                 <span className="black">{Blogs.date}</span>
@@ -2120,8 +1622,8 @@ const handleSearch = () => {
               <Card.Text className="text-primary font-weight-bold">
                 {Blogs.text}
               </Card.Text>
-              <Button className="Up-arrow-btn" href="/blog-detail">
-                <img src={Arrow} />
+              <Button as={Link} to={`/blog-detail/${Blogs.slug}`} className="Up-arrow-btn">
+              <img src={Arrow} />
               </Button>
             </Card.Body>
           </Card>
@@ -2152,8 +1654,8 @@ const handleSearch = () => {
            {/* <a href='/'><p className='Logo' ref={BlogBottomImageRefs}>SLOC</p></a> */}
            <a href="/">
             <p className="Logo">
-              SL
-              <span className="logo-o" ref={BlogsBottomsectionRef}>O</span>C
+              SLOC
+              <span className="logo-o" ref={BlogsBottomsectionRef}></span>
             </p>
           </a>
             </div>

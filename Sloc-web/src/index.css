@@ -441,8 +441,7 @@ button.scroll-to-top-btn {
   z-index: +9999999999999999999999999999999 !important;
 }
 .all-same-ani:hover {
-  background: #1C85EB !important;
-  color: #fff !important;
+  /* background: #1C85EB !important; */
   box-shadow: rgba(100, 100, 111, 0.2) 0px 20px 40px 0px;
   transform: scale(1.01) rotateX(5deg) rotateY(-5deg);
 }
@@ -469,7 +468,7 @@ section.welcome.about-sloc img:hover{
 button.Up-arrow-btn.btn.btn-primary:hover {
   box-shadow: rgba(100, 100, 111, 0.2) 0px 20px 40px 0px;
   transform: scale(1.01) rotateX(5deg) rotateY(-5deg);
-  background: #1C85EB !important
+  /* background: #1C85EB !important */
 }
 button.Up-arrow-btn.btn.btn-primary:hover img {
   transform: rotate(45deg)  !important;
@@ -480,7 +479,7 @@ button.Up-arrow-btn.btn.btn-primary img {
 a.Up-arrow-btn.btn.btn-primary:hover{
   box-shadow: rgba(100, 100, 111, 0.2) 0px 20px 40px 0px;
   transform: scale(1.01) rotateX(5deg) rotateY(-5deg);
-  background: #1C85EB !important
+  /* background: #1C85EB !important */
 }
 a.Up-arrow-btn.all-same-ani.btn.btn-primary img {
   transition: .3s all ease-in-out  !important;
@@ -491,7 +490,7 @@ a.Up-arrow-btn.all-same-ani.btn.btn-primary:hover img {
 button.scroll-to-top-btn:hover {
   box-shadow: rgba(100, 100, 111, 0.2) 0px 20px 40px 0px;
   transform: scale(1.01) rotateX(5deg) rotateY(-5deg);
-  background: #1C85EB !important;
+  /* background: #1C85EB !important; */
 }
 a.Up-arrow-btn.btn.btn-primary img {
   transition: .3s all ease-in-out  !important;
@@ -505,13 +504,14 @@ button.scroll-to-top-btn {
 button.btn.btn-dark:hover{
   box-shadow: rgba(100, 100, 111, 0.2) 0px 20px 40px 0px;
   transform: scale(1.01) rotateX(5deg) rotateY(5deg);
-  background: #1C85EB !important;
-  color: #fff !important;
+  /* background: #1C85EB !important; */
+  /* color: #fff !important; */
 }
 .form-set button.btn.btn-light.text-dark:hover{
   box-shadow: rgba(100, 100, 111, 0.2) 0px 20px 40px 0px;
-  background: #1C85EB !important;
-  color: #fff !important;
+  /* background: #1C85EB !important; */
+  /* color: #fff !important; */
+  background: #fff;
   border-color: #1C85EB;
 }
 span.link-bl a {
@@ -522,18 +522,18 @@ main.menu {
 }
 /* NAv link css */
 nav.Main-nav.navbar {
-  position: fixed !important;
+  position: fixed ;
   width: 100%;
   top: 0;
   z-index: 99999;
   background: #fff;
 }
 a.nav-link:hover {
-  color: #1C85EB !important;
+  border-bottom: 1px solid #064685 !important;
   /* text-decoration: underline !important; */
 }
 a.nav-link.active {
-  color: #1C85EB !important;
+  border-bottom: 1px solid #064685 !important;
   /* text-decoration: underline !important; */
 }
 main.aboutpage {
@@ -575,6 +575,9 @@ a.btn.btn-dark{
 a.btn.btn-dark:hover{
   box-shadow: rgba(100, 100, 111, 0.2) 0px 20px 40px 0px;
   transform: scale(1.01) rotateX(5deg) rotateY(5deg);
-  background: #1C85EB !important;
+  /* background: #1C85EB !important; */
   color: #fff !important;
+}
+.Main-nav .navbar-nav a{
+  transition: .3s all ease-in-out !important;
 }

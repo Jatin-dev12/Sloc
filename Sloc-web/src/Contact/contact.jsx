@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col,Modal ,Button } from 'react-bootstrap';
 import '../App.css';
 import ofc from '../assets/Imgs/ofc.svg'
 import call from '../assets/Imgs/call.svg'
@@ -12,6 +12,7 @@ import linkdin from "../assets/Imgs/Linkdin.svg";
 import social from "../assets/Imgs/social-media.svg";
 
 import { Link } from "react-router-dom";
+import axios from 'axios';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -112,16 +113,25 @@ const Contact = () => {
     } else if (!/^\d+$/.test(formData.mobile)) {
       newErrors.mobile = 'Phone number must contain only digits';
       isValid = false;
-    } else if (formData.mobile.length < 6 || formData.mobile.length > 10) {
-      newErrors.mobile = 'Phone number must be between 6 and 10 digits';
-      isValid = false;
     }
-
+    // else if (formData.mobile.length < 6 || formData.mobile.length > 10) {
+    //   newErrors.mobile = 'Phone number must be between 6 and 10 digits';
+    //   isValid = false;
+    // }
+    // else if (formData.mobile.length > 10) {
+    //   newErrors.mobile = 'Phone number must be between 6 and 10 digits';
+    //   isValid = false;
+    // }
     // Check if email is entered (basic validation can be done here if needed)
-    if (!formData.email) {
-      newErrors.email = 'Email is required';
-      isValid = false;
-    }
+  // Validate email format
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!formData.email) {
+    newErrors.email = "Email is required";
+    isValid = false;
+  } else if (!emailRegex.test(formData.email)) {
+    newErrors.email = "Invalid email format";
+    isValid = false;
+  }
 
     // Check if the user agrees to the terms
     if (!formData.agree) {
@@ -133,21 +143,152 @@ const Contact = () => {
     return isValid;
   };
 
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   if (validateForm()) {
+  //     console.log('Form is valid, submitting data:', formData);
 
-  const handleSubmit = (e) => {
+  //     // Get current URL for source
+  //     const url = window.location.href; // e.g., http://localhost:5173/contact
+
+  //     // Prepare API URL with form data
+  //     const apiUrl = `https://sloc.bitrix24.in/rest/1/s94cvkguwyrljt7f/crm.lead.add.json?` +
+  //       `FIELDS[TITLE]=SLOC_Webform` +
+  //       `&FIELDS[NAME]=${encodeURIComponent(formData.name)}` +
+  //       `&FIELDS[EMAIL][0][VALUE]=${encodeURIComponent(formData.email)}` +
+  //       `&FIELDS[EMAIL][0][VALUE_TYPE]=WORK` +
+  //       `&FIELDS[PHONE][0][VALUE]=${encodeURIComponent(formData.mobile)}` +
+  //       `&FIELDS[PHONE][0][VALUE_TYPE]=WORK` +
+  //       `&FIELDS[SOURCE_ID]=UC_R2M98V` +
+  //       `&FIELDS[SOURCE_DESCRIPTION]=Contact Page` +
+  //       `&FIELDS[UF_CRM_1745260289]=${encodeURIComponent(url)}`;
+
+  //     // Make API call
+  //     fetch(apiUrl, {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //     })
+  //       .then(response => response.json())
+  //       .then(data => {
+  //         console.log('API response:', data);
+  //         // Reset the form fields after successful submit
+  //         setFormData({
+  //           name: '',
+  //           mobile: '',
+  //           email: '',
+  //           agree: false,
+  //         });
+  //         setErrors({}); // Clear any old errors
+  //         handleShow(); // Open the modal
+  //       })
+  //       .catch(error => {
+  //         console.error('API error:', error);
+  //       });
+  //   } else {
+  //     console.log('Form has errors, not submitting');
+  //   }
+  // };
+
+
+  const baseUrl = import.meta.env.VITE_BASE_URL || 'https://admin.sloc.in/';
+  const bitrixToken = import.meta.env.VITE_BITRIX_TOKEN || 's94cvkguwyrljt7f';
+  const apiToken = import.meta.env.VITE_API_TOKEN || 'AzlrVK30FVdEx0TwrRwqYrQTL';
+  // Handle form submission
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (validateForm()) {
       console.log('Form is valid, submitting data:', formData);
-      // Add form submission logic here (e.g., API call)
+
+      try {
+        // 1. Bitrix24 API call
+        const url = window.location.href;
+        const bitrixApiUrl = `https://sloc.bitrix24.in/rest/1/${bitrixToken}/crm.lead.add.json?` +
+          `FIELDS[TITLE]=SLOC_Webform` +
+          `&FIELDS[NAME]=${encodeURIComponent(formData.name)}` +
+          `&FIELDS[EMAIL][0][VALUE]=${encodeURIComponent(formData.email)}` +
+          `&FIELDS[EMAIL][0][VALUE_TYPE]=WORK` +
+          `&FIELDS[PHONE][0][VALUE]=${encodeURIComponent(formData.mobile)}` +
+          `&FIELDS[PHONE][0][VALUE_TYPE]=WORK` +
+          `&FIELDS[SOURCE_ID]=UC_R2M98V` +
+          `&FIELDS[SOURCE_DESCRIPTION]=Contact Page` +
+          `&FIELDS[UF_CRM_1745260289]=${encodeURIComponent(url)}`;
+
+        const bitrixResponse = await fetch(bitrixApiUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+        const bitrixData = await bitrixResponse.json();
+        if (!bitrixResponse.ok || !bitrixData.result) {
+          throw new Error('Bitrix API failed: ' + (bitrixData.error_description || 'Unknown error'));
+        }
+        console.log('Bitrix API response:', bitrixData);
+
+        // 2. Contact Us API call
+        const contactUsUrl = `${baseUrl}api/contact-us`;
+        const contactUsResponse = await axios.post(
+          contactUsUrl,
+          {
+            name: formData.name,
+            email: formData.email,
+            mobile: formData.mobile,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${apiToken}`,
+              'Content-Type': 'application/json',
+            },
+          }
+        );
+        if (!contactUsResponse.data.success) {
+          throw new Error('Contact Us API failed: ' + (contactUsResponse.data.message || 'Unknown error'));
+        }
+        console.log('Contact Us API response:', contactUsResponse.data);
+
+        // Reset form and show modal
+        setFormData({ name: '', mobile: '', email: '', agree: false });
+        setErrors({});
+        handleShow(true);
+      } catch (error) {
+        console.error('API error:', error);
+        setErrors({ submit: 'Failed to submit form. Please try again.' });
+      }
     } else {
       console.log('Form has errors, not submitting');
     }
   };
 
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+
 
   return (
     <>
       <section className="disclamer baner-iner contact-banner">
+
+      <Modal show={show} onHide={handleClose} centered dialogClassName="popup-modal">
+        <div className="popup-card">
+        <Button variant="dark" className='ssksk' onClick={handleClose}>
+              x
+            </Button>
+          <Modal.Header className="popup-header">
+<p class="Logo">SLOC</p>
+          </Modal.Header>
+          <Modal.Body className="popup-body">
+          <Modal.Title>Thank you for reaching out!</Modal.Title>
+            One of our representatives will get in touch with you soon.
+          </Modal.Body>
+          <Modal.Footer className="popup-footer">
+
+          </Modal.Footer>
+        </div>
+      </Modal>
         <Container>
           <Row className="align-items-center mobile-set">
             <Col md={6} className="animate__animated animate__fadeInLeft">
@@ -176,27 +317,51 @@ const Contact = () => {
                 <h5>Let’s Connect!</h5>
                 <form onSubmit={handleSubmit}>
                       <div className="mb-3">
-                        <input
-                          type="text"
-                          className="form-control"
-                          placeholder="Enter Name"
-                          name="name"
-                          value={formData.name}
-                          onChange={handleChange}
-                        />
+                      <input
+  type="text"
+  className="form-control"
+  placeholder="Enter Name"
+  name="name"
+  value={formData.name}
+  onChange={(e) => {
+    // Allow only alphabets and spaces
+    const value = e.target.value.replace(/[^a-zA-Z\s]/g, '');
+    setFormData((prev) => ({
+      ...prev,
+      name: value,
+    }));
+  }}
+/>
+
                         {errors.name && <span style={{ color: 'red' }}>{errors.name}</span>}
                       </div>
 
                       <div className="mb-3">
-                        <input
-                          type="tel"
-                          className="form-control"
-                          placeholder="Enter Mobile Number"
-                          name="mobile"
-                          ref={phoneInputRef}
-                          minLength={6}
-                          maxLength={15}
-                        />
+                      <input
+    type="tel"
+    className="form-control"
+    placeholder="Enter Mobile Number"
+    name="mobile"
+    ref={phoneInputRef}
+    value={formData.mobile}
+    minLength={6}
+    maxLength={15}
+    onKeyPress={(e) => {
+      // Allow only numeric input
+      const isNumeric = /^[0-9]*$/.test(e.key);
+      if (!isNumeric) {
+        e.preventDefault();
+      }
+    }}
+    onChange={(e) => {
+      // Ensure only numbers are set in the value
+      const value = e.target.value.replace(/[^0-9]/g, '');
+      setFormData((prev) => ({
+        ...prev,
+        mobile: value,
+      }));
+    }}
+  />
                       </div>
                         {errors.mobile && <span style={{ color: 'red' }}>{errors.mobile}</span>}
 

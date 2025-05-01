@@ -131,7 +131,7 @@ function About() {
           <Container className="py-md-5 pb-0">
             <Row className="mb-4 d-flex">
               <Col md={6} className=" align-content-end head">
-                <img src={Round} alt="scroling" className="scrol-top" />
+                <img src={Round} alt="scroling" className="uper-set" />
                 <h2 className="same-head "data-aos="fade-right" data-aos-easing="ease-in-sine" data-aos-offset="300"
  >About Sloc</h2>
                 <p className="same-head-p" data-aos="fade-right" data-aos-easing="ease-in-sine" data-aos-offset="300"
@@ -309,7 +309,7 @@ function About() {
 <img src={amo} data-aos="zoom-in" data-aos-easing="ease-in-sine" data-aos-offset="100"/>
           </Col>
           <Col md={3} className='brdr'>
-<img src={dlf} data-aos="zoom-in" data-aos-easing="ease-in-sine" data-aos-offset="100"/>
+<img src={global} data-aos="zoom-in" data-aos-easing="ease-in-sine" data-aos-offset="100"/>
           </Col>
 
 
@@ -360,7 +360,7 @@ function About() {
 <img src={conc} data-aos="zoom-in" data-aos-easing="ease-in-sine" data-aos-offset="100"/>
           </Col>
           <Col md={3} className='brdr'>
-<img src={global} data-aos="zoom-in" data-aos-easing="ease-in-sine" data-aos-offset="100"/>
+{/* <img src={global} data-aos="zoom-in" data-aos-easing="ease-in-sine" data-aos-offset="100"/> */}
           </Col>
 
 
