@@ -10,6 +10,7 @@ import Instagram from "../assets/Imgs/ig.svg";
 import Facebook from "../assets/Imgs/facbook.svg";
 import linkdin from "../assets/Imgs/Linkdin.svg";
 import social from "../assets/Imgs/social-media.svg";
+import gf from './Loader.gif'
 
 import { Link } from "react-router-dom";
 import axios from 'axios';
@@ -191,7 +192,7 @@ const Contact = () => {
   //   }
   // };
 
-
+  const [loading, setLoading] = useState(false);
   const baseUrl = import.meta.env.VITE_BASE_URL || 'https://admin.sloc.in/';
   const bitrixToken = import.meta.env.VITE_BITRIX_TOKEN || 's94cvkguwyrljt7f';
   const apiToken = import.meta.env.VITE_API_TOKEN || 'AzlrVK30FVdEx0TwrRwqYrQTL';
@@ -199,12 +200,13 @@ const Contact = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (validateForm()) {
+      setLoading(true);
       console.log('Form is valid, submitting data:', formData);
 
       try {
         // 1. Bitrix24 API call
         const url = window.location.href;
-        const bitrixApiUrl = `https://sloc.bitrix24.in/rest/1/${bitrixToken}/crm.lead.add.json?` +
+        const bitrixApiUrl = `https://sloc.bitrix24.in/rest/1/${bitrixToken}/crm.lead.add.jsondd?` +
           `FIELDS[TITLE]=SLOC_Webform` +
           `&FIELDS[NAME]=${encodeURIComponent(formData.name)}` +
           `&FIELDS[EMAIL][0][VALUE]=${encodeURIComponent(formData.email)}` +
@@ -251,8 +253,10 @@ const Contact = () => {
         // Reset form and show modal
         setFormData({ name: '', mobile: '', email: '', agree: false });
         setErrors({});
+        setLoading(false);
         handleShow(true);
       } catch (error) {
+        setLoading(false);
         console.error('API error:', error);
         setErrors({ submit: 'Failed to submit form. Please try again.' });
       }
@@ -271,14 +275,15 @@ const Contact = () => {
   return (
     <>
       <section className="disclamer baner-iner contact-banner">
-
+      <Button variant="dark" className='ssksk' onClick={handleShow}>
+              x
+            </Button>
       <Modal show={show} onHide={handleClose} centered dialogClassName="popup-modal">
         <div className="popup-card">
         <Button variant="dark" className='ssksk' onClick={handleClose}>
               x
             </Button>
           <Modal.Header className="popup-header">
-<p class="Logo">SLOC</p>
           </Modal.Header>
           <Modal.Body className="popup-body">
           <Modal.Title>Thank you for reaching out!</Modal.Title>
@@ -324,8 +329,8 @@ const Contact = () => {
   name="name"
   value={formData.name}
   onChange={(e) => {
-    // Allow only alphabets and spaces
-    const value = e.target.value.replace(/[^a-zA-Z\s]/g, '');
+    // Allow only alphabets and spaces, and limit to 30 characters
+    const value = e.target.value.replace(/[^a-zA-Z\s]/g, '').slice(0, 30);
     setFormData((prev) => ({
       ...prev,
       name: value,
@@ -354,8 +359,7 @@ const Contact = () => {
       }
     }}
     onChange={(e) => {
-      // Ensure only numbers are set in the value
-      const value = e.target.value.replace(/[^0-9]/g, '');
+      const value = e.target.value.replace(/[^0-9]/g, '').slice(0, 15);
       setFormData((prev) => ({
         ...prev,
         mobile: value,
@@ -372,7 +376,13 @@ const Contact = () => {
                           placeholder="Enter Email"
                           name="email"
                           value={formData.email}
-                          onChange={handleChange}
+                          onChange={(e) => {
+                            const value = e.target.value.slice(0, 30);
+                            setFormData((prev) => ({
+                              ...prev,
+                              email: value,
+                            }));
+                          }}
                         />
                         {errors.email && <span style={{ color: 'red' }}>{errors.email}</span>}
                       </div>
@@ -396,6 +406,11 @@ const Contact = () => {
                         <button type="submit" className="btn btn-light text-dark">
                           Submit
                         </button>
+
+                        {loading && <div className="loader">
+  <img src={gf} style={{ width: '50px', height: '50px' }} className='loderr' />
+                          </div>}
+
                       </div>
                     </form>
                   </div>

@@ -1049,7 +1049,7 @@ bottomImages.forEach((img) => {
   </div>
   <Container className="full">
            <Row className="mb-4 d-flex py-md-4 align-content-center">
-              <Col md={8} className="align-content-center" data-aos="fade-right" data-aos-easing="ease-in-sine" data-aos-offset="300">
+              <Col md={8} className="align-content-center" data-aos="fade-right" data-aos-easing="ease-in-sine" data-aos-offset="10">
                 <h2 className="same-head" >Exclusive Listings</h2>
                 <p className="same-head-p">
                 Discover a handpicked selection of luxurious homes, prime plots, and commercial landmarks from India’s most trusted developers.

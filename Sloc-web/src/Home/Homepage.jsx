@@ -1023,7 +1023,7 @@ useEffect(() => {
             x: () => getOffsets().x,
             y: () => getOffsets().y,
             scale: 0.9,
-            opacity: 1,
+            opacity: 0,
             visibility: 'visible',
             duration: 6.1,
             ease: 'sine.out',
@@ -1117,30 +1117,40 @@ const [errorMessage, setErrorMessage] = useState(""); // To store the error mess
 const handleSearch = () => {
   // Validation: Check if at least one field has a value
   if (
-    (!selectedCity.id && selectedCity.name !== "City") &&
-    (!selectedProperty.id && selectedProperty.name !== "Property Type") &&
+    (!selectedCity.id && selectedCity.name !== 'City') &&
+    (!selectedProperty.id && selectedProperty.name !== 'Property Type') &&
     !projectId.trim()
   ) {
-    setErrorMessage("Please select a city, property type, or enter a project ID.");
+    setErrorMessage('Please select a city, property type, or enter a project ID/name.');
     return; // Stop the search if no value is provided
   }
 
   // Reset error message if validation passes
-  setErrorMessage("");
+  setErrorMessage('');
 
   const params = new URLSearchParams();
 
+  // Helper function to format names for URL slugs
+  const formatSlug = (name) => {
+    return name
+      .toLowerCase()
+      .replace(/\s+/g, '-') // Replace spaces with hyphens
+      .replace(/[^a-z0-9-]/g, ''); // Remove special characters
+  };
+
   // Only append the city parameter if it's not the "All Cities" static option
-  if (selectedCity.id && selectedCity.name !== "All Cities") {
-    params.append('city', selectedCity.id);
+  if (selectedCity.id && selectedCity.name !== 'All Cities') {
+    params.append('city', formatSlug(selectedCity.name));
   }
+
   // Only append the property type parameter if it's not the "Any Property Type" static option
-  if (selectedProperty.id && selectedProperty.name !== "Any Property Type") {
-    params.append('property_type', selectedProperty.id);
+  if (selectedProperty.id && selectedProperty.name !== 'Any Property Type') {
+    params.append('property_type', formatSlug(selectedProperty.name));
   }
-  // Append project_id if provided
+
+  // Append project as a slug if provided
   if (projectId.trim()) {
-    params.append('project_id', projectId.trim());
+    params.append('project', formatSlug(projectId.trim())); // Use 'project' instead of 'project_id'
   }
 
   // Perform the navigation with the search parameters
@@ -1444,6 +1454,7 @@ const handleSearch = () => {
                 >
                   {/* <Card.Img variant="top" src={project.image} alt={project.title} /> */}
                   <Card.Img
+                  className="settobe"
   variant="top"
   src={project.image || "data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22428%22%20height%3D%2525253%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20428%20253%22%20preserveAspectRatio%3D%22none%22%3E%3Crect%20width%3D%22428%22%20height%3D%2525253%22%20fill%3D%22%23ececec%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20dominant-baseline%3D%22middle%22%20text-anchor%3D%22middle%22%20fill%3D%22%23666%22%20font-family%3D%22Arial%22%20font-size%3D%2216%22%3EImage%20Placeholder%3C%2Ftext%3E%3C%2Fsvg%3E"}
   alt={project.title}
@@ -1487,7 +1498,7 @@ const handleSearch = () => {
               </Col>
               <Col md={4} className="text-md-end text-center">
                 {/* <img src={Cta} alt="" className="scroll-img" /> */}
-                <Button variant="dark" className="banner-button">
+                <Button variant="dark" className="banner-button white" href="/contact-us">
                   Contact us for More info
                 </Button>
               </Col>
@@ -1596,7 +1607,7 @@ const handleSearch = () => {
         md={4}
         className="align-items-md-end text-md-end align-content-center text-center"
       >
-        <Button variant="dark" href="/blog-listing">See more Blogs</Button>
+        <Button variant="dark" href="/blog">See more Blogs</Button>
       </Col>
     </Row>
     <Row>
@@ -1608,6 +1619,7 @@ const handleSearch = () => {
           >
             {/* <Card.Img variant="top" src={Blogs.image} alt={Blogs.title} /> */}
             <Card.Img
+             className="settobe"
   variant="top"
   src={Blogs.image || "data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22428%22%20height%3D%2525253%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20428%20253%22%20preserveAspectRatio%3D%22none%22%3E%3Crect%20width%3D%22428%22%20height%3D%2525253%22%20fill%3D%22%23ececec%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20dominant-baseline%3D%22middle%22%20text-anchor%3D%22middle%22%20fill%3D%22%23666%22%20font-family%3D%22Arial%22%20font-size%3D%2216%22%3EImage%20Placeholder%3C%2Ftext%3E%3C%2Fsvg%3E"}
   alt={Blogs.title}
@@ -1622,7 +1634,7 @@ const handleSearch = () => {
               <Card.Text className="text-primary font-weight-bold">
                 {Blogs.text}
               </Card.Text>
-              <Button as={Link} to={`/blog-detail/${Blogs.slug}`} className="Up-arrow-btn">
+              <Button as={Link} to={`/blog/${Blogs.slug}`} className="Up-arrow-btn">
               <img src={Arrow} />
               </Button>
             </Card.Body>
@@ -1696,7 +1708,7 @@ const handleSearch = () => {
                   </Link>
                 </li>
                 <li className="mb-2">
-                  <Link to="/blog-listing" className="text-decoration-none  ">
+                  <Link to="/blog" className="text-decoration-none  ">
                     BLOG
                   </Link>
                 </li>

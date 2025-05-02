@@ -2100,7 +2100,7 @@ const handleSearch = () => {
         md={4}
         className="align-items-md-end text-md-end align-content-center text-center"
       >
-        <Button variant="dark" href="/blog-listing">See more Blogs</Button>
+        <Button variant="dark" href="/blog">See more Blogs</Button>
       </Col>
     </Row>
     <Row>
@@ -2194,7 +2194,7 @@ const handleSearch = () => {
                   </Link>
                 </li>
                 <li className="mb-2">
-                  <Link to="/blog-listing" className="text-decoration-none  ">
+                  <Link to="/blog" className="text-decoration-none  ">
                     BLOG
                   </Link>
                 </li>

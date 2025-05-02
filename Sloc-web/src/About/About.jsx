@@ -23,6 +23,8 @@ import max from '../assets/Alliance-imgs/thar.png'
 import tri from '../assets/Alliance-imgs/kris.png'
 import pirmal from '../assets/Alliance-imgs/puri.png'
 import exp from '../assets/Alliance-imgs/exp.png'
+import bpt from '../assets/Alliance-imgs/bpt.png'
+
 import tarc from '../assets/Alliance-imgs/tarc.png'
 import ris from '../assets/Alliance-imgs/ris.png'
 
@@ -41,7 +43,7 @@ import free from '../assets/Alliance-imgs/free.svg'
 import best from '../assets/Alliance-imgs/best.svg'
 import Timeline from './Timeline.jsx'
 import { Link } from 'react-router-dom';
-
+import { Helmet } from "react-helmet";
 
 const services = [
   { title: "Property Listings", desc: "Discover a curated selection of premium residential and commercial properties across India." },
@@ -106,6 +108,12 @@ function About() {
   return (
 
     <main className="aboutpage">
+       <Helmet>
+       <meta property="og:title" content="About SLOC | Leading Real Estate Company in India for Property Deals" />
+       <meta property="og:description" content="Discover SLOC, your trusted real estate partner in India. We specialize in buying and investing in residential and commercial properties with expert guidance." />
+
+
+      </Helmet>
     <section className="Main-banner About-banner" data-speed="1.5">
          <Container>
            <Row>
@@ -132,16 +140,16 @@ function About() {
             <Row className="mb-4 d-flex">
               <Col md={6} className=" align-content-end head">
                 <img src={Round} alt="scroling" className="uper-set" />
-                <h2 className="same-head "data-aos="fade-right" data-aos-easing="ease-in-sine" data-aos-offset="300"
+                <h2 className="same-head "data-aos="fade-right" data-aos-easing="ease-in-sine" data-aos-offset="10"
  >About Sloc</h2>
-                <p className="same-head-p" data-aos="fade-right" data-aos-easing="ease-in-sine" data-aos-offset="300"
+                <p className="same-head-p" data-aos="fade-right" data-aos-easing="ease-in-sine" data-aos-offset="10"
                 >
                 We’re more than just real estate advisors; we’re a team that understands how important the right space can be. A home isn’t just four walls; it’s where life happens. An investment is more than simply a number; it represents the shaping of your future. That's why we do what we do: with heart, honesty, and a genuine desire to assist you in finding what works best for you. Whether you're buying, selling, or simply exploring your options, we're here to guide you with relevant insights and support you as a friend would.<br/>Real people + Real spaces + Real connections = the SLOC Success.
 
                 </p>
               </Col>
               <Col md={6} className="d-flex flex-wrap four-col-st">
-              <Container data-aos="fade-left" data-aos-easing="ease-in-sine" data-aos-offset="300"
+              <Container data-aos="fade-left" data-aos-easing="ease-in-sine" data-aos-offset="10"
               >
         {/* Mission */}
         <Row className="align-items-center my-4 p-3 " >
@@ -184,7 +192,7 @@ function About() {
         </p>
         </div>
         {services.map((service, idx) => (
-          <Row key={idx} className="service-row py-3 align-items-center border-bottom border-white" data-aos="fade-up" data-aos-easing="ease-in-sine" data-aos-offset="100"
+          <Row key={idx} className="service-row py-3 align-items-center border-bottom border-white" data-aos="fade-up" data-aos-easing="ease-in-sine" data-aos-offset="10"
 >
             <Col md={5} xs={12}>
               <h5 className="mb-1">{service.title}</h5>
@@ -212,7 +220,7 @@ function About() {
         </p>
         <img src={side} className='side-set' />
 
-        <Row className="gy-5 flex-column" data-aos="fade-up" data-aos-easing="ease-in-sine" data-aos-offset="300"
+        <Row className="gy-5 flex-column" data-aos="fade-up" data-aos-easing="ease-in-sine" data-aos-offset="10"
         >
           <Col md={12} className="connect">
           <div className='step-text'>
@@ -285,48 +293,31 @@ function About() {
 
         <Row className="text text-center alliance mt-5 px-5 ">
           <Col md={3} className='brdr'>
-<img src={god} className='phli' data-aos="zoom-in" data-aos-easing="ease-in-sine" data-aos-offset="100"/>
+<img src={god} className='phli' data-aos="zoom-in" data-aos-easing="ease-in-sine" data-aos-offset="10"/>
           </Col>
           <Col md={3} className='brdr'>
-<img src={dlf} data-aos="zoom-in" data-aos-easing="ease-in-sine" data-aos-offset="100"/>
+<img src={dlf} data-aos="zoom-in" data-aos-easing="ease-in-sine" data-aos-offset="10"/>
           </Col>
           <Col md={3} className='brdr'>
-<img src={ats} data-aos="zoom-in" data-aos-easing="ease-in-sine" data-aos-offset="100"/>
+<img src={ats} data-aos="zoom-in" data-aos-easing="ease-in-sine" data-aos-offset="10"/>
           </Col>
           <Col md={3} className='brdr'>
-<img src={ace} data-aos="zoom-in" data-aos-easing="ease-in-sine" data-aos-offset="100"/>
+<img src={ace} data-aos="zoom-in" data-aos-easing="ease-in-sine" data-aos-offset="10"/>
           </Col>
 
         </Row>
         <Row className="text text-center alliance  px-5 ">
           <Col md={3} className='brdr'>
-<img src={Gulshan} data-aos="zoom-in" data-aos-easing="ease-in-sine" data-aos-offset="100"/>
+<img src={Gulshan} data-aos="zoom-in" data-aos-easing="ease-in-sine" data-aos-offset="10"/>
           </Col>
           <Col md={3} className='brdr'>
-<img src={lodha} data-aos="zoom-in" data-aos-easing="ease-in-sine" data-aos-offset="100"/>
+<img src={lodha} data-aos="zoom-in" data-aos-easing="ease-in-sine" data-aos-offset="10"/>
           </Col>
           <Col md={3} className='brdr'>
-<img src={amo} data-aos="zoom-in" data-aos-easing="ease-in-sine" data-aos-offset="100"/>
+<img src={amo} data-aos="zoom-in" data-aos-easing="ease-in-sine" data-aos-offset="10"/>
           </Col>
           <Col md={3} className='brdr'>
-<img src={global} data-aos="zoom-in" data-aos-easing="ease-in-sine" data-aos-offset="100"/>
-          </Col>
-
-
-
-        </Row>
-        <Row className="text text-center alliance px-5 ">
-          <Col md={3} className='brdr'>
-<img src={max} data-aos="zoom-in" data-aos-easing="ease-in-sine" data-aos-offset="100"/>
-          </Col>
-          <Col md={3} className='brdr'>
-<img src={tri} data-aos="zoom-in" data-aos-easing="ease-in-sine" data-aos-offset="100"/>
-          </Col>
-          <Col md={3} className='brdr'>
-<img src={pirmal} data-aos="zoom-in" data-aos-easing="ease-in-sine" data-aos-offset="100"/>
-          </Col>
-          <Col md={3} className='brdr'>
-<img src={emar} data-aos="zoom-in" data-aos-easing="ease-in-sine" data-aos-offset="100"/>
+<img src={global} data-aos="zoom-in" data-aos-easing="ease-in-sine" data-aos-offset="10"/>
           </Col>
 
 
@@ -334,16 +325,16 @@ function About() {
         </Row>
         <Row className="text text-center alliance px-5 ">
           <Col md={3} className='brdr'>
-<img src={exp} data-aos="zoom-in" data-aos-easing="ease-in-sine" data-aos-offset="100"/>
+<img src={max} data-aos="zoom-in" data-aos-easing="ease-in-sine" data-aos-offset="10"/>
           </Col>
           <Col md={3} className='brdr'>
-<img src={shopp} data-aos="zoom-in" data-aos-easing="ease-in-sine" data-aos-offset="100"/>
+<img src={tri} data-aos="zoom-in" data-aos-easing="ease-in-sine" data-aos-offset="10"/>
           </Col>
           <Col md={3} className='brdr'>
-<img src={tarc} data-aos="zoom-in" data-aos-easing="ease-in-sine" data-aos-offset="100"/>
+<img src={pirmal} data-aos="zoom-in" data-aos-easing="ease-in-sine" data-aos-offset="10"/>
           </Col>
           <Col md={3} className='brdr'>
-<img src={ris} data-aos="zoom-in" data-aos-easing="ease-in-sine" data-aos-offset="100"/>
+<img src={emar} data-aos="zoom-in" data-aos-easing="ease-in-sine" data-aos-offset="10"/>
           </Col>
 
 
@@ -351,16 +342,33 @@ function About() {
         </Row>
         <Row className="text text-center alliance px-5 ">
           <Col md={3} className='brdr'>
-<img src={pre} data-aos="zoom-in" data-aos-easing="ease-in-sine" data-aos-offset="100"/>
+<img src={exp} data-aos="zoom-in" data-aos-easing="ease-in-sine" data-aos-offset="10"/>
           </Col>
           <Col md={3} className='brdr'>
-<img src={gera} data-aos="zoom-in" data-aos-easing="ease-in-sine" data-aos-offset="100"/>
+<img src={shopp} data-aos="zoom-in" data-aos-easing="ease-in-sine" data-aos-offset="10"/>
           </Col>
           <Col md={3} className='brdr'>
-<img src={conc} data-aos="zoom-in" data-aos-easing="ease-in-sine" data-aos-offset="100"/>
+<img src={tarc} data-aos="zoom-in" data-aos-easing="ease-in-sine" data-aos-offset="10"/>
           </Col>
           <Col md={3} className='brdr'>
-{/* <img src={global} data-aos="zoom-in" data-aos-easing="ease-in-sine" data-aos-offset="100"/> */}
+<img src={ris} data-aos="zoom-in" data-aos-easing="ease-in-sine" data-aos-offset="10"/>
+          </Col>
+
+
+
+        </Row>
+        <Row className="text text-center alliance px-5 ">
+          <Col md={3} className='brdr'>
+<img src={pre} data-aos="zoom-in" data-aos-easing="ease-in-sine" data-aos-offset="10"/>
+          </Col>
+          <Col md={3} className='brdr'>
+<img src={gera} data-aos="zoom-in" data-aos-easing="ease-in-sine" data-aos-offset="10"/>
+          </Col>
+          <Col md={3} className='brdr'>
+<img src={conc} data-aos="zoom-in" data-aos-easing="ease-in-sine" data-aos-offset="10"/>
+          </Col>
+          <Col md={3} className='brdr'>
+<img src={bpt} data-aos="zoom-in" data-aos-easing="ease-in-sine" data-aos-offset="10"/>
           </Col>
 
 
@@ -373,7 +381,7 @@ function About() {
     <section className='achivments same-space'>
     <Container className="">
       <Row className="align-items-center ">
-        <Col md={4} className="mb-4 mb-md-0" data-aos="fade-right" data-aos-easing="ease-in-sine" data-aos-offset="50"
+        <Col md={4} className="mb-4 mb-md-0" data-aos="fade-right" data-aos-easing="ease-in-sine" data-aos-offset="10"
         >
           <h2 className="same-head">
             AWARDS
@@ -420,7 +428,7 @@ function About() {
     </section>
 
 
-    <section className='same-space why-us' data-aos="fade-up" data-aos-easing="ease-in-sine" data-aos-offset="300"
+    <section className='same-space why-us' data-aos="fade-up" data-aos-easing="ease-in-sine" data-aos-offset="10"
     >
       <Container>
         <div className=" mb-5">

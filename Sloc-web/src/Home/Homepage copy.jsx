@@ -1374,7 +1374,7 @@ bottomImages.forEach((img) => {
                   </Link>
                 </li>
                 <li className="mb-2">
-                  <Link to="/blog-listing" className="text-decoration-none  ">
+                  <Link to="/blog" className="text-decoration-none  ">
                     BLOG
                   </Link>
                 </li>

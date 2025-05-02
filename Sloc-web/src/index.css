@@ -581,3 +581,6 @@ a.btn.btn-dark:hover{
 .Main-nav .navbar-nav a{
   transition: .3s all ease-in-out !important;
 }
+a.banner-button.white.btn.btn-dark:hover{
+  color: #1E1E1E !important;
+}

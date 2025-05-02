@@ -415,7 +415,7 @@ function Blogs() {
                       <Button
                         className="Up-arrow-btn"
                         as={Link}
-                        to={`/blog-detail/${blog.slug}`}
+                        to={`/blog/${blog.slug}`}
                       >
                         <img src={Arrow} alt="Read more" />
                       </Button>

@@ -89,91 +89,139 @@ function list() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  // Fetch cities, property types, and initialize search
-  useEffect(() => {
-    // Fetch cities
-    axios
-      .get(`${baseUrl}/api/city`, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
-      .then((response) => {
-        if (response.data.success) {
-          setCities(response.data.data);
+// Fetch cities and property types on mount
+useEffect(() => {
+  // Fetch cities
+  axios
+    .get(`${baseUrl}/api/city`, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    .then((response) => {
+      if (response.data.success) {
+        setCities(response.data.data);
+      }
+    })
+    .catch((error) => {
+      console.error('Error fetching cities:', error);
+    });
+
+  // Fetch property types
+  axios
+    .get(`${baseUrl}/api/property-type`, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    .then((response) => {
+      if (response.data.success) {
+        setPropertyTypes(response.data.data);
+      }
+    })
+    .catch((error) => {
+      console.error('Error fetching property types:', error);
+    });
+}, [baseUrl, token]); // Only run on mount or if baseUrl/token changes
+
+// Handle initial search based on URL query parameters
+useEffect(() => {
+  if (!cities.length || !propertyTypes.length) return; // Wait until cities and property types are loaded
+
+  const params = new URLSearchParams(location.search);
+  const citySlug = params.get('city');
+  const propertyTypeSlug = params.get('property_type');
+  const projectParam = params.get('project');
+
+  const formatSlug = (name) => {
+    return name
+      .toLowerCase()
+      .replace(/\s+/g, '-') // Replace spaces with hyphens
+      .replace(/[^a-z0-9-]/g, ''); // Remove special chars
+  };
+
+  let cityId = null;
+  let propertyTypeId = null;
+  let resolvedProjectId = projectParam;
+
+  // Resolve city slug
+  if (citySlug) {
+    const city = cities.find((c) => formatSlug(c.name) === citySlug);
+    if (city) {
+      cityId = city.id.toString();
+      setSelectedCity({ id: city.id, name: city.name });
+    }
+  }
+
+  // Resolve property type slug
+  if (propertyTypeSlug) {
+    const property = propertyTypes.find((p) => formatSlug(p.name) === propertyTypeSlug);
+    if (property) {
+      propertyTypeId = property.id.toString();
+      setSelectedProperty({ id: property.id, name: property.name });
+    }
+  }
+
+  // Resolve project ID if provided
+  const resolveProjectId = async () => {
+    if (!projectParam) return null;
+    if (/^\d+$/.test(projectParam)) {
+      setProjectId(projectParam);
+      return projectParam; // Numeric ID
+    }
+    try {
+      const response = await axios.get(
+        `${baseUrl}/api/resolve-project?name=${encodeURIComponent(projectParam)}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
         }
-      })
-      .catch((error) => {
-        console.error('Error fetching cities:', error);
-      });
-
-    // Fetch property types
-    axios
-      .get(`${baseUrl}/api/property-type`, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
-      .then((response) => {
-        if (response.data.success) {
-          setPropertyTypes(response.data.data);
-        }
-      })
-      .catch((error) => {
-        console.error('Error fetching property types:', error);
-      });
-
-    // Read query parameters
-    const params = new URLSearchParams(location.search);
-    const cityId = params.get('city');
-    const propertyTypeId = params.get('property_type');
-    const projectIdParam = params.get('project_id');
-
-    // Set initial state from query params
-    if (cityId) {
-      axios.get(`${baseUrl}/api/city`, { headers: { Authorization: `Bearer ${token}` } })
-        .then((response) => {
-          const city = response.data.data.find(c => c.id.toString() === cityId);
-          if (city) setSelectedCity({ id: city.id, name: city.name });
-        });
+      );
+      const projectId = response.data.id.toString();
+      setProjectId(projectId);
+      return projectId;
+    } catch (error) {
+      console.error('Error resolving project name:', error);
+      setProjectId(projectParam); // Fallback to name
+      return projectParam;
     }
-    if (propertyTypeId) {
-      axios.get(`${baseUrl}/api/property-type`, { headers: { Authorization: `Bearer ${token}` } })
-        .then((response) => {
-          const property = response.data.data.find(p => p.id.toString() === propertyTypeId);
-          if (property) setSelectedProperty({ id: property.id, name: property.name });
-        });
-    }
-    if (projectIdParam) {
-      setProjectId(projectIdParam);
+  };
+
+  // Perform initial search
+  const performInitialSearch = async () => {
+    if (projectParam) {
+      resolvedProjectId = await resolveProjectId();
     }
 
-    // Perform initial search
     const payload = {};
     if (cityId) payload.city = cityId;
     if (propertyTypeId) payload.property_type = propertyTypeId;
-    if (projectIdParam) payload.project_id = projectIdParam;
+    if (resolvedProjectId) payload.project_id = resolvedProjectId;
     payload.page = 1;
     payload.per_page = 6;
 
-    setSearchLoading(true);
-    axios
-      .post(`${baseUrl}/api/project-search`, payload, {
-        headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
-      })
-      .then((response) => {
+    if (cityId || propertyTypeId || resolvedProjectId) {
+      setSearchLoading(true);
+      try {
+        const response = await axios.post(`${baseUrl}/api/project-search`, payload, {
+          headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+        });
         if (response.data.success) {
-          setSearchResults(response.data.data);
-          setHasMore(response.data.data.length >= 6 && response.data.data.length < totalProjects);
-          console.log('Initial search results:', response.data.data);
+          const results = response.data.data;
+          setSearchResults(results);
+          const total = response.data.total || results.length;
+          setTotalProjects(total);
+          setHasMore(results.length >= 6 && results.length < total);
+          console.log('Initial search results:', results, 'Total:', total);
         } else {
           setSearchError(response.data.message || 'Search failed.');
         }
-      })
-      .catch((error) => {
+      } catch (error) {
         console.error('Error fetching initial search results:', error);
         setSearchError('Failed to fetch search results.');
-      })
-      .finally(() => {
+      } finally {
         setSearchLoading(false);
-      });
-  }, [baseUrl, location.search]);
+      }
+    }
+  };
+
+  performInitialSearch();
+}, [baseUrl, token, location.search, cities, propertyTypes]); // Include cities/propertyTypes for slug resolution
 
   const handleCitySelect = (city) => {
     setSelectedCity({ id: city.id, name: city.name });
@@ -211,18 +259,35 @@ function list() {
       .then((response) => {
         if (response.data.success) {
           const newResults = response.data.data;
-          setSearchResults(prev => newPage === 1 ? newResults : [...prev, ...newResults]);
+          setSearchResults((prev) => (newPage === 1 ? newResults : [...prev, ...newResults]));
           setPage(newPage);
           const newDisplayCount = newPage === 1 ? 6 : displayCount + 3;
           setDisplayCount(newDisplayCount);
-          setHasMore(newDisplayCount < totalProjects && newResults.length > 0);
-          console.log('Search results:', newResults);
+          const total = response.data.total || newResults.length; // Adjust based on API
+          setTotalProjects(total);
+          setHasMore(newDisplayCount < total && newResults.length > 0);
+          console.log('Search results:', newResults, 'Total:', total);
 
-          // Update URL
+          // Update URL with name-based slugs
           const params = new URLSearchParams();
-          if (selectedCity.id) params.append('city', selectedCity.id);
-          if (selectedProperty.id) params.append('property_type', selectedProperty.id);
-          if (projectId.trim()) params.append('project_id', projectId.trim());
+
+          const formatSlug = (name) => {
+            return name
+              .toLowerCase()
+              .replace(/\s+/g, '-') // Replace spaces with hyphens
+              .replace(/[^a-z0-9-]/g, ''); // Remove special characters
+          };
+
+          if (selectedCity.id && selectedCity.name !== 'All Cities') {
+            params.append('city', formatSlug(selectedCity.name));
+          }
+          if (selectedProperty.id && selectedProperty.name !== 'Any Property Type') {
+            params.append('property_type', formatSlug(selectedProperty.name));
+          }
+          if (projectId.trim()) {
+            params.append('project', formatSlug(projectId.trim())); // Use 'project'
+          }
+
           navigate(`/search-Listing?${params.toString()}`);
         } else {
           setSearchError(response.data.message || 'Search failed.');
@@ -356,16 +421,29 @@ function list() {
       newProperty = { id: null, name: 'Property Type' };
       setSelectedProperty(newProperty);
       setSortKey(null); // Reset sortKey to show "All Property Types"
-    } else if (filter === 'project_id') {
+    } else if (filter === 'project') { // Changed from 'project_id'
       newProjectId = '';
       setProjectId(newProjectId);
     }
 
-    // Update URL
+    // Update URL with slug-based parameters
     const params = new URLSearchParams();
-    if (newCity.id) params.append('city', newCity.id);
-    if (newProperty.id) params.append('property_type', newProperty.id);
-    if (newProjectId.trim()) params.append('project_id', newProjectId.trim());
+    const formatSlug = (name) => {
+      return name
+        .toLowerCase()
+        .replace(/\s+/g, '-') // Replace spaces with hyphens
+        .replace(/[^a-z0-9-]/g, ''); // Remove special characters
+    };
+
+    if (newCity.id && newCity.name !== 'All Cities') {
+      params.append('city', formatSlug(newCity.name));
+    }
+    if (newProperty.id && newProperty.name !== 'Any Property Type') {
+      params.append('property_type', formatSlug(newProperty.name));
+    }
+    if (newProjectId.trim()) {
+      params.append('project', formatSlug(newProjectId.trim())); // Use 'project'
+    }
     navigate(`/search-Listing?${params.toString()}`);
 
     // Trigger search
@@ -385,12 +463,10 @@ function list() {
         if (response.data.success) {
           const results = response.data.data;
           setSearchResults(results);
-          // Assume totalProjects comes from API or use results length
-          const total = response.data.total || results.length; // Adjust based on actual API response
+          const total = response.data.total || results.length; // Adjust based on API
           setTotalProjects(total);
-          // Set hasMore based on whether there are more projects to load
           setHasMore(results.length >= 6 && results.length < total);
-          console.log('Initial search results:', results, 'Total:', total);
+          console.log('Search results after clear:', results, 'Total:', total);
         } else {
           setSearchError(response.data.message || 'Search failed.');
         }
@@ -409,10 +485,13 @@ function list() {
     title: project.name || 'Untitled Project',
     slug: generateSlug(project.name), // Generate slug from name
     price: project.tag_price ? `₹${project.tag_price}` : 'Price on Request',
-    location: project.address || 'Unknown Location',
-    size: project.specification || 'N/A',
-    feet: project.disclaimer || 'N/A',
+    // location: project.address || 'Unknown Location',
+    // size: project.specification || 'N/A',
+    // feet: project.disclaimer || 'N/A',
     image: project.hero_img || 'https://via.placeholder.com/300',
+                  size: project.pricing_layout[0]?.title || '', // Use title from first index of pricing_layout
+                  feet: project.pricing_layout[0]?.description || '', // Use description from first index of pricing_layout
+                  location: project.address || '',
   }));
 
   return (
@@ -441,12 +520,12 @@ function list() {
             variant="outline-light"
             className="me-2 set-out"
           >
-                        <Dropdown.Item
+                        {/* <Dropdown.Item
                 key="all-cities"
                 onClick={() => handleCitySelect({ id: null, name: "City" })}
               >
               City
-              </Dropdown.Item>
+              </Dropdown.Item> */}
             {cities.length > 0 ? (
               cities.map((city) => (
                 <Dropdown.Item
@@ -467,12 +546,12 @@ function list() {
             variant="outline-light"
             className="me-2 set-out"
           >
-                        <Dropdown.Item
+                        {/* <Dropdown.Item
                 key="any-property"
                 onClick={() => handlePropertySelect({ id: null, name: "Property Type" })}
               >
               Property Type
-              </Dropdown.Item>
+              </Dropdown.Item> */}
             {propertyTypes.length > 0 ? (
               propertyTypes.map((property) => (
                 <Dropdown.Item

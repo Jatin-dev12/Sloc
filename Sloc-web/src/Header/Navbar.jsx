@@ -57,8 +57,8 @@ export default function Header() {
                   About Us
                 </Link>
                 <Link
-                  to="/blog-listing"
-                  className={`nav-link ${isActive("/blog-listing") ? "active" : ""}`}
+                  to="/blog"
+                  className={`nav-link ${isActive("/blog") ? "active" : ""}`}
                   data-text="Blogs"
                 >
                   Blogs

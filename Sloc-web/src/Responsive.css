@@ -15,6 +15,9 @@ main.project-page {
   .timeline-line {
     height: 194vh;
   }
+  .settobe {
+    width: 100% !important;
+  }
 }
 @media screen and (max-width: 1555px) {
   img.side-set {
@@ -99,7 +102,7 @@ main.project-page {
     padding-top: 40px !important;
   }
   .blog-h {
-    font-size: 70px;
+    font-size: 40px;
   }
   .all-border p {
     font-size: 20px;
@@ -121,7 +124,7 @@ main.project-page {
     font-size: 22px;
   }
   .card-content h3 {
-    font-size: 30px;
+    font-size: 22px;
   }
   .grid-r img {
     width: 250px;
@@ -195,6 +198,7 @@ main.project-page {
 .newfotr ul a.text-decoration-none {
 font-size: 14px;
 }
+
 }
 @media screen and (max-width: 1300px) {
   p.Logo {
@@ -234,7 +238,7 @@ font-size: 14px;
     background-position: center !important;
   }
   .blog-h {
-    font-size: 60px;
+    font-size: 35px;
   }
   .top-line-info p {
     font-size: 16px;
@@ -337,7 +341,7 @@ font-size: 14px;
     width: 55%;
   }
   .blog-h {
-    font-size: 50px;
+    font-size: 30px;
   }
   .all-border p {
     font-size: 18px;
@@ -424,7 +428,7 @@ font-size: 14px;
     font-size: 12px;
   }
   .card-content h3 {
-    font-size: 25px;
+    font-size: 20px;
   }
   .form-set {
     background: #064685;
@@ -495,7 +499,7 @@ font-size: 14px;
     width: UNSET;
   }
   .card-content h3 {
-    font-size: 20px;
+    font-size: 18px;
   }
   .card-content p {
     font-size: 14px;
@@ -800,7 +804,7 @@ span.bl-full {
     display: none !important;
   }
   .blog-h {
-    font-size: 40px;
+    font-size: 25px;
   }
   .blog-p {
     margin-top: 10px;
@@ -1092,5 +1096,15 @@ img.back-roll {
 .project-baner .searc-bar {
   margin-top: 145px!important;
 
+}
+.popup-card.c button.ssksk.btn.btn-dark {
+  z-index: 9;
+  border: 1px solid;
+  right: -5px;
+  top: -25px;
+}
+.popup-card.c  input#agreeCheck {
+  position: relative;
+  left: 18px;
 }
 }

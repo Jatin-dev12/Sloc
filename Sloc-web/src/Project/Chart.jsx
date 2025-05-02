@@ -38,7 +38,7 @@
 //   return (
 //     <Container className=" emi-chart mt-4">
 //       <Row className=' justify-content-between p-0'>
-//         <Col lg={7} md={12} className='bg-chane less-wi' data-aos="fade-right" data-aos-easing="ease-in-sine" data-aos-offset="300"
+//         <Col lg={7} md={12} className='bg-chane less-wi' data-aos="fade-right" data-aos-easing="ease-in-sine" data-aos-offset="10"
 //         >
 
 //           <Form className="mt-4">
@@ -101,7 +101,7 @@
 //           </Form>
 //         </Col>
 
-//         <Col lg={5} md={12} className='bg-chane'data-aos="fade-left" data-aos-easing="ease-in-sine" data-aos-offset="300"
+//         <Col lg={5} md={12} className='bg-chane'data-aos="fade-left" data-aos-easing="ease-in-sine" data-aos-offset="10"
 //         >
 //           <Card className="set-to">
 //             <h6 className=" text-center">YOUR EMI PER MONTH</h6>
@@ -221,7 +221,7 @@ const fetchEMIPlans = async () => {
   return (
     <Container className="emi-chart mt-4">
       <Row className="justify-content-between p-0">
-        <Col lg={7} md={12} className="bg-chane less-wi" data-aos="fade-right" data-aos-easing="ease-in-sine" data-aos-offset="300">
+        <Col lg={7} md={12} className="bg-chane less-wi" data-aos="fade-right" data-aos-easing="ease-in-sine" data-aos-offset="10">
           <Form className="mt-4">
             <Form.Group className="mb-4">
               <Form.Label>
@@ -291,7 +291,7 @@ const fetchEMIPlans = async () => {
           </Form>
         </Col>
 
-        <Col lg={5} md={12} className="bg-chane" data-aos="fade-left" data-aos-easing="ease-in-sine" data-aos-offset="300">
+        <Col lg={5} md={12} className="bg-chane" data-aos="fade-left" data-aos-easing="ease-in-sine" data-aos-offset="10">
           <Card className="set-to">
             <h6 className="text-center">YOUR EMI PER MONTH</h6>
             <h3 className="text-center fw-bold mb-4">₹ {Math.round(emi).toLocaleString()}</h3>

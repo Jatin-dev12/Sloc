@@ -155,7 +155,9 @@ const BlogSection = () => {
               <h2 className="fw-bold blog-h mt-3">{blog.name}</h2>
               <p className="text-muted blog-p">{blog.short_description}</p>
               <p className="author">
-                <strong>Author:</strong> {blog.author}
+                {/* <strong>Author:</strong> {blog.author} */}
+                <strong>Author:</strong> Admin
+
               </p>
             </Col>
             <Col md={5}>
