@@ -1504,11 +1504,8 @@ useEffect(() => {
           value={projectId}
           onChange={handleProjectIdInput}
         />
-      </InputGroup>
-
-      {/* Display search suggestions */}
-      {projectId && suggestedProjects.length > 0 && (
-        <div className="suggestions-list">
+   {projectId && suggestedProjects.length > 0 && (
+        <div className="suggestions-box">
           {suggestedProjects.map((project) => (
             <div key={project.id} className="suggestion-item">
               <span>{project.name}</span>
@@ -1516,6 +1513,10 @@ useEffect(() => {
           ))}
         </div>
       )}
+      </InputGroup>
+
+      {/* Display search suggestions */}
+
 
           <Button
             className="all-same-ani"
