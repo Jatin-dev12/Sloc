@@ -114,6 +114,7 @@ function AppContent() {
           ↑
         </button>
       )}
+      {showButton && (
 
       <a
         href={`https://api.whatsapp.com/send?phone=+91${whatsappNumber}&text=Hello, I want to know more about project `}
@@ -141,6 +142,7 @@ function AppContent() {
       >
         <FaWhatsapp />
       </a>
+      )}
 
       <a
         href={`tel:+91${whatsappNumber}`}

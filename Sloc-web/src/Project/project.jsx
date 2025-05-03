@@ -4,6 +4,8 @@ import { Row, Col, Modal } from "react-bootstrap";
 import Container from "react-bootstrap/Container";
 import Search from "../assets/Imgs/Search.svg";
 import { Card } from "react-bootstrap";
+  import { FaWhatsapp } from 'react-icons/fa';
+
 import {
   Form,
   Button,
@@ -1946,6 +1948,32 @@ function project() {
             </Row>
           </Container>
         </footer>
+        <a
+        href={`https://api.whatsapp.com/send?phone=+91${project?.whatsapp_number || '9971094108'}&text=Hello,%20I%20want%20to%20know%20more%20about%20project%20${project?.title}.%20${window.location.href}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{
+          position: 'fixed',
+          bottom: '100px',
+          right: '30px',
+          padding: '0',
+          fontSize: '30px',
+          backgroundColor: '#25D366',
+          color: '#fff',
+          border: 'none',
+          borderRadius: '50px',
+          cursor: 'pointer',
+          height: '50px',
+          width: '50px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 99999,
+          boxShadow: '0px 4px 10px rgba(0,0,0,0.3)',
+        }}
+      >
+        <FaWhatsapp />
+      </a>
       </main>
     </>
   );
