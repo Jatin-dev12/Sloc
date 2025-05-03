@@ -116,7 +116,7 @@ function AppContent() {
       )}
 
       <a
-        href={`https://api.whatsapp.com/send?phone=+91${whatsappNumber}&text=Hello%20there!`}
+        href={`https://api.whatsapp.com/send?phone=+91${whatsappNumber}&text=Hello, I want to know more about project `}
         target="_blank"
         rel="noopener noreferrer"
         style={{

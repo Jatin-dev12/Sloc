@@ -59,11 +59,21 @@ import axios from "axios";
 import logo from './imgs/logo.png';
 import backpg from './imgs/p.jpg'
 import gf from '../Contact/Loader.gif'
+import { address } from "framer-motion/client";
 
 
 gsap.registerPlugin(ScrollTrigger);
+const isMobileView = () => window.innerWidth < 768;
 
 function project() {
+
+  const [isMobile, setIsMobile] = useState(isMobileView());
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(isMobileView());
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const [loading, setLoading] = useState(false);
 
@@ -171,7 +181,7 @@ function project() {
               fetch("https://ipinfo.io/json?token=<your_token>")
                 .then((resp) => resp.json())
                 .then((resp) => {
-                  const countryCode = resp?.country?.toLowerCase() || "us";
+                  const countryCode = resp?.country?.toLowerCase() || "in";
                   callback(countryCode);
                 })
                 .catch(() => callback("us"));
@@ -288,49 +298,49 @@ function project() {
     }
   }, []);
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    if (phoneInputRef2.current) {
-      console.log("phoneref2");
+  //   if (phoneInputRef2.current) {
+  //     console.log("phoneref2");
 
-      import("intl-tel-input")
-        .then((intlTelInput) => {
-          intlTelInstance.current = intlTelInput.default(phoneInputRef2.current, {
-            initialCountry: "in",
-            separateDialCode: true,
-            utilsScript:
-              "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
-          });
+  //     import("intl-tel-input")
+  //       .then((intlTelInput) => {
+  //         intlTelInstance.current = intlTelInput.default(phoneInputRef2.current, {
+  //           initialCountry: "in",
+  //           separateDialCode: true,
+  //           utilsScript:
+  //             "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+  //         });
 
-          // Sync input value with formData on change
-          phoneInputRef2.current.addEventListener("input", () => {
-            const fullNumber = intlTelInstance.current.getNumber();
-            setFormData((prev) => ({
-              ...prev,
-              mobile: fullNumber || phoneInputRef2.current.value,
-            }));
-          });
+  //         // Sync input value with formData on change
+  //         phoneInputRef2.current.addEventListener("input", () => {
+  //           const fullNumber = intlTelInstance.current.getNumber();
+  //           setFormData((prev) => ({
+  //             ...prev,
+  //             mobile: fullNumber || phoneInputRef2.current.value,
+  //           }));
+  //         });
 
-          // Validate on country change
-          phoneInputRef2.current.addEventListener("countrychange", () => {
-            const fullNumber = intlTelInstance.current.getNumber();
-            setFormData((prev) => ({
-              ...prev,
-              mobile: fullNumber || phoneInputRef2.current.value,
-            }));
-          });
-        })
-        .catch((error) => {
-          console.error("Failed to load intl-tel-input:", error);
-        });
+  //         // Validate on country change
+  //         phoneInputRef2.current.addEventListener("countrychange", () => {
+  //           const fullNumber = intlTelInstance.current.getNumber();
+  //           setFormData((prev) => ({
+  //             ...prev,
+  //             mobile: fullNumber || phoneInputRef2.current.value,
+  //           }));
+  //         });
+  //       })
+  //       .catch((error) => {
+  //         console.error("Failed to load intl-tel-input:", error);
+  //       });
 
-      return () => {
-        if (intlTelInstance.current) {
-          intlTelInstance.current.destroy();
-        }
-      };
-    }
-  }, [fopen]);
+  //     return () => {
+  //       if (intlTelInstance.current) {
+  //         intlTelInstance.current.destroy();
+  //       }
+  //     };
+  //   }
+  // }, [fopen]);
 
 
 
@@ -619,8 +629,10 @@ function project() {
               pricing_layout: projectData.pricing_layout || [],
               location_advantages: projectData.location_advantages || [], // Added here
               overview_highlights: projectData.overview_highlights || [], // Added here
+              highlights_content: projectData.highlights_content
+              ? JSON.parse(projectData.highlights_content) : [], // Parse highlights content
+              address : projectData.address || 'N/A',
             };
-
             // console.log('useEffect: Setting project state with:', projectState);
             setProject(projectState);
             // Set banner image with validation
@@ -656,13 +668,189 @@ function project() {
   const handleShow = () => setShow(true);
 
 
+  useEffect(() => {
+    if (phoneInputRef2.current) {
+      import("intl-tel-input")
+        .then((intlTelInput) => {
+          intlTelInstance.current = intlTelInput.default(
+            phoneInputRef2.current,
+            {
+              initialCountry: "in",
+              separateDialCode: true,
+              utilsScript:
+                "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+            }
+          );
+
+          // Function to update formData with country code and number
+          const updatePhoneNumber = () => {
+            const fullNumber = intlTelInstance.current.getNumber();
+            const selectedCountryData = intlTelInstance.current.getSelectedCountryData();
+            const countryCode = selectedCountryData.dialCode;
+            const rawInput = phoneInputRef2.current.value;
+
+            let formattedNumber = fullNumber || rawInput;
+
+            // Only prepend the country code if it's not already included
+            if (rawInput && !rawInput.startsWith(`+${countryCode}`)) {
+              formattedNumber = `+${countryCode}${rawInput.replace(/[^0-9]/g, "")}`;
+            }
+
+            setFormData2((prev) => ({
+              ...prev,
+              mobile: formattedNumber,
+            }));
+          };
+
+          // Sync input value with formData on change
+          phoneInputRef2.current.addEventListener("input", updatePhoneNumber);
+
+          // Validate on country change
+          phoneInputRef2.current.addEventListener("countrychange", updatePhoneNumber);
+        })
+        .catch((error) => {
+          console.error("Failed to load intl-tel-input:", error);
+        });
+
+      return () => {
+        if (intlTelInstance.current) {
+          intlTelInstance.current.destroy();
+        }
+      };
+    }
+  }, [fopen]);
 
   const open = () => setFopen(false);
   const close = () => setFopen(true);
 
+  const [formData2, setFormData2] = useState({
+    name: "",
+    mobile: "",
+    email: "",
+    agree: false,
+  });
+
+  const [errors2, setErrors2] = useState({
+    name: "",
+    mobile: "",
+    email: "",
+    agree: "",
+  });
+  const handleChange2 = (e) => {
+    const { name, value, type, checked } = e.target;
+
+    let newValue = value;
+    if (name === 'name') {
+      newValue = value.replace(/[^a-zA-Z\s]/g, '').slice(0, 30);
+    } else if (name === 'email') {
+      newValue = value.slice(0, 30);
+    } else if (name === 'mobile') {
+      if (!/^\d*$/.test(value)) {
+        return; // Ignore non-digit input
+      }
+      newValue = value.slice(0, 15);
+    }
+
+    setFormData2((prev) => ({
+      ...prev,
+      [name]: type === 'checkbox' ? checked : newValue,
+    }));
+
+    setErrors2((prev) => ({ ...prev, [name]: '' }));
+  };
+  const validateForm2 = () => {
+    console.log("Validating formData2:", formData2);
+    const newErrors = {
+      name: '',
+      mobile: '',
+      email: '',
+      agree: '',
+    };
+    let isValid = true;
+
+    if (!formData2.name.trim()) {
+      newErrors.name = 'Name is required';
+      isValid = false;
+    }
+    if (!formData2.mobile) {
+      newErrors.mobile = 'Phone number is required';
+      isValid = false;
+    }
+    if (!formData2.email) {
+      newErrors.email = 'Email is required';
+      isValid = false;
+    }
+    if (!formData2.agree) {
+      newErrors.agree = 'You must agree to the terms';
+      isValid = false;
+    }
+
+    console.log("Validation result:", { isValid, newErrors });
+    setErrors2(newErrors);
+    return isValid;
+  };
+
+  const handleSubmit2 = (e) => {
+    e.preventDefault();
+    if (validateForm2()) {
+      console.log("Form is valid, submitting data:", formData2);
+
+      // Extract project name from URL
+      const url = window.location.href; // e.g., http://localhost:5173/project/godrej-miraya
+      const projectSlugArray = url.split('/project/');
+      const projectSlug = projectSlugArray[1] || 'Unknown Project';
+
+      // Format project name: remove hyphens, capitalize first letter of each word
+      const projectName = projectSlug
+        .split('-')
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+        .join(' ');
+      console.log("Formatted projectName:", projectName);
+      // Prepare API URL with form data
+      const apiUrl = `https://sloc.bitrix24.in/rest/1/s94cvkguwyrljt7f/crm.lead.add.json?` +
+        `FIELDS[TITLE]=SLOC_Webform` +
+        `&FIELDS[NAME]=${(formData2.name)}` +
+        `&FIELDS[EMAIL][0][VALUE]=${(formData2.email)}` +
+        `&FIELDS[EMAIL][0][VALUE_TYPE]=WORK` +
+        `&FIELDS[PHONE][0][VALUE]=${(formData2.mobile)}` +
+        `&FIELDS[PHONE][0][VALUE_TYPE]=WORK` +
+        `&FIELDS[SOURCE_ID]=UC_R2M98V` +
+        `&FIELDS[SOURCE_DESCRIPTION]=${projectName}` +
+        `&FIELDS[UF_CRM_1745260289]=${(url)}`;
+
+      // Make API call
+      fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+        .then(response => response.json())
+        .then(data => {
+          console.log('API response:', data);
+          // Reset the form fields after successful submit
+          setFormData2({
+            name: '',
+            mobile: '',
+            email: '',
+            agree: false,
+          });
+          setErrors1({}); // Clear any old errors
+          open(); // Close the second modal (fopen: false)
+          handleShow(); // Show success modal
+        })
+        .catch(error => {
+          console.error('API error:', error);
+        });
+    } else {
+      console.log("Form has errors, not submitting");
+    }
+  };
+
   return (
     <>
       <main className="project-page">
+
 
 
         <Modal show={fopen} onHide={open} centered dialogClassName="popup-modal">
@@ -674,108 +862,71 @@ function project() {
             <Modal.Body className="popup-body">
               <div
                 className="form-set"
-                data-aos="fade-left"
-                data-aos-easing="ease-in-sine"
-                data-aos-offset="10"
+
               >
                 <h5>Enter details to schedule meeting</h5>
-                <form onSubmit={handleSubmit1}>
-                  <div className="mb-3">
-                    <input
-                      type="text"
-                      className="form-control"
-                      placeholder="Enter Name"
-                      name="name"
-                      value={formData.name}
-                      // onChange={handleChange1}
-                      onChange={(e) => {
-                        // Allow only alphabets and spaces, and limit to 30 characters
-                        const value = e.target.value.replace(/[^a-zA-Z\s]/g, '').slice(0, 30);
-                        setFormData((prev) => ({
-                          ...prev,
-                          name: value,
-                        }));
-                      }}
+                <form onSubmit={handleSubmit2}>
+  <div className="mb-3">
+    <input
+      type="text"
+      className="form-control"
+      placeholder="Enter Name"
+      name="name"
+      value={formData2.name}
+      onChange={handleChange2}
+    />
+    {errors2.name && <span style={{ color: 'red' }}>{errors2.name}</span>}
+  </div>
 
-                    />
-                    {errors1.name && (
-                      <span style={{ color: "red",display: "block", textAlign: "left" }}>{errors1.name}</span>
-                    )}
-                  </div>
+  <div className="mb-3">
+    <input
+      type="tel"
+      className="form-control"
+      placeholder="Enter Mobile Number"
+      name="mobile"
+      value={formData2.mobile}
+      ref={phoneInputRef2}
+      minLength={6}
+      maxLength={15}
+      onChange={handleChange2}
+    />
+    {errors2.mobile && <span style={{ color: 'red' }}>{errors2.mobile}</span>}
+  </div>
 
-                  <div className="mb-3">
-                    <input
-                      type="tel"
-                      className="form-control"
-                      placeholder="Enter Mobile Number"
-                      name="mobile"
-                      value={formData.mobile}
-                      ref={phoneInputRef2}
-                      minLength={6}
-                      maxLength={15}
+  <div className="mb-3">
+    <input
+      type="email"
+      className="form-control"
+      placeholder="Enter Email"
+      name="email"
+      value={formData2.email}
+      onChange={handleChange2}
+    />
+    {errors2.email && <span style={{ color: 'red' }}>{errors2.email}</span>}
+  </div>
 
-                      onChange={(e) => {
-                        const value = e.target.value.replace(/[^0-9]/g, '').slice(0, 15);
-                        setFormData((prev) => ({
-                          ...prev,
-                          mobile: value,
-                        }));
-                      }}
+  <div className="form-check mb-3 text-white">
+    <input
+      className="form-check-input"
+      type="checkbox"
+      name="agree"
+      checked={formData2.agree}
+      onChange={handleChange2}
+      id="agreeCheck"
+    />
+    <label className="form-check-label" htmlFor="agreeCheck">
+      I agree to be contacted via Call, SMS, WhatsApp & Email
+    </label>
+  </div>
+  {errors2.agree && <span style={{ color: 'red' }}>{errors2.agree}</span>}
 
-                    />
-
-                  </div>
-                  {errors1.mobile && (
-                    <span style={{ color: "red",display: "block", textAlign: "left" }}>{errors1.mobile}</span>
-                  )}
-
-                  <div className="mb-3">
-                    <input
-                      type="text"
-                      className="form-control"
-                      placeholder="Enter Email"
-                      name="email"
-                      value={formData1.email}
-                      onChange={(e) => {
-                        const value = e.target.value.slice(0, 30);
-                        setFormData((prev) => ({
-                          ...prev,
-                          email: value,
-                        }));
-                      }}
-
-                    />
-                    {errors1.email && (
-                      <span style={{ color: "red",display: "block", textAlign: "left" }}>{errors1.email}</span>
-                    )}
-                  </div>
-
-                  <div className="form-check mb-3 text-white">
-                    <input
-                      className="form-check-input"
-                      type="checkbox"
-                      name="agree"
-                      checked={formData1.agree}
-                      onChange={handleChange1}
-                      id="agreeCheck"
-                    />
-                    <label className="form-check-label" htmlFor="agreeCheck">
-                      I agree to be contacted via Call, SMS, WhatsApp & Email
-                    </label>
-                  </div>
-                  {errors1.agree && (
-                    <span style={{ color: "red",display: "block", textAlign: "left" }}>{errors1.agree}</span>
-                  )}
-
-                  <div className="d-grid">
-                    <button type="submit" className="btn btn-light text-dark">
-                      Submit
-                    </button>
-{loading && <div className="loader">
-  <img src={gf} style={{ width: '50px', height: '50px' }} className='loderr' />
-                          </div>}
-                  </div>
-                </form>
+  <div className="d-grid">
+    <button type="submit" className="btn btn-light text-dark">
+      Submit
+    </button>
+    {loading && <div className="loader">Submitting...</div>}
+  </div>
+</form>
               </div>
             </Modal.Body>
 
@@ -855,10 +1006,10 @@ function project() {
                 {" "}
                 <span className="brkr"> | </span>
                 {/* https://haryanarera.gov.in */}
-                {/* {project?.url} */}
-                <a href={project?.url} target="_blank" rel="noopener noreferrer">
+                {project?.url}
+                {/* <a href={project?.url} target="_blank" rel="noopener noreferrer">
                   {project?.url}
-                </a>
+                </a> */}
               </p>
             </div>
             <div className="d-flex align-items-md-center searc-bar  justify-content-between">
@@ -1078,7 +1229,7 @@ function project() {
             <Row className="justify-content-center">
               <Col md={10} className="all-border contact-set">
                 <Row className="">
-                  <Col md={6} className="justify-content-center btm-s">
+                  <Col md={6} className="justify-content-center btm-s align-content-center">
                     {/* <img
                       src={Struc}
                       className="home-struct"
@@ -1095,45 +1246,24 @@ function project() {
                     )}
                   </Col>
                   <Col
-                    md={6}
-                    className="justify-content-center cntnct align-content-center btm-s struk-li "
-                  >
-                    <ul className="list-unstyled">
-                      <li className="mb-3 d-flex align-items-start">
-                        <img src={Icon} className="text-primary me-2 " />
-                        <span>Villa</span>
-                      </li>
-                      <li className="mb-3 d-flex align-items-start">
-                        <img src={Icon} className="text-primary me-2 " />
-                        <span>Well-connected to dwarka expressway</span>
-                      </li>
-                      <li className="mb-3 d-flex align-items-start">
-                        <img src={Icon} className="text-primary me-2 " />
-                        <span>
-                          Provide easy access to major hubs in Gurgaon and Delhi
-                        </span>
-                      </li>
-                      <li className="mb-3 d-flex align-items-start">
-                        <img src={Icon} className="text-primary me-2 " />
-                        <span>
-                          Total land area of the project is approximately 15
-                          acres
-                        </span>
-                      </li>
-                      <li className="mb-3 d-flex align-items-start">
-                        <img src={Icon} className="text-primary me-2 " />
-                        <span>
-                          One of the lowest density project on dwarka expressway{" "}
-                        </span>
-                      </li>
-                      <li className="mb-3 d-flex align-items-start">
-                        <img src={Icon} className="text-primary me-2 " />
-                        <span>
-                          Approximately 75% is dedicated to open spaces{" "}
-                        </span>
-                      </li>
-                    </ul>
-                  </Col>
+  md={6}
+  className="justify-content-center cntnct align-content-center btm-s struk-li"
+>
+  <ul className="list-unstyled">
+    {project?.highlights_content.length > 0 ? (
+      project?.highlights_content.map((highlight, index) => (
+        <li key={index} className="mb-3 d-flex align-items-start">
+          <img src={Icon} className="text-primary me-2 icici" />
+          <span>{highlight.highlight_content}</span>
+        </li>
+      ))
+    ) : (
+      <li className="mb-3 d-flex align-items-start">
+        <span>No highlights available.</span>
+      </li>
+    )}
+  </ul>
+</Col>
                 </Row>
               </Col>
             </Row>
@@ -1155,7 +1285,7 @@ function project() {
               <Col md={4} className="text-md-end text-center">
                 {/* <img src={Cta} alt="" className="scroll-img" /> */}
                 <Button variant="dark" className="banner-button all-same-ani" onClick={close}>
-                  Contact us for More info
+                  Get Brochure
                 </Button>
               </Col>
             </Row>
@@ -1216,51 +1346,81 @@ function project() {
             </Row>
           </Container>
           <div className="slider-container">
-            <Swiper
-
-              slidesPerView={3}
-              spaceBetween={40}
-              navigation={false}
-              loop={true}
-              autoplay={{
-                delay: 3000,
-                disableOnInteraction: false,
-              }}
-              modules={[Navigation, Autoplay]}
-
-              breakpoints={{
-                0: { slidesPerView: 1 },
-                768: { slidesPerView: 2 },
-                1024: { slidesPerView: 3 },
-              }}
+          {isMobile ? (
+        // Mobile View: Show all items in a flex row
+        <div className="flex flex-wrap gap-4 justify-center gapdeo">
+          {project?.pricing_layout?.map((layout, index) => (
+            <div
+              key={index}
+              className="property-card position-relative mb-4"
+              data-aos="zoom-in"
+              data-aos-easing="ease-in-sine"
+              data-aos-offset="10"
+              style={{ flex: "1 1 100%", maxWidth: "100%" }}
             >
-      {project?.pricing_layout?.map((layout, index) => (
-        <SwiperSlide key={index}>
-          <div
-            className="property-card position-relative"
-            data-aos="zoom-in"
-            data-aos-easing="ease-in-sine"
-            data-aos-offset="100"
-          >
-            <div className="ribbon-set">
-              <img src={red} alt="ribbon" />
-            </div>
-            <div className="card-content">
-              <div>
-                <img src={Icon} className="text-primary me-2" alt="icon" />
+              <div className="ribbon-set">
+                <img src={red} alt="ribbon" />
               </div>
-              <div>
-                <h3>{layout.title}</h3>
-                <p>{layout.description}</p>
+              <div className="card-content">
+                <div>
+                  <img src={Icon} className="text-primary me-2" alt="icon" />
+                </div>
+                <div>
+                  <h3>{layout.title}</h3>
+                  <p>{layout.description}</p>
+                </div>
               </div>
+              <button className="comn-btn all-same-ani" onClick={close}>
+                Get Full Pricing & Layout Now
+              </button>
             </div>
-            <button className="comn-btn all-same-ani" onClick={close}>
-              Get Full Pricing & Layout Now
-            </button>
-          </div>
-        </SwiperSlide>
-      ))}
-            </Swiper>
+          ))}
+        </div>
+      ) : (
+        // Desktop/Tablet View: Swiper
+        <Swiper
+          slidesPerView={3}
+          spaceBetween={40}
+          navigation={false}
+          loop={true}
+          autoplay={{
+            delay: 3000,
+            disableOnInteraction: false,
+          }}
+          modules={[Navigation, Autoplay]}
+          breakpoints={{
+            768: { slidesPerView: 2 },
+            1024: { slidesPerView: 3 },
+          }}
+        >
+          {project?.pricing_layout?.map((layout, index) => (
+            <SwiperSlide key={index}>
+              <div
+                className="property-card position-relative"
+                data-aos="zoom-in"
+                data-aos-easing="ease-in-sine"
+                data-aos-offset="100"
+              >
+                <div className="ribbon-set">
+                  <img src={red} alt="ribbon" />
+                </div>
+                <div className="card-content">
+                  <div>
+                    <img src={Icon} className="text-primary me-2" alt="icon" />
+                  </div>
+                  <div>
+                    <h3>{layout.title}</h3>
+                    <p>{layout.description}</p>
+                  </div>
+                </div>
+                <button className="comn-btn all-same-ani" onClick={close}>
+                  Get Full Pricing & Layout Now
+                </button>
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      )}
           </div>
         </section>
 
@@ -1474,7 +1634,8 @@ function project() {
                   data-aos-easing="ease-in-sine"
                   data-aos-offset="10"
                 >
-                  Ready to Explore? Schedule a Meeting & Get Personalized Assistance.
+                  {/* Ready to Explore? Schedule a Meeting & Get Personalized Assistance. */}
+                  {project?.schedule_meeting}
                 </p>
                 <hr
                   data-aos="fade-right"
@@ -1487,17 +1648,18 @@ function project() {
                   data-aos-easing="ease-in-sine"
                   data-aos-offset="10"
                 >
-                  15th Floor, Ocus Quantum, Sector-51,
-                  <br /> Gurugram, Haryana - 122003
+                  {/* 15th Floor, Ocus Quantum, Sector-51,
+                  <br /> Gurugram, Haryana - 122003 */}
+                  {project?.address}
                 </p>
                 <Button
                   variant="dark"
-                  className="banner-button"
+                  className="banner-button white "
                   data-aos="fade-right"
                   data-aos-easing="ease-in-sine"
                   data-aos-offset="10"
-                  onClick={close}
-                >
+                  // onClick={close}
+                  href={`tel:${project?.calling_number}`}                >
                   Contact us for More info
                 </Button>
                 <img src={back} alt="" className="back-roll" />
@@ -1663,7 +1825,7 @@ function project() {
                           alt={project.name}
                         />
                         <Card.Body className="uper-space">
-                          <Card.Text className="mb-4 btn-loc uprkro">
+                          <Card.Text className="mb-4 btn-loc ">
                           {project.specification ? (
                       <>
                         <span>{project.pricing_layout[0].title}</span>{" "}
@@ -1710,7 +1872,7 @@ function project() {
         <section className="Disclamer">
           <Container>
             <p className="Dis">
-              Disclaimer : The content provided on this website is for
+              {/* Disclaimer : The content provided on this website is for
               information purposes only and does not constitute an offer to
               avail any service. The prices mentioned are subject to change
               without prior notice, and the availability of properties mentioned
@@ -1724,7 +1886,8 @@ function project() {
               content, design, and information on this website are protected by
               copyright and other intellectual property rights. Any unauthorized
               use or reproduction of the content may violate applicable laws.
-              All trademarks are the property of their respective owners.
+              All trademarks are the property of their respective owners. */}
+             Disclaimer : {project?.disclaimer}
             </p>
           </Container>
         </section>

@@ -294,6 +294,8 @@ section.featured p.card-text {
   padding: 10px;
   border-radius: 100px;
   margin-right: 10px;
+  display: block;
+  margin-top: 10px;
 }
 .uper-space {
   padding: 0 !important;
@@ -1969,6 +1971,34 @@ img.loderr {
   left: 0;
   bottom: 3px;
 }
-.res.left-brdr.col-lg-6.col-md-6 {
+section#Overview .res.left-brdr.col-lg-6.col-md-6 {
   border-bottom: 1px solid #0000003D;
+}
+section#Overview .res:nth-child(3), section#Overview .res:nth-child(4) {
+  border-bottom: none !important;
+}
+section.blogs .btn-loc span {
+  display: unset;
+}
+
+.suggestions-box{
+
+  position: absolute;
+  top: 63px;
+  background: #064685;
+  display: block;
+  width: 100%;
+  padding: 15px;
+
+  }
+  input.form-control{
+    position: relative;
+  }
+  .icici {
+    position: relative;
+    top: 5px;
+}
+.suggestions-box .suggestion-item {
+  cursor: pointer;
+  margin-top: 5px;
 }

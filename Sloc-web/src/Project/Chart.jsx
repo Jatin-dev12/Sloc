@@ -239,7 +239,7 @@ const fetchEMIPlans = async () => {
                 }}
               />
               <div className="d-flex justify-content-between">
-                <span>1L</span>
+                <span>10L</span>
                 <span>10CR</span>
               </div>
             </Form.Group>

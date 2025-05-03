@@ -1107,4 +1107,7 @@ img.back-roll {
   position: relative;
   left: 18px;
 }
+section#Overview .res:nth-child(3), section#Overview .res:nth-child(4) {
+  border-bottom: none !important;
+}
 }

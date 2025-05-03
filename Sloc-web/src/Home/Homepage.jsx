@@ -47,8 +47,8 @@ import Facebook from '../assets/Imgs/facbook.svg'
 import linkdin from '../assets/Imgs/Linkdin.svg'
 import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios';
+import { debounce } from 'lodash'; // To debounce the input
 
-// const projects = [
 //   {
 //     id: 1,
 //     title: "GODREJ VRIKSHYA",
@@ -119,7 +119,7 @@ const testimonials = [
     id: 5,
     name: "Vivek Ruhil - Godrej Aristocrat",
     image: grl,
-    text: "Vivek Ruhil - Godrej Aristocrat",
+    text: "Felt guided every step of the way. Big thanks to SLOC for helping me grab a great deal at Godrej Aristocrat!",
   }
 ];
 const Blogs = [
@@ -244,6 +244,8 @@ function Home() {
 
   const [projects, setProjects] = useState([]);
 const [apiProjectsCount, setApiProjectsCount] = useState(0);
+const [filteredProjects, setFilteredProjects] = useState([]);
+const [searchQuery, setSearchQuery] = useState('');
 const generateSlug = (name) => {
   return name
     ? name
@@ -252,6 +254,20 @@ const generateSlug = (name) => {
         .replace(/(^-|-$)/g, '') // Remove leading/trailing hyphens
     : 'untitled-project'; // Fallback slug
 };
+  const debouncedSearch = debounce((query) => {
+    if (query.trim() === '') {
+      setFilteredProjects([]);
+    } else {
+      const matches = projects.filter((project) =>
+        project.title.toLowerCase().includes(query.toLowerCase())
+      );
+      setFilteredProjects(matches);
+    }
+  }, 300); // 300ms debounce time
+  const handleSearchInputChange = (e) => {
+    setSearchQuery(e.target.value);
+    debouncedSearch(e.target.value);
+  };
 useEffect(() => {
   const baseUrl = import.meta.env.VITE_BASE_URL || 'https://default-api-url.com/';
   const apiUrl = `${baseUrl}api/projects`;
@@ -1152,6 +1168,7 @@ const handleSearch = () => {
   if (projectId.trim()) {
     params.append('project', formatSlug(projectId.trim())); // Use 'project' instead of 'project_id'
   }
+  setTimeout(() => setSearchLoading(false), 2000); // Fake search loading for demonstration
 
   // Perform the navigation with the search parameters
   navigate(`/search-Listing?${params.toString()}`);
@@ -1189,90 +1206,86 @@ const handleSearch = () => {
               </Col>
             </Row>
           </Container>
-          <div className="d-flex align-items-md-center searc-bar  justify-content-between">
-          <DropdownButton
-          id="dropdown-city"
-          title={selectedCity.name}
-          variant="outline-light"
-          className="me-2 set-out"
-        >
-            {/* <Dropdown.Item
-    key="all-cities"
-    onClick={() => handleCitySelect({ id: null, name: "City" })}
-  >
-  City
-  </Dropdown.Item> */}
-          {cities.length > 0 ? (
-            cities.map((city) => (
-              <Dropdown.Item
-                key={city.id}
-                onClick={() => handleCitySelect(city)}
+          <div className="d-flex align-items-md-center searc-bar justify-content-between">
+      <DropdownButton
+        id="dropdown-city"
+        title="City"
+        variant="outline-light"
+        className="me-2 set-out"
+      >
+        {cities.length > 0 ? (
+          cities.map((city) => (
+            <Dropdown.Item key={city.id} onClick={() => handleCitySelect(city)}>
+              {city.name}
+            </Dropdown.Item>
+          ))
+        ) : (
+          <Dropdown.Item disabled>No cities available</Dropdown.Item>
+        )}
+      </DropdownButton>
+
+      <DropdownButton
+        id="dropdown-property"
+        title="Property Type"
+        variant="outline-light"
+        className="me-2 set-out"
+      >
+        {propertyTypes.length > 0 ? (
+          propertyTypes.map((property) => (
+            <Dropdown.Item key={property.id} onClick={() => handlePropertySelect(property)}>
+              {property.name}
+            </Dropdown.Item>
+          ))
+        ) : (
+          <Dropdown.Item disabled>No property types available</Dropdown.Item>
+        )}
+      </DropdownButton>
+
+      <InputGroup className="me-2">
+        <InputGroup.Text>
+          <img src={Search} alt="Search" />
+        </InputGroup.Text>
+        <Form.Control
+          placeholder="Search By Project Name..."
+          aria-label="Project ID"
+          aria-describedby="basic-addon1"
+          value={searchQuery}
+          onChange={handleSearchInputChange}
+        />
+        {/* Show suggestions */}
+        {filteredProjects.length > 0 && (
+          <div className="suggestions-box" style={{ maxHeight: '200px', overflowY: 'auto' }}>
+            {filteredProjects.map((project) => (
+              <div
+                key={project.id}
+                className="suggestion-item"
+                onClick={() => {
+                  // Handle project selection
+                  setSearchQuery(project.title);
+                  setFilteredProjects([]); // Hide suggestions after selection
+                }}
               >
-                {city.name}
-              </Dropdown.Item>
-            ))
-          ) : (
-            <Dropdown.Item disabled>No cities available</Dropdown.Item>
-          )}
-        </DropdownButton>
+                {project.title}
+              </div>
+            ))}
+          </div>
+        )}
+      </InputGroup>
 
-        <DropdownButton
-          id="dropdown-property"
-          title={selectedProperty.name}
-          variant="outline-light"
-          className="me-2 set-out"
-        >
-            {/* <Dropdown.Item
-    key="any-property"
-    onClick={() => handlePropertySelect({ id: null, name: "Property Type" })}
-  >
-  Property Type
-  </Dropdown.Item> */}
-          {propertyTypes.length > 0 ? (
-            propertyTypes.map((property) => (
-              <Dropdown.Item
-                key={property.id}
-                onClick={() => handlePropertySelect(property)}
-              >
-                {property.name}
-              </Dropdown.Item>
-            ))
-          ) : (
-            <Dropdown.Item disabled>No property types available</Dropdown.Item>
-          )}
-        </DropdownButton>
+      <Button
+        variant="primary all-same-ani"
+        onClick={handleSearch}
+        disabled={searchLoading}
+      >
+        Search
+      </Button>
 
-        <InputGroup className="me-2">
-          <InputGroup.Text>
-            <img src={Search} alt="Search" />
-
-          </InputGroup.Text>
-
-          <Form.Control
-            placeholder="Search By Project Name..."
-            aria-label="Project ID"
-            aria-describedby="basic-addon1"
-            value={projectId}
-            onChange={handleProjectIdInput}
-          />
-
-        </InputGroup>
-              {/* Error Message */}
-
-        <Button
-          variant="primary all-same-ani"
-          onClick={handleSearch}
-          disabled={searchLoading}
-        >
-          {/* {searchLoading ? 'Searching...' : 'Search'} */}
-          Search
-        </Button>
-        {errorMessage && (
+      {errorMessage && (
         <span className="error-message" style={{ color: 'red', marginTop: '10px' }}>
           {errorMessage}
         </span>
       )}
-      </div>
+    </div>
 
 {/*
       {searchError && <div className="text-danger mt-2">{searchError}</div>}
@@ -1461,7 +1474,7 @@ const handleSearch = () => {
   style={{ width: '428px', height: '253px', objectFit: 'cover' }}
 />
                   <Card.Body className="uper-space">
-                    <Card.Text className="mb-4 btn-loc uprkro">
+                    <Card.Text className="mb-4 btn-loc">
                       {/* <span>{project.size}</span> <span>{project.feet}</span>
                       <span>{project.location}</span> */}
                           {project.size && <span>{project.size}</span>}
