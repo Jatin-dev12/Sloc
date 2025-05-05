@@ -1037,10 +1037,7 @@ section.blog-text span {
   section.welcome {
     padding-top: 40px !important;
   }
-  .Dis {
-    font-size: 14px;
-    padding: 10px;
-  }
+
   section.featured {
     padding-top: 40px;
     padding-bottom: 40px;
@@ -1122,6 +1119,27 @@ section#Overview .res:nth-child(3), section#Overview .res:nth-child(4) {
 }
 span.mobile-fulls {
   display: block;
+}
+footer h6 {
+  font-size: 18px !important;
+}
+footer ul a {
+  font-size: 13px;
+}
+footer p {
+  font-size: 13px;
+}
+.copyright {
+
+  font-size: 14px;
+
+}
+.footer-logo p.Logo {
+  font-size: 60px;
+}
+.Dis {
+  font-size: 10px;
+  padding: 6px;
 }
 }
 
