@@ -14,6 +14,7 @@ import gf from './Loader.gif'
 
 import { Link } from "react-router-dom";
 import axios from 'axios';
+import { Helmet } from 'react-helmet';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -206,15 +207,25 @@ const Contact = () => {
       try {
         // 1. Bitrix24 API call
         const url = window.location.href;
-        const bitrixApiUrl = `https://sloc.bitrix24.in/rest/1/${bitrixToken}/crm.lead.add.jsondd?` +
+        let formattedMobile = formData.mobile;
+        if (formattedMobile && formattedMobile.startsWith('+')) {
+          // Extract country code (e.g., "+91")
+          const countryCode = formattedMobile.match(/^\+\d+/)?.[0] || '';
+          // Extract the number part and remove non-digits
+          const number = formattedMobile.replace(/^\+\d+/, '').replace(/[^0-9]/g, '');
+          // Format as "+91 1234567890"
+          formattedMobile = `${countryCode} ${number}`;
+        }
+
+        const bitrixApiUrl = `https://sloc.bitrix24.in/rest/1/${bitrixToken}/crm.lead.add.json?` +
           `FIELDS[TITLE]=SLOC_Webform` +
           `&FIELDS[NAME]=${encodeURIComponent(formData.name)}` +
           `&FIELDS[EMAIL][0][VALUE]=${encodeURIComponent(formData.email)}` +
           `&FIELDS[EMAIL][0][VALUE_TYPE]=WORK` +
-          `&FIELDS[PHONE][0][VALUE]=${encodeURIComponent(formData.mobile)}` +
+          `&FIELDS[PHONE][0][VALUE]=${encodeURIComponent(formattedMobile)}` +
           `&FIELDS[PHONE][0][VALUE_TYPE]=WORK` +
           `&FIELDS[SOURCE_ID]=UC_R2M98V` +
-          `&FIELDS[SOURCE_DESCRIPTION]=Contact Page` +
+          `&FIELDS[SOURCE_DESCRIPTION]=Contact%20Page` +
           `&FIELDS[UF_CRM_1745260289]=${encodeURIComponent(url)}`;
 
         const bitrixResponse = await fetch(bitrixApiUrl, {
@@ -236,7 +247,7 @@ const Contact = () => {
           {
             name: formData.name,
             email: formData.email,
-            mobile: formData.mobile,
+            mobile: formattedMobile, // Use formatted mobile here as well
           },
           {
             headers: {
@@ -265,6 +276,8 @@ const Contact = () => {
     }
   };
 
+
+
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -274,6 +287,10 @@ const Contact = () => {
 
   return (
     <>
+                     <Helmet>
+                 <meta property="og:title" content="Contact SLOC – Leading Real Estate Company in India" />
+                 <meta property="og:description" content="Reach out to SLOC for expert guidance in investing property in India. Our team of real estate professionals is ready to help with all your property needs." />
+                </Helmet>
       <section className="disclamer baner-iner contact-banner">
       <Button variant="dark" className='ssksk' onClick={handleShow}>
               x

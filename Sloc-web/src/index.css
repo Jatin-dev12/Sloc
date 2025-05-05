@@ -548,8 +548,6 @@ button{
 .nav-bg-change {
   background-color: #064685  !important; /* or whatever color you want */
 }
-
-
 a.banner-button.all-same-ani.btn.btn-dark{
   background: #064685;
   border: none;
@@ -583,4 +581,8 @@ a.btn.btn-dark:hover{
 }
 a.banner-button.white.btn.btn-dark:hover{
   color: #1E1E1E !important;
+}
+.dropdown-item.active, .dropdown-item:active {
+  color: #fff !important;
+  background-color: unset !important;
 }

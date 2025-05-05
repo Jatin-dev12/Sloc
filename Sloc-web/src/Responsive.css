@@ -11,6 +11,9 @@ main.project-page {
   position: fixed !important;
 
 }
+.settobe {
+  width: 100% !important;
+}
 @media screen and (max-width: 1650px) {
   .timeline-line {
     height: 194vh;
@@ -1016,6 +1019,10 @@ p.my-3.rerera {
   position: absolute !important;
 
 }
+section.blog-text span {
+  font-size: 18px;
+
+}
 }
 @media screen and (max-width: 578px) {
   section.Main-banner h1 {
@@ -1109,5 +1116,20 @@ img.back-roll {
 }
 section#Overview .res:nth-child(3), section#Overview .res:nth-child(4) {
   border-bottom: none !important;
+}
+.Blogs-banner br {
+  display: unset;
+}
+span.mobile-fulls {
+  display: block;
+}
+}
+
+@media screen and (max-width: 375px){
+  .popup-card.c .form-check.mb-3.text-white label.form-check-label {
+    color: #fff;
+    position: relative;
+    left: 15px;
+    /* top: 3px; */
 }
 }

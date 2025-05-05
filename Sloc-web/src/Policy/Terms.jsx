@@ -4,13 +4,17 @@ import '../App.css'
 import { FaCheckCircle } from "react-icons/fa";
 import Icon from '../assets/Imgs/list-icon.svg'
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 
 const Terms = () => {
   return (
 
 
     <>
-
+                             <Helmet>
+                         <meta property="og:title" content="Terms and Conditions | SLOC - Real Estate Company in India" />
+                         <meta property="og:description" content="Read the Terms and Conditions for using SLOC's real estate services. Learn about our policies, user agreements, and how we assist with property investment in India." />
+                        </Helmet>
       <section className='terms baner-iner'>
 
         <Container className="">

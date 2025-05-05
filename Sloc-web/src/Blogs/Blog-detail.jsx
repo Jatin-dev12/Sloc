@@ -70,6 +70,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import Bl from '../assets/Imgs/Blog-detail.svg';
 import '../App.css';
+import { Helmet } from 'react-helmet';
 
 const BlogSection = () => {
   const { slug } = useParams(); // Get the slug from the URL (e.g., 'asdf')
@@ -140,6 +141,10 @@ const BlogSection = () => {
 
   return (
     <>
+                 <Helmet>
+             <meta property="og:title" content="Real Estate Blog | Property Tips & Market Updates India" />
+             <meta property="og:description" content="Explore SLOC’s real estate blog for tips, market trends, and insights on buying and investing in property across India. Stay informed with expert advice." />
+            </Helmet>
       <section className="blog-detailss">
         <Container className="my-5">
           <Row className="align-items-center">

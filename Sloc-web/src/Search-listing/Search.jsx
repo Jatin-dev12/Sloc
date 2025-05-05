@@ -829,6 +829,7 @@ import axios from "axios";
 
 // ];
 import { debounce } from "lodash";  // You can install lodash to use debounce
+import { Helmet } from "react-helmet";
 
 function list() {
 
@@ -1055,7 +1056,7 @@ useEffect(() => {
     const payload = {};
     if (selectedCity.id) payload.city = selectedCity.id.toString();
     if (selectedProperty.id) payload.property_type = selectedProperty.id.toString();
-    if (projectId.trim()) payload.project_id = projectId.trim();
+    if (projectId.trim()) payload.project_name = projectId.trim(); // Changed from project_id to project_name
     payload.page = newPage;
     payload.per_page = newPage === 1 ? 6 : 3;
 
@@ -1072,7 +1073,7 @@ useEffect(() => {
           setPage(newPage);
           const newDisplayCount = newPage === 1 ? 6 : displayCount + 3;
           setDisplayCount(newDisplayCount);
-          const total = response.data.total || newResults.length; // Adjust based on API
+          const total = response.data.total || newResults.length;
           setTotalProjects(total);
           setHasMore(newDisplayCount < total && newResults.length > 0);
           console.log('Search results:', newResults, 'Total:', total);
@@ -1094,7 +1095,7 @@ useEffect(() => {
             params.append('property_type', formatSlug(selectedProperty.name));
           }
           if (projectId.trim()) {
-            params.append('project', formatSlug(projectId.trim())); // Use 'project'
+            params.append('project', formatSlug(projectId.trim())); // Already using project
           }
 
           navigate(`/search-Listing?${params.toString()}`);
@@ -1423,6 +1424,10 @@ useEffect(() => {
 
   return (
     <main className="search-listing">
+                                   <Helmet>
+                               <meta property="og:title" content="Search Property Listings in India | Invest in Real Estate with SLOC" />
+                               <meta property="og:description" content="Browse a wide range of property listings across India. Find residential and commercial properties to invest with SLOC, your trusted real estate partner in India." />
+                              </Helmet>
       <section className="Main-banner listing-maina" data-speed="1.5">
         <Container>
           <Row className="align-items-center">
@@ -1587,7 +1592,7 @@ useEffect(() => {
 </DropdownButton>
 
         {/* <p className="Bysearch">by search Result : {searchResults.length}</p> */}
-        <p className="Bysearch">by search Result : {searchResults.length}</p>
+        <p className="Bysearch">by search Result</p>
       </Col>
     </Row>
   </Container>

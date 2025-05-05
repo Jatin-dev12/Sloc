@@ -3,10 +3,15 @@ import { Container, Row, Col, Badge, Image } from "react-bootstrap";
 import Bl from "../assets/Imgs/Blog-detail.svg";
 import "../App.css";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 const Privacy = () => {
   return (
     <>
+                             <Helmet>
+                         <meta property="og:title" content="Privacy Policy | SLOC – Your Trusted Real Estate Partner in India" />
+                         <meta property="og:description" content="Read SLOC's Privacy Policy to understand how we collect, use, and protect your personal data. We are committed to ensuring the security and privacy of your information." />
+                        </Helmet>
       <section className="privacy baner-iner">
         <Container className="">
           <Row className="align-items-center">

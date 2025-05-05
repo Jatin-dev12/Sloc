@@ -211,7 +211,7 @@ export default function Header() {
                         className="form-set"
 
                       >
-                        <h5>Enter details to schedule meeting</h5>
+                        <h5>Please fill the form below</h5>
                         <form onSubmit={handleSubmit2}>
           <div className="mb-3">
             <input

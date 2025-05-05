@@ -111,8 +111,6 @@ function About() {
        <Helmet>
        <meta property="og:title" content="About SLOC | Leading Real Estate Company in India for Property Deals" />
        <meta property="og:description" content="Discover SLOC, your trusted real estate partner in India. We specialize in buying and investing in residential and commercial properties with expert guidance." />
-
-
       </Helmet>
     <section className="Main-banner About-banner" data-speed="1.5">
          <Container>

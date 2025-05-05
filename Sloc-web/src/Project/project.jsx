@@ -62,6 +62,7 @@ import logo from './imgs/logo.png';
 import backpg from './imgs/p.jpg'
 import gf from '../Contact/Loader.gif'
 import { address } from "framer-motion/client";
+import { Helmet } from "react-helmet";
 
 
 gsap.registerPlugin(ScrollTrigger);
@@ -408,6 +409,58 @@ function project() {
 
 
 
+  // const handleSubmit1 = (e) => {
+  //   e.preventDefault();
+  //   if (validateForm1()) {
+  //     console.log("Form is valid, submitting data:", formData1);
+
+  //     // Extract project name from URL
+  //     const url = window.location.href; // e.g., http://localhost:5173/project/godrej-miraya
+  //     const projectSlug = url.split('/project/') || 'Unknown Project';
+  //     const projectName = projectSlug
+
+
+  //     // Prepare API URL with form data
+  //     const apiUrl = `https://sloc.bitrix24.in/rest/1/s94cvkguwyrljt7f/crm.lead.add.json?` +
+  //       `FIELDS[TITLE]=SLOC_Webform` +
+  //       `&FIELDS[NAME]=${encodeURIComponent(formData1.name)}` +
+  //       `&FIELDS[EMAIL][0][VALUE]=${encodeURIComponent(formData1.email)}` +
+  //       `&FIELDS[EMAIL][0][VALUE_TYPE]=WORK` +
+  //       `&FIELDS[PHONE][0][VALUE]=${(formData1.mobile)}` +
+  //       `&FIELDS[PHONE][0][VALUE_TYPE]=WORK` +
+  //       `&FIELDS[SOURCE_ID]=UC_R2M98V` +
+  //       `&FIELDS[SOURCE_DESCRIPTION]=${(projectName)}` +
+  //       `&FIELDS[UF_CRM_1745260289]=${(url)}`;
+
+  //     // Make API call
+  //     fetch(apiUrl, {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //     })
+  //       .then(response => response.json())
+  //       .then(data => {
+  //         console.log('API response:', data);
+  //         // Reset the form fields after successful submit
+  //         setFormData1({
+  //           name: '',
+  //           mobile: '',
+  //           email: '',
+  //           agree: false,
+  //         });
+  //         setErrors1({}); // Clear any old errors
+  //         handleShow(); // Show success modal
+  //       })
+  //       .catch(error => {
+  //         console.error('API error:', error);
+  //       });
+  //   } else {
+  //     console.log("Form has errors, not submitting");
+  //   }
+  // };
+
+
   const handleSubmit1 = (e) => {
     e.preventDefault();
     if (validateForm1()) {
@@ -415,17 +468,28 @@ function project() {
 
       // Extract project name from URL
       const url = window.location.href; // e.g., http://localhost:5173/project/godrej-miraya
-      const projectSlug = url.split('/project/') || 'Unknown Project';
+      const projectSlug = url.split('/project/')[1] || 'Unknown Project'; // Directly use the part after '/project/'
       const projectName = projectSlug
-
+        .split('-')
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' '); // Converts 'godrej-miraya' to 'Godrej Miraya'
+      // Format phone number with country code and space
+      let formattedMobile = formData1.mobile;
+      if (formattedMobile && formattedMobile.startsWith('+')) {
+        // Assuming formData1.mobile is already like "+911234567890"
+        const countryCode = formattedMobile.match(/^\+\d+/)?.[0] || '';
+        const number = formattedMobile.replace(/^\+\d+/, '').replace(/[^0-9]/g, '');
+        formattedMobile = `${countryCode} ${number}`; // e.g., "+91 1234567890"
+      }
 
       // Prepare API URL with form data
-      const apiUrl = `https://sloc.bitrix24.in/rest/1/s94cvkguwyrljt7f/crm.lead.add.json?` +
+      const apiUrl =
+        `https://sloc.bitrix24.in/rest/1/s94cvkguwyrljt7f/crm.lead.add.json?` +
         `FIELDS[TITLE]=SLOC_Webform` +
         `&FIELDS[NAME]=${encodeURIComponent(formData1.name)}` +
-        `&FIELDS[EMAIL][0][VALUE]=${encodeURIComponent(formData1.email)}` +
+        `&FIELDS[EMAIL][0][VALUE]=${(formData1.email)}` +
         `&FIELDS[EMAIL][0][VALUE_TYPE]=WORK` +
-        `&FIELDS[PHONE][0][VALUE]=${(formData1.mobile)}` +
+        `&FIELDS[PHONE][0][VALUE]=${(formattedMobile)}` + // Use formatted mobile
         `&FIELDS[PHONE][0][VALUE_TYPE]=WORK` +
         `&FIELDS[SOURCE_ID]=UC_R2M98V` +
         `&FIELDS[SOURCE_DESCRIPTION]=${(projectName)}` +
@@ -438,8 +502,8 @@ function project() {
           'Content-Type': 'application/json',
         },
       })
-        .then(response => response.json())
-        .then(data => {
+        .then((response) => response.json())
+        .then((data) => {
           console.log('API response:', data);
           // Reset the form fields after successful submit
           setFormData1({
@@ -451,7 +515,7 @@ function project() {
           setErrors1({}); // Clear any old errors
           handleShow(); // Show success modal
         })
-        .catch(error => {
+        .catch((error) => {
           console.error('API error:', error);
         });
     } else {
@@ -462,17 +526,25 @@ function project() {
 
 
 
-
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validateForm()) {
-      console.log('Form is valid, submitting data:', formData);
+      // console.log('Form is valid, submitting data:', formData);
 
       // Extract project name from URL
       const url = window.location.href; // e.g., http://localhost:5173/project/godrej-miraya
       const projectSlug = url.split('/project/')[1] || 'Unknown Project'; // Directly use the part after '/project/'
-      const projectName = projectSlug; // Use it as-is without any changes
-
+      const projectName = projectSlug
+        .split('-')
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' '); // Converts 'godrej-miraya' to 'Godrej Miraya'
+      let formattedMobile = formData.mobile;
+      if (formattedMobile && formattedMobile.startsWith('+')) {
+        // Assuming formData1.mobile is already like "+911234567890"
+        const countryCode = formattedMobile.match(/^\+\d+/)?.[0] || '';
+        const number = formattedMobile.replace(/^\+\d+/, '').replace(/[^0-9]/g, '');
+        formattedMobile = `${countryCode} ${number}`; // e.g., "+91 1234567890"
+      }
       // Prepare API URL with form data
       const apiUrl = `https://sloc.bitrix24.in/rest/1/s94cvkguwyrljt7f/crm.lead.add.json?` +
         `FIELDS[TITLE]=SLOC_Webform` +
@@ -494,7 +566,7 @@ function project() {
       })
         .then(response => response.json())
         .then(data => {
-          console.log('API response:', data);
+          // console.log('API response:', data);
           // Reset the form fields after successful submit
           setFormData({
             name: '',
@@ -509,7 +581,7 @@ function project() {
           console.error('API error:', error);
         });
     } else {
-      console.log('Form has errors, not submitting');
+      // console.log('Form has errors, not submitting');
     }
   };
 
@@ -799,15 +871,19 @@ function project() {
 
       // Extract project name from URL
       const url = window.location.href; // e.g., http://localhost:5173/project/godrej-miraya
-      const projectSlugArray = url.split('/project/');
-      const projectSlug = projectSlugArray[1] || 'Unknown Project';
-
-      // Format project name: remove hyphens, capitalize first letter of each word
+      const projectSlug = url.split('/project/')[1] || 'Unknown Project'; // Directly use the part after '/project/'
       const projectName = projectSlug
         .split('-')
-        .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-        .join(' ');
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' '); // Converts 'godrej-miraya' to 'Godrej Miraya'
       console.log("Formatted projectName:", projectName);
+      let formattedMobile = formData2.mobile;
+      if (formattedMobile && formattedMobile.startsWith('+')) {
+        // Assuming formData1.mobile is already like "+911234567890"
+        const countryCode = formattedMobile.match(/^\+\d+/)?.[0] || '';
+        const number = formattedMobile.replace(/^\+\d+/, '').replace(/[^0-9]/g, '');
+        formattedMobile = `${countryCode} ${number}`; // e.g., "+91 1234567890"
+      }
       // Prepare API URL with form data
       const apiUrl = `https://sloc.bitrix24.in/rest/1/s94cvkguwyrljt7f/crm.lead.add.json?` +
         `FIELDS[TITLE]=SLOC_Webform` +
@@ -851,6 +927,10 @@ function project() {
 
   return (
     <>
+                         <Helmet>
+                     <meta property="og:title" content="Godrej Astra Project | Buy Premium Property in India" />
+                     <meta property="og:description" content="Discover Godrej Astra with SLOC — premium project details, pricing, amenities, and location highlights. Find your perfect property investment in India today." />
+                    </Helmet>
       <main className="project-page">
 
 
@@ -866,7 +946,9 @@ function project() {
                 className="form-set"
 
               >
-                <h5>Enter details to schedule meeting</h5>
+                <h3 style={{color: "white"}}>{project?.title}</h3>
+                <h5>Please fill the form below</h5>
+
                 <form onSubmit={handleSubmit2}>
   <div className="mb-3">
     <input
@@ -1373,7 +1455,8 @@ function project() {
                 </div>
               </div>
               <button className="comn-btn all-same-ani" onClick={close}>
-                Get Full Pricing & Layout Now
+                {/* Get Full Pricing & Layout Now */}
+                Get Pricing & Layout
               </button>
             </div>
           ))}
@@ -1416,8 +1499,8 @@ function project() {
                   </div>
                 </div>
                 <button className="comn-btn all-same-ani" onClick={close}>
-                  Get Full Pricing & Layout Now
-                </button>
+                Get Pricing & Layout
+                                </button>
               </div>
             </SwiperSlide>
           ))}
@@ -1454,7 +1537,8 @@ function project() {
                   data-aos-offset="10"
                   onClick={close}
                 >
-                  Contact us for More info
+                  {/* Contact us for More info */}
+                  Get Brochure
                 </Button >
                 <img src={back} alt="" className="back-roll" />
               </Col>
@@ -1661,8 +1745,9 @@ function project() {
                   data-aos-easing="ease-in-sine"
                   data-aos-offset="10"
                   // onClick={close}
-                  href={`tel:${project?.calling_number}`}                >
-                  Contact us for More info
+                  href={`tel: +91${project?.whatsapp_number}`}                >
+                  {/* Contact us for More info */}
+                  Call Now
                 </Button>
                 <img src={back} alt="" className="back-roll" />
               </Col>
@@ -1889,7 +1974,9 @@ function project() {
               copyright and other intellectual property rights. Any unauthorized
               use or reproduction of the content may violate applicable laws.
               All trademarks are the property of their respective owners. */}
-             Disclaimer : {project?.disclaimer}
+              {/* The content provided on this website is for information purposes only and does not constitute an offer to avail any service. The prices mentioned are subject to change without prior notice, and the availability of properties mentioned is not guaranteed. Users of this website are hereby advised to exercise due diligence and to independently validate and verify all information about any property/project before deciding to purchase the same or taking any other action. The images displayed on the website are for representation purposes only and may not reflect the actual properties accurately. Please note that this is the official website of an authorized marketing partner. The content, design, and information on this website are protected by copyright and other intellectual property rights. Any unauthorized use or reproduction of the content may violate applicable laws. All trademarks are the property of their respective owners. */}
+              <br></br>
+              Disclaimer : {project?.disclaimer}
             </p>
           </Container>
         </section>
