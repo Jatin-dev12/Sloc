@@ -2002,3 +2002,7 @@ section.blogs .btn-loc span {
   cursor: pointer;
   margin-top: 5px;
 }
+.form-set span {
+  display: block;
+  text-align: left;
+}

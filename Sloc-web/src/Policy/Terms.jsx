@@ -12,6 +12,7 @@ const Terms = () => {
 
     <>
                              <Helmet>
+                              <title>Terms and Conditions | SLOC - Real Estate Company in India</title>
                          <meta property="og:title" content="Terms and Conditions | SLOC - Real Estate Company in India" />
                          <meta property="og:description" content="Read the Terms and Conditions for using SLOC's real estate services. Learn about our policies, user agreements, and how we assist with property investment in India." />
                         </Helmet>

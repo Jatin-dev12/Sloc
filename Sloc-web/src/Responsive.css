@@ -440,6 +440,10 @@ font-size: 14px;
   .timeline-container h2 {
     font-size: 50px;
   }
+  .alliance.row .brdr img {
+
+    width: 100%;
+}
 }
 @media screen and (max-width: 1024px) {
   .searc-bar {
@@ -1022,6 +1026,11 @@ p.my-3.rerera {
 section.blog-text span {
   font-size: 18px;
 
+}
+.alliance.row .brdr img {
+  width: 177px;
+  height: 77px;
+  object-fit: contain;
 }
 }
 @media screen and (max-width: 578px) {

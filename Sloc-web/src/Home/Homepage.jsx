@@ -57,47 +57,7 @@ import axios from "axios";
 import { debounce } from "lodash"; // To debounce the input
 import { Helmet } from "react-helmet";
 
-//   {
-//     id: 1,
-//     title: "GODREJ VRIKSHYA",
-//     price: "₹ 3.30 CR* ONWARDS",
-//     location: "SECTOR 49, GURGAON",
-//     size: "3 & 4 BHK",
-//     feet: "1948 - 3700 Sq.Ft.",
-//     image: f1, // Replace with actual image URL
-//     bottomImage: BottomImg1,
-//   },
-//   {
-//     id: 2,
-//     title: "SMARTWORLD THE EDITION",
-//     price: "₹ 6.50 CR* ONWARDS",
-//     location: "SECTOR 66, GURGAON",
-//     size: "3 & 4 BHK",
-//     feet: "1948 - 3700 Sq.Ft.",
-//     image: f2,
-//     bottomImage: BottomImg2,
-//   },
-//   {
-//     id: 3,
-//     title: "GODREJ ARISTOCRAT",
-//     price: "₹ 5.53 CR* ONWARDS",
-//     location: "SECTOR 62, GURGAON",
-//     feet: "1948 - 3700 Sq.Ft.",
-//     size: "3 & 4 BHK",
-//     image: f3,
-//     bottomImage: BottomImg3,
-//   },
-//   {
-//     id: 4,
-//     title: "GODREJ ARISTOCRAT",
-//     price: "₹ 5.53 CR* ONWARDS",
-//     location: "SECTOR 62, GURGAON",
-//     feet: "1948 - 3700 Sq.Ft.",
-//     size: "3 & 4 BHK",
-//     image: f3,
-//     bottomImage: BottomImg4,
-//   },
-// ];
+
 const testimonials = [
   {
     id: 1,
@@ -163,6 +123,7 @@ const Blogs = [
   },
 ];
 gsap.registerPlugin(ScrollTrigger);
+
 function Home() {
   const [Blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -204,8 +165,10 @@ function Home() {
           console.log("Blogs fetched successfully:", response.data.data);
           const apiBlogs = response.data.data;
 
+          const showBlogs = apiBlogs.filter((blog) => blog.show_on_homepage === 1);
+
           // Map API response to the required blog structure
-          const mappedBlogs = apiBlogs.map((blog, index) => ({
+          const mappedBlogs = showBlogs.map((blog, index) => ({
             id: blog.id || `blog-${index + 1}`, // Use API id or fallback
             name: blog.name || "Untitled Blog", // Use 'name' from API
             slug: generateBlogsSlug(blog.name), // Generate slug from 'name'
@@ -279,12 +242,10 @@ function Home() {
     debouncedSearch(e.target.value);
   };
   useEffect(() => {
-    const baseUrl =
-      import.meta.env.VITE_BASE_URL || "https://default-api-url.com/";
+    const baseUrl = import.meta.env.VITE_BASE_URL || 'https://default-api-url.com/';
     const apiUrl = `${baseUrl}api/projects`;
 
     axios
-      // .get(apiUrl)
       .get(apiUrl, {
         headers: {
           Authorization: `Bearer AzlrVK30FVdEx0TwrRwqYrQTL`,
@@ -292,36 +253,32 @@ function Home() {
       })
       .then((response) => {
         if (response.data.success) {
-          console.log("Projects fetched successfully:", response.data.data);
+          console.log('Projects fetched successfully:', response.data.data);
           const apiProjects = response.data.data;
           setApiProjectsCount(apiProjects.length);
-          const mappedApiProjects = apiProjects.map((project, index) => ({
+
+          // Filter projects where is_exclusive === 1
+          const exclusiveProjects = apiProjects.filter((project) => project.is_exclusive === 1);
+
+          const mappedApiProjects = exclusiveProjects.map((project, index) => ({
             id: project.id,
-            title: project.name || "Untitled Project",
-            slug: generateSlug(project.name), // Generate slug from name
-            price: project.tag_price
-              ? `₹ ${project.tag_price} CR* ONWARDS`
-              : "Price on Request",
-            // size: project.property.name || '',
-            // feet: '',
-            size: project.pricing_layout[0]?.title || "", // Use title from first index of pricing_layout
-            feet: project.pricing_layout[0]?.description || "", // Use description from first index of pricing_layout
-            location: project.property.name || "",
+            title: project.name || 'Untitled Project',
+            slug: generateSlug(project.name),
+            price: project.tag_price ? `₹ ${project.tag_price} ` : 'Price on Request',
+            size: project.pricing_layout[0]?.title || '',
+            feet: project.pricing_layout[0]?.description || '',
+            location: project.property.name || '',
             image:
-              project.hero_img_original ||
-              "https://admin.sloc.in/public/feature_image/1745472810_f1.png",
-            bottomImage:
-              [BottomImg1, BottomImg2, BottomImg3, BottomImg4][index % 4] ||
-              BottomImg1,
+              project.hero_img_original || 'https://admin.sloc.in/public/feature_image/1745472810_f1.png',
+            bottomImage: [BottomImg1, BottomImg2, BottomImg3, BottomImg4][index % 4] || BottomImg1,
           }));
+
           const combinedProjects = [...mappedApiProjects];
           setProjects(combinedProjects);
         }
       })
       .catch((error) => {
-        console.error("Error fetching projects:", error);
-        // Optionally set only static projects on error
-        // setProjects(staticProjects);
+        console.error('Error fetching projects:', error);
       })
       .finally(() => {
         // setLoading(false); // Uncomment if you have a loading state
@@ -1453,10 +1410,39 @@ function Home() {
     websites: ["https://staging.sloc.in/"],
   };
 
+
+    const [socialLinks, setSocialLinks] = useState({});
+
+
+    useEffect(() => {
+      fetch("https://admin.sloc.in/public/api/setting", {
+        headers: {
+          Authorization: "Bearer AzlrVK30FVdEx0TwrRwqYrQTL",
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log('//////// API Response ////////', data);
+          if (data && Array.isArray(data.data) && data.data.length > 0) {
+            const firstItem = data.data[0];
+            console.log('//////// Extracted Social Links ////////', firstItem);
+            console.log('//////// Extracted Social Links ////////', firstItem?.facebook);
+            setSocialLinks(firstItem);
+          } else {
+            console.warn('//////// No social data found ////////');
+          }
+        })
+        .catch((err) => {
+          console.error("Error fetching social links:", err);
+        });
+    }, []);
+
+
   return (
     <>
       <main id="All">
         <Helmet>
+          <title>Real Estate Company | Property Dealer | Buy Property in India | SLOC</title>
           <meta
             property="og:title"
             content="Real Estate Company | Property Dealer | Buy Property in India | SLOC"
@@ -2106,30 +2092,31 @@ function Home() {
                 <div className="mb-2">
                   <h6 className="text-uppercase ft-font">FOLLOW US AT</h6>
                 </div>
-                <div className="d-flex gap-4 mt-4">
-                  <Link
-                    to="https://www.linkedin.com/company/india-sloc"
-                    target="blank"
-                    className=""
-                  >
-                    <img src={linkdin} />
-                  </Link>
+                        <div className="d-flex gap-4 mt-4">
+                 <a
+                   href={socialLinks.linkedln}
+                   target="_blank"
+                   rel="noopener noreferrer"
+                 >
+                   <img src={linkdin} alt="LinkedIn" />
+                 </a>
 
-                  <Link
-                    to="https://www.instagram.com/sloc.in/"
-                    className=""
-                    target="blank"
-                  >
-                    <img src={Instagram} />
-                  </Link>
-                  <Link
-                    to="https://www.facebook.com/sloc.in"
-                    className=""
-                    target="blank"
-                  >
-                    <img src={Facebook} />
-                  </Link>
-                </div>
+                 <a
+                   href={socialLinks.instagram}
+                   target="_blank"
+                   rel="noopener noreferrer"
+                 >
+                   <img src={Instagram} alt="Instagram" />
+                 </a>
+
+                 <a
+                   href={socialLinks.facebook}
+                   target="_blank"
+                   rel="noopener noreferrer"
+                 >
+                   <img src={Facebook} alt="Facebook" />
+                 </a>
+               </div>
               </Col>
               <Col lg={2} md={6} sm={6} className="mb-4 mb-md-0 res-st">
                 <h6 className="text-uppercase ft-font mb-3">QUICK LINKS</h6>

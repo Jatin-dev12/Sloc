@@ -5,6 +5,7 @@ import Container from "react-bootstrap/Container";
 import Search from "../assets/Imgs/Search.svg";
 import { Card } from "react-bootstrap";
   import { FaWhatsapp } from 'react-icons/fa';
+import { FiPhoneCall } from 'react-icons/fi';
 
 import {
   Form,
@@ -33,9 +34,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
-import lib from "./imgs/lib.png";
-import tr from "./imgs/24.png";
-import stake from "./imgs/staking.png";
+
 import gym from "./imgs/gym.png";
 import red from "./imgs/red.png";
 import Time from "./imgs/timer.png";
@@ -71,6 +70,7 @@ const isMobileView = () => window.innerWidth < 768;
 function project() {
 
   const [isMobile, setIsMobile] = useState(isMobileView());
+  const [countryCode, setCountryCode] = useState("+91"); // Default to India
 
   useEffect(() => {
     const handleResize = () => setIsMobile(isMobileView());
@@ -177,60 +177,40 @@ function project() {
     if (phoneInputRef.current) {
       import("intl-tel-input")
         .then((intlTelInput) => {
-          intlTelInstance.current = intlTelInput.default(phoneInputRef.current, {
-            initialCountry: "auto",
-            separateDialCode: true,
-            geoIpLookup: function (callback) {
-              fetch("https://ipinfo.io/json?token=<your_token>")
-                .then((resp) => resp.json())
-                .then((resp) => {
-                  const countryCode = resp?.country?.toLowerCase() || "in";
-                  callback(countryCode);
-                })
-                .catch(() => callback("us"));
-            },
-            utilsScript:
-              "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
-          });
+          intlTelInstance.current = intlTelInput.default(
+            phoneInputRef.current,
+            {
+              initialCountry: "in",
+              separateDialCode: true,
+              utilsScript:
+                "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+            }
+          );
 
           const updatePhoneNumber = () => {
-            const iti = intlTelInstance.current;
-            const inputEl = phoneInputRef.current;
-            const fullNumber = iti.getNumber();
-            const selectedCountry = iti.getSelectedCountryData();
-            const rawInput = inputEl.value;
+            const selectedCountryData = intlTelInstance.current.getSelectedCountryData();
+            const rawInput = phoneInputRef.current.value || "";
 
-            let updatedMobile = rawInput;
-
-            if (fullNumber && iti.isValidNumber()) {
-              updatedMobile = fullNumber;
-            } else if (rawInput && selectedCountry?.dialCode) {
-              // Only prepend if rawInput doesn't start with a '+' already
-              if (!rawInput.trim().startsWith("+")) {
-                updatedMobile = `+${selectedCountry.dialCode}${rawInput.replace(/[^0-9]/g, "")}`;
-              } else {
-                updatedMobile = rawInput;
-              }
-            }
-
+            setCountryCode(`+${selectedCountryData.dialCode}`);
             setFormData((prev) => ({
               ...prev,
-              mobile: updatedMobile,
+              mobile: rawInput.replace(/[^0-9]/g, ""),
             }));
           };
 
           phoneInputRef.current.addEventListener("input", updatePhoneNumber);
           phoneInputRef.current.addEventListener("countrychange", updatePhoneNumber);
+
+          // Set initial country code
+          updatePhoneNumber();
+
+          return () => {
+            phoneInputRef.current.removeEventListener("input", updatePhoneNumber);
+            phoneInputRef.current.removeEventListener("countrychange", updatePhoneNumber);
+          };
         })
         .catch((error) => {
           console.error("Failed to load intl-tel-input:", error);
-
-          phoneInputRef.current.addEventListener("input", () => {
-            setFormData((prev) => ({
-              ...prev,
-              mobile: phoneInputRef.current.value,
-            }));
-          });
         });
 
       return () => {
@@ -246,51 +226,40 @@ function project() {
     if (phoneInputRef1.current) {
       import("intl-tel-input")
         .then((intlTelInput) => {
-          intlTelInstance.current = intlTelInput.default(phoneInputRef1.current, {
-            initialCountry: "in", // You can change this to "auto" if needed
-            separateDialCode: true,
-            utilsScript:
-              "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
-          });
+          intlTelInstance.current = intlTelInput.default(
+            phoneInputRef1.current,
+            {
+              initialCountry: "in",
+              separateDialCode: true,
+              utilsScript:
+                "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+            }
+          );
 
           const updatePhoneNumber = () => {
-            const iti = intlTelInstance.current;
-            const inputEl = phoneInputRef1.current;
-            const fullNumber = iti.getNumber(); // Full international format
-            const selectedCountry = iti.getSelectedCountryData();
-            const rawInput = inputEl.value;
+            const selectedCountryData = intlTelInstance.current.getSelectedCountryData();
+            const rawInput = phoneInputRef1.current.value || "";
 
-            let updatedMobile = rawInput;
-
-            if (fullNumber && iti.isValidNumber()) {
-              updatedMobile = fullNumber;
-            } else if (rawInput && selectedCountry?.dialCode) {
-              // Only add country code if input does not already start with "+"
-              if (!rawInput.trim().startsWith("+")) {
-                updatedMobile = `+${selectedCountry.dialCode}${rawInput.replace(/[^0-9]/g, "")}`;
-              } else {
-                updatedMobile = rawInput;
-              }
-            }
-
+            setCountryCode(`+${selectedCountryData.dialCode}`);
             setFormData1((prev) => ({
               ...prev,
-              mobile: updatedMobile,
+              mobile: rawInput.replace(/[^0-9]/g, ""),
             }));
           };
 
           phoneInputRef1.current.addEventListener("input", updatePhoneNumber);
           phoneInputRef1.current.addEventListener("countrychange", updatePhoneNumber);
+
+          // Set initial country code
+          updatePhoneNumber();
+
+          return () => {
+            phoneInputRef1.current.removeEventListener("input", updatePhoneNumber);
+            phoneInputRef1.current.removeEventListener("countrychange", updatePhoneNumber);
+          };
         })
         .catch((error) => {
           console.error("Failed to load intl-tel-input:", error);
-          // Optional fallback input handling
-          phoneInputRef1.current.addEventListener("input", () => {
-            setFormData1((prev) => ({
-              ...prev,
-              mobile: phoneInputRef1.current.value,
-            }));
-          });
         });
 
       return () => {
@@ -301,52 +270,53 @@ function project() {
     }
   }, []);
 
-  // useEffect(() => {
+  useEffect(() => {
+    if (phoneInputRef2.current && fopen) {
+      import("intl-tel-input")
+        .then((intlTelInput) => {
+          intlTelInstance.current = intlTelInput.default(
+            phoneInputRef2.current,
+            {
+              initialCountry: "in",
+              separateDialCode: true,
+              utilsScript:
+                "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+            }
+          );
 
-  //   if (phoneInputRef2.current) {
-  //     console.log("phoneref2");
+          const updatePhoneNumber = () => {
+            const selectedCountryData = intlTelInstance.current.getSelectedCountryData();
+            const rawInput = phoneInputRef2.current.value || "";
 
-  //     import("intl-tel-input")
-  //       .then((intlTelInput) => {
-  //         intlTelInstance.current = intlTelInput.default(phoneInputRef2.current, {
-  //           initialCountry: "in",
-  //           separateDialCode: true,
-  //           utilsScript:
-  //             "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
-  //         });
+            setCountryCode(`+${selectedCountryData.dialCode}`);
+            setFormData2((prev) => ({
+              ...prev,
+              mobile: rawInput.replace(/[^0-9]/g, ""),
+            }));
+          };
 
-  //         // Sync input value with formData on change
-  //         phoneInputRef2.current.addEventListener("input", () => {
-  //           const fullNumber = intlTelInstance.current.getNumber();
-  //           setFormData((prev) => ({
-  //             ...prev,
-  //             mobile: fullNumber || phoneInputRef2.current.value,
-  //           }));
-  //         });
+          phoneInputRef2.current.addEventListener("input", updatePhoneNumber);
+          phoneInputRef2.current.addEventListener("countrychange", updatePhoneNumber);
 
-  //         // Validate on country change
-  //         phoneInputRef2.current.addEventListener("countrychange", () => {
-  //           const fullNumber = intlTelInstance.current.getNumber();
-  //           setFormData((prev) => ({
-  //             ...prev,
-  //             mobile: fullNumber || phoneInputRef2.current.value,
-  //           }));
-  //         });
-  //       })
-  //       .catch((error) => {
-  //         console.error("Failed to load intl-tel-input:", error);
-  //       });
+          // Set initial country code
+          updatePhoneNumber();
 
-  //     return () => {
-  //       if (intlTelInstance.current) {
-  //         intlTelInstance.current.destroy();
-  //       }
-  //     };
-  //   }
-  // }, [fopen]);
+          return () => {
+            phoneInputRef2.current.removeEventListener("input", updatePhoneNumber);
+            phoneInputRef2.current.removeEventListener("countrychange", updatePhoneNumber);
+          };
+        })
+        .catch((error) => {
+          console.error("Failed to load intl-tel-input:", error);
+        });
 
-
-
+      return () => {
+        if (intlTelInstance.current) {
+          intlTelInstance.current.destroy();
+        }
+      };
+    }
+  }, [fopen]);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -405,184 +375,6 @@ function project() {
 
     setErrors(newErrors);
     return isValid;
-  };
-
-
-
-  // const handleSubmit1 = (e) => {
-  //   e.preventDefault();
-  //   if (validateForm1()) {
-  //     console.log("Form is valid, submitting data:", formData1);
-
-  //     // Extract project name from URL
-  //     const url = window.location.href; // e.g., http://localhost:5173/project/godrej-miraya
-  //     const projectSlug = url.split('/project/') || 'Unknown Project';
-  //     const projectName = projectSlug
-
-
-  //     // Prepare API URL with form data
-  //     const apiUrl = `https://sloc.bitrix24.in/rest/1/s94cvkguwyrljt7f/crm.lead.add.json?` +
-  //       `FIELDS[TITLE]=SLOC_Webform` +
-  //       `&FIELDS[NAME]=${encodeURIComponent(formData1.name)}` +
-  //       `&FIELDS[EMAIL][0][VALUE]=${encodeURIComponent(formData1.email)}` +
-  //       `&FIELDS[EMAIL][0][VALUE_TYPE]=WORK` +
-  //       `&FIELDS[PHONE][0][VALUE]=${(formData1.mobile)}` +
-  //       `&FIELDS[PHONE][0][VALUE_TYPE]=WORK` +
-  //       `&FIELDS[SOURCE_ID]=UC_R2M98V` +
-  //       `&FIELDS[SOURCE_DESCRIPTION]=${(projectName)}` +
-  //       `&FIELDS[UF_CRM_1745260289]=${(url)}`;
-
-  //     // Make API call
-  //     fetch(apiUrl, {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //     })
-  //       .then(response => response.json())
-  //       .then(data => {
-  //         console.log('API response:', data);
-  //         // Reset the form fields after successful submit
-  //         setFormData1({
-  //           name: '',
-  //           mobile: '',
-  //           email: '',
-  //           agree: false,
-  //         });
-  //         setErrors1({}); // Clear any old errors
-  //         handleShow(); // Show success modal
-  //       })
-  //       .catch(error => {
-  //         console.error('API error:', error);
-  //       });
-  //   } else {
-  //     console.log("Form has errors, not submitting");
-  //   }
-  // };
-
-
-  const handleSubmit1 = (e) => {
-    e.preventDefault();
-    if (validateForm1()) {
-      console.log("Form is valid, submitting data:", formData1);
-
-      // Extract project name from URL
-      const url = window.location.href; // e.g., http://localhost:5173/project/godrej-miraya
-      const projectSlug = url.split('/project/')[1] || 'Unknown Project'; // Directly use the part after '/project/'
-      const projectName = projectSlug
-        .split('-')
-        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-        .join(' '); // Converts 'godrej-miraya' to 'Godrej Miraya'
-      // Format phone number with country code and space
-      let formattedMobile = formData1.mobile;
-      if (formattedMobile && formattedMobile.startsWith('+')) {
-        // Assuming formData1.mobile is already like "+911234567890"
-        const countryCode = formattedMobile.match(/^\+\d+/)?.[0] || '';
-        const number = formattedMobile.replace(/^\+\d+/, '').replace(/[^0-9]/g, '');
-        formattedMobile = `${countryCode} ${number}`; // e.g., "+91 1234567890"
-      }
-
-      // Prepare API URL with form data
-      const apiUrl =
-        `https://sloc.bitrix24.in/rest/1/s94cvkguwyrljt7f/crm.lead.add.json?` +
-        `FIELDS[TITLE]=SLOC_Webform` +
-        `&FIELDS[NAME]=${encodeURIComponent(formData1.name)}` +
-        `&FIELDS[EMAIL][0][VALUE]=${(formData1.email)}` +
-        `&FIELDS[EMAIL][0][VALUE_TYPE]=WORK` +
-        `&FIELDS[PHONE][0][VALUE]=${(formattedMobile)}` + // Use formatted mobile
-        `&FIELDS[PHONE][0][VALUE_TYPE]=WORK` +
-        `&FIELDS[SOURCE_ID]=UC_R2M98V` +
-        `&FIELDS[SOURCE_DESCRIPTION]=${(projectName)}` +
-        `&FIELDS[UF_CRM_1745260289]=${(url)}`;
-
-      // Make API call
-      fetch(apiUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          console.log('API response:', data);
-          // Reset the form fields after successful submit
-          setFormData1({
-            name: '',
-            mobile: '',
-            email: '',
-            agree: false,
-          });
-          setErrors1({}); // Clear any old errors
-          handleShow(); // Show success modal
-        })
-        .catch((error) => {
-          console.error('API error:', error);
-        });
-    } else {
-      console.log("Form has errors, not submitting");
-    }
-  };
-
-
-
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (validateForm()) {
-      // console.log('Form is valid, submitting data:', formData);
-
-      // Extract project name from URL
-      const url = window.location.href; // e.g., http://localhost:5173/project/godrej-miraya
-      const projectSlug = url.split('/project/')[1] || 'Unknown Project'; // Directly use the part after '/project/'
-      const projectName = projectSlug
-        .split('-')
-        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-        .join(' '); // Converts 'godrej-miraya' to 'Godrej Miraya'
-      let formattedMobile = formData.mobile;
-      if (formattedMobile && formattedMobile.startsWith('+')) {
-        // Assuming formData1.mobile is already like "+911234567890"
-        const countryCode = formattedMobile.match(/^\+\d+/)?.[0] || '';
-        const number = formattedMobile.replace(/^\+\d+/, '').replace(/[^0-9]/g, '');
-        formattedMobile = `${countryCode} ${number}`; // e.g., "+91 1234567890"
-      }
-      // Prepare API URL with form data
-      const apiUrl = `https://sloc.bitrix24.in/rest/1/s94cvkguwyrljt7f/crm.lead.add.json?` +
-        `FIELDS[TITLE]=SLOC_Webform` +
-        `&FIELDS[NAME]=${encodeURIComponent(formData.name)}` +
-        `&FIELDS[EMAIL][0][VALUE]=${encodeURIComponent(formData.email)}` +
-        `&FIELDS[EMAIL][0][VALUE_TYPE]=WORK` +
-        `&FIELDS[PHONE][0][VALUE]=${(formData.mobile)}` +
-        `&FIELDS[PHONE][0][VALUE_TYPE]=WORK` +
-        `&FIELDS[SOURCE_ID]=UC_R2M98V` +
-        `&FIELDS[SOURCE_DESCRIPTION]=${(projectName)}` +
-        `&FIELDS[UF_CRM_1745260289]=${(url)}`;
-
-      // Make API call
-      fetch(apiUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
-        .then(response => response.json())
-        .then(data => {
-          // console.log('API response:', data);
-          // Reset the form fields after successful submit
-          setFormData({
-            name: '',
-            mobile: '',
-            email: '',
-            agree: false,
-          });
-          setErrors({}); // Clear any old errors
-          handleShow(); // Open the modal
-        })
-        .catch(error => {
-          console.error('API error:', error);
-        });
-    } else {
-      // console.log('Form has errors, not submitting');
-    }
   };
 
   const navbarRef = useRef(null);
@@ -689,6 +481,7 @@ function project() {
               disclaimer: projectData.disclaimer || 'No disclaimer available.',
               highlights: projectData.highlights || 'No highlights available.',
               rera_num_on_img: projectData.rera_num_on_img || 'N/A',
+
               schedule_meeting: projectData.schedule_meeting || 'N/A',
               sectors: projectData.sectors || 'N/A',
               specification: projectData.specification || 'N/A',
@@ -742,57 +535,57 @@ function project() {
   const handleShow = () => setShow(true);
 
 
-  useEffect(() => {
-    if (phoneInputRef2.current) {
-      import("intl-tel-input")
-        .then((intlTelInput) => {
-          intlTelInstance.current = intlTelInput.default(
-            phoneInputRef2.current,
-            {
-              initialCountry: "in",
-              separateDialCode: true,
-              utilsScript:
-                "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
-            }
-          );
+  // useEffect(() => {
+  //   if (phoneInputRef2.current) {
+  //     import("intl-tel-input")
+  //       .then((intlTelInput) => {
+  //         intlTelInstance.current = intlTelInput.default(
+  //           phoneInputRef2.current,
+  //           {
+  //             initialCountry: "in",
+  //             separateDialCode: true,
+  //             utilsScript:
+  //               "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+  //           }
+  //         );
 
-          // Function to update formData with country code and number
-          const updatePhoneNumber = () => {
-            const fullNumber = intlTelInstance.current.getNumber();
-            const selectedCountryData = intlTelInstance.current.getSelectedCountryData();
-            const countryCode = selectedCountryData.dialCode;
-            const rawInput = phoneInputRef2.current.value;
+  //         // Function to update formData with country code and number
+  //         const updatePhoneNumber = () => {
+  //           const fullNumber = intlTelInstance.current.getNumber();
+  //           const selectedCountryData = intlTelInstance.current.getSelectedCountryData();
+  //           const countryCode = selectedCountryData.dialCode;
+  //           const rawInput = phoneInputRef2.current.value;
 
-            let formattedNumber = fullNumber || rawInput;
+  //           let formattedNumber = fullNumber || rawInput;
 
-            // Only prepend the country code if it's not already included
-            if (rawInput && !rawInput.startsWith(`+${countryCode}`)) {
-              formattedNumber = `+${countryCode}${rawInput.replace(/[^0-9]/g, "")}`;
-            }
+  //           // Only prepend the country code if it's not already included
+  //           if (rawInput && !rawInput.startsWith(`+${countryCode}`)) {
+  //             formattedNumber = `+${countryCode}${rawInput.replace(/[^0-9]/g, "")}`;
+  //           }
 
-            setFormData2((prev) => ({
-              ...prev,
-              mobile: formattedNumber,
-            }));
-          };
+  //           setFormData2((prev) => ({
+  //             ...prev,
+  //             mobile: formattedNumber,
+  //           }));
+  //         };
 
-          // Sync input value with formData on change
-          phoneInputRef2.current.addEventListener("input", updatePhoneNumber);
+  //         // Sync input value with formData on change
+  //         phoneInputRef2.current.addEventListener("input", updatePhoneNumber);
 
-          // Validate on country change
-          phoneInputRef2.current.addEventListener("countrychange", updatePhoneNumber);
-        })
-        .catch((error) => {
-          console.error("Failed to load intl-tel-input:", error);
-        });
+  //         // Validate on country change
+  //         phoneInputRef2.current.addEventListener("countrychange", updatePhoneNumber);
+  //       })
+  //       .catch((error) => {
+  //         console.error("Failed to load intl-tel-input:", error);
+  //       });
 
-      return () => {
-        if (intlTelInstance.current) {
-          intlTelInstance.current.destroy();
-        }
-      };
-    }
-  }, [fopen]);
+  //     return () => {
+  //       if (intlTelInstance.current) {
+  //         intlTelInstance.current.destroy();
+  //       }
+  //     };
+  //   }
+  // }, [fopen]);
 
   const open = () => setFopen(false);
   const close = () => setFopen(true);
@@ -864,36 +657,56 @@ function project() {
     return isValid;
   };
 
-  const handleSubmit2 = (e) => {
+
+  const handleSubmit1 = async (e) => {
     e.preventDefault();
-    if (validateForm2()) {
-      console.log("Form is valid, submitting data:", formData2);
+    if (validateForm1()) {
+      console.log("Form is valid, submitting data:", formData1);
+      const fullMobileNumber = `${countryCode}${formData1.mobile}`;
 
       // Extract project name from URL
       const url = window.location.href; // e.g., http://localhost:5173/project/godrej-miraya
-      const projectSlug = url.split('/project/')[1] || 'Unknown Project'; // Directly use the part after '/project/'
+      const projectSlugArray = url.split('/project/');
+      const projectSlug = projectSlugArray[1] || 'Unknown Project';
+
+      // Format project name: remove hyphens, capitalize first letter of each word
       const projectName = projectSlug
         .split('-')
-        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-        .join(' '); // Converts 'godrej-miraya' to 'Godrej Miraya'
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+        .join(' ');
       console.log("Formatted projectName:", projectName);
-      let formattedMobile = formData2.mobile;
-      if (formattedMobile && formattedMobile.startsWith('+')) {
-        // Assuming formData1.mobile is already like "+911234567890"
-        const countryCode = formattedMobile.match(/^\+\d+/)?.[0] || '';
-        const number = formattedMobile.replace(/^\+\d+/, '').replace(/[^0-9]/g, '');
-        formattedMobile = `${countryCode} ${number}`; // e.g., "+91 1234567890"
+
+      // 2. Contact Us API call
+      const contactUsUrl = `${baseUrl}api/contact-us`;
+      const contactUsResponse = await axios.post(
+        contactUsUrl,
+        {
+          name: formData1.name,
+          email: formData1.email,
+          // mobile: fullMobileNumber,
+          mobile: formData1.mobile,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${apiToken}`,
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+      if (!contactUsResponse.data.success) {
+        throw new Error('Contact Us API failed: ' + (contactUsResponse.data.message || 'Unknown error'));
       }
+      console.log('Contact Us API response:', contactUsResponse.data);
       // Prepare API URL with form data
       const apiUrl = `https://sloc.bitrix24.in/rest/1/s94cvkguwyrljt7f/crm.lead.add.json?` +
         `FIELDS[TITLE]=SLOC_Webform` +
-        `&FIELDS[NAME]=${(formData2.name)}` +
-        `&FIELDS[EMAIL][0][VALUE]=${(formData2.email)}` +
+        `&FIELDS[NAME]=${encodeURIComponent(formData1.name)}` +
+        `&FIELDS[EMAIL][0][VALUE]=${(formData1.email)}` +
         `&FIELDS[EMAIL][0][VALUE_TYPE]=WORK` +
-        `&FIELDS[PHONE][0][VALUE]=${(formData2.mobile)}` +
+        `&FIELDS[PHONE][0][VALUE]=${(fullMobileNumber)}` +
         `&FIELDS[PHONE][0][VALUE_TYPE]=WORK` +
         `&FIELDS[SOURCE_ID]=UC_R2M98V` +
-        `&FIELDS[SOURCE_DESCRIPTION]=${projectName}` +
+        `&FIELDS[SOURCE_DESCRIPTION]=${(projectName)}` +
         `&FIELDS[UF_CRM_1745260289]=${(url)}`;
 
       // Make API call
@@ -907,14 +720,13 @@ function project() {
         .then(data => {
           console.log('API response:', data);
           // Reset the form fields after successful submit
-          setFormData2({
+          setFormData1({
             name: '',
             mobile: '',
             email: '',
             agree: false,
           });
           setErrors1({}); // Clear any old errors
-          open(); // Close the second modal (fopen: false)
           handleShow(); // Show success modal
         })
         .catch(error => {
@@ -922,6 +734,158 @@ function project() {
         });
     } else {
       console.log("Form has errors, not submitting");
+    }
+  };
+
+
+  const handleSubmit2 = async (e) => {
+    e.preventDefault();
+    if (validateForm2()) {
+      // Combine country code with mobile number for submission
+      const fullMobileNumber = `${countryCode}${formData2.mobile}`;
+
+      const url = window.location.href;
+      const projectSlugArray = url.split('/project/');
+      const projectSlug = projectSlugArray[1] || 'Unknown Project';
+
+      const projectName = projectSlug
+        .split('-')
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+        .join(' ');
+                // 2. Contact Us API call
+                const contactUsUrl = `${baseUrl}api/contact-us`;
+                const contactUsResponse = await axios.post(
+                  contactUsUrl,
+                  {
+                    name: formData2.name,
+                    email: formData2.email,
+                    // mobile: fullMobileNumber,
+                    mobile: formData2.mobile,
+                  },
+                  {
+                    headers: {
+                      Authorization: `Bearer ${apiToken}`,
+                      'Content-Type': 'application/json',
+                    },
+                  }
+                );
+                if (!contactUsResponse.data.success) {
+                  throw new Error('Contact Us API failed: ' + (contactUsResponse.data.message || 'Unknown error'));
+                }
+                console.log('Contact Us API response:', contactUsResponse.data);
+
+      const apiUrl = `https://sloc.bitrix24.in/rest/1/s94cvkguwyrljt7f/crm.lead.add.json?` +
+        `FIELDS[TITLE]=SLOC_Webform` +
+        `&FIELDS[NAME]=${(formData2.name)}` +
+        `&FIELDS[EMAIL][0][VALUE]=${(formData2.email)}` +
+        `&FIELDS[EMAIL][0][VALUE_TYPE]=WORK` +
+        `&FIELDS[PHONE][0][VALUE]=${(fullMobileNumber)}` +
+        `&FIELDS[PHONE][0][VALUE_TYPE]=WORK` +
+        `&FIELDS[SOURCE_ID]=UC_R2M98V` +
+        `&FIELDS[UF_CRM_1745260289]=${(url)}`;
+
+      fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+        .then(response => response.json())
+        .then(data => {
+          setFormData2({
+            name: '',
+            mobile: '',
+            email: '',
+            agree: false,
+          });
+          setErrors2({});
+          open();
+          handleShow();
+        })
+        .catch(error => {
+          console.error('API error:', error);
+        });
+    }
+  };
+
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (validateForm()) {
+      console.log('Form is valid, submitting data:', formData);
+      const fullMobileNumber = `${countryCode}${formData.mobile}`;
+
+      // Extract project name from URL
+      const url = window.location.href; // e.g., http://localhost:5173/project/godrej-miraya
+      const projectSlugArray = url.split('/project/');
+      const projectSlug = projectSlugArray[1] || 'Unknown Project';
+
+      // Format project name: remove hyphens, capitalize first letter of each word
+      const projectName = projectSlug
+        .split('-')
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+        .join(' ');
+      console.log("Formatted projectName:", projectName);
+                // 2. Contact Us API call
+                const contactUsUrl = `${baseUrl}api/contact-us`;
+                const contactUsResponse = await axios.post(
+                  contactUsUrl,
+                  {
+                    name: formData.name,
+                    email: formData.email,
+                    // mobile: fullMobileNumber,
+                    mobile: formData.mobile,
+                  },
+                  {
+                    headers: {
+                      Authorization: `Bearer ${apiToken}`,
+                      'Content-Type': 'application/json',
+                    },
+                  }
+                );
+                if (!contactUsResponse.data.success) {
+                  throw new Error('Contact Us API failed: ' + (contactUsResponse.data.message || 'Unknown error'));
+                }
+                console.log('Contact Us API response:', contactUsResponse.data);
+
+      // Prepare API URL with form data
+      const apiUrl = `https://sloc.bitrix24.in/rest/1/s94cvkguwyrljt7f/crm.lead.add.json?` +
+        `FIELDS[TITLE]=SLOC_Webform` +
+        `&FIELDS[NAME]=${encodeURIComponent(formData.name)}` +
+        `&FIELDS[EMAIL][0][VALUE]=${(formData.email)}` +
+        `&FIELDS[EMAIL][0][VALUE_TYPE]=WORK` +
+        `&FIELDS[PHONE][0][VALUE]=${(fullMobileNumber)}` +
+        `&FIELDS[PHONE][0][VALUE_TYPE]=WORK` +
+        `&FIELDS[SOURCE_ID]=UC_R2M98V` +
+        `&FIELDS[SOURCE_DESCRIPTION]=${(projectName)}` +
+        `&FIELDS[UF_CRM_1745260289]=${(url)}`;
+
+      // Make API call
+      fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+        .then(response => response.json())
+        .then(data => {
+          console.log('API response:', data);
+          // Reset the form fields after successful submit
+          setFormData({
+            name: '',
+            mobile: '',
+            email: '',
+            agree: false,
+          });
+          setErrors({}); // Clear any old errors
+          handleShow(); // Open the modal
+        })
+        .catch(error => {
+          console.error('API error:', error);
+        });
+
+    } else {
+      console.log('Form has errors, not submitting');
     }
   };
 
@@ -1747,7 +1711,7 @@ function project() {
                   // onClick={close}
                   href={`tel: +91${project?.whatsapp_number}`}                >
                   {/* Contact us for More info */}
-                  Call Now
+                  Call Now +91{project?.whatsapp_number}
                 </Button>
                 <img src={back} alt="" className="back-roll" />
               </Col>
@@ -1959,24 +1923,7 @@ function project() {
         <section className="Disclamer">
           <Container>
             <p className="Dis">
-              {/* Disclaimer : The content provided on this website is for
-              information purposes only and does not constitute an offer to
-              avail any service. The prices mentioned are subject to change
-              without prior notice, and the availability of properties mentioned
-              is not guaranteed. Users of this website are hereby advised to
-              exercise due diligence and to independently validate and verify
-              all information about any property / project before deciding to
-              purchase the same or taking any other action. The images displayed
-              on the website are for representation purposes only and may not
-              reflect the actual properties accurately. Please note that this is
-              the official website of an authorized marketing partner. The
-              content, design, and information on this website are protected by
-              copyright and other intellectual property rights. Any unauthorized
-              use or reproduction of the content may violate applicable laws.
-              All trademarks are the property of their respective owners. */}
-              {/* The content provided on this website is for information purposes only and does not constitute an offer to avail any service. The prices mentioned are subject to change without prior notice, and the availability of properties mentioned is not guaranteed. Users of this website are hereby advised to exercise due diligence and to independently validate and verify all information about any property/project before deciding to purchase the same or taking any other action. The images displayed on the website are for representation purposes only and may not reflect the actual properties accurately. Please note that this is the official website of an authorized marketing partner. The content, design, and information on this website are protected by copyright and other intellectual property rights. Any unauthorized use or reproduction of the content may violate applicable laws. All trademarks are the property of their respective owners. */}
-              <br></br>
-              Disclaimer : {project?.disclaimer}
+        Disclaimer : {project?.disclaimer}
             </p>
           </Container>
         </section>
@@ -1996,7 +1943,7 @@ function project() {
               </Col>
               <Col lg={4} md={6} sm={12} className="mb-4 mb-md-0 res-st wi align-content-center justify-content-center">
                 <p className="my-3 rerera ">
-                  HARYANA RERA - HRERA-PKL-REA-3396-2025
+                  {project?.state_rera_num_on_img }
                 </p>
               </Col>
 
@@ -2061,6 +2008,32 @@ function project() {
       >
         <FaWhatsapp />
       </a>
+      <a
+                href={`tel:+91${project?.calling_number}`}
+                target="_blank"
+                className="calling"
+                rel="noopener noreferrer"
+                style={{
+                  position: 'fixed',
+                  bottom: '170px',
+                  right: '30px',
+                  padding: '5px',
+                  fontSize: '25px',
+                  backgroundColor: '#064685',
+                  color: '#fff',
+                  borderRadius: '50px',
+                  cursor: 'pointer',
+                  height: '50px',
+                  width: '50px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  zIndex: 99999,
+                  boxShadow: '0px 4px 10px rgba(0,0,0,0.3)',
+                }}
+              >
+                <FiPhoneCall />
+              </a>
       </main>
     </>
   );

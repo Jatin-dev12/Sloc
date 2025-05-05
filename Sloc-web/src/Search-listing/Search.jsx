@@ -796,38 +796,6 @@ import { Card } from "react-bootstrap";
 import { Link, useLocation, useNavigate, useParams } from "react-router";
 import axios from "axios";
 
-// const projects = [
-//   {
-//     id: 1,
-//     title: "GODREJ VRIKSHYA",
-//     price: "₹ 3.30 CR* ONWARDS",
-//     location: "SECTOR 49, GURGAON",
-//     size: "3 & 4 BHK",
-//     feet: "1948 - 3700 Sq.Ft.",
-//     image: f1, // Replace with actual image URL
-//   },
-//   {
-//     id: 2,
-//     title: "SMARTWORLD THE EDITION",
-//     price: "₹ 6.50 CR* ONWARDS",
-//     location: "SECTOR 66, GURGAON",
-//     size: "3 & 4 BHK",
-//     feet: "1948 - 3700 Sq.Ft.",
-
-//     image: f2,
-//   },
-//   {
-//     id: 3,
-//     title: "GODREJ ARISTOCRAT",
-//     price: "₹ 5.53 CR* ONWARDS",
-//     location: "SECTOR 62, GURGAON",
-//     feet: "1948 - 3700 Sq.Ft.",
-
-//     size: "3 & 4 BHK",
-//     image: f3,
-//   },
-
-// ];
 import { debounce } from "lodash";  // You can install lodash to use debounce
 import { Helmet } from "react-helmet";
 
@@ -1116,41 +1084,7 @@ useEffect(() => {
     handleSearch(page + 1);
   };
 
-  // const handleSort = (propertyTypeId) => {
-  //   setSortKey(propertyTypeId ? `property_type_${propertyTypeId}` : 'property_type');
-  //   const sorted = [...searchResults].sort((a, b) => {
-  //     // If propertyTypeId is provided, prioritize projects with matching property_type
-  //     if (propertyTypeId) {
-  //       const aMatches = a.property_type === propertyTypeId;
-  //       const bMatches = b.property_type === propertyTypeId;
-  //       if (aMatches && !bMatches) return -1; // a comes first
-  //       if (!aMatches && bMatches) return 1; // b comes first
-  //       // If both match or neither match, sort alphabetically by name
-  //       return (a.name || 'Unknown').localeCompare(b.name || 'Unknown');
-  //     }
-  //     // Default: sort alphabetically by property type name
-  //     const typeA = propertyTypes.find(pt => pt.id === a.property_type)?.name || 'Unknown';
-  //     const typeB = propertyTypes.find(pt => pt.id === b.property_type)?.name || 'Unknown';
-  //     return typeA.localeCompare(typeB);
-  //   });
-  //   setSearchResults(sorted);
-  // };
-  // const handleSort = (propertyTypeId) => {
-  //   console.log('Setting sortKey to:', propertyTypeId);
-
-  //   // Update sortKey and selectedProperty
-  //   const selectedType = propertyTypes.find(pt => pt.id === propertyTypeId);
-  //   setSortKey(propertyTypeId ? `property_type_${propertyTypeId}` : null);
-  //   setSelectedProperty({
-  //     id: propertyTypeId,
-  //     name: selectedType ? selectedType.name : 'Property Type',
-  //   });
-
-  //   // Trigger search with the selected property type and reset to page 1
-  //   handleSearch(1); // Reset to page 1 for new filter
-  // };
-
-  const handleSort = (propertyTypeId) => {
+   const handleSort = (propertyTypeId) => {
     const selectedType = propertyTypes.find(pt => pt.id === propertyTypeId);
 
     setSelectedProperty({
@@ -1162,23 +1096,6 @@ useEffect(() => {
     handleSearch(1);
   };
 
-  // const clearFilter = (filter) => {
-  //   // Create a copy of current state to modify
-  //   let newCity = { ...selectedCity };
-  //   let newProperty = { ...selectedProperty };
-  //   let newProjectId = projectId;
-
-  //   // Clear the specified filter
-  //   if (filter === 'city') {
-  //     newCity = { id: null, name: 'City' };
-  //     setSelectedCity(newCity);
-  //   } else if (filter === 'property') {
-  //     newProperty = { id: null, name: 'Property Type' };
-  //     setSelectedProperty(newProperty);
-  //   } else if (filter === 'project_id') {
-  //     newProjectId = '';
-  //     setProjectId(newProjectId);
-  //   }
     const { slug } = useParams();
     const [bannerImage, setBannerImage] = useState('/src/assets/Imgs/Baner.png'); // Default fallback image
     const [project, setProject] = useState(null);
@@ -1298,44 +1215,6 @@ useEffect(() => {
         // console.log('useEffect: Request completed, setting loading to false');
       });
   }, [slug]);
-  //   // Update URL with remaining filters
-  //   const params = new URLSearchParams();
-  //   if (newCity.id) params.append('city', newCity.id);
-  //   if (newProperty.id) params.append('property_type', newProperty.id);
-  //   if (newProjectId.trim()) params.append('project_id', newProjectId.trim());
-  //   navigate(`/search-Listing?${params.toString()}`);
-
-  //   // Trigger new search with updated filters
-  //   const payload = {};
-  //   if (newCity.id) payload.city = newCity.id.toString();
-  //   if (newProperty.id) payload.property_type = newProperty.id.toString();
-  //   if (newProjectId.trim()) payload.project_id = newProjectId.trim();
-  //   payload.page = 1;
-  //   payload.per_page = 6;
-
-  //   setSearchLoading(true);
-  //   axios
-  //     .post(`${baseUrl}/api/project-search`, payload, {
-  //       headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
-  //     })
-  //     .then((response) => {
-  //       if (response.data.success) {
-  //         setSearchResults(response.data.data);
-  //         setHasMore(response.data.data.length >= 6 && response.data.data.length < totalProjects);
-  //         setPage(1);
-  //         setDisplayCount(6);
-  //       } else {
-  //         setSearchError(response.data.message || 'Search failed.');
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.error('Error fetching search results:', error);
-  //       setSearchError('Failed to fetch search results.');
-  //     })
-  //     .finally(() => {
-  //       setSearchLoading(false);
-  //     });
-  // };
 
   const clearFilter = (filter) => {
     let newCity = { ...selectedCity };
@@ -1425,6 +1304,7 @@ useEffect(() => {
   return (
     <main className="search-listing">
                                    <Helmet>
+                                    <title>Search Property Listings in India | Invest in Real Estate with SLOC</title>
                                <meta property="og:title" content="Search Property Listings in India | Invest in Real Estate with SLOC" />
                                <meta property="og:description" content="Browse a wide range of property listings across India. Find residential and commercial properties to invest with SLOC, your trusted real estate partner in India." />
                               </Helmet>

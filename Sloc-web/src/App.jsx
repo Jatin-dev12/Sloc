@@ -19,7 +19,6 @@ import Search from './Search-listing/Search';
 import { FaWhatsapp } from 'react-icons/fa';
 import { FiPhoneCall } from 'react-icons/fi';
 import Four from './Policy/Nothing';
-import Gopu from './Home/gopu';
 import axios from 'axios';
 
 // New component to handle useLocation and related logic
@@ -123,6 +122,33 @@ function AppContent() {
 
   // Check if current page is '/project'
   const isProjectPage = location.pathname.startsWith('/project');
+
+  useEffect(() => {
+    const checkNavbarState = () => {
+      const isNavbarOpen = document.querySelector('.navbar-collapse.show');
+      const prnavElements = document.querySelectorAll('.prnav');
+
+      prnavElements.forEach((el) => {
+        el.style.display = isNavbarOpen ? 'none' : 'flex';
+      });
+    };
+
+    // Run on initial render
+    checkNavbarState();
+
+    // Set up observer to detect class changes
+    const observer = new MutationObserver(checkNavbarState);
+
+    observer.observe(document.body, {
+      attributes: true,
+      childList: true,
+      subtree: true,
+      attributeFilter: ['class']
+    });
+
+    // Cleanup
+    return () => observer.disconnect();
+  }, []);
 
   return (
     // <>
@@ -242,7 +268,7 @@ function AppContent() {
       </Route>
     </Routes>
 
-    {showButton && !isProjectPage && (
+
       <button
         className="scroll-to-top-btn"
         onClick={scrollToTop}
@@ -264,13 +290,14 @@ function AppContent() {
       >
         ↑
       </button>
-    )}
+
 
     {!isProjectPage && (
       <a
         href={`https://api.whatsapp.com/send?phone=+91${whatsappNumber}&text=Hello, I want to know more about project `}
         target="_blank"
         rel="noopener noreferrer"
+        className='prnav'
         style={{
           position: 'fixed',
           bottom: '100px',
@@ -295,10 +322,11 @@ function AppContent() {
       </a>
     )}
 
+{!isProjectPage && (
       <a
         href={`tel:+91${whatsappNumber}`}
         target="_blank"
-        className="calling"
+        className="calling prnav"
         rel="noopener noreferrer"
         style={{
           position: 'fixed',
@@ -321,6 +349,7 @@ function AppContent() {
       >
         <FiPhoneCall />
       </a>
+    )}
   </>
   );
 }
