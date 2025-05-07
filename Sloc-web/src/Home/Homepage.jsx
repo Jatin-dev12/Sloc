@@ -5,6 +5,9 @@ import { Row, Col } from "react-bootstrap";
 import Container from "react-bootstrap/Container";
 import Search from "../assets/Imgs/Search.svg";
 import { Card } from "react-bootstrap";
+import { toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
+
 import {
   Form,
   Button,
@@ -56,7 +59,6 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { debounce } from "lodash"; // To debounce the input
 import { Helmet } from "react-helmet";
-
 
 const testimonials = [
   {
@@ -165,7 +167,9 @@ function Home() {
           console.log("Blogs fetched successfully:", response.data.data);
           const apiBlogs = response.data.data;
 
-          const showBlogs = apiBlogs.filter((blog) => blog.show_on_homepage === 1);
+          const showBlogs = apiBlogs.filter(
+            (blog) => blog.show_on_homepage === 1
+          );
 
           // Map API response to the required blog structure
           const mappedBlogs = showBlogs.map((blog, index) => ({
@@ -227,22 +231,56 @@ function Home() {
           .replace(/(^-|-$)/g, "") // Remove leading/trailing hyphens
       : "untitled-project"; // Fallback slug
   };
-  const debouncedSearch = debounce((query) => {
-    if (query.trim() === "") {
-      setFilteredProjects([]);
-    } else {
-      const matches = projects.filter((project) =>
-        project.title.toLowerCase().includes(query.toLowerCase())
-      );
-      setFilteredProjects(matches);
-    }
-  }, 300); // 300ms debounce time
-  const handleSearchInputChange = (e) => {
-    setSearchQuery(e.target.value);
-    debouncedSearch(e.target.value);
-  };
+  // const debouncedSearch = debounce((query) => {
+  //   if (query.trim() === "") {
+  //     setFilteredProjects([]);
+  //   } else {
+  //     const matches = projects.filter((project) =>
+  //       project.title.toLowerCase().includes(query.toLowerCase())
+  //     );
+  //     setFilteredProjects(matches);
+  //   }
+  // }, 300); // 300ms debounce time
+
+
+  // const debouncedSearch = debounce((query, city, property) => {
+  //   console.log("debouncedSearch called with:", {
+  //     query,
+  //     city: city ? { id: city.id, name: city.name } : null,
+  //     property: property ? { id: property.id, name: property.name } : null,
+  //   });
+
+  //   console.log("Projects before filtering:", projects);
+
+  //   const filtered = projects.filter((project) => {
+  //     const matchesQuery = query
+  //       ? project.title.toLowerCase().includes(query.toLowerCase())
+  //       : true;
+  //     const matchesCity = city.id ? project.city_id === city.id : true;
+  //     const matchesProperty = property.id ? project.property_type_id === property.id : true;
+
+  //     console.log(`Filtering project: ${project.title}`, {
+  //       matchesQuery,
+  //       matchesCity,
+  //       matchesProperty,
+  //       projectDetails: project, // Log full project to identify field names
+  //     });
+
+  //     return matchesQuery && matchesCity && matchesProperty;
+  //   });
+
+  //   console.log("Filtered projects:", filtered);
+  //   setFilteredProjects(filtered);
+  // }, 300);
+  // const handleSearchInputChange = (e) => {
+  //   const query = e.target.value;
+  //   setSearchQuery(query);
+  //   console.log("handleSearchInputChange called with query:", query);
+  //   debouncedSearch(query, selectedCity, selectedProperty);
+  // };
   useEffect(() => {
-    const baseUrl = import.meta.env.VITE_BASE_URL || 'https://default-api-url.com/';
+    const baseUrl =
+      import.meta.env.VITE_BASE_URL || "https://default-api-url.com/";
     const apiUrl = `${baseUrl}api/projects`;
 
     axios
@@ -253,24 +291,34 @@ function Home() {
       })
       .then((response) => {
         if (response.data.success) {
-          console.log('Projects fetched successfully:', response.data.data);
+          console.log("Projects fetched successfully:", response.data.data);
           const apiProjects = response.data.data;
           setApiProjectsCount(apiProjects.length);
 
           // Filter projects where is_exclusive === 1
-          const exclusiveProjects = apiProjects.filter((project) => project.is_exclusive === 1);
+          const exclusiveProjects = apiProjects.filter(
+            (project) => project.is_exclusive === 1
+          );
 
           const mappedApiProjects = exclusiveProjects.map((project, index) => ({
             id: project.id,
-            title: project.name || 'Untitled Project',
+            title: project.name || "Untitled Project",
             slug: generateSlug(project.name),
-            price: project.tag_price ? `₹ ${project.tag_price} ` : 'Price on Request',
-            size: project.pricing_layout[0]?.title || '',
-            feet: project.pricing_layout[0]?.description || '',
-            location: project.property.name || '',
+            price: project.tag_price
+              ? `₹ ${project.tag_price} `
+              : "Price on Request",
+            size: project.pricing_layout[0]?.title || "",
+            feet: project.pricing_layout[0]?.description || "",
+            cityId: project.state?.city?.id || null, // Store city ID for filtering
+          propertyType: project.property?.name || "", // Use property name
+            location: project.property.name || "",
             image:
-              project.hero_img_original || 'https://admin.sloc.in/public/feature_image/1745472810_f1.png',
-            bottomImage: [BottomImg1, BottomImg2, BottomImg3, BottomImg4][index % 4] || BottomImg1,
+              project.hero_img_original ||
+              "https://admin.sloc.in/public/feature_image/1745472810_f1.png",
+            bottomImage:
+              [BottomImg1, BottomImg2, BottomImg3, BottomImg4][index % 4] ||
+              BottomImg1,
+            sectors: project.sectors || "",
           }));
 
           const combinedProjects = [...mappedApiProjects];
@@ -278,7 +326,7 @@ function Home() {
         }
       })
       .catch((error) => {
-        console.error('Error fetching projects:', error);
+        console.error("Error fetching projects:", error);
       })
       .finally(() => {
         // setLoading(false); // Uncomment if you have a loading state
@@ -1346,38 +1394,315 @@ function Home() {
       });
   }, [baseUrl]);
 
+  // const handleCitySelect = (city) => {
+  //   setSelectedCity({ id: city.id, name: city.name });
+  // };
+
+  // const handlePropertySelect = (property) => {
+  //   setSelectedProperty({ id: property.id, name: property.name });
+  // };
+
+  // const handleCitySelect = (city) => {
+  //   console.log("handleCitySelect called with:", { id: city.id, name: city.name });
+  //   setSelectedCity(city);
+  //   console.log("selectedCity updated to:", { id: city.id, name: city.name });
+  //   debouncedSearch(searchQuery, city, selectedProperty);
+  // };
+
+  // const handlePropertySelect = (property) => {
+  //   console.log("handlePropertySelect called with:", { id: property.id, name: property.name });
+  //   setSelectedProperty(property);
+  //   console.log("selectedProperty updated to:", { id: property.id, name: property.name });
+  //   debouncedSearch(searchQuery, selectedCity, property);
+  // };
+
+  // const handleProjectIdInput = (event) => {
+  //   setProjectId(event.target.value);
+  // };
+  // const handleSearchInputChange = (e) => {
+  //   immediateSearch({
+  //     query: '',
+  //     city: selectedCity,
+  //     property: selectedProperty,
+  //   });
+  //   const query = e.target.value;
+  //   setSearchQuery(query);
+  //   console.log("handleSearchInputChange called with query:", query);
+  //   debouncedSearch(query, selectedCity, selectedProperty);
+  // };
+  const handleSearchInputChange = (e) => {
+    immediateSearch({
+      query: '',
+      city: selectedCity,
+      property: selectedProperty,
+    });
+    const query = e.target.value;
+    setSearchQuery(query);
+    console.log("handleSearchInputChange called with query:", query);
+    if (query.trim() === '') {
+      console.log("Clearing suggested projects (empty query)");
+      setSuggestedProjects(projects); // Reset to all exclusive projects when query is empty
+    } else {
+      debouncedSearch({ query, city: selectedCity, property: selectedProperty });
+    }
+  };
+    const [suggestedProjects, setSuggestedProjects] = useState([]);
+  // Debounced search function
+  const debouncedSearch = debounce(async ({ query = '', city = null, property = null }) => {
+    setSearchLoading(true);
+    const baseUrl = import.meta.env.VITE_BASE_URL || "https://default-api-url.com/";
+
+    // Build query parameters
+    const queryParams = new URLSearchParams();
+    if (query) queryParams.append("search", query);
+    if (city?.id) queryParams.append("cityId", city.id);
+    if (property?.id) queryParams.append("propertyTypeId", property.id);
+
+    const apiUrl = `${baseUrl}api/projects?${queryParams.toString()}`;
+
+    try {
+      const response = await axios.get(apiUrl, {
+        headers: {
+          Authorization: `Bearer AzlrVK30FVdEx0TwrRwqYrQTL`,
+        },
+      });
+
+      if (response.data.success) {
+        const apiProjects = response.data.data;
+        console.log("Projects before filtering:", apiProjects);
+        console.log("Project keys (for first project):", Object.keys(apiProjects[0] || {}));
+
+        // Map API projects
+        const mappedProjects = apiProjects
+          .filter((project) => project.is_exclusive === 1)
+          .map((project, index) => ({
+            id: project.id,
+            title: project.name || "Untitled Project",
+            slug: generateSlug(project.name),
+            price: project.tag_price
+              ? `₹ ${project.tag_price} `
+              : "Price on Request",
+            size: project.pricing_layout[0]?.title || "",
+            feet: project.pricing_layout[0]?.description || "",
+            location: project.state?.city?.name || "Unknown City",
+            cityId: project.state?.city?.id || null,
+            propertyType: project.property?.name || "Unknown Type",
+            propertyTypeId: project.property?.id || null,
+            image:
+              project.hero_img_original ||
+              "https://admin.sloc.in/public/feature_image/1745472810_f1.png",
+            bottomImage:
+              [BottomImg1, BottomImg2, BottomImg3, BottomImg4][index % 4] ||
+              BottomImg1,
+            sectors: project.sectors || "",
+          }));
+
+        // Filter projects
+        const filteredProjects = mappedProjects.filter((project) => {
+          const matchesQuery = query
+            ? project.title.toLowerCase().includes(query.toLowerCase())
+            : true;
+
+          const matchesCity = city?.id
+            ? project.cityId === city.id ||
+              project.location.toLowerCase().includes(city.name.toLowerCase())
+            : true;
+
+          const matchesProperty = property?.id
+            ? project.propertyTypeId === property.id ||
+              project.propertyType.toLowerCase().includes(property.name.toLowerCase())
+            : true;
+
+          console.log("Filtering project:", {
+            title: project.title,
+            matchesQuery,
+            matchesCity,
+            matchesProperty,
+            projectDetails: project,
+            projectKeys: Object.keys(project),
+            cityComparison: { projectCityId: project.cityId, selectedCityId: city?.id, projectLocation: project.location, selectedCityName: city?.name },
+            propertyComparison: { projectPropertyId: project.propertyTypeId, selectedPropertyId: property?.id, projectPropertyType: project.propertyType, selectedPropertyName: property?.name },
+          });
+
+          return matchesQuery && matchesCity && matchesProperty;
+        });
+
+        console.log("Filtered projects:", filteredProjects);
+        setSuggestedProjects(filteredProjects);
+      } else {
+        setSuggestedProjects([]);
+      }
+    } catch (error) {
+      console.error("Error fetching projects:", error);
+      setSuggestedProjects([]);
+    } finally {
+      setSearchLoading(false);
+    }
+  }, 500);
+
+  // Immediate search function (no debounce for filter changes)
+  const immediateSearch = async ({ query = '', city = null, property = null }) => {
+    setSearchLoading(true);
+    const baseUrl = import.meta.env.VITE_BASE_URL || "https://default-api-url.com/";
+
+    // Build query parameters
+    const queryParams = new URLSearchParams();
+    if (query) queryParams.append("search", query);
+    if (city?.id) queryParams.append("cityId", city.id);
+    if (property?.id) queryParams.append("propertyTypeId", property.id);
+
+    const apiUrl = `${baseUrl}api/projects?${queryParams.toString()}`;
+
+    try {
+      const response = await axios.get(apiUrl, {
+        headers: {
+          Authorization: `Bearer AzlrVK30FVdEx0TwrRwqYrQTL`,
+        },
+      });
+
+      if (response.data.success) {
+        const apiProjects = response.data.data;
+        console.log("Projects before filtering:", apiProjects);
+        console.log("Project keys (for first project):", Object.keys(apiProjects[0] || {}));
+
+        // Map API projects
+        const mappedProjects = apiProjects
+          .filter((project) => project.is_exclusive === 1)
+          .map((project, index) => ({
+            id: project.id,
+            title: project.name || "Untitled Project",
+            slug: generateSlug(project.name),
+            price: project.tag_price
+              ? `₹ ${project.tag_price} `
+              : "Price on Request",
+            size: project.pricing_layout[0]?.title || "",
+            feet: project.pricing_layout[0]?.description || "",
+            location: project.state?.city?.name || "Unknown City",
+            cityId: project.state?.city?.id || null,
+            propertyType: project.property?.name || "Unknown Type",
+            propertyTypeId: project.property?.id || null,
+            image:
+              project.hero_img_original ||
+              "https://admin.sloc.in/public/feature_image/1745472810_f1.png",
+            bottomImage:
+              [BottomImg1, BottomImg2, BottomImg3, BottomImg4][index % 4] ||
+              BottomImg1,
+            sectors: project.sectors || "",
+          }));
+
+        // Filter projects
+        const filteredProjects = mappedProjects.filter((project) => {
+          const matchesQuery = query
+            ? project.title.toLowerCase().includes(query.toLowerCase())
+            : true;
+
+          const matchesCity = city?.id
+            ? project.cityId === city.id ||
+              project.location.toLowerCase().includes(city.name.toLowerCase())
+            : true;
+
+          const matchesProperty = property?.id
+            ? project.propertyTypeId === property.id ||
+              project.propertyType.toLowerCase().includes(property.name.toLowerCase())
+            : true;
+
+          console.log("Filtering project:", {
+            title: project.title,
+            matchesQuery,
+            matchesCity,
+            matchesProperty,
+            projectDetails: project,
+            projectKeys: Object.keys(project),
+            cityComparison: { projectCityId: project.cityId, selectedCityId: city?.id, projectLocation: project.location, selectedCityName: city?.name },
+            propertyComparison: { projectPropertyId: project.propertyTypeId, selectedPropertyId: property?.id, projectPropertyType: project.propertyType, selectedPropertyName: property?.name },
+          });
+
+          return matchesQuery && matchesCity && matchesProperty;
+        });
+
+        console.log("Filtered projects:", filteredProjects);
+        setSuggestedProjects(filteredProjects);
+      } else {
+        setSuggestedProjects([]);
+      }
+    } catch (error) {
+      console.error("Error fetching projects:", error);
+      setSuggestedProjects([]);
+    } finally {
+      setSearchLoading(false);
+    }
+  };
+
+  // Handle city and property selection
   const handleCitySelect = (city) => {
-    setSelectedCity({ id: city.id, name: city.name });
+    console.log("handleCitySelect called with:", city);
+      // immediateSearch({
+      //   query: '',
+      //   city: selectedCity,
+      //   property: selectedProperty,
+      // });
+        setSelectedCity({ id: city.id, name: city.name });
+    console.log("selectedCity updated to:", { id: city.id, name: city.name });
   };
 
   const handlePropertySelect = (property) => {
+    console.log("handlePropertySelect called with:", property);
+      //     immediateSearch({
+      //   query: '',
+      //   city: selectedCity,
+      //   property: selectedProperty,
+      // });
     setSelectedProperty({ id: property.id, name: property.name });
+    console.log("selectedProperty updated to:", { id: property.id, name: property.name });
   };
 
-  const handleProjectIdInput = (event) => {
-    setProjectId(event.target.value);
-  };
+  // Trigger immediate search when city or property changes
+  useEffect(() => {
+    console.log("useEffect triggered with selectedCity:", selectedCity, "selectedProperty:", selectedProperty);
+    if (selectedCity || selectedProperty) {
+      // immediateSearch({
+      //   query: '',
+      //   city: selectedCity,
+      //   property: selectedProperty,
+      // });
+    } else {
+      // setSuggestedProjects(projects); // Reset to all exclusive projects
+    }
+  }, [selectedCity, selectedProperty, projects]);
 
+// Handle search input
+const handleSearchInput = (query) => {
+  console.log("handleSearchInput called with query:", query);
+  debouncedSearch({
+    query,
+    city: selectedCity,
+    property: selectedProperty,
+  });
+};
+
+  useEffect(() => {
+    return () => {
+      debouncedSearch.cancel();
+    };
+  }, []);
   const [errorMessage, setErrorMessage] = useState(""); // To store the error message
 
-  const handleSearch = () => {
-    // Validation: Check if at least one field has a value
+
+
+  const handleSearch = (projectTitle = null) => {
     if (
       !selectedCity.id &&
-      selectedCity.name !== "City" &&
+      selectedCity.name === "City" &&
       !selectedProperty.id &&
-      selectedProperty.name !== "Property Type" &&
-      !searchQuery.trim()
+      selectedProperty.name === "Property Type" &&
+      !searchQuery.trim() &&
+      !projectTitle
     ) {
-      setErrorMessage(
-        "Please select a city, property type, or enter a project name."
-      );
+      toast.error("Please select a city, property type, or enter a project name.");
       return;
     }
 
     setErrorMessage("");
-
-    const params = new URLSearchParams();
 
     const formatSlug = (name) => {
       return name
@@ -1385,6 +1710,17 @@ function Home() {
         .replace(/\s+/g, "-")
         .replace(/[^a-z0-9-]/g, "");
     };
+
+    const query = projectTitle || searchQuery.trim();
+    const slugifiedProject = formatSlug(query);
+    if (slugifiedProject) {
+      console.log("Navigating to:", `/project/${slugifiedProject}`);
+      setTimeout(() => setSearchLoading(false), 2000);
+      navigate(`/project/${slugifiedProject}`);
+      return;
+    }
+
+    const params = new URLSearchParams();
 
     if (selectedCity.id && selectedCity.name !== "All Cities") {
       params.append("city", formatSlug(selectedCity.name));
@@ -1394,15 +1730,17 @@ function Home() {
       params.append("property_type", formatSlug(selectedProperty.name));
     }
 
-    const slugifiedProject = formatSlug(searchQuery.trim());
-    if (slugifiedProject) {
-      params.append("project", slugifiedProject);
-    }
-
     console.log("Navigating to:", `/search-Listing?${params.toString()}`);
     setTimeout(() => setSearchLoading(false), 2000);
     navigate(`/search-Listing?${params.toString()}`);
   };
+
+  // Clean up debounced function on component unmount
+  useEffect(() => {
+    return () => {
+      debouncedSearch.cancel();
+    };
+  }, []);
   const companyData = {
     name: "Real Estate Company | Property Dealer | Buy Property in India | SLOC",
     description:
@@ -1410,39 +1748,58 @@ function Home() {
     websites: ["https://staging.sloc.in/"],
   };
 
+  const [socialLinks, setSocialLinks] = useState({});
 
-    const [socialLinks, setSocialLinks] = useState({});
+  useEffect(() => {
+    fetch("https://admin.sloc.in/public/api/setting", {
+      headers: {
+        Authorization: "Bearer AzlrVK30FVdEx0TwrRwqYrQTL",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("//////// API Response ////////", data);
+        if (data && Array.isArray(data.data) && data.data.length > 0) {
+          const firstItem = data.data[0];
+          console.log("//////// Extracted Social Links ////////", firstItem);
+          console.log(
+            "//////// Extracted Social Links ////////",
+            firstItem?.facebook
+          );
+          setSocialLinks(firstItem);
+        } else {
+          console.warn("//////// No social data found ////////");
+        }
+      })
+      .catch((err) => {
+        console.error("Error fetching social links:", err);
+      });
+  }, []);
 
+
+      const footerRef = useRef(null);
 
     useEffect(() => {
-      fetch("https://admin.sloc.in/public/api/setting", {
-        headers: {
-          Authorization: "Bearer AzlrVK30FVdEx0TwrRwqYrQTL",
-        },
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          console.log('//////// API Response ////////', data);
-          if (data && Array.isArray(data.data) && data.data.length > 0) {
-            const firstItem = data.data[0];
-            console.log('//////// Extracted Social Links ////////', firstItem);
-            console.log('//////// Extracted Social Links ////////', firstItem?.facebook);
-            setSocialLinks(firstItem);
-          } else {
-            console.warn('//////// No social data found ////////');
-          }
-        })
-        .catch((err) => {
-          console.error("Error fetching social links:", err);
-        });
-    }, []);
+      if (!footerRef.current) return;
 
+      gsap.to(".mobilek", {
+        opacity: 0.5,
+        scrollTrigger: {
+          trigger: footerRef.current,
+          start: "bottom", // when footer top hits bottom of viewport
+          toggleActions: "play none none reverse",
+        }
+      });
+    }, []);
 
   return (
     <>
       <main id="All">
+      <ToastContainer />
         <Helmet>
-          <title>Real Estate Company | Property Dealer | Buy Property in India | SLOC</title>
+          <title>
+            Real Estate Company | Property Dealer | Buy Property in India | SLOC
+          </title>
           <meta
             property="og:title"
             content="Real Estate Company | Property Dealer | Buy Property in India | SLOC"
@@ -1485,111 +1842,99 @@ function Home() {
             </Row>
           </Container>
           <div className="d-flex align-items-md-center searc-bar justify-content-between">
-            <DropdownButton
-              id="dropdown-city"
-              title={selectedCity.name}
-              variant="outline-light"
-              className="me-2 set-out"
+      <DropdownButton
+        id="dropdown-city"
+        title={selectedCity.name}
+        variant="outline-light"
+        className="me-2 set-out"
+      >
+        {cities.length > 0 ? (
+          cities.map((city) => (
+            <Dropdown.Item
+              key={city.id}
+              onClick={() => handleCitySelect(city)}
             >
-              {/* <Dropdown.Item
-                key="all-cities"
-                onClick={() => handleCitySelect({ id: null, name: "City" })}
-              >
-              City
-              </Dropdown.Item> */}
-              {cities.length > 0 ? (
-                cities.map((city) => (
-                  <Dropdown.Item
-                    key={city.id}
-                    onClick={() => handleCitySelect(city)}
-                  >
-                    {city.name}
-                  </Dropdown.Item>
-                ))
-              ) : (
-                <Dropdown.Item disabled>No cities available</Dropdown.Item>
-              )}
-            </DropdownButton>
+              {city.name}
+            </Dropdown.Item>
+          ))
+        ) : (
+          <Dropdown.Item disabled>No cities available</Dropdown.Item>
+        )}
+      </DropdownButton>
 
-            <DropdownButton
-              id="dropdown-property"
-              title={selectedProperty.name}
-              variant="outline-light"
-              className="me-2 set-out"
+      <DropdownButton
+        id="dropdown-property"
+        title={selectedProperty.name}
+        variant="outline-light"
+        className="me-2 set-out"
+      >
+        {propertyTypes.length > 0 ? (
+          propertyTypes.map((property) => (
+            <Dropdown.Item
+              key={property.id}
+              onClick={() => handlePropertySelect(property)}
             >
-              {/* <Dropdown.Item
-                key="any-property"
-                onClick={() => handlePropertySelect({ id: null, name: "Property Type" })}
+              {property.name}
+            </Dropdown.Item>
+          ))
+        ) : (
+          <Dropdown.Item disabled>
+            No property types available
+          </Dropdown.Item>
+        )}
+      </DropdownButton>
+
+      <InputGroup className="me-2">
+        <InputGroup.Text>
+          <img src={Search} alt="Search" />
+        </InputGroup.Text>
+        <Form.Control
+          placeholder="Search By Project Name..."
+          aria-label="Project ID"
+          aria-describedby="basic-addon1"
+          value={searchQuery}
+          onChange={handleSearchInputChange}
+        />
+        {suggestedProjects.length > 0 && (
+          <div
+            className="suggestions-box"
+            style={{ maxHeight: "200px", overflowY: "auto" }}
+          >
+            {suggestedProjects.map((project) => (
+              <div
+                key={project.id}
+                className="suggestion-item"
+                onClick={() => {
+                  console.log("Selected project title:", project.title);
+                  setSearchQuery(project.title);
+                  handleSearch(project.title);
+                  setFilteredProjects([]);
+                }}
               >
-              Property Type
-              </Dropdown.Item> */}
-              {propertyTypes.length > 0 ? (
-                propertyTypes.map((property) => (
-                  <Dropdown.Item
-                    key={property.id}
-                    onClick={() => handlePropertySelect(property)}
-                  >
-                    {property.name}
-                  </Dropdown.Item>
-                ))
-              ) : (
-                <Dropdown.Item disabled>
-                  No property types available
-                </Dropdown.Item>
-              )}
-            </DropdownButton>
-
-            <InputGroup className="me-2">
-              <InputGroup.Text>
-                <img src={Search} alt="Search" />
-              </InputGroup.Text>
-              <Form.Control
-                placeholder="Search By Project Name..."
-                aria-label="Project ID"
-                aria-describedby="basic-addon1"
-                value={searchQuery}
-                onChange={handleSearchInputChange}
-              />
-              {/* Show suggestions */}
-              {filteredProjects.length > 0 && (
-                <div
-                  className="suggestions-box"
-                  style={{ maxHeight: "200px", overflowY: "auto" }}
-                >
-                  {filteredProjects.map((project) => (
-                    <div
-                      key={project.id}
-                      className="suggestion-item"
-                      onClick={() => {
-                        // Handle project selection
-                        setSearchQuery(project.title);
-                        setFilteredProjects([]); // Hide suggestions after selection
-                      }}
-                    >
-                      {project.title}
-                    </div>
-                  ))}
-                </div>
-              )}
-            </InputGroup>
-
-            <Button
-              variant="primary all-same-ani"
-              onClick={handleSearch}
-              disabled={searchLoading}
-            >
-              Search
-            </Button>
-
-            {errorMessage && (
-              <span
-                className="error-message"
-                style={{ color: "red", marginTop: "10px" }}
-              >
-                {errorMessage}
-              </span>
-            )}
+                {project.title}
+              </div>
+            ))}
           </div>
+        )}
+      </InputGroup>
+
+      <Button
+        variant="primary all-same-ani"
+        onClick={() => handleSearch()}
+        disabled={searchLoading}
+      >
+        Search
+      </Button>
+
+      {errorMessage && (
+        <span
+          className="error-message"
+          style={{ color: "red", marginTop: "10px" }}
+        >
+          {errorMessage}
+        </span>
+      )}
+    </div>
 
           {/*
       {searchError && <div className="text-danger mt-2">{searchError}</div>}
@@ -1812,13 +2157,9 @@ function Home() {
                         />
                         <Card.Body className="uper-space">
                           <Card.Text className="mb-4 btn-loc">
-                            {/* <span>{project.size}</span> <span>{project.feet}</span>
-                      <span>{project.location}</span> */}
                             {project.size && <span>{project.size}</span>}
                             {project.feet && <span>{project.feet}</span>}
-                            {project.location && (
-                              <span>{project.location}</span>
-                            )}
+                            {project.sectors && <span>{project.sectors}</span>}
                           </Card.Text>
                           <Card.Title>{project.title}</Card.Title>
                           <Card.Text className="text-primary font-weight-bold">
@@ -1871,7 +2212,10 @@ function Home() {
           </Container>
         </section>
 
-        <section ref={containerRefs1} className="social-proof position-relative">
+        <section
+          ref={containerRefs1}
+          className="social-proof position-relative"
+        >
           <img className="Move" src={WelcomeLogo} ref={logoRefs1} />
           <Container className="">
             <Row className="align-items-center justify-content-between">
@@ -2092,31 +2436,31 @@ function Home() {
                 <div className="mb-2">
                   <h6 className="text-uppercase ft-font">FOLLOW US AT</h6>
                 </div>
-                        <div className="d-flex gap-4 mt-4">
-                 <a
-                   href={socialLinks.linkedln}
-                   target="_blank"
-                   rel="noopener noreferrer"
-                 >
-                   <img src={linkdin} alt="LinkedIn" />
-                 </a>
+                <div className="d-flex gap-4 mt-4">
+                  <a
+                    href={socialLinks.linkedln}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <img src={linkdin} alt="LinkedIn" />
+                  </a>
 
-                 <a
-                   href={socialLinks.instagram}
-                   target="_blank"
-                   rel="noopener noreferrer"
-                 >
-                   <img src={Instagram} alt="Instagram" />
-                 </a>
+                  <a
+                    href={socialLinks.instagram}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <img src={Instagram} alt="Instagram" />
+                  </a>
 
-                 <a
-                   href={socialLinks.facebook}
-                   target="_blank"
-                   rel="noopener noreferrer"
-                 >
-                   <img src={Facebook} alt="Facebook" />
-                 </a>
-               </div>
+                  <a
+                    href={socialLinks.facebook}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <img src={Facebook} alt="Facebook" />
+                  </a>
+                </div>
               </Col>
               <Col lg={2} md={6} sm={6} className="mb-4 mb-md-0 res-st">
                 <h6 className="text-uppercase ft-font mb-3">QUICK LINKS</h6>

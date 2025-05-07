@@ -20,6 +20,10 @@ import { FaWhatsapp } from 'react-icons/fa';
 import { FiPhoneCall } from 'react-icons/fi';
 import Four from './Policy/Nothing';
 import axios from 'axios';
+import wht from './mobile/whstsp.svg'
+import call from './mobile/call.svg'
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 // New component to handle useLocation and related logic
 function AppContent() {
@@ -94,7 +98,6 @@ function AppContent() {
   }, []);
 
   useEffect(() => {
-    if (location.pathname.startsWith('/project')) {
       const baseUrl = import.meta.env.VITE_BASE_URL || 'https://default-api-url.com/';
       const apiUrl = `${baseUrl}api/setting`;
 
@@ -115,9 +118,6 @@ function AppContent() {
         .catch((error) => {
           console.error('API request error:', error);
         });
-    } else {
-      setWhatsappNumber('9910099434');
-    }
   }, [location.pathname]);
 
   // Check if current page is '/project'
@@ -150,106 +150,10 @@ function AppContent() {
     return () => observer.disconnect();
   }, []);
 
+
+
+
   return (
-    // <>
-    //   <Scrol />
-    //   <Routes>
-    //     <Route path="/" element={<Layout />}>
-    //       <Route index element={<Home />} />
-    //       <Route path="/about-us" element={<About />} />
-    //       <Route path="/blog" element={<Blogs />} />
-    //       <Route path="/blog/:slug" element={<Details />} />
-    //       <Route path="/privacy-policy" element={<Privacy />} />
-    //       <Route path="/contact-us" element={<Contact />} />
-    //       <Route path="/terms-and-conditions" element={<Terms />} />
-    //       <Route path="/disclaimer" element={<Disc />} />
-    //       <Route path="/project/:slug" element={<Project />} />
-    //       <Route path="/search-Listing" element={<Search />} />
-    //       <Route path="*" element={<Four />} />
-    //     </Route>
-    //   </Routes>
-
-    //   {showButton && (
-    //     <button
-    //       className="scroll-to-top-btn"
-    //       onClick={scrollToTop}
-    //       style={{
-    //         position: 'fixed',
-    //         bottom: '30px',
-    //         right: '30px',
-    //         padding: '0px 15px',
-    //         fontSize: '30px',
-    //         backgroundColor: '#000',
-    //         color: '#fff',
-    //         border: 'none',
-    //         borderRadius: '50px',
-    //         cursor: 'pointer',
-    //         height: '50px',
-    //         width: '50px',
-    //         zIndex: 999999,
-    //       }}
-    //     >
-    //       ↑
-    //     </button>
-    //   )}
-    //   {showButton && (
-
-    //   <a
-    //     href={`https://api.whatsapp.com/send?phone=+91${whatsappNumber}&text=Hello, I want to know more about project `}
-    //     target="_blank"
-    //     rel="noopener noreferrer"
-    //     style={{
-    //       position: 'fixed',
-    //       bottom: '100px',
-    //       right: '30px',
-    //       padding: '0',
-    //       fontSize: '30px',
-    //       backgroundColor: '#25D366',
-    //       color: '#fff',
-    //       border: 'none',
-    //       borderRadius: '50px',
-    //       cursor: 'pointer',
-    //       height: '50px',
-    //       width: '50px',
-    //       display: 'flex',
-    //       alignItems: 'center',
-    //       justifyContent: 'center',
-    //       zIndex: 99999,
-    //       boxShadow: '0px 4px 10px rgba(0,0,0,0.3)',
-    //     }}
-    //   >
-    //     <FaWhatsapp />
-    //   </a>
-    //   )}
-
-    //   <a
-    //     href={`tel:+91${whatsappNumber}`}
-    //     target="_blank"
-    //     className="calling"
-    //     rel="noopener noreferrer"
-    //     style={{
-    //       position: 'fixed',
-    //       bottom: '170px',
-    //       right: '30px',
-    //       padding: '5px',
-    //       fontSize: '25px',
-    //       backgroundColor: '#064685',
-    //       color: '#fff',
-    //       borderRadius: '50px',
-    //       cursor: 'pointer',
-    //       height: '50px',
-    //       width: '50px',
-    //       display: 'flex',
-    //       alignItems: 'center',
-    //       justifyContent: 'center',
-    //       zIndex: 99999,
-    //       boxShadow: '0px 4px 10px rgba(0,0,0,0.3)',
-    //     }}
-    //   >
-    //     <FiPhoneCall />
-    //   </a>
-    // </>
-
     <>
     <Scrol />
     <Routes>
@@ -265,6 +169,7 @@ function AppContent() {
         <Route path="/project/:slug" element={<Project />} />
         <Route path="/search-Listing" element={<Search />} />
         <Route path="*" element={<Four />} />
+
       </Route>
     </Routes>
 
@@ -294,19 +199,19 @@ function AppContent() {
 
     {!isProjectPage && (
       <a
-        href={`https://api.whatsapp.com/send?phone=+91${whatsappNumber}&text=Hello, I want to know more about project `}
+        href={`https://api.whatsapp.com/send?phone=+91${whatsappNumber}&text=Hello `}
         target="_blank"
         rel="noopener noreferrer"
-        className='prnav'
+        className='prnav desktop-visible'
         style={{
           position: 'fixed',
           bottom: '100px',
           right: '30px',
           padding: '0',
-          fontSize: '30px',
-          backgroundColor: '#25D366',
+          fontSize: '26px',
+          backgroundColor: '#064685',
           color: '#fff',
-          border: 'none',
+          border: '1px solid #fff',
           borderRadius: '50px',
           cursor: 'pointer',
           height: '50px',
@@ -326,7 +231,7 @@ function AppContent() {
       <a
         href={`tel:+91${whatsappNumber}`}
         target="_blank"
-        className="calling prnav"
+        className="calling prnav desktop-visible"
         rel="noopener noreferrer"
         style={{
           position: 'fixed',
@@ -349,6 +254,64 @@ function AppContent() {
       >
         <FiPhoneCall />
       </a>
+    )}
+
+{!isProjectPage && (
+      <a
+        href={`https://api.whatsapp.com/send?phone=+91${whatsappNumber}&text=Hello `}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="mobilek"
+        style={{
+          position: 'fixed',
+          bottom: '20px',
+          left: '215px',
+          padding: '0',
+          fontSize: '30px',
+          backgroundColor: '#25D366',
+          color: '#fff',
+          border: 'none',
+          borderRadius: '50px',
+          cursor: 'pointer',
+          height: '50px',
+          width: '50px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 99999,
+          boxShadow: '0px 4px 10px rgba(0,0,0,0.3)',
+        }}
+      >
+        <FaWhatsapp height={20} /> Whatsapp
+      </a>
+    )}
+
+{!isProjectPage && (
+      <a
+        href={`tel:+91${whatsappNumber}`}
+        target="_blank"
+        className="calling mobilek"
+        rel="noopener noreferrer"
+        style={{
+          position: 'fixed',
+          bottom: '20px',
+          left: '20px',
+          padding: '5px',
+          fontSize: '25px',
+          backgroundColor: '#064685',
+          color: '#fff',
+          borderRadius: '50px',
+          cursor: 'pointer',
+          height: '50px',
+          width: '50px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 99999,
+          boxShadow: '0px 4px 10px rgba(0,0,0,0.3)',
+        }}
+      >
+   <img src={call}/> Call Now    </a>
     )}
   </>
   );

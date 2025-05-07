@@ -105,6 +105,8 @@ const BlogSection = () => {
                 : "Unknown Date",
               category: selectedBlog.keywords || "General",
               author: selectedBlog.author || "Unknown Author",
+              seo_title : selectedBlog.seo_title  || "Unknown Author",
+              seo_description: selectedBlog.seo_description || "No description available",
             });
           } else {
             throw new Error("Blog not found");
@@ -124,11 +126,12 @@ const BlogSection = () => {
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
   if (!blog) return <div>Blog not found</div>;
+  console.log('aslihdasdj',blog?.seo_title)
   return (
     <>
       <Helmet>
 
-        <title>Real Estate Blog | Property Tips & Market Updates India</title>
+        <title>{blog?.seo_title}</title>
         <meta
           property="og:title"
           content="Real Estate Blog | Property Tips & Market Updates India"
@@ -139,6 +142,7 @@ const BlogSection = () => {
         />
       </Helmet>
       <section className="blog-detailss">
+
         <Container className="my-5">
           <Row className="align-items-center">
             <Col md={7} className="animate__animated animate__fadeInLeft">

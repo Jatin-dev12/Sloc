@@ -154,7 +154,7 @@ const SuccessTimeline = () => {
         <div
           className="timeline-container relative max-w-3xl mx-auto"
           ref={timelineContainerRef}
-          style={{ overflowY: "auto", maxHeight: "600px", minHeight: "600px" }}
+          style={{ overflowY: "auto" }}
         >
           {/* Vertical line container */}
           <div className="timeline-line">

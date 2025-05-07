@@ -363,7 +363,7 @@ section.social-proof {
   background-color: unset !important;
 }
 .sticky-box .card-body {
-  /* backdrop-filter: blur(4px); */
+  backdrop-filter: blur(4px);
   background: #FFFFFF33;
   height: 600px;
   overflow: scroll;
@@ -483,8 +483,17 @@ footer {
   font-size: 24px;
   line-height: 100%;
 }
+footer ul p{
+  font-size: 14px !important;
+}
 footer ul {
   gap: 15px;
+}
+main.project-page footer ul a {
+  font-size: 14px;
+}
+main.project-page p.mb-0.copyright {
+  font-size: 14px;
 }
 footer ul a {
   font-family: "Nunito Sans", sans-serif !important;
@@ -493,6 +502,10 @@ footer ul a {
   line-height: 150%;
   letter-spacing: 0%;
   text-transform: uppercase;
+}
+.rerera {
+    text-align: right;
+    font-size: 14px;
 }
 .border-top-set {
   border-color: #ffffff78 !important;
@@ -1821,8 +1834,7 @@ section.Cta form {
   border-radius: 20px;
   padding: 1rem;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-  transform: perspective(800px) rotateY(0deg);
-  animation: popupAnimation 0.6s ease-out;
+
   text-align: center;
   height: 350px;
   align-content: center;
@@ -1896,7 +1908,7 @@ button.ssksk.btn.btn-dark {
 
 section.blog-text span {
   font-weight: 500;
-  font-size: 22px;
+  font-size: 16px;
   line-height: 180%;
   letter-spacing: 0%;
   vertical-align: middle;
@@ -1913,7 +1925,7 @@ section.blog-text li {
 
 .project-baner {
 
-  box-shadow: inset 0 0 0 2000px rgb(0 0 0 / 35%);
+  box-shadow: inset 0 0 0 2000px rgb(0 0 0 / 50%);
 }
 section#Overview img.scrol-top {
   top: -55%;
@@ -1996,7 +2008,8 @@ section.blogs .btn-loc span {
   }
   .icici {
     position: relative;
-    top: 5px;
+    top: 2px;
+    width: 24px;
 }
 .suggestions-box .suggestion-item {
   cursor: pointer;
@@ -2005,4 +2018,18 @@ section.blogs .btn-loc span {
 .form-set span {
   display: block;
   text-align: left;
+}
+img.img-fluid.high-imhs {
+  width: 100%;
+}
+
+.mobilek svg{
+width: 20px;
+height: 20px;
+}
+
+.pr button:focus:not(:focus-visible) {
+  outline: 0;
+  border: none !important;
+  box-shadow: none !important;
 }

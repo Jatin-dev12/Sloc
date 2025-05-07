@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState , useRef } from "react";
+import gsap from "gsap";
+
 import { Container, Row, Col } from "react-bootstrap";
 import {
   FaTwitter,
@@ -39,7 +41,20 @@ const Footer = () => {
         console.error("Error fetching social links:", err);
       });
   }, []);
+    const footerRef = useRef(null);
 
+    useEffect(() => {
+      if (!footerRef.current) return;
+
+      gsap.to(".mobilek", {
+        opacity: 0.5,
+        scrollTrigger: {
+          trigger: footerRef.current,
+          start: "bottom", // when footer top hits bottom of viewport
+          toggleActions: "play none none reverse",
+        }
+      });
+    }, []);
 
   return (
     <>

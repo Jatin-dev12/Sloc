@@ -4,6 +4,10 @@ import { Row, Col, Modal } from "react-bootstrap";
 import Container from "react-bootstrap/Container";
 import Search from "../assets/Imgs/Search.svg";
 import { Card } from "react-bootstrap";
+import { FaWhatsapp } from "react-icons/fa";
+import { FiPhoneCall } from "react-icons/fi";
+import wht from "../mobile/whstsp.svg";
+import call from "../mobile/call.svg";
 import {
   Form,
   Button,
@@ -31,9 +35,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
-import lib from "./imgs/lib.png";
-import tr from "./imgs/24.png";
-import stake from "./imgs/staking.png";
+
 import gym from "./imgs/gym.png";
 import red from "./imgs/red.png";
 import Time from "./imgs/timer.png";
@@ -59,16 +61,22 @@ import axios from "axios";
 import logo from "./imgs/logo.png";
 import backpg from "./imgs/p.jpg";
 import gf from "../Contact/Loader.gif";
-import { FaWhatsapp } from "react-icons/fa";
-import call from "../mobile/call.svg";
+import { address } from "framer-motion/client";
 import { Helmet } from "react-helmet";
-import { FiPhoneCall } from "react-icons/fi";
 
 gsap.registerPlugin(ScrollTrigger);
 const isMobileView = () => window.innerWidth < 768;
 
 function project() {
   const [isMobile, setIsMobile] = useState(isMobileView());
+  const [countryCode, setCountryCode] = useState("+91"); // Default to India
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(isMobileView());
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   const [loading, setLoading] = useState(false);
 
   const [fopen, setFopen] = useState(false);
@@ -99,19 +107,6 @@ function project() {
     email: "",
     agree: "",
   });
-  const [formData2, setFormData2] = useState({
-    name: "",
-    mobile: "",
-    email: "",
-    agree: false,
-  });
-
-  const [errors2, setErrors2] = useState({
-    name: "",
-    mobile: "",
-    email: "",
-    agree: "",
-  });
   const phoneInputRef1 = useRef(null);
   const phoneInputRef2 = useRef(null);
   const phoneInputRef = useRef(null);
@@ -135,28 +130,6 @@ function project() {
     if (name === "agree") {
       setErrors1((prev) => ({ ...prev, agree: "" }));
     }
-  };
-  const handleChange2 = (e) => {
-    const { name, value, type, checked } = e.target;
-
-    let newValue = value;
-    if (name === "name") {
-      newValue = value.replace(/[^a-zA-Z\s]/g, "").slice(0, 30);
-    } else if (name === "email") {
-      newValue = value.slice(0, 30);
-    } else if (name === "mobile") {
-      if (!/^\d*$/.test(value)) {
-        return; // Ignore non-digit input
-      }
-      newValue = value.slice(0, 15);
-    }
-
-    setFormData2((prev) => ({
-      ...prev,
-      [name]: type === "checkbox" ? checked : newValue,
-    }));
-
-    setErrors2((prev) => ({ ...prev, [name]: "" }));
   };
   const validateForm1 = () => {
     const newErrors = {
@@ -198,43 +171,6 @@ function project() {
     setErrors1(newErrors);
     return isValid;
   };
-  const validateForm2 = () => {
-    console.log("Validating formData2:", formData2);
-    const newErrors = {
-      name: "",
-      mobile: "",
-      email: "",
-      agree: "",
-    };
-    let isValid = true;
-
-    if (!formData2.name.trim()) {
-      newErrors.name = "Name is required";
-      isValid = false;
-    }
-    if (!formData2.mobile) {
-      newErrors.mobile = "Phone number is required";
-      isValid = false;
-    }
-    if (!formData2.email) {
-      newErrors.email = "Email is required";
-      isValid = false;
-    }
-    if (!formData2.agree) {
-      newErrors.agree = "You must agree to the terms";
-      isValid = false;
-    }
-
-    console.log("Validation result:", { isValid, newErrors });
-    setErrors2(newErrors);
-    return isValid;
-  };
-  const baseUrl = import.meta.env.VITE_BASE_URL || "https://admin.sloc.in/";
-  const apiToken =
-    import.meta.env.VITE_API_TOKEN || "AzlrVK30FVdEx0TwrRwqYrQTL";
-
-  const [countryCode, setCountryCode] = useState("+91"); // Default to India
-
   useEffect(() => {
     if (phoneInputRef.current) {
       import("intl-tel-input")
@@ -464,6 +400,247 @@ function project() {
     }
 
     setErrors(newErrors);
+    return isValid;
+  };
+
+  const navbarRef = useRef(null);
+
+  useEffect(() => {
+    ScrollTrigger.create({
+      trigger: "#second-section",
+      start: "bottom center",
+      onEnter: () => {
+        navbarRef.current.classList.add("nav-bg-change");
+      },
+      onLeaveBack: () => {
+        navbarRef.current.classList.remove("nav-bg-change");
+      },
+    });
+  }, []);
+
+  const { slug } = useParams();
+  const [project, setProject] = useState(null);
+  const [allProjects, setAllProjects] = useState([]);
+  // console.log('allprojectss...................', allProjects);
+  // console.log("Immediately after useState: ", project);
+
+  const generateSlug = (name) => {
+    // console.log('generateSlug: Input name:', name);
+    const result = name
+      ? name
+          .trim()
+          .toLowerCase()
+          .normalize("NFKD") // Normalize Unicode characters
+          .replace(/[\u0300-\u036f]/g, "") // Remove diacritics
+          .replace(/[^a-z0-9]+/g, "-")
+          .replace(/(^-|-$)/g, "")
+      : "untitled-project";
+    // console.log('generateSlug: Output slug:', result);
+    return result;
+  };
+  const [bannerImage, setBannerImage] = useState("/src/assets/Imgs/Baner.png"); // Default fallback image
+  useEffect(() => {
+    // console.log('useEffect: Starting with slug:', slug);
+
+    const baseUrl =
+      import.meta.env.VITE_BASE_URL || "https://default-api-url.com/";
+    // console.log('useEffect: Base URL:', baseUrl);
+
+    const apiUrl = `${baseUrl}api/projects`;
+    // console.log('useEffect: API URL:', apiUrl);
+
+    // console.log('useEffect: Initiating axios GET request');
+    axios
+      .get(apiUrl, {
+        headers: {
+          Authorization: `Bearer AzlrVK30FVdEx0TwrRwqYrQTL`,
+        },
+      })
+      .then((response) => {
+        // console.log('useEffect: Axios response received:', response);
+        // console.log('useEffect: Response data:', response.data);
+
+        if (response.data.success) {
+          // console.log('useEffect: API request successful');
+          // console.log('useEffect: Searching for project with slug:', slug);
+
+          const projectData = response.data.data.find((p) => {
+            const projectSlug = generateSlug(p.name);
+            // console.log(
+            //   'useEffect: Comparing project slug:',
+            //   projectSlug,
+            //   'with target slug:',
+            //   slug
+            // );
+            return projectSlug === slug;
+          });
+          setAllProjects(response.data); // Set all projects
+
+          console.log("useEffect: Found project data:", projectData);
+          console.log("useEffect: All projects data:", response.data.data);
+
+          if (projectData) {
+            console.log("useEffect: Project found, setting project state");
+            const projectState = {
+              id: projectData.id,
+              project_id: projectData.project_id,
+              title: projectData.name || "Untitled Project",
+              slug: projectData.slug || generateSlug(projectData.name),
+              price: projectData.tag_price
+                ? `₹ ${projectData.tag_price} `
+                : "Price on Request",
+              size: projectData.pricing_layout[0]?.title || "",
+              feet: projectData.pricing_layout[0]?.description || "",
+              location: projectData.address || "",
+              image: projectData.hero_img || "https://via.placeholder.com/300",
+              overview:
+                projectData.overview_content || "No overview available.",
+              amenities: projectData.amenities || [],
+              properties: projectData.property_types || [
+                { type: "N/A", size: "Contact for details" },
+              ],
+              calling_number: projectData.calling_number || "N/A",
+              gallery_images: projectData.gallery_image || [],
+              disclaimer: projectData.disclaimer || "No disclaimer available.",
+              highlights: projectData.highlights || "No highlights available.",
+              rera_num_on_img: projectData.rera_num_on_img || "N/A",
+              mobile_banner: projectData.mobile_banner || "N/A",
+              schedule_meeting: projectData.schedule_meeting || "N/A",
+              sectors: projectData.sectors || "N/A",
+              specification: projectData.specification || "N/A",
+              state: projectData.state || { name: "Unknown", city: {} },
+              state_rera_num_on_img: projectData.state_rera_num_on_img || "N/A",
+              tag_line: projectData.tag_line || "N/A",
+              url: projectData.url || "N/A",
+              whatsapp_number: projectData.whatsapp_number || "N/A",
+              property: projectData.property || { id: null, name: "N/A" },
+              faqs: projectData.faqs?.faqs || [],
+              highlights_image_original:
+                projectData?.highlights_image_original || "",
+              pricing_layout: projectData.pricing_layout || [],
+              location_advantages: projectData.location_advantages || [],
+              overview_highlights: projectData.overview_highlights || [],
+              highlights_content: projectData.highlights_content
+                ? JSON.parse(projectData.highlights_content)
+                : [],
+              address: projectData.address || "N/A",
+              mobile_banner_original: projectData.mobile_banner_original || [],
+              similar_project: projectData.similar_project || [], // Added similar_project
+              seo_title: projectData.seo_title || [], // Added similar_project
+              seo_description: projectData.seo_description || [], // Added similar_project
+            };
+            // console.log('useEffect: Setting project state with:', projectState);
+            setProject(projectState);
+
+            // Determine if the device is mobile based on window width
+            const isMobile = window.innerWidth <= 768; // Adjust the threshold as needed
+
+            // Set banner image based on device type
+            const heroImage = isMobile
+              ? projectData.mobile_banner_original &&
+                projectData.mobile_banner_original.startsWith("http")
+                ? projectData.mobile_banner_original // Use mobile_banner for mobile
+                : "/src/assets/Imgs/Baner.png" // Fallback for mobile
+              : projectData.hero_img_original &&
+                projectData.hero_img_original.startsWith("http")
+              ? projectData.hero_img_original // Use hero_img_original for desktop
+              : "/src/assets/Imgs/Baner.png"; // Fallback for desktop
+            console.log("asdjkashdjhasdkjhs heroo imagee", heroImage);
+            // console.log('useEffect: Setting banner image:', heroImage);
+            setBannerImage(heroImage);
+          } else {
+            // console.log('useEffect: Project not found in data');
+            setBannerImage("/src/assets/Imgs/Baner.png");
+          }
+        } else {
+          console.log("useEffect: API request unsuccessful");
+          // setError('Project not found');
+        }
+      })
+      .catch((err) => {
+        // console.error('useEffect: Error fetching project:', err);
+        // console.error('useEffect: Error details:', {
+        //   message: err.message,
+        //   response: err.response,
+        //   request: err.request,
+        // });
+      })
+      .finally(() => {
+        // console.log('useEffect: Request completed, setting loading to false');
+      });
+  }, [slug]);
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  const open = () => setFopen(false);
+  const close = () => setFopen(true);
+
+  const [formData2, setFormData2] = useState({
+    name: "",
+    mobile: "",
+    email: "",
+    agree: false,
+  });
+
+  const [errors2, setErrors2] = useState({
+    name: "",
+    mobile: "",
+    email: "",
+    agree: "",
+  });
+  const handleChange2 = (e) => {
+    const { name, value, type, checked } = e.target;
+
+    let newValue = value;
+    if (name === "name") {
+      newValue = value.replace(/[^a-zA-Z\s]/g, "").slice(0, 30);
+    } else if (name === "email") {
+      newValue = value.slice(0, 30);
+    } else if (name === "mobile") {
+      if (!/^\d*$/.test(value)) {
+        return; // Ignore non-digit input
+      }
+      newValue = value.slice(0, 15);
+    }
+
+    setFormData2((prev) => ({
+      ...prev,
+      [name]: type === "checkbox" ? checked : newValue,
+    }));
+
+    setErrors2((prev) => ({ ...prev, [name]: "" }));
+  };
+  const validateForm2 = () => {
+    console.log("Validating formData2:", formData2);
+    const newErrors = {
+      name: "",
+      mobile: "",
+      email: "",
+      agree: "",
+    };
+    let isValid = true;
+
+    if (!formData2.name.trim()) {
+      newErrors.name = "Name is required";
+      isValid = false;
+    }
+    if (!formData2.mobile) {
+      newErrors.mobile = "Phone number is required";
+      isValid = false;
+    }
+    if (!formData2.email) {
+      newErrors.email = "Email is required";
+      isValid = false;
+    }
+    if (!formData2.agree) {
+      newErrors.agree = "You must agree to the terms";
+      isValid = false;
+    }
+
+    console.log("Validation result:", { isValid, newErrors });
+    setErrors2(newErrors);
     return isValid;
   };
 
@@ -713,191 +890,23 @@ function project() {
     }
   };
 
-  const navbarRef = useRef(null);
-
-  useEffect(() => {
-    ScrollTrigger.create({
-      trigger: "#second-section",
-      start: "bottom center",
-      onEnter: () => {
-        navbarRef.current.classList.add("nav-bg-change");
-      },
-      onLeaveBack: () => {
-        navbarRef.current.classList.remove("nav-bg-change");
-      },
-    });
-  }, []);
-
-  const { slug } = useParams();
-  const [project, setProject] = useState(null);
-  const [allProjects, setAllProjects] = useState([]);
-  // console.log('allprojectss...................', allProjects);
-  // console.log("Immediately after useState: ", project);
-
-  const generateSlug = (name) => {
-    // console.log('generateSlug: Input name:', name);
-    const result = name
-      ? name
-          .trim()
-          .toLowerCase()
-          .normalize("NFKD") // Normalize Unicode characters
-          .replace(/[\u0300-\u036f]/g, "") // Remove diacritics
-          .replace(/[^a-z0-9]+/g, "-")
-          .replace(/(^-|-$)/g, "")
-      : "untitled-project";
-    // console.log('generateSlug: Output slug:', result);
-    return result;
-  };
-  const [bannerImage, setBannerImage] = useState("/src/assets/Imgs/Baner.png"); // Default fallback image
-  useEffect(() => {
-    // console.log('useEffect: Starting with slug:', slug);
-
-    const baseUrl =
-      import.meta.env.VITE_BASE_URL || "https://default-api-url.com/";
-    // console.log('useEffect: Base URL:', baseUrl);
-
-    const apiUrl = `${baseUrl}api/projects`;
-    // console.log('useEffect: API URL:', apiUrl);
-
-    // console.log('useEffect: Initiating axios GET request');
-    axios
-      .get(apiUrl, {
-        headers: {
-          Authorization: `Bearer AzlrVK30FVdEx0TwrRwqYrQTL`,
-        },
-      })
-      .then((response) => {
-        // console.log('useEffect: Axios response received:', response);
-        // console.log('useEffect: Response data:', response.data);
-
-        if (response.data.success) {
-          // console.log('useEffect: API request successful');
-          // console.log('useEffect: Searching for project with slug:', slug);
-
-          const projectData = response.data.data.find((p) => {
-            const projectSlug = generateSlug(p.name);
-            // console.log(
-            //   'useEffect: Comparing project slug:',
-            //   projectSlug,
-            //   'with target slug:',
-            //   slug
-            // );
-            return projectSlug === slug;
-          });
-          setAllProjects(response.data); // Set all projects
-
-          console.log("useEffect: Found project data:", projectData);
-          console.log("useEffect: All projects data:", response.data.data);
-
-          if (projectData) {
-            console.log("useEffect: Project found, setting project state");
-            const projectState = {
-              id: projectData.id,
-              project_id: projectData.project_id,
-              title: projectData.name || "Untitled Project",
-              slug: projectData.slug || generateSlug(projectData.name),
-              price: projectData.tag_price
-                ? `₹ ${projectData.tag_price} `
-                : "Price on Request",
-              size: projectData.pricing_layout[0]?.title || "",
-              feet: projectData.pricing_layout[0]?.description || "",
-              location: projectData.address || "",
-              image: projectData.hero_img || "https://via.placeholder.com/300",
-              overview:
-                projectData.overview_content || "No overview available.",
-              amenities: projectData.amenities || [],
-              properties: projectData.property_types || [
-                { type: "N/A", size: "Contact for details" },
-              ],
-              calling_number: projectData.calling_number || "N/A",
-              gallery_images: projectData.gallery_image || [],
-              disclaimer: projectData.disclaimer || "No disclaimer available.",
-              highlights: projectData.highlights || "No highlights available.",
-              rera_num_on_img: projectData.rera_num_on_img || "N/A",
-              mobile_banner: projectData.mobile_banner || "N/A",
-              schedule_meeting: projectData.schedule_meeting || "N/A",
-              sectors: projectData.sectors || "N/A",
-              specification: projectData.specification || "N/A",
-              state: projectData.state || { name: "Unknown", city: {} },
-              state_rera_num_on_img: projectData.state_rera_num_on_img || "N/A",
-              tag_line: projectData.tag_line || "N/A",
-              url: projectData.url || "N/A",
-              whatsapp_number: projectData.whatsapp_number || "N/A",
-              property: projectData.property || { id: null, name: "N/A" },
-              faqs: projectData.faqs?.faqs || [],
-              highlights_image_original:
-                projectData?.highlights_image_original || "",
-              pricing_layout: projectData.pricing_layout || [],
-              location_advantages: projectData.location_advantages || [],
-              overview_highlights: projectData.overview_highlights || [],
-              highlights_content: projectData.highlights_content
-                ? JSON.parse(projectData.highlights_content)
-                : [],
-              address: projectData.address || "N/A",
-              mobile_banner_original: projectData.mobile_banner_original || [],
-              similar_project: projectData.similar_project || [], // Added similar_project
-              seo_title: projectData.seo_title || [], // Added similar_project
-              seo_description: projectData.seo_description || [], // Added similar_project
-            };
-            // console.log('useEffect: Setting project state with:', projectState);
-            setProject(projectState);
-
-            // Determine if the device is mobile based on window width
-            const isMobile = window.innerWidth <= 768; // Adjust the threshold as needed
-
-            // Set banner image based on device type
-            const heroImage = isMobile
-              ? projectData.mobile_banner_original &&
-                projectData.mobile_banner_original.startsWith("http")
-                ? projectData.mobile_banner_original // Use mobile_banner for mobile
-                : "/src/assets/Imgs/Baner.png" // Fallback for mobile
-              : projectData.hero_img_original &&
-                projectData.hero_img_original.startsWith("http")
-              ? projectData.hero_img_original // Use hero_img_original for desktop
-              : "/src/assets/Imgs/Baner.png"; // Fallback for desktop
-            console.log("asdjkashdjhasdkjhs heroo imagee", heroImage);
-            // console.log('useEffect: Setting banner image:', heroImage);
-            setBannerImage(heroImage);
-          } else {
-            // console.log('useEffect: Project not found in data');
-            setBannerImage("/src/assets/Imgs/Baner.png");
-          }
-        } else {
-          console.log("useEffect: API request unsuccessful");
-          // setError('Project not found');
-        }
-      })
-      .catch((err) => {
-        // console.error('useEffect: Error fetching project:', err);
-        // console.error('useEffect: Error details:', {
-        //   message: err.message,
-        //   response: err.response,
-        //   request: err.request,
-        // });
-      })
-      .finally(() => {
-        // console.log('useEffect: Request completed, setting loading to false');
-      });
-  }, [slug]);
-  const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
-  const open = () => setFopen(false);
-  const close = () => setFopen(true);
-  const projectRoute = window.location.pathname; // e.g., "/project/godrej-air"
-  const cleanedRoute = projectRoute.slice(1); // e.g., "project/godrej-air"
-
   return (
     <>
+
       <Helmet>
         <title>{project?.seo_title}</title>
-        <meta property="og:title" content={project?.seo_title} />
+        <meta
+          property="og:title"
+          content={project?.seo_title}
+        />
 
-        <meta property="og:description" content={project?.seo_description} />
+        <meta
+          property="og:description"
+          content={project?.seo_description}
+        />
       </Helmet>
       <main className="project-page">
+
         <Modal
           show={fopen}
           onHide={open}
@@ -911,7 +920,9 @@ function project() {
 
             <Modal.Body className="popup-body">
               <div className="form-set">
-                <h5>Enter details to schedule meeting</h5>
+                <h3 style={{ color: "white" }}>{project?.title}</h3>
+                <h5>Please fill the form below</h5>
+
                 <form onSubmit={handleSubmit2}>
                   <div className="mb-3">
                     <input
@@ -1068,10 +1079,10 @@ function project() {
                 {/* Project RERA No: RC/REP/HARERA/GGM/846/578/2024/73 */}
                 {project?.rera_num_on_img} <span className="brkr"> | </span>
                 {/* https://haryanarera.gov.in */}
-                {/* {project?.url} */}
-                {/* <a href={project?.url} target="_blank" rel="noopener noreferrer"> */}
                 {project?.url}
-                {/* </a> */}
+                {/* <a href={project?.url} target="_blank" rel="noopener noreferrer">
+                  {project?.url}
+                </a> */}
               </p>
             </div>
             <div className="d-flex align-items-md-center searc-bar  justify-content-between">
@@ -1305,7 +1316,7 @@ function project() {
                 <Row className="">
                   <Col
                     md={6}
-                    className="justify-content-center align-content-center btm-s"
+                    className="justify-content-center btm-s align-content-center"
                   >
                     {/* <img
                       src={Struc}
@@ -1333,7 +1344,10 @@ function project() {
                             key={index}
                             className="mb-3 d-flex align-items-start"
                           >
-                            <img src={Icon} className="text-primary me-2" />
+                            <img
+                              src={Icon}
+                              className="text-primary me-2 icici"
+                            />
                             <span>{highlight.highlight_content}</span>
                           </li>
                         ))
@@ -1369,7 +1383,7 @@ function project() {
                   className="banner-button all-same-ani"
                   onClick={close}
                 >
-                  Get Brochure{" "}
+                  Get Brochure
                 </Button>
               </Col>
             </Row>
@@ -1545,7 +1559,8 @@ function project() {
                   data-aos-offset="10"
                   onClick={close}
                 >
-                  Contact us for More info
+                  {/* Contact us for More info */}
+                  Get Brochure
                 </Button>
                 <img src={back} alt="" className="back-roll" />
               </Col>
@@ -1558,42 +1573,6 @@ function project() {
                 data-aos-offset="10"
               >
                 <div className="row">
-                  {/* <Col md={6}>
-                    <div className="kach">
-                          <h6>Burj Khalifa </h6>
-                          <div className="kack-inline">
-                            <img src={Time} className="kckck" />
-                            <span>40 Min</span>
-                          </div>
-                    </div>
-                  </Col>
-                  <Col md={6}>
-                  <div className="kach">
-                          <h6>Burj Khalifa </h6>
-                          <div className="kack-inline">
-                            <img src={Time} className="kckck" />
-                            <span>40 Min</span>
-                          </div>
-                    </div>
-                  </Col>
-                  <Col md={6}>
-                  <div className="kach">
-                          <h6>Burj Khalifa </h6>
-                          <div className="kack-inline">
-                            <img src={Time} className="kckck" />
-                            <span>40 Min</span>
-                          </div>
-                    </div>
-                  </Col>
-                  <Col md={6}>
-                  <div className="kach">
-                          <h6>Burj Khalifa </h6>
-                          <div className="kack-inline">
-                            <img src={Time} className="kckck" />
-                            <span>40 Min</span>
-                          </div>
-                    </div>
-                  </Col> */}
                   {project?.location_advantages &&
                   project.location_advantages.length > 0 ? (
                     project.location_advantages.map((advantage, index) => (
@@ -1675,8 +1654,8 @@ function project() {
               data-aos-easing="ease-in-sine"
               data-aos-offset="10"
             >
-              Explore common questions about {project?.title || "our project"}{" "}
-              to help you make an informed decision.
+              Got Questions? We've Got the Answers
+              {/* Explore common questions about {project?.title || 'our project'} to help you make an informed decision. */}
             </p>
           </Container>
         </section>
@@ -1759,7 +1738,7 @@ function project() {
                   data-aos-easing="ease-in-sine"
                   data-aos-offset="10"
                   // onClick={close}
-                  href={`tel: ${project?.whatsapp_number}`}
+                  href={`tel: +91${project?.whatsapp_number}`}
                 >
                   {/* Contact us for More info */}
                   Call Now +91{project?.whatsapp_number}
@@ -1912,58 +1891,48 @@ function project() {
                   1024: { slidesPerView: 3 },
                 }}
               >
-                {project?.similar_project &&
-                  project.similar_project.map((similarProject, index) => (
-                    <SwiperSlide key={similarProject.id}>
-                      <Col
-                        className="features-list p-0 dip-column"
-                        data-aos="fade-up"
-                        data-aos-easing="ease-in-sine"
-                      >
-                        <Card
-                          className={`custom-card card-${index} box-${index}`}
-                          style={{ position: "relative", zIndex: 2 }}
-                        >
-                          <Card.Img
-                            variant="top"
-                            src={similarProject.hero_img}
-                            alt={similarProject.name}
-                          />
-                          <Card.Body className="uper-space">
-                            <Card.Text className="mb-4 btn-loc">
-                              <span>
-                                {similarProject.pricing_layout[0]?.title ||
-                                  "N/A"}
-                              </span>
-                              <span>
-                                {similarProject.pricing_layout[0]
-                                  ?.description || "N/A"}
-                              </span>
-                              <span>{similarProject.sectors || "N/A"}</span>
-                            </Card.Text>
-                            <Card.Title>{similarProject.name}</Card.Title>
-                            <Card.Text className="text-primary font-weight-bold">
-                              ₹{similarProject.tag_price}{" "}
-                              {similarProject.tag_price
-                                ? ""
-                                : "Price on Request"}
-                            </Card.Text>
-
-                            <Button
-                              as={Link}
-                              to={`/project/${
-                                similarProject.slug ||
-                                generateSlug(similarProject.name)
-                              }`}
-                              className="Up-arrow-btn"
-                            >
-                              <img src={Arrow} alt="Arrow" />
-                            </Button>
-                          </Card.Body>
-                        </Card>
-                      </Col>
-                    </SwiperSlide>
-                  ))}
+{project?.similar_project &&
+  project.similar_project.map((similarProject, index) => (
+    <SwiperSlide key={similarProject.id}>
+      <Col
+        className="features-list p-0 dip-column"
+        data-aos="fade-up"
+        data-aos-easing="ease-in-sine"
+      >
+        <Card
+          className={`custom-card card-${index} box-${index}`}
+          style={{ position: "relative", zIndex: 2 }}
+        >
+          <Card.Img
+            variant="top"
+            src={similarProject.hero_img}
+            alt={similarProject.name}
+          />
+          <Card.Body className="uper-space">
+            <Card.Text className="mb-4 btn-loc">
+              <span>{similarProject.pricing_layout[0]?.title || "N/A"}</span>
+              <span>{similarProject.pricing_layout[0]?.description || "N/A"}</span>
+              <span>{similarProject.sectors || "N/A"}</span>
+            </Card.Text>
+            <Card.Title>{similarProject.name}</Card.Title>
+            <Card.Text className="text-primary font-weight-bold">
+              ₹{similarProject.tag_price}{" "}
+              {similarProject.tag_price ? "" : "Price on Request"}
+            </Card.Text>
+            <Button
+              as={Link}
+              to={`/project/${
+                similarProject.slug || generateSlug(similarProject.name)
+              }`}
+              className="Up-arrow-btn"
+            >
+              <img src={Arrow} alt="Arrow" />
+            </Button>
+          </Card.Body>
+        </Card>
+      </Col>
+    </SwiperSlide>
+  ))}
               </Swiper>
             </Row>
           </Container>
@@ -1985,14 +1954,12 @@ function project() {
 
         <section className="Disclamer">
           <Container>
-            <p className="Dis">
-              {project?.disclaimer}
-            </p>
+            <p className="Dis">Disclaimer : {project?.disclaimer}</p>
           </Container>
         </section>
         <footer className="">
           <Container>
-            <Row className="mb-lg-4 ">
+            <Row className="mb-md-4 p-0 ">
               <Col
                 lg={3}
                 md={6}
@@ -2010,9 +1977,7 @@ function project() {
                 sm={12}
                 className="mb-4 mb-md-0 res-st wi align-content-center justify-content-center"
               >
-                <p className="my-3 rerera ">
-                  HARYANA RERA - HRERA-PKL-REA-3396-2025
-                </p>
+                <p className="my-3 rerera ">{project?.state_rera_num_on_img}</p>
               </Col>
 
               <Col
@@ -2057,7 +2022,11 @@ function project() {
           </Container>
         </footer>
         <a
-          href={`https://api.whatsapp.com/send?phone=+91${project?.whatsapp_number || '9971094108'}&text=Hello,%20I%20want%20to%20know%20more%20about%20project%20${project?.title}.%20%7B${cleanedRoute}%7D`}
+          href={`https://api.whatsapp.com/send?phone=+91${
+            project?.whatsapp_number || "9971094108"
+          }&text=Hello,%20I%20want%20to%20know%20more%20about%20project%20${
+            project?.title
+          }.%20${window.location.href}`}
           target="_blank"
           rel="noopener noreferrer"
           className="prnav desktop-visible"
@@ -2066,10 +2035,10 @@ function project() {
             bottom: "100px",
             right: "30px",
             padding: "0",
-            fontSize: "26px",
-            backgroundColor: "#064685",
+            fontSize: "30px",
+            backgroundColor: "#25D366",
             color: "#fff",
-            border: "1px solid #fff",
+            border: "none",
             borderRadius: "50px",
             cursor: "pointer",
             height: "50px",
@@ -2111,8 +2080,11 @@ function project() {
         </a>
 
         <a
- href={`https://api.whatsapp.com/send?phone=+91${project?.whatsapp_number || '9971094108'}&text=Hello,%20I%20want%20to%20know%20more%20about%20project%20${project?.title}.%20%7B${cleanedRoute}%7D`}
-
+          href={`https://api.whatsapp.com/send?phone=+91${
+            project?.whatsapp_number || "9971094108"
+          }&text=Hello,%20I%20want%20to%20know%20more%20about%20project%20${
+            project?.title
+          }.%20${window.location.href}`}
           target="_blank"
           rel="noopener noreferrer"
           className="mobilek"
@@ -2122,7 +2094,7 @@ function project() {
             left: "215px",
             padding: "0",
             fontSize: "30px",
-            backgroundColor: "#064685",
+            backgroundColor: "#25D366",
             color: "#fff",
             border: "none",
             borderRadius: "50px",
