@@ -24,62 +24,16 @@ import wht from './mobile/whstsp.svg'
 import call from './mobile/call.svg'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import ThankYouPage from './thankyou/Thankyou';
+import { Helmet } from 'react-helmet-async';
 
 // New component to handle useLocation and related logic
 function AppContent() {
-  // const [showButton, setShowButton] = useState(false);
-  // const [whatsappNumber, setWhatsappNumber] = useState('9971094108');
-  // const location = useLocation(); // Now safe to use inside BrowserRouter
-
-  // useEffect(() => {
-  //   const handleScroll = () => {
-  //     setShowButton(window.scrollY > 300);
-  //   };
-
-  //   window.addEventListener('scroll', handleScroll);
-  //   return () => window.removeEventListener('scroll', handleScroll);
-  // }, []);
-
-  // const scrollToTop = () => {
-  //   window.scrollTo({ top: 0, behavior: 'smooth' });
-  // };
-
-  // useEffect(() => {
-  //   AOS.init();
-  // }, []);
-
-  // useEffect(() => {
-  //   if (location.pathname.startsWith('/project')) {
-  //     const baseUrl = import.meta.env.VITE_BASE_URL || 'https://default-api-url.com/';
-  //     const apiUrl = `${baseUrl}api/setting`;
-
-  //     axios
-  //       .get(apiUrl, {
-  //         headers: {
-  //           Authorization: `Bearer AzlrVK30FVdEx0TwrRwqYrQTL`,
-  //         },
-  //       })
-  //       .then((response) => {
-  //         if (response.data.success && response.data.data.length > 0) {
-  //           const data = response.data.data[0];
-  //           if (data.whatsapp_number) {
-  //             setWhatsappNumber(data.whatsapp_number);
-  //           }
-  //         }
-  //       })
-  //       .catch((error) => {
-  //         console.error('API request error:', error);
-  //       });
-  //   } else {
-  //     setWhatsappNumber('9971094108');
-  //   }
-  // }, [location.pathname]);
-
-
   const [showButton, setShowButton] = useState(false);
-  const [whatsappNumber, setWhatsappNumber] = useState('9910099434');
+  const [whatsappNumber, setWhatsappNumber] = useState('');
+  const [callingNumber, setCallingNumber] = useState(''); // Default from JSON
   const location = useLocation(); // Now safe to use inside BrowserRouter
-
+  const canonicalUrl = `https://sloc.in${location.pathname === '/' ? '' : location.pathname}`;
   useEffect(() => {
     const handleScroll = () => {
       setShowButton(window.scrollY > -3);
@@ -113,6 +67,9 @@ function AppContent() {
             if (data.whatsapp_number) {
               setWhatsappNumber(data.whatsapp_number);
             }
+            if (data.calling_number) {
+              setCallingNumber(data.calling_number);
+            }
           }
         })
         .catch((error) => {
@@ -121,7 +78,9 @@ function AppContent() {
   }, [location.pathname]);
 
   // Check if current page is '/project'
-  const isProjectPage = location.pathname.startsWith('/project');
+  // const isProjectPage = location.pathname.startsWith('/project') ;
+  const isRestrictedPage = location.pathname.startsWith('/project') || location.pathname === '/thank-you';
+  const isRestrictedPage1 = location.pathname === '/thank-you';
 
   useEffect(() => {
     const checkNavbarState = () => {
@@ -155,6 +114,9 @@ function AppContent() {
 
   return (
     <>
+    <Helmet>
+        <link rel="canonical" href={canonicalUrl} />
+      </Helmet>
     <Scrol />
     <Routes>
       <Route path="/" element={<Layout />}>
@@ -168,11 +130,13 @@ function AppContent() {
         <Route path="/disclaimer" element={<Disc />} />
         <Route path="/project/:slug" element={<Project />} />
         <Route path="/search-Listing" element={<Search />} />
+        <Route path="/thank-you" element={<ThankYouPage />} />
         <Route path="*" element={<Four />} />
 
       </Route>
     </Routes>
 
+    {!isRestrictedPage1 && (
 
       <button
         className="scroll-to-top-btn"
@@ -195,11 +159,13 @@ function AppContent() {
       >
         ↑
       </button>
+    )}
 
 
-    {!isProjectPage && (
+    {!isRestrictedPage && (
       <a
-        href={`https://api.whatsapp.com/send?phone=+91${whatsappNumber}&text=Hello `}
+        // href={`https://api.whatsapp.com/send?phone=+91${whatsappNumber}&text=Hello `}
+        href={`https://api.whatsapp.com/send?phone=${whatsappNumber}&text=Hello from (${encodeURIComponent(window.location.href)})`}
         target="_blank"
         rel="noopener noreferrer"
         className='prnav desktop-visible'
@@ -227,9 +193,9 @@ function AppContent() {
       </a>
     )}
 
-{!isProjectPage && (
+{!isRestrictedPage && (
       <a
-        href={`tel:+91${whatsappNumber}`}
+        href={`tel:${callingNumber}`}
         target="_blank"
         className="calling prnav desktop-visible"
         rel="noopener noreferrer"
@@ -256,10 +222,10 @@ function AppContent() {
       </a>
     )}
 
-{!isProjectPage && (
+{!isRestrictedPage && (
       <a
-        href={`https://api.whatsapp.com/send?phone=+91${whatsappNumber}&text=Hello `}
-        target="_blank"
+      href={`https://api.whatsapp.com/send?phone=${whatsappNumber}&text=Hello from (${encodeURIComponent(window.location.href)})`}
+      target="_blank"
         rel="noopener noreferrer"
         className="mobilek"
         style={{
@@ -286,9 +252,9 @@ function AppContent() {
       </a>
     )}
 
-{!isProjectPage && (
+{!isRestrictedPage && (
       <a
-        href={`tel:+91${whatsappNumber}`}
+        href={`tel:${callingNumber}`}
         target="_blank"
         className="calling mobilek"
         rel="noopener noreferrer"

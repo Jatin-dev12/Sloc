@@ -12,7 +12,7 @@ import linkdin from "../assets/Imgs/Linkdin.svg";
 import social from "../assets/Imgs/social-media.svg";
 import gf from "./Loader.gif";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Helmet } from "react-helmet";
 
@@ -21,7 +21,7 @@ const Contact = () => {
     name: "",
     mobile: "",
     email: "",
-    agree: false,
+    agree: true,
   });
 
   const [errors, setErrors] = useState({
@@ -32,67 +32,169 @@ const Contact = () => {
   });
 
   const phoneInputRef = useRef(null);
-  const intlTelInstance = useRef(null);
+  const intlTelInstance1 = useRef(null);
 
   const [countryCode, setCountryCode] = useState("+91"); // Default to India
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    if (phoneInputRef.current) {
-      import("intl-tel-input")
-        .then((intlTelInput) => {
-          intlTelInstance.current = intlTelInput.default(
-            phoneInputRef.current,
-            {
-              initialCountry: "in",
-              separateDialCode: true,
-              utilsScript:
-                "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+  // useEffect(() => {
+  //   if (phoneInputRef.current) {
+  //     import("intl-tel-input")
+  //       .then((intlTelInput) => {
+  //         intlTelInstance.current = intlTelInput.default(
+  //           phoneInputRef.current,
+  //           {
+  //             initialCountry: "in",
+  //             separateDialCode: true,
+  //             utilsScript:
+  //               "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+  //           }
+  //         );
+
+  //         const updatePhoneNumber = () => {
+  //           const selectedCountryData =
+  //             intlTelInstance.current.getSelectedCountryData();
+  //           const rawInput = phoneInputRef.current.value || "";
+
+  //           setCountryCode(`+${selectedCountryData.dialCode}`);
+  //           setFormData((prev) => ({
+  //             ...prev,
+  //             mobile: rawInput.replace(/[^0-9]/g, ""),
+  //           }));
+  //         };
+
+  //         phoneInputRef.current.addEventListener("input", updatePhoneNumber);
+  //         phoneInputRef.current.addEventListener(
+  //           "countrychange",
+  //           updatePhoneNumber
+  //         );
+
+  //         // Set initial country code
+  //         updatePhoneNumber();
+
+  //         return () => {
+  //           phoneInputRef.current.removeEventListener(
+  //             "input",
+  //             updatePhoneNumber
+  //           );
+  //           phoneInputRef.current.removeEventListener(
+  //             "countrychange",
+  //             updatePhoneNumber
+  //           );
+  //         };
+  //       })
+  //       .catch((error) => {
+  //         console.error("Failed to load intl-tel-input:", error);
+  //       });
+
+  //     return () => {
+  //       if (intlTelInstance.current) {
+  //         intlTelInstance.current.destroy();
+  //       }
+  //     };
+  //   }
+  // }, []);
+  
+    useEffect(() => {
+      console.log("useEffect: Initializing intl-tel-input");
+    
+      if (phoneInputRef.current) {
+        // Function to fetch country code based on user location
+        const getCountryCodeFromLocation = async () => {
+          try {
+            // Fallback to 'in' if location fetching fails
+            let countryCode = "in";
+    
+            // Use ipapi.co to get country code based on IP (no geolocation permission needed)
+            const response = await fetch("https://ipapi.co/json/");
+            const data = await response.json();
+            if (data && data.country_code) {
+              countryCode = data.country_code.toLowerCase();
+              console.log("Fetched country code from IP:", countryCode);
+            } else {
+              console.warn("No country code found, using fallback: in");
             }
-          );
-
-          const updatePhoneNumber = () => {
-            const selectedCountryData =
-              intlTelInstance.current.getSelectedCountryData();
-            const rawInput = phoneInputRef.current.value || "";
-
-            setCountryCode(`+${selectedCountryData.dialCode}`);
-            setFormData((prev) => ({
-              ...prev,
-              mobile: rawInput.replace(/[^0-9]/g, ""),
-            }));
-          };
-
-          phoneInputRef.current.addEventListener("input", updatePhoneNumber);
-          phoneInputRef.current.addEventListener(
-            "countrychange",
-            updatePhoneNumber
-          );
-
-          // Set initial country code
-          updatePhoneNumber();
-
-          return () => {
-            phoneInputRef.current.removeEventListener(
-              "input",
-              updatePhoneNumber
-            );
-            phoneInputRef.current.removeEventListener(
-              "countrychange",
-              updatePhoneNumber
-            );
-          };
-        })
-        .catch((error) => {
-          console.error("Failed to load intl-tel-input:", error);
+    
+            return countryCode;
+          } catch (error) {
+            console.error("Failed to fetch country code:", error);
+            return "in"; // Fallback country code
+          }
+        };
+    
+        // Load intl-tel-input and initialize with dynamic country
+        getCountryCodeFromLocation().then((initialCountry) => {
+          import("intl-tel-input")
+            .then((intlTelInput) => {
+              console.log("intl-tel-input: Module loaded");
+    
+              intlTelInstance1.current = intlTelInput.default(phoneInputRef.current, {
+                initialCountry: initialCountry,
+                separateDialCode: true,
+                utilsScript:
+                  "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+              });
+              console.log("intl-tel-input: Initialized with country", initialCountry, intlTelInstance1.current);
+    
+              const updatePhoneNumber = () => {
+                console.log("updatePhoneNumber: Triggered");
+                const selectedCountryData = intlTelInstance1.current.getSelectedCountryData();
+                const rawInput = phoneInputRef.current.value || "";
+    
+                console.log("Selected country:", selectedCountryData);
+                console.log("Raw input:", rawInput);
+    
+                const newCountryCode = `+${selectedCountryData.dialCode}`;
+                setCountryCode(newCountryCode);
+                console.log("Country code updated to:", newCountryCode);
+    
+                const phoneNumber = rawInput.replace(/[^0-9]/g, "");
+                setFormData((prev) => ({
+                  ...prev,
+                  mobile: phoneNumber,
+                }));
+                console.log("formData.mobile updated to:", phoneNumber);
+              };
+    
+              // Initialize country code
+              updatePhoneNumber();
+    
+              // Add event listeners
+              phoneInputRef.current.addEventListener("countrychange", () => {
+                console.log("Event: countrychange fired");
+                updatePhoneNumber();
+              });
+              phoneInputRef.current.addEventListener("input", () => {
+                console.log("Event: input fired");
+                updatePhoneNumber();
+              });
+    
+              console.log("Event listeners added");
+    
+              // Cleanup event listeners
+              return () => {
+                console.log("Cleanup: Removing event listeners");
+                phoneInputRef.current.removeEventListener("countrychange", updatePhoneNumber);
+                phoneInputRef.current.removeEventListener("input", updatePhoneNumber);
+              };
+            })
+            .catch((error) => {
+              console.error("intl-tel-input: Failed to load", error);
+            });
         });
+    
+        // Cleanup intl-tel-input instance
+        return () => {
+          if (intlTelInstance1.current) {
+            console.log("Cleanup: Destroying intl-tel-input");
+            intlTelInstance1.current.destroy();
+          }
+        };
+      } else {
+        console.warn("phoneInputRef: Not available");
+      }
+    }, []);
 
-      return () => {
-        if (intlTelInstance.current) {
-          intlTelInstance.current.destroy();
-        }
-      };
-    }
-  }, []);
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
 
@@ -135,6 +237,10 @@ const Contact = () => {
       isValid = false;
     } else if (!/^\d+$/.test(formData.mobile)) {
       newErrors.mobile = "Phone number must contain only digits";
+      isValid = false;
+    }
+    else if (formData.mobile.length < 6 || formData.mobile.length > 15) {
+      newErrors.mobile = "Please enter a valid phone number";
       isValid = false;
     }
     // else if (formData.mobile.length < 6 || formData.mobile.length > 10) {
@@ -245,7 +351,8 @@ const Contact = () => {
             agree: false,
           });
           setErrors({}); // Clear any old errors
-          handleShow(); // Open the modal
+          // handleShow(); // Open the modal
+          navigate("/thank-you", { state: { projectSlug, fromContactUs: true } });
         })
         .catch((error) => {
           console.error("API error:", error);

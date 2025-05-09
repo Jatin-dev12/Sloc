@@ -58,8 +58,7 @@ import linkdin from "../assets/Imgs/Linkdin.svg";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { debounce } from "lodash"; // To debounce the input
-import { Helmet } from "react-helmet";
-
+import { Helmet } from 'react-helmet-async';
 const testimonials = [
   {
     id: 1,
@@ -305,7 +304,7 @@ function Home() {
             title: project.name || "Untitled Project",
             slug: generateSlug(project.name),
             price: project.tag_price
-              ? `₹ ${project.tag_price} `
+              ? `${project.tag_price} `
               : "Price on Request",
             size: project.pricing_layout[0]?.title || "",
             feet: project.pricing_layout[0]?.description || "",
@@ -333,292 +332,292 @@ function Home() {
       });
   }, []);
   // 1. Welcome to SLOC section animation
-  const containerRefs = useRef(null);
-  const logoRefs = useRef(null); // Transparent SVG
-  const scrollImageRef = useRef(null);
-  const welcomeTextRef = useRef(null);
+  // const containerRefs = useRef(null);
+  // const logoRefs = useRef(null); // Transparent SVG
+  // const scrollImageRef = useRef(null);
+  // const welcomeTextRef = useRef(null);
 
-  const getAnimationProps = (width) => {
-    // Default values for larger screens (>1920px)
-    let props = {
-      logoFrom: { opacity: 0, y: -160, x: 160, scale: 0.9 },
-      logoTo1: { opacity: 1, y: 50, x: -300, scale: 0.6, duration: 1 },
-      scrollImageTo: { opacity: 0, duration: 0.2 },
-      pathsTo: { fill: "#c1d1e0", stroke: "#c1d1e0", duration: 0.6 },
-      logoTo2: { y: 460, x: 100, scale: 0.1, duration: 2.5 },
-      logoTo3: { opacity: 0, duration: 0.5 },
-      scrollTrigger: { start: "top center", end: "bottom center", scrub: 0.5 },
-    };
+  // const getAnimationProps = (width) => {
+  //   // Default values for larger screens (>1920px)
+  //   let props = {
+  //     logoFrom: { opacity: 0, y: -160, x: 160, scale: 0.9 },
+  //     logoTo1: { opacity: 1, y: 50, x: -300, scale: 0.6, duration: 1 },
+  //     scrollImageTo: { opacity: 0, duration: 0.2 },
+  //     pathsTo: { fill: "#c1d1e0", stroke: "#c1d1e0", duration: 0.6 },
+  //     logoTo2: { y: 460, x: 100, scale: 0.1, duration: 2.5 },
+  //     logoTo3: { opacity: 0, duration: 0.5 },
+  //     scrollTrigger: { start: "top center", end: "bottom center", scrub: 0.5 },
+  //   };
 
-    if (width <= 320) {
-      props = {
-        logoFrom: { opacity: 0, y: -80, x: 0, scale: 0.8 },
-        logoTo1: {
-          opacity: 1,
-          y: 650,
-          x: 0,
-          scale: 0.5,
-          duration: 21,
-          scrub: 1.2,
-        },
-        scrollImageTo: { opacity: 0, duration: 0.15 },
-        pathsTo: { fill: "#c1d1e0", stroke: "#c1d1e0", duration: 2.5 },
-        logoTo2: { y: 966, x: -39, scale: 0.1, duration: 29 },
-        logoTo3: { opacity: 0, duration: 0.1 },
-        scrollTrigger: { start: "top 30%", end: "bottom 77.6%", scrub: 1.2 },
-      };
-    } else if (width <= 370) {
-      props = {
-        logoFrom: { opacity: 0, y: -80, x: 0, scale: 0.8 },
-        logoTo1: {
-          opacity: 1,
-          y: 650,
-          x: 0,
-          scale: 0.5,
-          duration: 21,
-          scrub: 1.2,
-        },
-        scrollImageTo: { opacity: 0, duration: 0.15 },
-        pathsTo: { fill: "#c1d1e0", stroke: "#c1d1e0", duration: 2.5 },
-        logoTo2: { y: 966, x: -39, scale: 0.1, duration: 29 },
-        logoTo3: { opacity: 0, duration: 0.1 },
-        scrollTrigger: { start: "top 30%", end: "bottom 77.6%", scrub: 1.2 },
-      };
-    } else if (width <= 425) {
-      props = {
-        logoFrom: { opacity: 0, y: -80, x: 0, scale: 0.8 },
-        logoTo1: {
-          opacity: 1,
-          y: 650,
-          x: 0,
-          scale: 0.5,
-          duration: 21,
-          scrub: 1.2,
-        },
-        scrollImageTo: { opacity: 0, duration: 0.15 },
-        pathsTo: { fill: "#c1d1e0", stroke: "#c1d1e0", duration: 2.5 },
-        logoTo2: { y: 966, x: -39, scale: 0.1, duration: 29 },
-        logoTo3: { opacity: 0, duration: 0.1 },
-        scrollTrigger: { start: "top 30%", end: "bottom 77.6%", scrub: 1.2 },
-      };
-    } else if (width <= 574) {
-      props = {
-        logoFrom: { opacity: 0, y: -100, x: 100, scale: 0.85 },
-        logoTo1: { opacity: 1, y: 30, x: 120, scale: 0.55, duration: 0.9 },
-        scrollImageTo: { opacity: 0, duration: 0.18 },
-        pathsTo: { fill: "#c1d1e0", stroke: "#c1d1e0", duration: 0.55 },
-        logoTo2: { y: 910, x: 39, scale: 0.1, duration: 15 },
-        logoTo3: { opacity: 0, duration: 0.45 },
-        scrollTrigger: { start: "top 69%", end: "bottom 79%", scrub: 0.4 },
-      };
-    } else if (width <= 991) {
-      props = {
-        logoFrom: { opacity: 0, y: -140, x: 340, scale: 0.9 },
-        logoTo1: { opacity: 1, y: 45, x: 350, scale: 0.58, duration: 1 },
-        scrollImageTo: { opacity: 0, duration: 0.2 },
-        pathsTo: { fill: "#c1d1e0", stroke: "#c1d1e0", duration: 0.6 },
-        logoTo2: { y: 485, x: 250, scale: 0.1, duration: 3.6 },
-        logoTo3: { opacity: 0, duration: 0.5 },
-        scrollTrigger: { start: "top 65%", end: "bottom 61%", scrub: 0.5 },
-      };
-    } else if (width <= 1100) {
-      props = {
-        logoFrom: { opacity: 0, y: -140, x: 140, scale: 0.9 },
-        logoTo1: { opacity: 1, y: 45, x: 200, scale: 0.58, duration: 1 },
-        scrollImageTo: { opacity: 0, duration: 0.2 },
-        pathsTo: { fill: "#c1d1e0", stroke: "#c1d1e0", duration: 0.6 },
-        logoTo2: { y: 330, x: 306, scale: 0.1, duration: 5.6 },
-        logoTo3: { opacity: 0, duration: 0.5 },
-        scrollTrigger: { start: "top 65%", end: "bottom 49%", scrub: 0.5 },
-      };
-    } else if (width <= 1400) {
-      props = {
-        logoFrom: { opacity: 0, y: -150, x: 150, scale: 0.9 },
-        logoTo1: { opacity: 1, y: 48, x: 250, scale: 0.6, duration: 1 },
-        scrollImageTo: { opacity: 0, duration: 0.2 },
-        pathsTo: { fill: "#c1d1e0", stroke: "#c1d1e0", duration: 0.6 },
-        logoTo2: { y: 415, x: 470, scale: 0.1, duration: 2.6 },
-        logoTo3: { opacity: 0, duration: 0.5 },
-        scrollTrigger: { start: "top 60%", end: "bottom 40%", scrub: 1 },
-      };
-    } else if (width <= 1600) {
-      props = {
-        logoFrom: { opacity: 0, y: -155, x: 155, scale: 0.9, scrub: 1 },
-        logoTo1: {
-          opacity: 1,
-          y: 50,
-          x: 280,
-          scale: 0.6,
-          duration: 1,
-          scrub: 1,
-        },
-        scrollImageTo: { opacity: 0, duration: 1.1, scrub: 1 },
-        pathsTo: { fill: "#c1d1e0", stroke: "#c1d1e0", scrub: 3 },
-        logoTo2: { y: 480, x: 561, scale: 0.1, duration: 4.6 },
-        logoTo3: { opacity: 0, duration: 0.5 },
-        scrollTrigger: {
-          start: "top 75%",
-          end: "bottom 52%",
-          ease: "power3.out",
-          scrub: 2.3,
-        },
-      };
-    } else if (width <= 1750) {
-      props = {
-        logoFrom: { opacity: 0, y: -155, x: 155, scale: 0.9, scrub: 1 },
-        logoTo1: {
-          opacity: 1,
-          y: 50,
-          x: 280,
-          scale: 0.6,
-          duration: 1,
-          scrub: 1,
-        },
-        scrollImageTo: { opacity: 0, duration: 1.1, scrub: 1 },
-        pathsTo: { fill: "#c1d1e0", stroke: "#c1d1e0", scrub: 3 },
-        logoTo2: { y: 479, x: 625, scale: 0.1, duration: 4.6 },
-        logoTo3: { opacity: 0, duration: 0.5 },
-        scrollTrigger: {
-          start: "top 75%",
-          end: "bottom 50%",
-          ease: "power3.out",
-          scrub: 2.3,
-        },
-      };
-    } else if (width <= 1800) {
-      props = {
-        logoFrom: { opacity: 0, y: -155, x: 155, scale: 0.9, scrub: 1 },
-        logoTo1: {
-          opacity: 1,
-          y: 50,
-          x: 280,
-          scale: 0.6,
-          duration: 1,
-          scrub: 1,
-        },
-        scrollImageTo: { opacity: 0, duration: 1.1, scrub: 1 },
-        pathsTo: { fill: "#c1d1e0", stroke: "#c1d1e0", scrub: 3 },
-        logoTo2: { y: 483, x: 650, scale: 0.1, duration: 4.6 },
-        logoTo3: { opacity: 0, duration: 0.5 },
-        scrollTrigger: {
-          start: "top 75%",
-          end: "bottom 48%",
-          ease: "power3.out",
-          scrub: 2.3,
-        },
-      };
-    } else if (width <= 1920) {
-      props = {
-        logoFrom: { opacity: 0, y: -160, x: 110, scale: 0.9 },
-        logoTo1: { opacity: 1, y: 50, x: 300, scale: 0.6, duration: 1 },
-        scrollImageTo: { opacity: 0, duration: 0.2 },
-        pathsTo: { fill: "#c1d1e0", stroke: "#c1d1e0", duration: 0.6 },
-        logoTo2: { y: 500, x: 725, scale: 0.1, duration: 3.2 },
-        logoTo3: { opacity: 0, duration: 0.5 },
-        scrollTrigger: { start: "top center", end: "bottom 43%", scrub: 0.5 },
-      };
-    }
+  //   if (width <= 320) {
+  //     props = {
+  //       logoFrom: { opacity: 0, y: -80, x: 0, scale: 0.8 },
+  //       logoTo1: {
+  //         opacity: 1,
+  //         y: 650,
+  //         x: 0,
+  //         scale: 0.5,
+  //         duration: 21,
+  //         scrub: 1.2,
+  //       },
+  //       scrollImageTo: { opacity: 0, duration: 0.15 },
+  //       pathsTo: { fill: "#c1d1e0", stroke: "#c1d1e0", duration: 2.5 },
+  //       logoTo2: { y: 966, x: -39, scale: 0.1, duration: 29 },
+  //       logoTo3: { opacity: 0, duration: 0.1 },
+  //       scrollTrigger: { start: "top 30%", end: "bottom 77.6%", scrub: 1.2 },
+  //     };
+  //   } else if (width <= 370) {
+  //     props = {
+  //       logoFrom: { opacity: 0, y: -80, x: 0, scale: 0.8 },
+  //       logoTo1: {
+  //         opacity: 1,
+  //         y: 650,
+  //         x: 0,
+  //         scale: 0.5,
+  //         duration: 21,
+  //         scrub: 1.2,
+  //       },
+  //       scrollImageTo: { opacity: 0, duration: 0.15 },
+  //       pathsTo: { fill: "#c1d1e0", stroke: "#c1d1e0", duration: 2.5 },
+  //       logoTo2: { y: 966, x: -39, scale: 0.1, duration: 29 },
+  //       logoTo3: { opacity: 0, duration: 0.1 },
+  //       scrollTrigger: { start: "top 30%", end: "bottom 77.6%", scrub: 1.2 },
+  //     };
+  //   } else if (width <= 425) {
+  //     props = {
+  //       logoFrom: { opacity: 0, y: -80, x: 0, scale: 0.8 },
+  //       logoTo1: {
+  //         opacity: 1,
+  //         y: 650,
+  //         x: 0,
+  //         scale: 0.5,
+  //         duration: 21,
+  //         scrub: 1.2,
+  //       },
+  //       scrollImageTo: { opacity: 0, duration: 0.15 },
+  //       pathsTo: { fill: "#c1d1e0", stroke: "#c1d1e0", duration: 2.5 },
+  //       logoTo2: { y: 966, x: -39, scale: 0.1, duration: 29 },
+  //       logoTo3: { opacity: 0, duration: 0.1 },
+  //       scrollTrigger: { start: "top 30%", end: "bottom 77.6%", scrub: 1.2 },
+  //     };
+  //   } else if (width <= 574) {
+  //     props = {
+  //       logoFrom: { opacity: 0, y: -100, x: 100, scale: 0.85 },
+  //       logoTo1: { opacity: 1, y: 30, x: 120, scale: 0.55, duration: 0.9 },
+  //       scrollImageTo: { opacity: 0, duration: 0.18 },
+  //       pathsTo: { fill: "#c1d1e0", stroke: "#c1d1e0", duration: 0.55 },
+  //       logoTo2: { y: 910, x: 39, scale: 0.1, duration: 15 },
+  //       logoTo3: { opacity: 0, duration: 0.45 },
+  //       scrollTrigger: { start: "top 69%", end: "bottom 79%", scrub: 0.4 },
+  //     };
+  //   } else if (width <= 991) {
+  //     props = {
+  //       logoFrom: { opacity: 0, y: -140, x: 340, scale: 0.9 },
+  //       logoTo1: { opacity: 1, y: 45, x: 350, scale: 0.58, duration: 1 },
+  //       scrollImageTo: { opacity: 0, duration: 0.2 },
+  //       pathsTo: { fill: "#c1d1e0", stroke: "#c1d1e0", duration: 0.6 },
+  //       logoTo2: { y: 485, x: 250, scale: 0.1, duration: 3.6 },
+  //       logoTo3: { opacity: 0, duration: 0.5 },
+  //       scrollTrigger: { start: "top 65%", end: "bottom 61%", scrub: 0.5 },
+  //     };
+  //   } else if (width <= 1100) {
+  //     props = {
+  //       logoFrom: { opacity: 0, y: -140, x: 140, scale: 0.9 },
+  //       logoTo1: { opacity: 1, y: 45, x: 200, scale: 0.58, duration: 1 },
+  //       scrollImageTo: { opacity: 0, duration: 0.2 },
+  //       pathsTo: { fill: "#c1d1e0", stroke: "#c1d1e0", duration: 0.6 },
+  //       logoTo2: { y: 330, x: 306, scale: 0.1, duration: 5.6 },
+  //       logoTo3: { opacity: 0, duration: 0.5 },
+  //       scrollTrigger: { start: "top 65%", end: "bottom 49%", scrub: 0.5 },
+  //     };
+  //   } else if (width <= 1400) {
+  //     props = {
+  //       logoFrom: { opacity: 0, y: -150, x: 150, scale: 0.9 },
+  //       logoTo1: { opacity: 1, y: 48, x: 250, scale: 0.6, duration: 1 },
+  //       scrollImageTo: { opacity: 0, duration: 0.2 },
+  //       pathsTo: { fill: "#c1d1e0", stroke: "#c1d1e0", duration: 0.6 },
+  //       logoTo2: { y: 415, x: 470, scale: 0.1, duration: 2.6 },
+  //       logoTo3: { opacity: 0, duration: 0.5 },
+  //       scrollTrigger: { start: "top 60%", end: "bottom 40%", scrub: 1 },
+  //     };
+  //   } else if (width <= 1600) {
+  //     props = {
+  //       logoFrom: { opacity: 0, y: -155, x: 155, scale: 0.9, scrub: 1 },
+  //       logoTo1: {
+  //         opacity: 1,
+  //         y: 50,
+  //         x: 280,
+  //         scale: 0.6,
+  //         duration: 1,
+  //         scrub: 1,
+  //       },
+  //       scrollImageTo: { opacity: 0, duration: 1.1, scrub: 1 },
+  //       pathsTo: { fill: "#c1d1e0", stroke: "#c1d1e0", scrub: 3 },
+  //       logoTo2: { y: 480, x: 561, scale: 0.1, duration: 4.6 },
+  //       logoTo3: { opacity: 0, duration: 0.5 },
+  //       scrollTrigger: {
+  //         start: "top 75%",
+  //         end: "bottom 52%",
+  //         ease: "power3.out",
+  //         scrub: 2.3,
+  //       },
+  //     };
+  //   } else if (width <= 1750) {
+  //     props = {
+  //       logoFrom: { opacity: 0, y: -155, x: 155, scale: 0.9, scrub: 1 },
+  //       logoTo1: {
+  //         opacity: 1,
+  //         y: 50,
+  //         x: 280,
+  //         scale: 0.6,
+  //         duration: 1,
+  //         scrub: 1,
+  //       },
+  //       scrollImageTo: { opacity: 0, duration: 1.1, scrub: 1 },
+  //       pathsTo: { fill: "#c1d1e0", stroke: "#c1d1e0", scrub: 3 },
+  //       logoTo2: { y: 479, x: 625, scale: 0.1, duration: 4.6 },
+  //       logoTo3: { opacity: 0, duration: 0.5 },
+  //       scrollTrigger: {
+  //         start: "top 75%",
+  //         end: "bottom 50%",
+  //         ease: "power3.out",
+  //         scrub: 2.3,
+  //       },
+  //     };
+  //   } else if (width <= 1800) {
+  //     props = {
+  //       logoFrom: { opacity: 0, y: -155, x: 155, scale: 0.9, scrub: 1 },
+  //       logoTo1: {
+  //         opacity: 1,
+  //         y: 50,
+  //         x: 280,
+  //         scale: 0.6,
+  //         duration: 1,
+  //         scrub: 1,
+  //       },
+  //       scrollImageTo: { opacity: 0, duration: 1.1, scrub: 1 },
+  //       pathsTo: { fill: "#c1d1e0", stroke: "#c1d1e0", scrub: 3 },
+  //       logoTo2: { y: 483, x: 650, scale: 0.1, duration: 4.6 },
+  //       logoTo3: { opacity: 0, duration: 0.5 },
+  //       scrollTrigger: {
+  //         start: "top 75%",
+  //         end: "bottom 48%",
+  //         ease: "power3.out",
+  //         scrub: 2.3,
+  //       },
+  //     };
+  //   } else if (width <= 1920) {
+  //     props = {
+  //       logoFrom: { opacity: 0, y: -160, x: 110, scale: 0.9 },
+  //       logoTo1: { opacity: 1, y: 50, x: 300, scale: 0.6, duration: 1 },
+  //       scrollImageTo: { opacity: 0, duration: 0.2 },
+  //       pathsTo: { fill: "#c1d1e0", stroke: "#c1d1e0", duration: 0.6 },
+  //       logoTo2: { y: 500, x: 725, scale: 0.1, duration: 3.2 },
+  //       logoTo3: { opacity: 0, duration: 0.5 },
+  //       scrollTrigger: { start: "top center", end: "bottom 43%", scrub: 0.5 },
+  //     };
+  //   }
 
-    return props;
-  };
+  //   return props;
+  // };
 
-  useEffect(() => {
-    // Ensure logoRefs exists
-    const paths = logoRefs.current?.querySelectorAll("path");
-    if (!paths || paths.length === 0) {
-      console.warn("No paths found in logoRefs");
-      return;
-    }
+  // useEffect(() => {
+  //   // Ensure logoRefs exists
+  //   const paths = logoRefs.current?.querySelectorAll("path");
+  //   if (!paths || paths.length === 0) {
+  //     console.warn("No paths found in logoRefs");
+  //     return;
+  //   }
 
-    // Set initial faded color using GSAP to avoid FOUC
-    gsap.set(paths, {
-      fill: "#b3b3b3",
-      stroke: "#b3b3b3",
-    });
+  //   // Set initial faded color using GSAP to avoid FOUC
+  //   gsap.set(paths, {
+  //     fill: "#b3b3b3",
+  //     stroke: "#b3b3b3",
+  //   });
 
-    // Function to create or update animation
-    const createAnimation = () => {
-      // Get current width
-      const width = window.innerWidth;
-      const props = getAnimationProps(width);
+  //   // Function to create or update animation
+  //   const createAnimation = () => {
+  //     // Get current width
+  //     const width = window.innerWidth;
+  //     const props = getAnimationProps(width);
 
-      // Kill existing ScrollTriggers to avoid duplicates
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+  //     // Kill existing ScrollTriggers to avoid duplicates
+  //     ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
 
-      // GSAP Timeline with ScrollTrigger
-      const tl = gsap
-        .timeline({
-          scrollTrigger: {
-            trigger: containerRefs.current,
-            ...props.scrollTrigger,
-            anticipatePin: 1,
-            fastScrollEnd: true,
-            markers: false,
-          },
-        })
-        .fromTo(logoRefs.current, props.logoFrom, {
-          ...props.logoTo1,
-          ease: "power3.out",
-          willChange: "transform, opacity",
-        })
-        .to(
-          scrollImageRef.current,
-          {
-            ...props.scrollImageTo,
-            ease: "power3.out",
-          },
-          "-=1"
-        )
-        .to(
-          paths,
-          {
-            ...props.pathsTo,
-            ease: "sine.out",
-          },
-          "-=1"
-        )
-        .to(
-          logoRefs.current,
-          {
-            ...props.logoTo2,
-            ease: "power3.inOut",
-          },
-          "-=0.4"
-        )
-        .to(
-          logoRefs.current,
-          {
-            ...props.logoTo3,
-            ease: "sine.out",
-          },
-          "-=1.1"
-        );
+  //     // GSAP Timeline with ScrollTrigger
+  //     const tl = gsap
+  //       .timeline({
+  //         scrollTrigger: {
+  //           trigger: containerRefs.current,
+  //           ...props.scrollTrigger,
+  //           anticipatePin: 1,
+  //           fastScrollEnd: true,
+  //           markers: false,
+  //         },
+  //       })
+  //       .fromTo(logoRefs.current, props.logoFrom, {
+  //         ...props.logoTo1,
+  //         ease: "power3.out",
+  //         willChange: "transform, opacity",
+  //       })
+  //       .to(
+  //         scrollImageRef.current,
+  //         {
+  //           ...props.scrollImageTo,
+  //           ease: "power3.out",
+  //         },
+  //         "-=1"
+  //       )
+  //       .to(
+  //         paths,
+  //         {
+  //           ...props.pathsTo,
+  //           ease: "sine.out",
+  //         },
+  //         "-=1"
+  //       )
+  //       .to(
+  //         logoRefs.current,
+  //         {
+  //           ...props.logoTo2,
+  //           ease: "power3.inOut",
+  //         },
+  //         "-=0.4"
+  //       )
+  //       .to(
+  //         logoRefs.current,
+  //         {
+  //           ...props.logoTo3,
+  //           ease: "sine.out",
+  //         },
+  //         "-=1.1"
+  //       );
 
-      return tl;
-    };
+  //     return tl;
+  //   };
 
-    // Initial animation
-    let tl = createAnimation();
+  //   // Initial animation
+  //   let tl = createAnimation();
 
-    // Optimized resize handler
-    let timeout;
-    const handleResize = () => {
-      clearTimeout(timeout);
-      timeout = setTimeout(() => {
-        tl.kill(); // Kill existing timeline
-        ScrollTrigger.refresh(); // Refresh ScrollTrigger
-        tl = createAnimation(); // Recreate animation with new props
-      }, 200);
-    };
-    window.addEventListener("resize", handleResize);
+  //   // Optimized resize handler
+  //   let timeout;
+  //   const handleResize = () => {
+  //     clearTimeout(timeout);
+  //     timeout = setTimeout(() => {
+  //       tl.kill(); // Kill existing timeline
+  //       ScrollTrigger.refresh(); // Refresh ScrollTrigger
+  //       tl = createAnimation(); // Recreate animation with new props
+  //     }, 200);
+  //   };
+  //   window.addEventListener("resize", handleResize);
 
-    // Cleanup
-    return () => {
-      tl.kill();
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
+  //   // Cleanup
+  //   return () => {
+  //     tl.kill();
+  //     ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+  //     window.removeEventListener("resize", handleResize);
+  //   };
+  // }, []);
 
   const section1Ref = useRef(null);
   const section2Ref = useRef(null);
@@ -626,590 +625,806 @@ function Home() {
   const boxRefs = useRef([]);
   const bottomImageRefs = useRef([]);
   const section2ImageRef = useRef(null);
+//  commenetd on 7th of may
+  // useEffect(() => {
+  //   // Configure ScrollTrigger
+  //   ScrollTrigger.config({ limitCallbacks: true, syncInterval: 100 });
 
-  useEffect(() => {
-    // Configure ScrollTrigger
-    ScrollTrigger.config({ limitCallbacks: true, syncInterval: 100 });
+  //   // Only enable normalizeScroll for mobile
+  //   const isMobile = window.matchMedia("(max-width: 768px)").matches;
+  //   ScrollTrigger.normalizeScroll(isMobile);
 
-    // Only enable normalizeScroll for mobile
-    const isMobile = window.matchMedia("(max-width: 768px)").matches;
-    ScrollTrigger.normalizeScroll(isMobile);
+  //   // Exit early if projects or refs aren't ready
+  //   if (
+  //     !projects.length ||
+  //     !boxRefs.current ||
+  //     !imageRefs.current ||
+  //     !bottomImageRefs.current ||
+  //     !section2ImageRef.current ||
+  //     boxRefs.current.length < projects.length
+  //   ) {
+  //     console.log("Animation setup skipped: Waiting for projects or refs", {
+  //       projectsLength: projects.length,
+  //       boxesLength: boxRefs.current?.length || 0,
+  //       imagesLength: imageRefs.current?.length || 0,
+  //     });
+  //     return;
+  //   }
 
-    // Exit early if projects or refs aren't ready
-    if (
-      !projects.length ||
-      !boxRefs.current ||
-      !imageRefs.current ||
-      !bottomImageRefs.current ||
-      !section2ImageRef.current ||
-      boxRefs.current.length < projects.length
-    ) {
-      console.log("Animation setup skipped: Waiting for projects or refs", {
-        projectsLength: projects.length,
-        boxesLength: boxRefs.current?.length || 0,
-        imagesLength: imageRefs.current?.length || 0,
-      });
-      return;
-    }
+  //   const boxes = boxRefs.current;
+  //   const images = imageRefs.current;
+  //   const bottomImages = bottomImageRefs.current;
+  //   const section2Image = section2ImageRef.current;
 
-    const boxes = boxRefs.current;
-    const images = imageRefs.current;
-    const bottomImages = bottomImageRefs.current;
-    const section2Image = section2ImageRef.current;
+  //   // Respect prefers-reduced-motion
+  //   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+  //     gsap.set([...images, ...bottomImages, section2Image], {
+  //       opacity: 1,
+  //       x: 0,
+  //       y: 0,
+  //       scale: 1,
+  //       visibility: "visible",
+  //     });
+  //     return;
+  //   }
 
-    // Respect prefers-reduced-motion
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      gsap.set([...images, ...bottomImages, section2Image], {
-        opacity: 1,
-        x: 0,
-        y: 0,
-        scale: 1,
-        visibility: "visible",
-      });
-      return;
-    }
+  //   // Throttle utility for onUpdate (increased interval for desktop)
+  //   const throttle = (func, limit) => {
+  //     let inThrottle;
+  //     return function (...args) {
+  //       if (!inThrottle) {
+  //         func.apply(this, args);
+  //         inThrottle = true;
+  //         setTimeout(() => (inThrottle = false), limit);
+  //       }
+  //     };
+  //   };
 
-    // Throttle utility for onUpdate (increased interval for desktop)
-    const throttle = (func, limit) => {
-      let inThrottle;
-      return function (...args) {
-        if (!inThrottle) {
-          func.apply(this, args);
-          inThrottle = true;
-          setTimeout(() => (inThrottle = false), limit);
-        }
-      };
-    };
+  //   // Animation logic for images
+  //   images.forEach((img, index) => {
+  //     if (index >= projects.length || !boxes[index]) {
+  //       console.log(`Skipping index ${index}: Invalid data`);
+  //       return;
+  //     }
 
-    // Animation logic for images
-    images.forEach((img, index) => {
-      if (index >= projects.length || !boxes[index]) {
-        console.log(`Skipping index ${index}: Invalid data`);
-        return;
-      }
+  //     const box = boxes[index];
+  //     const cardImg = box.querySelector("img.card-img-top"); // Targeting card image
+  //     if (!cardImg) {
+  //       console.log(`Skipping index ${index}: card-img-top not found`);
+  //       return;
+  //     }
 
-      const box = boxes[index];
-      const cardImg = box.querySelector("img.card-img-top"); // Targeting card image
-      if (!cardImg) {
-        console.log(`Skipping index ${index}: card-img-top not found`);
-        return;
-      }
+  //     // Calculate offsets based on cardImg's position
+  //     const cardImgRect = cardImg.getBoundingClientRect();
+  //     const imgRect = img.getBoundingClientRect();
+  //     const offsets = {
+  //       x: (cardImgRect.right - imgRect.width / 2 - imgRect.left) * 1.07,
+  //       y: cardImgRect.top - 50 + imgRect.height / 2 - imgRect.top,
+  //     };
 
-      // Calculate offsets based on cardImg's position
-      const cardImgRect = cardImg.getBoundingClientRect();
-      const imgRect = img.getBoundingClientRect();
-      const offsets = {
-        x: (cardImgRect.right - imgRect.width / 2 - imgRect.left) * 1.07,
-        y: cardImgRect.top - 50 + imgRect.height / 2 - imgRect.top,
-      };
+  //     // Use IntersectionObserver for background color change on desktop
+  //     if (!isMobile) {
+  //       const observer = new IntersectionObserver(
+  //         ([entry]) => {
+  //           box.style.backgroundColor = entry.isIntersecting ? "" : "";
+  //         },
+  //         { rootMargin: "0px", threshold: 0.1 }
+  //       );
+  //       observer.observe(img);
+  //     }
 
-      // Use IntersectionObserver for background color change on desktop
-      if (!isMobile) {
-        const observer = new IntersectionObserver(
-          ([entry]) => {
-            box.style.backgroundColor = entry.isIntersecting ? "" : "";
-          },
-          { rootMargin: "0px", threshold: 0.1 }
-        );
-        observer.observe(img);
-      }
+  //     gsap.fromTo(
+  //       img,
+  //       {
+  //         x: -10,
+  //         y: -160,
+  //         scale: 1,
+  //         opacity: 1,
+  //         visibility: "hidden",
+  //       },
+  //       {
+  //         x: offsets.x,
+  //         y: offsets.y,
+  //         scale: 1,
+  //         opacity: 1,
+  //         visibility: "visible",
+  //         ease: "power2.out",
+  //         willChange: isMobile ? "transform, opacity" : "", // Conditional willChange
+  //         scrollTrigger: {
+  //           trigger: section1Ref.current,
+  //           start: isMobile ? "top 60%" : "top 70%",
+  //           end: isMobile ? "bottom 80%" : "bottom 30%",
+  //           scrub: isMobile ? 1 : 0.5, // Lighter scrub for desktop
+  //           onUpdate: isMobile
+  //             ? throttle((self) => {
+  //                 const imgRect = img.getBoundingClientRect();
+  //                 const boxRect = box.getBoundingClientRect();
+  //                 const isInside =
+  //                   imgRect.top < boxRect.bottom &&
+  //                   imgRect.bottom > boxRect.top;
+  //                 box.style.backgroundColor = isInside ? "" : "";
+  //               }, 200) // Increased throttle for desktop
+  //             : null,
+  //           onComplete: () => {
+  //             gsap.set(img, { visibility: "hidden" });
+  //           },
+  //         },
+  //       }
+  //     );
+  //   });
 
-      gsap.fromTo(
-        img,
-        {
-          x: -10,
-          y: -160,
-          scale: 1,
-          opacity: 1,
-          visibility: "hidden",
-        },
-        {
-          x: offsets.x,
-          y: offsets.y,
-          scale: 1,
-          opacity: 1,
-          visibility: "visible",
-          ease: "power2.out",
-          willChange: isMobile ? "transform, opacity" : "", // Conditional willChange
-          scrollTrigger: {
-            trigger: section1Ref.current,
-            start: isMobile ? "top 60%" : "top 70%",
-            end: isMobile ? "bottom 80%" : "bottom 30%",
-            scrub: isMobile ? 1 : 0.5, // Lighter scrub for desktop
-            onUpdate: isMobile
-              ? throttle((self) => {
-                  const imgRect = img.getBoundingClientRect();
-                  const boxRect = box.getBoundingClientRect();
-                  const isInside =
-                    imgRect.top < boxRect.bottom &&
-                    imgRect.bottom > boxRect.top;
-                  box.style.backgroundColor = isInside ? "" : "";
-                }, 200) // Increased throttle for desktop
-              : null,
-            onComplete: () => {
-              gsap.set(img, { visibility: "hidden" });
-            },
-          },
-        }
-      );
-    });
+  //   // Bottom images animation
+  //   bottomImages.forEach((img) => {
+  //     const imgRect = img.getBoundingClientRect();
+  //     const targetRect = section2Image.getBoundingClientRect();
+  //     const offsets = {
+  //       x:
+  //         targetRect.left +
+  //         targetRect.width / 2 -
+  //         (imgRect.left + imgRect.width / 2),
+  //       y:
+  //         targetRect.top +
+  //         targetRect.height / 2 -
+  //         (imgRect.top + imgRect.height / 2),
+  //     };
 
-    // Bottom images animation
-    bottomImages.forEach((img) => {
-      const imgRect = img.getBoundingClientRect();
-      const targetRect = section2Image.getBoundingClientRect();
-      const offsets = {
-        x:
-          targetRect.left +
-          targetRect.width / 2 -
-          (imgRect.left + imgRect.width / 2),
-        y:
-          targetRect.top +
-          targetRect.height / 2 -
-          (imgRect.top + imgRect.height / 2),
-      };
+  //     gsap.fromTo(
+  //       img,
+  //       {
+  //         x: -50,
+  //         y: 0,
+  //         scale: 0.1,
+  //         opacity: 0,
+  //         visibility: "hidden",
+  //       },
+  //       {
+  //         x: offsets.x,
+  //         y: offsets.y,
+  //         scale: 0.5,
+  //         opacity: 1,
+  //         duration: isMobile ? 3 : 2, // Shorter for desktop
+  //         visibility: "visible",
+  //         ease: "power2.out",
+  //         willChange: isMobile ? "transform, opacity" : "",
+  //         scrollTrigger: {
+  //           trigger: section2Ref.current,
+  //           start: isMobile ? "top 70%" : "top 60%",
+  //           end: isMobile ? "bottom 90%" : "bottom 80%",
+  //           scrub: isMobile ? 7 : 7,
+  //         },
+  //       }
+  //     );
+  //   });
 
-      gsap.fromTo(
-        img,
-        {
-          x: -50,
-          y: 0,
-          scale: 0.1,
-          opacity: 0,
-          visibility: "hidden",
-        },
-        {
-          x: offsets.x,
-          y: offsets.y,
-          scale: 0.5,
-          opacity: 1,
-          duration: isMobile ? 3 : 2, // Shorter for desktop
-          visibility: "visible",
-          ease: "power2.out",
-          willChange: isMobile ? "transform, opacity" : "",
-          scrollTrigger: {
-            trigger: section2Ref.current,
-            start: isMobile ? "top 70%" : "top 60%",
-            end: isMobile ? "bottom 90%" : "bottom 80%",
-            scrub: isMobile ? 7 : 7,
-          },
-        }
-      );
-    });
+  //   // Synchronized fade-out
+  //   gsap.to([section2Image], {
+  //     opacity: 0,
+  //     scale: 0.4,
+  //     ease: "power2.out",
+  //     scrollTrigger: {
+  //       trigger: section2Ref.current,
+  //       start: isMobile ? "bottom 90%" : "bottom 80%",
+  //       end: isMobile ? "bottom 90%" : "bottom 80%",
+  //       scrub: isMobile ? 7 : 7,
+  //       onEnter: () => {
+  //         section2Image.classList.add("new_hover");
+  //       },
+  //       onLeave: () => {
+  //         section2Image.classList.remove("new_hover");
+  //       },
+  //       onComplete: () => {
+  //         gsap.set([section2Image, ...bottomImages], {
+  //           opacity: 0,
+  //           visibility: "hidden",
+  //         });
+  //         bottomImages.forEach((img) => {
+  //           img.dataset.hidden = "true";
+  //         });
+  //         section2Image.dataset.hidden = "true";
+  //       },
+  //     },
+  //   });
 
-    // Synchronized fade-out
-    gsap.to([section2Image], {
-      opacity: 0,
-      scale: 0.4,
-      ease: "power2.out",
-      scrollTrigger: {
-        trigger: section2Ref.current,
-        start: isMobile ? "bottom 90%" : "bottom 80%",
-        end: isMobile ? "bottom 90%" : "bottom 80%",
-        scrub: isMobile ? 7 : 7,
-        onEnter: () => {
-          section2Image.classList.add("new_hover");
-        },
-        onLeave: () => {
-          section2Image.classList.remove("new_hover");
-        },
-        onComplete: () => {
-          gsap.set([section2Image, ...bottomImages], {
-            opacity: 0,
-            visibility: "hidden",
-          });
-          bottomImages.forEach((img) => {
-            img.dataset.hidden = "true";
-          });
-          section2Image.dataset.hidden = "true";
-        },
-      },
-    });
+  //   // Debounced resize/orientation handler
+  //   let resizeTimeout;
+  //   const handleResize = () => {
+  //     clearTimeout(resizeTimeout);
+  //     resizeTimeout = setTimeout(() => {
+  //       ScrollTrigger.refresh();
+  //     }, 200);
+  //   };
+  //   window.addEventListener("resize", handleResize);
+  //   window.addEventListener("orientationchange", handleResize);
 
-    // Debounced resize/orientation handler
-    let resizeTimeout;
-    const handleResize = () => {
-      clearTimeout(resizeTimeout);
-      resizeTimeout = setTimeout(() => {
-        ScrollTrigger.refresh();
-      }, 200);
-    };
-    window.addEventListener("resize", handleResize);
-    window.addEventListener("orientationchange", handleResize);
+  //   // Cleanup
+  //   return () => {
+  //     ScrollTrigger.getAll().forEach((trigger) => {
+  //       if (
+  //         trigger.trigger === section1Ref.current ||
+  //         trigger.trigger === section2Ref.current
+  //       ) {
+  //         trigger.kill();
+  //       }
+  //     });
+  //     window.removeEventListener("resize", handleResize);
+  //     window.removeEventListener("orientationchange", handleResize);
+  //   };
+  // }, [projects]);
 
-    // Cleanup
-    return () => {
-      ScrollTrigger.getAll().forEach((trigger) => {
-        if (
-          trigger.trigger === section1Ref.current ||
-          trigger.trigger === section2Ref.current
-        ) {
-          trigger.kill();
-        }
-      });
-      window.removeEventListener("resize", handleResize);
-      window.removeEventListener("orientationchange", handleResize);
-    };
-  }, [projects]);
+  // useEffect(() => {
+  //   // Configure ScrollTrigger
+  //   ScrollTrigger.config({ limitCallbacks: true, syncInterval: 100 });
+  //   // Only enable normalizeScroll for mobile
+  //   const isMobile = window.matchMedia("(max-width: 768px)").matches;
+  //   ScrollTrigger.normalizeScroll(isMobile);
+  //   // Detect Safari browser
+  //   const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+  //   // Exit early if projects or refs aren't ready
+  //   if (
+  //   !projects.length ||
+  //   !boxRefs.current ||
+  //   !imageRefs.current ||
+  //   !bottomImageRefs.current ||
+  //   !section2ImageRef.current ||
+  //   boxRefs.current.length < projects.length
+  //   ) {
+  //   console.log("Animation setup skipped: Waiting for projects or refs", {
+  //   projectsLength: projects.length,
+  //   boxesLength: boxRefs.current?.length || 0,
+  //   imagesLength: imageRefs.current?.length || 0,
+  //   });
+  //   return;
+  //   }
+  //   const boxes = boxRefs.current;
+  //   const images = imageRefs.current;
+  //   const bottomImages = bottomImageRefs.current;
+  //   const section2Image = section2ImageRef.current;
+  //   // Respect prefers-reduced-motion or Safari
+  //   if (
+  //   window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
+  //   isSafari
+  //   ) {
+  //   gsap.set([...images, ...bottomImages, section2Image], {
+  //   opacity: 1,
+  //   x: 0,
+  //   y: 0,
+  //   scale: 1,
+  //   visibility: "visible",
+  //   });
+  //   return;
+  //   }
+  //   // Throttle utility for onUpdate (increased interval for desktop)
+  //   const throttle = (func, limit) => {
+  //   let inThrottle;
+  //   return function (...args) {
+  //   if (!inThrottle) {
+  //   func.apply(this, args);
+  //   inThrottle = true;
+  //   setTimeout(() => (inThrottle = false), limit);
+  //   }
+  //   };
+  //   };
+  //   // Animation logic for images
+  //   images.forEach((img, index) => {
+  //   if (index >= projects.length || !boxes[index]) {
+  //   console.log(`Skipping index ${index}: Invalid data`);
+  //   return;
+  //   }
+  //   const box = boxes[index];
+  //   const cardImg = box.querySelector("img.card-img-top"); // Targeting card image
+  //   if (!cardImg) {
+  //   console.log(`Skipping index ${index}: card-img-top not found`);
+  //   return;
+  //   }
+  //   // Calculate offsets based on cardImg's position
+  //   const cardImgRect = cardImg.getBoundingClientRect();
+  //   const imgRect = img.getBoundingClientRect();
+  //   const offsets = {
+  //   x: (cardImgRect.right - imgRect.width / 2 - imgRect.left) * 1.07,
+  //   y: cardImgRect.top - 170 + imgRect.height / 2 - imgRect.top,
+  //   };
+  //   // Use IntersectionObserver for background color change on desktop
+  //   if (!isMobile) {
+  //   const observer = new IntersectionObserver(
+  //   ([entry]) => {
+  //   box.style.backgroundColor = entry.isIntersecting ? "" : "";
+  //   },
+  //   { rootMargin: "0px", threshold: 0.1 }
+  //   );
+  //   observer.observe(img);
+  //   }
+  //   gsap.fromTo(
+  //   img,
+  //   {
+  //   x: -10,
+  //   y: -160,
+  //   scale: 1,
+  //   opacity: 1,
+  //   visibility: "hidden",
+  //   },
+  //   {
+  //   x: offsets.x,
+  //   y: offsets.y,
+  //   scale: 1,
+  //   opacity: 1,
+  //   visibility: "visible",
+  //   ease: "power2.out",
+  //   willChange: isMobile ? "transform, opacity" : "", // Conditional willChange
+  //   scrollTrigger: {
+  //   trigger: section1Ref.current,
+  //   start: isMobile ? "top 60%" : "top 70%",
+  //   end: isMobile ? "bottom 80%" : "bottom 30%",
+  //   scrub: isMobile ? 1 : 0.5, // Lighter scrub for desktop
+  //   onUpdate: isMobile
+  //   ? throttle((self) => {
+  //   const imgRect = img.getBoundingClientRect();
+  //   const boxRect = box.getBoundingClientRect();
+  //   const isInside =
+  //   imgRect.top < boxRect.bottom &&
+  //   imgRect.bottom > boxRect.top;
+  //   box.style.backgroundColor = isInside ? "" : "";
+  //   }, 200) // Increased throttle for desktop
+  //   : null,
+  //   onComplete: () => {
+  //   gsap.set(img, { visibility: "hidden" });
+  //   },
+  //   },
+  //   }
+  //   );
+  //   });
+  //   // Bottom images animation
+  //   bottomImages.forEach((img) => {
+  //   const imgRect = img.getBoundingClientRect();
+  //   const targetRect = section2Image.getBoundingClientRect();
+  //   const offsets = {
+  //   x:
+  //   targetRect.left +
+  //   targetRect.width / 2 -
+  //   (imgRect.left + imgRect.width / 2),
+  //   y:
+  //   targetRect.top +
+  //   targetRect.height / 2 -
+  //   (imgRect.top + imgRect.height / 2),
+  //   };
+  //   gsap.fromTo(
+  //   img,
+  //   {
+  //   x: -50,
+  //   y: 0,
+  //   scale: 0.1,
+  //   opacity: 0,
+  //   visibility: "hidden",
+  //   },
+  //   {
+  //   x: offsets.x,
+  //   y: offsets.y,
+  //   scale: 0.5,
+  //   opacity: 1,
+  //   duration: isMobile ? 3 : 2, // Shorter for desktop
+  //   visibility: "visible",
+  //   ease: "power2.out",
+  //   willChange: isMobile ? "transform, opacity" : "",
+  //   scrollTrigger: {
+  //   trigger: section2Ref.current,
+  //   start: isMobile ? "top 70%" : "top 60%",
+  //   end: isMobile ? "bottom 90%" : "bottom 80%",
+  //   scrub: isMobile ? 7 : 7,
+  //   },
+  //   }
+  //   );
+  //   });
+  //   // Synchronized fade-out
+  //   gsap.to([section2Image], {
+  //   opacity: 0,
+  //   scale: 0.4,
+  //   ease: "power2.out",
+  //   scrollTrigger: {
+  //   trigger: section2Ref.current,
+  //   start: isMobile ? "bottom 90%" : "bottom 80%",
+  //   end: isMobile ? "bottom 90%" : "bottom 80%",
+  //   scrub: isMobile ? 7 : 7,
+  //   onEnter: () => {
+  //   section2Image.classList.add("new_hover");
+  //   },
+  //   onLeave: () => {
+  //   section2Image.classList.remove("new_hover");
+  //   },
+  //   onComplete: () => {
+  //   gsap.set([section2Image, ...bottomImages], {
+  //   opacity: 0,
+  //   visibility: "hidden",
+  //   });
+  //   bottomImages.forEach((img) => {
+  //   img.dataset.hidden = "true";
+  //   });
+  //   section2Image.dataset.hidden = "true";
+  //   },
+  //   },
+  //   });
+  //   // Debounced resize/orientation handler
+  //   let resizeTimeout;
+  //   const handleResize = () => {
+  //   clearTimeout(resizeTimeout);
+  //   resizeTimeout = setTimeout(() => {
+  //   ScrollTrigger.refresh();
+  //   }, 200);
+  //   };
+  //   window.addEventListener("resize", handleResize);
+  //   window.addEventListener("orientationchange", handleResize);
+  //   // Cleanup
+  //   return () => {
+  //   ScrollTrigger.getAll().forEach((trigger) => {
+  //   if (
+  //   trigger.trigger === section1Ref.current ||
+  //   trigger.trigger === section2Ref.current
+  //   ) {
+  //   trigger.kill();
+  //   }
+  //   });
+  //   window.removeEventListener("resize", handleResize);
+  //   window.removeEventListener("orientationchange", handleResize);
+  //   };
+  //   }, [projects]);
+
 
   const logoRefs1 = useRef(null);
   const containerRefs1 = useRef(null);
-  const getAnimationProps1 = (width) => {
-    // Default values for larger screens (>1920px)
-    let props = {
-      fromTo: {
-        from: { opacity: 0, y: -450, scale: 1.3, x: 90 },
-        to: {
-          opacity: 1,
-          y: -30,
-          x: 100,
-          scale: 0.7,
-          ease: "power3.out",
-          duration: 4.8,
-        },
-      },
-      to: {
-        opacity: 0,
-        y: 600,
-        x: 20,
-        scale: 0,
-        ease: "power3.inOut",
-        duration: 6.5,
-      },
-      scrollTrigger: { start: "top 105%", end: "bottom 35%", scrub: 0.9 },
-    };
-    if (width <= 320) {
-      props = {
-        fromTo: {
-          from: { opacity: 0, y: -450, scale: 1.3, x: 90 },
-          to: {
-            opacity: 1,
-            y: -330,
-            x: 100,
-            scale: 0.7,
-            ease: "power3.out",
-            duration: 4.8,
-          },
-        },
-        to: {
-          opacity: 0,
-          y: 600,
-          x: 20,
-          scale: 0,
-          ease: "power3.inOut",
-          duration: 6.5,
-        },
-        scrollTrigger: { start: "top 105%", end: "bottom 35%", scrub: 0.9 },
-      };
-    } else if (width <= 370) {
-      props = {
-        fromTo: {
-          from: { opacity: 0, y: -450, scale: 1.3, x: 90 },
-          to: {
-            opacity: 1,
-            y: -330,
-            x: 100,
-            scale: 0.7,
-            ease: "power3.out",
-            duration: 4.8,
-          },
-        },
-        to: {
-          opacity: 0,
-          y: 600,
-          x: 20,
-          scale: 0,
-          ease: "power3.inOut",
-          duration: 6.5,
-        },
-        scrollTrigger: { start: "top 105%", end: "bottom 35%", scrub: 0.9 },
-      };
-    } else if (width <= 425) {
-      // Adjust for specific breakpoints
-      props = {
-        fromTo: {
-          from: { opacity: 0, y: -450, scale: 1.3, x: 90 },
-          to: {
-            opacity: 1,
-            y: 30,
-            x: 100,
-            scale: 0.7,
-            ease: "power3.out",
-            duration: 4.8,
-          },
-        },
-        to: {
-          opacity: 0,
-          y: 600,
-          x: 20,
-          scale: 0,
-          ease: "power3.inOut",
-          duration: 6.5,
-        },
-        scrollTrigger: { start: "top 65%", end: "bottom 35%", scrub: 0.9 },
-      };
-    } else if (width <= 574) {
-      props = {
-        fromTo: {
-          from: { opacity: 0, y: -300, scale: 1.3, x: 150 },
-          to: {
-            opacity: 1,
-            y: 30,
-            x: 150,
-            scale: 0.7,
-            ease: "power3.out",
-            duration: 4.8,
-          },
-        },
-        to: {
-          opacity: 0,
-          y: 570,
-          x: 90,
-          scale: 0,
-          ease: "power3.inOut",
-          duration: 6.5,
-        },
-        scrollTrigger: { start: "top 75%", end: "bottom 35%", scrub: 0.9 },
-      };
-    } else if (width <= 991) {
-      props = {
-        fromTo: {
-          from: { opacity: 0, y: -300, x: 600 },
-          to: { opacity: 1, y: 40, x: 350, ease: "power3.out", duration: 5 },
-        },
-        to: {
-          opacity: 0,
-          y: 550,
-          x: 300,
-          scale: 0,
-          ease: "power3.inOut",
-          duration: 7,
-        },
-        scrollTrigger: { start: "top -30%", end: "bottom -35%", scrub: 1 },
-      };
-    } else if (width <= 1100) {
-      props = {
-        fromTo: {
-          from: { opacity: 0, y: -410, x: 730, scale: 1.2, scrub: 3 },
-          to: {
-            opacity: 1,
-            y: 45,
-            x: 390,
-            scale: 0.7,
-            ease: "power3.out",
-            duration: 5.2,
-          },
-        },
-        to: {
-          opacity: 0,
-          y: 550,
-          x: 370,
-          scale: 0,
-          ease: "power3.inOut",
-          duration: 7.2,
-        },
-        scrollTrigger: { start: "top -30%", end: "bottom -65%", scrub: 2 },
-      };
-    } else if (width <= 1400) {
-      props = {
-        fromTo: {
-          from: { opacity: 0, y: -400, scale: 1.2, x: 980, scrub: 2 },
-          to: {
-            opacity: 1,
-            y: 8,
-            x: 570,
-            scale: 0.7,
-            ease: "power3.out",
-            duration: 5.3,
-          },
-        },
-        to: {
-          opacity: 0,
-          y: 570,
-          x: 497,
-          scale: 0,
-          ease: "power3.inOut",
-          duration: 7.3,
-        },
-        scrollTrigger: { start: "top -30%", end: "bottom -65%", scrub: 2.1 },
-      };
-    } else if (width <= 1600) {
-      props = {
-        fromTo: {
-          from: { opacity: 0, y: -390, x: 1170, scale: 1.3, scrub: 1 },
-          to: {
-            opacity: 1,
-            y: 50,
-            x: 660,
-            scale: 0.7,
-            ease: "power3.out",
-            duration: 6.5,
-            scrub: 1,
-          },
-        },
-        to: {
-          opacity: 0,
-          y: 610,
-          x: 589,
-          scale: 0,
-          ease: "power3.inOut",
-          duration: 11.9,
-          scrub: ``,
-        },
-        scrollTrigger: {
-          start: "top -30%",
-          end: "bottom -30%",
-          duration: 3.5,
-          scrub: 5.6,
-        },
-      };
-    } else if (width <= 1700) {
-      props = {
-        fromTo: {
-          from: { opacity: 0, y: -390, x: 1170, scale: 1.3, scrub: 1 },
-          to: {
-            opacity: 1,
-            y: 50,
-            x: 660,
-            scale: 0.7,
-            ease: "power3.out",
-            duration: 3.5,
-            scrub: 1,
-          },
-        },
-        to: {
-          opacity: 0,
-          y: 590,
-          x: 600,
-          scale: 0,
-          ease: "power3.inOut",
-          duration: 3.9,
-          scrub: 1,
-        },
-        scrollTrigger: {
-          start: "top -20%",
-          end: "bottom -50%",
-          duration: 3.5,
-          scrub: 2.6,
-        },
-      };
-    } else if (width <= 1800) {
-      props = {
-        fromTo: {
-          from: { opacity: 0, y: -390, x: 1270, scale: 1.3, scrub: 1 },
-          to: {
-            opacity: 1,
-            y: 50,
-            x: 730,
-            scale: 0.7,
-            ease: "power3.out",
-            duration: 3.5,
-            scrub: 1,
-          },
-        },
-        to: {
-          opacity: 0,
-          y: 610,
-          x: 645,
-          scale: 0.1,
-          ease: "power3.inOut",
-          duration: 3.9,
-          scrub: 1,
-        },
-        scrollTrigger: {
-          start: "top -20%",
-          end: "bottom -50%",
-          duration: 3.5,
-          scrub: 1.6,
-        },
-      };
-    } else if (width <= 1920) {
-      props = {
-        fromTo: {
-          from: { opacity: 0, y: -390, x: 1550, scale: 1.3 },
-          to: {
-            opacity: 1,
-            y: 10,
-            x: 790,
-            scale: 1,
-            ease: "power3.out",
-            duration: 5.5,
-          },
-        },
-        to: {
-          opacity: 0,
-          y: 650,
-          x: 760,
-          scale: 0,
-          ease: "power3.inOut",
-          duration: 5.6,
-          scrub: 3.2,
-        },
-        scrollTrigger: { start: "top -20%", end: "bottom -70%", scrub: 1.2 },
-      };
-    }
+  // const getAnimationProps1 = (width) => {
+  //   // Default values for larger screens (>1920px)
+  //   let props = {
+  //     fromTo: {
+  //       from: { opacity: 0, y: -450, scale: 1.3, x: 90 },
+  //       to: {
+  //         opacity: 1,
+  //         y: -30,
+  //         x: 100,
+  //         scale: 0.7,
+  //         ease: "power3.out",
+  //         duration: 4.8,
+  //       },
+  //     },
+  //     to: {
+  //       opacity: 0,
+  //       y: 600,
+  //       x: 20,
+  //       scale: 0,
+  //       ease: "power3.inOut",
+  //       duration: 6.5,
+  //     },
+  //     scrollTrigger: { start: "top 105%", end: "bottom 35%", scrub: 0.9 },
+  //   };
+  //   if (width <= 320) {
+  //     props = {
+  //       fromTo: {
+  //         from: { opacity: 0, y: -450, scale: 1.3, x: 90 },
+  //         to: {
+  //           opacity: 1,
+  //           y: -330,
+  //           x: 100,
+  //           scale: 0.7,
+  //           ease: "power3.out",
+  //           duration: 4.8,
+  //         },
+  //       },
+  //       to: {
+  //         opacity: 0,
+  //         y: 600,
+  //         x: 20,
+  //         scale: 0,
+  //         ease: "power3.inOut",
+  //         duration: 6.5,
+  //       },
+  //       scrollTrigger: { start: "top 105%", end: "bottom 35%", scrub: 0.9 },
+  //     };
+  //   } else if (width <= 370) {
+  //     props = {
+  //       fromTo: {
+  //         from: { opacity: 0, y: -450, scale: 1.3, x: 90 },
+  //         to: {
+  //           opacity: 1,
+  //           y: -330,
+  //           x: 100,
+  //           scale: 0.7,
+  //           ease: "power3.out",
+  //           duration: 4.8,
+  //         },
+  //       },
+  //       to: {
+  //         opacity: 0,
+  //         y: 600,
+  //         x: 20,
+  //         scale: 0,
+  //         ease: "power3.inOut",
+  //         duration: 6.5,
+  //       },
+  //       scrollTrigger: { start: "top 105%", end: "bottom 35%", scrub: 0.9 },
+  //     };
+  //   } else if (width <= 425) {
+  //     // Adjust for specific breakpoints
+  //     props = {
+  //       fromTo: {
+  //         from: { opacity: 0, y: -450, scale: 1.3, x: 90 },
+  //         to: {
+  //           opacity: 1,
+  //           y: 30,
+  //           x: 100,
+  //           scale: 0.7,
+  //           ease: "power3.out",
+  //           duration: 4.8,
+  //         },
+  //       },
+  //       to: {
+  //         opacity: 0,
+  //         y: 600,
+  //         x: 20,
+  //         scale: 0,
+  //         ease: "power3.inOut",
+  //         duration: 6.5,
+  //       },
+  //       scrollTrigger: { start: "top 65%", end: "bottom 35%", scrub: 0.9 },
+  //     };
+  //   } else if (width <= 574) {
+  //     props = {
+  //       fromTo: {
+  //         from: { opacity: 0, y: -300, scale: 1.3, x: 150 },
+  //         to: {
+  //           opacity: 1,
+  //           y: 30,
+  //           x: 150,
+  //           scale: 0.7,
+  //           ease: "power3.out",
+  //           duration: 4.8,
+  //         },
+  //       },
+  //       to: {
+  //         opacity: 0,
+  //         y: 570,
+  //         x: 90,
+  //         scale: 0,
+  //         ease: "power3.inOut",
+  //         duration: 6.5,
+  //       },
+  //       scrollTrigger: { start: "top 75%", end: "bottom 35%", scrub: 0.9 },
+  //     };
+  //   } else if (width <= 991) {
+  //     props = {
+  //       fromTo: {
+  //         from: { opacity: 0, y: -300, x: 600 },
+  //         to: { opacity: 1, y: 40, x: 350, ease: "power3.out", duration: 5 },
+  //       },
+  //       to: {
+  //         opacity: 0,
+  //         y: 550,
+  //         x: 300,
+  //         scale: 0,
+  //         ease: "power3.inOut",
+  //         duration: 7,
+  //       },
+  //       scrollTrigger: { start: "top -30%", end: "bottom -35%", scrub: 1 },
+  //     };
+  //   } else if (width <= 1100) {
+  //     props = {
+  //       fromTo: {
+  //         from: { opacity: 0, y: -410, x: 730, scale: 1.2, scrub: 3 },
+  //         to: {
+  //           opacity: 1,
+  //           y: 45,
+  //           x: 390,
+  //           scale: 0.7,
+  //           ease: "power3.out",
+  //           duration: 5.2,
+  //         },
+  //       },
+  //       to: {
+  //         opacity: 0,
+  //         y: 550,
+  //         x: 370,
+  //         scale: 0,
+  //         ease: "power3.inOut",
+  //         duration: 7.2,
+  //       },
+  //       scrollTrigger: { start: "top -30%", end: "bottom -65%", scrub: 2 },
+  //     };
+  //   } else if (width <= 1400) {
+  //     props = {
+  //       fromTo: {
+  //         from: { opacity: 0, y: -400, scale: 1.2, x: 980, scrub: 2 },
+  //         to: {
+  //           opacity: 1,
+  //           y: 8,
+  //           x: 570,
+  //           scale: 0.7,
+  //           ease: "power3.out",
+  //           duration: 5.3,
+  //         },
+  //       },
+  //       to: {
+  //         opacity: 0,
+  //         y: 570,
+  //         x: 497,
+  //         scale: 0,
+  //         ease: "power3.inOut",
+  //         duration: 7.3,
+  //       },
+  //       scrollTrigger: { start: "top -30%", end: "bottom -65%", scrub: 2.1 },
+  //     };
+  //   } else if (width <= 1600) {
+  //     props = {
+  //       fromTo: {
+  //         from: { opacity: 0, y: -390, x: 1170, scale: 1.3, scrub: 1 },
+  //         to: {
+  //           opacity: 1,
+  //           y: 50,
+  //           x: 660,
+  //           scale: 0.7,
+  //           ease: "power3.out",
+  //           duration: 6.5,
+  //           scrub: 1,
+  //         },
+  //       },
+  //       to: {
+  //         opacity: 0,
+  //         y: 610,
+  //         x: 589,
+  //         scale: 0,
+  //         ease: "power3.inOut",
+  //         duration: 11.9,
+  //         scrub: ``,
+  //       },
+  //       scrollTrigger: {
+  //         start: "top -30%",
+  //         end: "bottom -30%",
+  //         duration: 3.5,
+  //         scrub: 5.6,
+  //       },
+  //     };
+  //   } else if (width <= 1700) {
+  //     props = {
+  //       fromTo: {
+  //         from: { opacity: 0, y: -390, x: 1170, scale: 1.3, scrub: 1 },
+  //         to: {
+  //           opacity: 1,
+  //           y: 50,
+  //           x: 660,
+  //           scale: 0.7,
+  //           ease: "power3.out",
+  //           duration: 3.5,
+  //           scrub: 1,
+  //         },
+  //       },
+  //       to: {
+  //         opacity: 0,
+  //         y: 590,
+  //         x: 600,
+  //         scale: 0,
+  //         ease: "power3.inOut",
+  //         duration: 3.9,
+  //         scrub: 1,
+  //       },
+  //       scrollTrigger: {
+  //         start: "top -20%",
+  //         end: "bottom -50%",
+  //         duration: 3.5,
+  //         scrub: 2.6,
+  //       },
+  //     };
+  //   } else if (width <= 1800) {
+  //     props = {
+  //       fromTo: {
+  //         from: { opacity: 0, y: -390, x: 1270, scale: 1.3, scrub: 1 },
+  //         to: {
+  //           opacity: 1,
+  //           y: 50,
+  //           x: 730,
+  //           scale: 0.7,
+  //           ease: "power3.out",
+  //           duration: 3.5,
+  //           scrub: 1,
+  //         },
+  //       },
+  //       to: {
+  //         opacity: 0,
+  //         y: 610,
+  //         x: 645,
+  //         scale: 0.1,
+  //         ease: "power3.inOut",
+  //         duration: 3.9,
+  //         scrub: 1,
+  //       },
+  //       scrollTrigger: {
+  //         start: "top -20%",
+  //         end: "bottom -50%",
+  //         duration: 3.5,
+  //         scrub: 1.6,
+  //       },
+  //     };
+  //   } else if (width <= 1920) {
+  //     props = {
+  //       fromTo: {
+  //         from: { opacity: 0, y: -390, x: 1550, scale: 1.3 },
+  //         to: {
+  //           opacity: 1,
+  //           y: 10,
+  //           x: 790,
+  //           scale: 1,
+  //           ease: "power3.out",
+  //           duration: 5.5,
+  //         },
+  //       },
+  //       to: {
+  //         opacity: 0,
+  //         y: 650,
+  //         x: 760,
+  //         scale: 0,
+  //         ease: "power3.inOut",
+  //         duration: 5.6,
+  //         scrub: 3.2,
+  //       },
+  //       scrollTrigger: { start: "top -20%", end: "bottom -70%", scrub: 1.2 },
+  //     };
+  //   }
 
-    return props;
-  };
-  useEffect(() => {
-    let width = window.innerWidth;
-    let animationProps = getAnimationProps1(width);
+  //   return props;
+  // };
+  // useEffect(() => {
+  //   let width = window.innerWidth;
+  //   let animationProps = getAnimationProps1(width);
 
-    // Create GSAP timeline
-    const tl = gsap
-      .timeline({
-        scrollTrigger: {
-          trigger: containerRefs1.current,
-          ...animationProps.scrollTrigger,
-          markers: false,
-        },
-      })
-      .fromTo(
-        logoRefs1.current,
-        animationProps.fromTo.from,
-        animationProps.fromTo.to
-      )
-      .to(logoRefs1.current, animationProps.to);
+  //   // Create GSAP timeline
+  //   const tl = gsap
+  //     .timeline({
+  //       scrollTrigger: {
+  //         trigger: containerRefs1.current,
+  //         ...animationProps.scrollTrigger,
+  //         markers: false,
+  //       },
+  //     })
+  //     .fromTo(
+  //       logoRefs1.current,
+  //       animationProps.fromTo.from,
+  //       animationProps.fromTo.to
+  //     )
+  //     .to(logoRefs1.current, animationProps.to);
 
-    // Handle resize to refresh animation with new props
-    let timeout;
-    const handleResize = () => {
-      clearTimeout(timeout);
-      timeout = setTimeout(() => {
-        width = window.innerWidth;
-        animationProps = getAnimationProps1(width);
-        // Kill only this animation's ScrollTrigger
-        if (tl.scrollTrigger) {
-          tl.scrollTrigger.kill();
-        }
-        // Create a new timeline
-        const newTl = gsap
-          .timeline({
-            scrollTrigger: {
-              trigger: containerRefs1.current,
-              ...animationProps.scrollTrigger,
-              markers: false,
-            },
-          })
-          .fromTo(
-            logoRefs1.current,
-            animationProps.fromTo.from,
-            animationProps.fromTo.to
-          )
-          .to(logoRefs1.current, animationProps.to);
-      }, 100);
-    };
+  //   // Handle resize to refresh animation with new props
+  //   let timeout;
+  //   const handleResize = () => {
+  //     clearTimeout(timeout);
+  //     timeout = setTimeout(() => {
+  //       width = window.innerWidth;
+  //       animationProps = getAnimationProps1(width);
+  //       // Kill only this animation's ScrollTrigger
+  //       if (tl.scrollTrigger) {
+  //         tl.scrollTrigger.kill();
+  //       }
+  //       // Create a new timeline
+  //       const newTl = gsap
+  //         .timeline({
+  //           scrollTrigger: {
+  //             trigger: containerRefs1.current,
+  //             ...animationProps.scrollTrigger,
+  //             markers: false,
+  //           },
+  //         })
+  //         .fromTo(
+  //           logoRefs1.current,
+  //           animationProps.fromTo.from,
+  //           animationProps.fromTo.to
+  //         )
+  //         .to(logoRefs1.current, animationProps.to);
+  //     }, 100);
+  //   };
 
-    window.addEventListener("resize", handleResize);
+  //   window.addEventListener("resize", handleResize);
 
-    // Cleanup
-    return () => {
-      if (tl.scrollTrigger) {
-        tl.scrollTrigger.kill();
-      }
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
+  //   // Cleanup
+  //   return () => {
+  //     if (tl.scrollTrigger) {
+  //       tl.scrollTrigger.kill();
+  //     }
+  //     window.removeEventListener("resize", handleResize);
+  //   };
+  // }, []);
 
   const blogsectionRef = useRef(null);
   const BlogimageRefs = useRef([]);
@@ -1217,139 +1432,139 @@ function Home() {
   const BlogBottomImageRefs = useRef([]);
   const BlogsBottomsectionRef = useRef(null);
   const Blogsection2Ref = useRef(null);
-  useEffect(() => {
-    if (!Blogs.length || loading) return; // Skip if Blogs is empty or still loading
+  // useEffect(() => {
+  //   if (!Blogs.length || loading) return; // Skip if Blogs is empty or still loading
 
-    const boxes = BlogsboxRefs.current;
-    const images = BlogimageRefs.current;
-    const bottomImages = BlogBottomImageRefs.current;
-    const logoO = BlogsBottomsectionRef.current;
+  //   const boxes = BlogsboxRefs.current;
+  //   const images = BlogimageRefs.current;
+  //   const bottomImages = BlogBottomImageRefs.current;
+  //   const logoO = BlogsBottomsectionRef.current;
 
-    // Customizable offsets for bottom images
-    const startOffset = { x: 230, y: -35 };
-    const endOffset = { x: 229, y: -24 };
+  //   // Customizable offsets for bottom images
+  //   const startOffset = { x: 230, y: -35 };
+  //   const endOffset = { x: 229, y: -24 };
 
-    // Create a GSAP context for easy cleanup
-    const ctx = gsap.context(() => {
-      // Animation for top images
-      images.forEach((img, index) => {
-        const box = boxes[index];
-        if (!box || !img) return;
+  //   // Create a GSAP context for easy cleanup
+  //   const ctx = gsap.context(() => {
+  //     // Animation for top images
+  //     images.forEach((img, index) => {
+  //       const box = boxes[index];
+  //       if (!box || !img) return;
 
-        const cardImg = box.querySelector("img.card-img-top");
-        if (!cardImg) return;
+  //       const cardImg = box.querySelector("img.card-img-top");
+  //       if (!cardImg) return;
 
-        const getOffsets = () => {
-          const cardImgRect = cardImg.getBoundingClientRect();
-          const imgRect = img.getBoundingClientRect();
-          const spacing = 13;
-          return {
-            x:
-              cardImgRect.right -
-              imgRect.width / 2 -
-              imgRect.left +
-              index * spacing,
-            y: cardImgRect.top - 180 + imgRect.height / 2 - imgRect.top,
-          };
-        };
+  //       const getOffsets = () => {
+  //         const cardImgRect = cardImg.getBoundingClientRect();
+  //         const imgRect = img.getBoundingClientRect();
+  //         const spacing = 13;
+  //         return {
+  //           x:
+  //             cardImgRect.right -
+  //             imgRect.width / 2 -
+  //             imgRect.left +
+  //             index * spacing,
+  //           y: cardImgRect.top - 180 + imgRect.height / 2 - imgRect.top,
+  //         };
+  //       };
 
-        gsap.fromTo(
-          img,
-          { x: 10, y: -145, scale: 1, opacity: 1, visibility: "hidden" },
-          {
-            x: () => getOffsets().x,
-            y: () => getOffsets().y,
-            scale: 1,
-            opacity: 1,
-            visibility: "visible",
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: blogsectionRef.current,
-              start: "top 50%",
-              end: "bottom center",
-              scrub: 1,
-              toggleActions: "play none none reverse", // Explicitly reverse on scroll up
-              onUpdate: (self) => {
-                const imgRect = img.getBoundingClientRect();
-                const boxRect = box.getBoundingClientRect();
-                const isInside =
-                  imgRect.top < boxRect.bottom && imgRect.bottom > boxRect.top;
-                box.style.backgroundColor = isInside ? "" : "";
-              },
-            },
-          }
-        );
-      });
+  //       gsap.fromTo(
+  //         img,
+  //         { x: 10, y: -145, scale: 1, opacity: 1, visibility: "hidden" },
+  //         {
+  //           x: () => getOffsets().x,
+  //           y: () => getOffsets().y,
+  //           scale: 1,
+  //           opacity: 1,
+  //           visibility: "visible",
+  //           ease: "power2.out",
+  //           scrollTrigger: {
+  //             trigger: blogsectionRef.current,
+  //             start: "top 50%",
+  //             end: "bottom center",
+  //             scrub: 1,
+  //             toggleActions: "play none none reverse", // Explicitly reverse on scroll up
+  //             onUpdate: (self) => {
+  //               const imgRect = img.getBoundingClientRect();
+  //               const boxRect = box.getBoundingClientRect();
+  //               const isInside =
+  //                 imgRect.top < boxRect.bottom && imgRect.bottom > boxRect.top;
+  //               box.style.backgroundColor = isInside ? "" : "";
+  //             },
+  //           },
+  //         }
+  //       );
+  //     });
 
-      // Animation for bottom images: Converge into the "O"
-      bottomImages.forEach((img, index) => {
-        if (!img || !logoO) return;
+  //     // Animation for bottom images: Converge into the "O"
+  //     bottomImages.forEach((img, index) => {
+  //       if (!img || !logoO) return;
 
-        const fadeOutDuration = 0.01;
+  //       const fadeOutDuration = 0.01;
 
-        const getOffsets = () => {
-          const imgRect = img.getBoundingClientRect();
-          const logoORect = logoO.getBoundingClientRect();
-          const targetX = logoORect.left + logoORect.width / 2 + endOffset.x;
-          const targetY = logoORect.top + logoORect.height / 2 + endOffset.y;
-          const imgCenterX = imgRect.left + imgRect.width / 2;
-          const imgCenterY = imgRect.top + imgRect.height / 2;
-          return {
-            x: targetX - imgCenterX,
-            y: targetY - imgCenterY,
-          };
-        };
+  //       const getOffsets = () => {
+  //         const imgRect = img.getBoundingClientRect();
+  //         const logoORect = logoO.getBoundingClientRect();
+  //         const targetX = logoORect.left + logoORect.width / 2 + endOffset.x;
+  //         const targetY = logoORect.top + logoORect.height / 2 + endOffset.y;
+  //         const imgCenterX = imgRect.left + imgRect.width / 2;
+  //         const imgCenterY = imgRect.top + imgRect.height / 2;
+  //         return {
+  //           x: targetX - imgCenterX,
+  //           y: targetY - imgCenterY,
+  //         };
+  //       };
 
-        gsap.fromTo(
-          img,
-          {
-            x: startOffset.x,
-            y: startOffset.y,
-            scale: 1,
-            opacity: 0.3,
-            visibility: "visible",
-          },
-          {
-            x: () => getOffsets().x,
-            y: () => getOffsets().y,
-            scale: 0.9,
-            opacity: 0,
-            visibility: "visible",
-            duration: 6.1,
-            ease: "sine.out",
-            scrollTrigger: {
-              trigger: Blogsection2Ref.current,
-              start: "top 90%", // Adjusted to avoid premature start
-              end: "bottom center+=370",
-              scrub: 3,
-              toggleActions: "play none none reverse", // Explicitly reverse on scroll up
-              onEnter: () => {
-                images.forEach((topImg) => {
-                  gsap.set(topImg, { visibility: "hidden", opacity: 0 });
-                  topImg.dataset.hidden = "true";
-                });
-                gsap.set(img, { visibility: "visible", opacity: 1 });
-              },
-            },
-            onComplete: () => {
-              gsap.to(img, {
-                opacity: 0,
-                visibility: "hidden",
-                duration: fadeOutDuration,
-                ease: "power2.in",
-                onComplete: () => {
-                  img.dataset.hidden = "true";
-                },
-              });
-            },
-          }
-        );
-      });
-    });
+  //       gsap.fromTo(
+  //         img,
+  //         {
+  //           x: startOffset.x,
+  //           y: startOffset.y,
+  //           scale: 1,
+  //           opacity: 0.3,
+  //           visibility: "visible",
+  //         },
+  //         {
+  //           x: () => getOffsets().x,
+  //           y: () => getOffsets().y,
+  //           scale: 0.9,
+  //           opacity: 0,
+  //           visibility: "visible",
+  //           duration: 6.1,
+  //           ease: "sine.out",
+  //           scrollTrigger: {
+  //             trigger: Blogsection2Ref.current,
+  //             start: "top 90%", // Adjusted to avoid premature start
+  //             end: "bottom center+=370",
+  //             scrub: 3,
+  //             toggleActions: "play none none reverse", // Explicitly reverse on scroll up
+  //             onEnter: () => {
+  //               images.forEach((topImg) => {
+  //                 gsap.set(topImg, { visibility: "hidden", opacity: 0 });
+  //                 topImg.dataset.hidden = "true";
+  //               });
+  //               gsap.set(img, { visibility: "visible", opacity: 1 });
+  //             },
+  //           },
+  //           onComplete: () => {
+  //             gsap.to(img, {
+  //               opacity: 0,
+  //               visibility: "hidden",
+  //               duration: fadeOutDuration,
+  //               ease: "power2.in",
+  //               onComplete: () => {
+  //                 img.dataset.hidden = "true";
+  //               },
+  //             });
+  //           },
+  //         }
+  //       );
+  //     });
+  //   });
 
-    // Cleanup on unmount or when Blogs changes
-    return () => ctx.revert();
-  }, [Blogs, loading]); // Include loading in dependencies
+  //   // Cleanup on unmount or when Blogs changes
+  //   return () => ctx.revert();
+  // }, [Blogs, loading]); // Include loading in dependencies
   const [selectedCity, setSelectedCity] = useState({ id: null, name: "City" });
   const [selectedProperty, setSelectedProperty] = useState({
     id: null,
@@ -1480,7 +1695,7 @@ function Home() {
             title: project.name || "Untitled Project",
             slug: generateSlug(project.name),
             price: project.tag_price
-              ? `₹ ${project.tag_price} `
+              ? `${project.tag_price} `
               : "Price on Request",
             size: project.pricing_layout[0]?.title || "",
             feet: project.pricing_layout[0]?.description || "",
@@ -1573,7 +1788,7 @@ function Home() {
             title: project.name || "Untitled Project",
             slug: generateSlug(project.name),
             price: project.tag_price
-              ? `₹ ${project.tag_price} `
+              ? `${project.tag_price} `
               : "Price on Request",
             size: project.pricing_layout[0]?.title || "",
             feet: project.pricing_layout[0]?.description || "",
@@ -1794,21 +2009,22 @@ const handleSearchInput = (query) => {
 
   return (
     <>
+<Helmet>
+        <title>
+          Real Estate Company | Property Dealer | Buy Property in India | SLOC
+        </title>
+        <meta
+          property="og:title"
+          content="Real Estate Company | Property Dealer | Buy Property in India | SLOC"
+        />
+        <meta
+          property="og:description"
+          content="SLOC is a leading real estate company and property dealer in India, offering expert services to help you invest in residential and commercial properties."
+        />
+      </Helmet>
       <main id="All">
       <ToastContainer />
-        <Helmet>
-          <title>
-            Real Estate Company | Property Dealer | Buy Property in India | SLOC
-          </title>
-          <meta
-            property="og:title"
-            content="Real Estate Company | Property Dealer | Buy Property in India | SLOC"
-          />
-          <meta
-            property="og:description"
-            content="SLOC is a leading real estate company and property dealer in India, offering expert services to help you invest in residential and commercial properties."
-          />
-        </Helmet>
+
 
         <section className="Main-banner mobile-bgp" data-speed="1.5">
           <Container>
@@ -1841,7 +2057,7 @@ const handleSearchInput = (query) => {
               </Col>
             </Row>
           </Container>
-          <div className="d-flex align-items-md-center searc-bar justify-content-between">
+          <div className="d-flex align-items-md-center searc-bar justify-content-center">
       <DropdownButton
         id="dropdown-city"
         title={selectedCity.name}
@@ -1956,7 +2172,8 @@ const handleSearchInput = (query) => {
     </div> */}
         </section>
 
-        <section ref={containerRefs} className="welcome">
+        {/* <section ref={containerRefs} className="welcome"> */}
+        <section className="welcome">
           {/* Blue SVG */}
           <svg
             className="Move move_logo"
@@ -1965,7 +2182,7 @@ const handleSearchInput = (query) => {
             viewBox="0 0 384 383"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            ref={logoRefs}
+            // ref={logoRefs}
             style={{
               position: "absolute",
               top: 0,
@@ -1992,7 +2209,7 @@ const handleSearchInput = (query) => {
                   src={Round}
                   alt="scroling"
                   className="scrol-top"
-                  ref={scrollImageRef}
+                  // ref={scrollImageRef}
                 />
                 <h2 className="same-head">WELCOME TO SLOC!</h2>
                 <p className="same-head-p">
@@ -2028,7 +2245,7 @@ const handleSearchInput = (query) => {
                   md={6}
                   lg={6}
                   className="only-right res"
-                  ref={welcomeTextRef}
+                  // ref={welcomeTextRef}
                 >
                   <Card>
                     <h3 className="text-primary">
@@ -2051,7 +2268,7 @@ const handleSearchInput = (query) => {
         </section>
 
         <section ref={section1Ref} className="featured">
-          <div className="featured-floating-imgs">
+          {/* <div className="featured-floating-imgs">
             <div className="image-stack">
               <img
                 ref={(el) => (imageRefs.current[0] = el)}
@@ -2072,7 +2289,7 @@ const handleSearchInput = (query) => {
                 alt="img3"
               />
             </div>
-          </div>
+          </div> */}
           <Container className="full">
             <Row className="mb-4 d-flex py-md-4 align-content-center">
               <Col md={8} className="align-content-center">
@@ -2118,7 +2335,7 @@ const handleSearchInput = (query) => {
                 {projects.map((project, index) => (
                   <SwiperSlide key={project.id}>
                     <Col className="features-list p-0 dip-column">
-                      {index < 3 && (
+                      {/* {index < 3 && (
                         <img
                           ref={(el) => (bottomImageRefs.current[index] = el)}
                           className="bottom-image"
@@ -2134,7 +2351,7 @@ const handleSearchInput = (query) => {
                             height: "auto",
                           }}
                         />
-                      )}
+                      )} */}
                       <Card
                         ref={(el) => (boxRefs.current[index] = el)}
                         className={`custom-card card-${index} box-${index}`}
@@ -2213,7 +2430,7 @@ const handleSearchInput = (query) => {
         </section>
 
         <section
-          ref={containerRefs1}
+          // ref={containerRefs1}
           className="social-proof position-relative"
         >
           <img className="Move" src={WelcomeLogo} ref={logoRefs1} />
@@ -2286,7 +2503,7 @@ const handleSearchInput = (query) => {
 
         <section className="featured blogs" ref={blogsectionRef}>
           <div className="featured-floating-imgs">
-            <div className="image-stack image-stack-1">
+            {/* <div className="image-stack image-stack-1">
               <img
                 ref={(el) => (BlogimageRefs.current[0] = el)}
                 className="initial-image"
@@ -2305,7 +2522,7 @@ const handleSearchInput = (query) => {
                 src={Logo1}
                 alt="img3"
               />
-            </div>
+            </div> */}
           </div>
           <Container>
             <Row className="mb-4 d-flex py-4 align-content-center">
@@ -2365,14 +2582,14 @@ const handleSearchInput = (query) => {
                     </Card.Body>
                   </Card>
                   {/* Add bottom images here */}
-                  <div className="botom-blog-index-set">
+                  {/* <div className="botom-blog-index-set">
                     <img
                       ref={(el) => (BlogBottomImageRefs.current[index] = el)}
                       className="bottom-image1"
                       src={Blogs.BlogImages || Logo1} // Use a relevant image
                       alt={`bottom-img-${Blogs.id}`}
                     />
-                  </div>
+                  </div> */}
                 </Col>
               ))}
             </Row>

@@ -49,7 +49,7 @@ import NextArrow from "../assets/Imgs/right.svg";
 import PrevArrow from "../assets/Imgs/left.svg";
 import { Accordion } from "react-bootstrap";
 import Char from "./Chart";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Instagram from "../assets/Imgs/ig.svg";
 import Facebook from "../assets/Imgs/facbook.svg";
 import linkdin from "../assets/Imgs/Linkdin.svg";
@@ -63,11 +63,15 @@ import { FaWhatsapp } from "react-icons/fa";
 import call from "../mobile/call.svg";
 import { Helmet } from "react-helmet";
 import { FiPhoneCall } from "react-icons/fi";
+import { fa } from "intl-tel-input/i18n";
 
 gsap.registerPlugin(ScrollTrigger);
 const isMobileView = () => window.innerWidth < 768;
 
 function project() {
+  // const currentPath = window.location.pathname + window.location.search; // Gets the path + query string, e.g., "/project/dlf-arbour?utm-source=test"
+  const currentPath = window.location.pathname + window.location.search;
+const encodedPath = encodeURIComponent(currentPath);
   const [isMobile, setIsMobile] = useState(isMobileView());
   const [loading, setLoading] = useState(false);
 
@@ -77,7 +81,7 @@ function project() {
     name: "",
     mobile: "",
     email: "",
-    agree: false,
+    agree: true,
   });
 
   const [errors, setErrors] = useState({
@@ -90,7 +94,7 @@ function project() {
     name: "",
     mobile: "",
     email: "",
-    agree: false,
+    agree: true,
   });
 
   const [errors1, setErrors1] = useState({
@@ -103,7 +107,7 @@ function project() {
     name: "",
     mobile: "",
     email: "",
-    agree: false,
+    agree: true,
   });
 
   const [errors2, setErrors2] = useState({
@@ -116,6 +120,7 @@ function project() {
   const phoneInputRef2 = useRef(null);
   const phoneInputRef = useRef(null);
   const intlTelInstance = useRef(null);
+  const intlTelInstance1 = useRef(null);
   const handleChange1 = (e) => {
     const { name, value, type, checked } = e.target;
 
@@ -178,14 +183,17 @@ function project() {
       newErrors.mobile = "Phone number is required";
       isValid = false;
     }
-    // else if (formData.mobile.length < 6 || formData.mobile.length > 10) {
-    //   newErrors.mobile = "Phone number must be between 6 and 10 digits";
-    //   isValid = false;
-    // }
+    else if (formData1.mobile.length < 6 || formData1.mobile.length > 15) {
+      newErrors.mobile = "Please enter a valid phone number";
+      isValid = false;
+    }
 
     // Check if email is entered (basic validation can be done here if needed)
     if (!formData1.email) {
       newErrors.email = "Email is required";
+      isValid = false;
+    } else if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(formData1.email)) {
+      newErrors.email = "Please enter a valid email address";
       isValid = false;
     }
 
@@ -216,8 +224,16 @@ function project() {
       newErrors.mobile = "Phone number is required";
       isValid = false;
     }
+    else if (formData2.mobile.length < 6 || formData2.mobile.length > 15) {
+      newErrors.mobile = "Please enter a valid phone number";
+      isValid = false;
+    }
+
     if (!formData2.email) {
       newErrors.email = "Email is required";
+      isValid = false;
+    } else if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(formData2.email)) {
+      newErrors.email = "Please enter a valid email address";
       isValid = false;
     }
     if (!formData2.agree) {
@@ -233,116 +249,301 @@ function project() {
   const apiToken =
     import.meta.env.VITE_API_TOKEN || "AzlrVK30FVdEx0TwrRwqYrQTL";
 
-  const [countryCode, setCountryCode] = useState("+91"); // Default to India
+  const [countryCode, setCountryCode] = useState(""); // Default to India
+  // useEffect(() => {
+  //   console.log("useEffect: Initializing intl-tel-input");
+  
+  //   if (phoneInputRef.current) {
+  //     import("intl-tel-input")
+  //       .then((intlTelInput) => {
+  //         console.log("intl-tel-input: Module loaded");
+  
+  //         intlTelInstance1.current = intlTelInput.default(phoneInputRef.current, {
+  //           initialCountry: "in",
+  //           separateDialCode: true,
+  //           utilsScript:
+  //             "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+  //         });
+  //         console.log("intl-tel-input: Initialized", intlTelInstance1.current);
+  
+  //         const updatePhoneNumber = () => {
+  //           console.log("updatePhoneNumber: Triggered");
+  //           const selectedCountryData = intlTelInstance1.current.getSelectedCountryData();
+  //           const rawInput = phoneInputRef.current.value || "";
+  
+  //           console.log("Selected country:", selectedCountryData);
+  //           console.log("Raw input:", rawInput);
+  
+  //           const newCountryCode = `+${selectedCountryData.dialCode}`;
+  //           setCountryCode(newCountryCode);
+  //           console.log("Country code updated to:", newCountryCode);
+  
+  //           const phoneNumber = rawInput.replace(/[^0-9]/g, "");
+  //           setFormData((prev) => ({
+  //             ...prev,
+  //             mobile: phoneNumber,
+  //           }));
+  //           console.log("formData.mobile updated to:", phoneNumber);
+  //         };
+  
+  //         // Initialize country code
+  //         updatePhoneNumber();
+  
+  //         // Add event listeners
+  //         phoneInputRef.current.addEventListener("countrychange", () => {
+  //           console.log("Event: countrychange fired");
+  //           updatePhoneNumber();
+  //         });
+  //         phoneInputRef.current.addEventListener("input", () => {
+  //           console.log("Event: input fired");
+  //           updatePhoneNumber();
+  //         });
+  
+  //         console.log("Event listeners added");
+  
+  //         // Cleanup
+  //         return () => {
+  //           console.log("Cleanup: Removing event listeners");
+  //           phoneInputRef.current.removeEventListener("countrychange", updatePhoneNumber);
+  //           phoneInputRef.current.removeEventListener("input", updatePhoneNumber);
+  //         };
+  //       })
+  //       .catch((error) => {
+  //         console.error("intl-tel-input: Failed to load", error);
+  //       });
+  
+  //     return () => {
+  //       if (intlTelInstance1.current) {
+  //         console.log("Cleanup: Destroying intl-tel-input");
+  //         intlTelInstance1.current.destroy();
+  //       }
+  //     };
+  //   } else {
+  //     console.warn("phoneInputRef: Not available");
+  //   }
+  // }, []);
+
+
 
   useEffect(() => {
+    console.log("useEffect: Initializing intl-tel-input");
+  
     if (phoneInputRef.current) {
-      import("intl-tel-input")
-        .then((intlTelInput) => {
-          intlTelInstance.current = intlTelInput.default(
-            phoneInputRef.current,
-            {
-              initialCountry: "in",
+      // Function to fetch country code based on user location
+      const getCountryCodeFromLocation = async () => {
+        try {
+          // Fallback to 'in' if location fetching fails
+          let countryCode = "in";
+  
+          // Use ipapi.co to get country code based on IP (no geolocation permission needed)
+          const response = await fetch("https://ipapi.co/json/");
+          const data = await response.json();
+          if (data && data.country_code) {
+            countryCode = data.country_code.toLowerCase();
+            console.log("Fetched country code from IP:", countryCode);
+          } else {
+            console.warn("No country code found, using fallback: in");
+          }
+  
+          return countryCode;
+        } catch (error) {
+          console.error("Failed to fetch country code:", error);
+          return "in"; // Fallback country code
+        }
+      };
+  
+      // Load intl-tel-input and initialize with dynamic country
+      getCountryCodeFromLocation().then((initialCountry) => {
+        import("intl-tel-input")
+          .then((intlTelInput) => {
+            console.log("intl-tel-input: Module loaded");
+  
+            intlTelInstance1.current = intlTelInput.default(phoneInputRef.current, {
+              initialCountry: initialCountry,
               separateDialCode: true,
               utilsScript:
                 "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
-            }
-          );
-
-          const updatePhoneNumber = () => {
-            const selectedCountryData =
-              intlTelInstance.current.getSelectedCountryData();
-            const rawInput = phoneInputRef.current.value || "";
-
-            setCountryCode(`+${selectedCountryData.dialCode}`);
-            setFormData((prev) => ({
-              ...prev,
-              mobile: rawInput.replace(/[^0-9]/g, ""),
-            }));
-          };
-
-          phoneInputRef.current.addEventListener("input", updatePhoneNumber);
-          phoneInputRef.current.addEventListener(
-            "countrychange",
-            updatePhoneNumber
-          );
-
-          // Set initial country code
-          updatePhoneNumber();
-
-          return () => {
-            phoneInputRef.current.removeEventListener(
-              "input",
-              updatePhoneNumber
-            );
-            phoneInputRef.current.removeEventListener(
-              "countrychange",
-              updatePhoneNumber
-            );
-          };
-        })
-        .catch((error) => {
-          console.error("Failed to load intl-tel-input:", error);
-        });
-
+            });
+            console.log("intl-tel-input: Initialized with country", initialCountry, intlTelInstance1.current);
+  
+            const updatePhoneNumber = () => {
+              console.log("updatePhoneNumber: Triggered");
+              const selectedCountryData = intlTelInstance1.current.getSelectedCountryData();
+              const rawInput = phoneInputRef.current.value || "";
+  
+              console.log("Selected country:", selectedCountryData);
+              console.log("Raw input:", rawInput);
+  
+              const newCountryCode = `+${selectedCountryData.dialCode}`;
+              setCountryCode(newCountryCode);
+              console.log("Country code updated to:", newCountryCode);
+  
+              const phoneNumber = rawInput.replace(/[^0-9]/g, "");
+              setFormData((prev) => ({
+                ...prev,
+                mobile: phoneNumber,
+              }));
+              console.log("formData.mobile updated to:", phoneNumber);
+            };
+  
+            // Initialize country code
+            updatePhoneNumber();
+  
+            // Add event listeners
+            phoneInputRef.current.addEventListener("countrychange", () => {
+              console.log("Event: countrychange fired");
+              updatePhoneNumber();
+            });
+            phoneInputRef.current.addEventListener("input", () => {
+              console.log("Event: input fired");
+              updatePhoneNumber();
+            });
+  
+            console.log("Event listeners added");
+  
+            // Cleanup event listeners
+            return () => {
+              console.log("Cleanup: Removing event listeners");
+              phoneInputRef.current.removeEventListener("countrychange", updatePhoneNumber);
+              phoneInputRef.current.removeEventListener("input", updatePhoneNumber);
+            };
+          })
+          .catch((error) => {
+            console.error("intl-tel-input: Failed to load", error);
+          });
+      });
+  
+      // Cleanup intl-tel-input instance
       return () => {
-        if (intlTelInstance.current) {
-          intlTelInstance.current.destroy();
+        if (intlTelInstance1.current) {
+          console.log("Cleanup: Destroying intl-tel-input");
+          intlTelInstance1.current.destroy();
         }
       };
+    } else {
+      console.warn("phoneInputRef: Not available");
     }
   }, []);
+  // useEffect(() => {
+  //   if (phoneInputRef1.current) {
+  //     import("intl-tel-input")
+  //       .then((intlTelInput) => {
+  //         intlTelInstance.current = intlTelInput.default(
+  //           phoneInputRef1.current,
+  //           {
+  //             initialCountry: "in",
+  //             separateDialCode: true,
+  //             utilsScript:
+  //               "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+  //           }
+  //         );
+
+  //         const updatePhoneNumber = () => {
+  //           const selectedCountryData =
+  //             intlTelInstance.current.getSelectedCountryData();
+  //           const rawInput = phoneInputRef1.current.value || "";
+
+  //           setCountryCode(`+${selectedCountryData.dialCode}`);
+  //           console.log("Country code set to:", `+${selectedCountryData.dialCode}`);
+  //           setFormData1((prev) => ({
+  //             ...prev,
+  //             mobile: rawInput.replace(/[^0-9]/g, ""),
+  //           }));
+  //         };
+
+  //         phoneInputRef1.current.addEventListener("input", updatePhoneNumber);
+  //         phoneInputRef1.current.addEventListener(
+  //           "countrychange",
+  //           updatePhoneNumber
+  //         );
+
+  //         // Set initial country code
+  //         updatePhoneNumber();
+
+  //         return () => {
+  //           phoneInputRef1.current.removeEventListener(
+  //             "input",
+  //             updatePhoneNumber
+  //           );
+  //           phoneInputRef1.current.removeEventListener(
+  //             "countrychange",
+  //             updatePhoneNumber
+  //           );
+  //         };
+  //       })
+  //       .catch((error) => {
+  //         console.error("Failed to load intl-tel-input:", error);
+  //       });
+
+  //     return () => {
+  //       if (intlTelInstance.current) {
+  //         intlTelInstance.current.destroy();
+  //       }
+  //     };
+  //   }
+  // }, []);
 
   useEffect(() => {
     if (phoneInputRef1.current) {
-      import("intl-tel-input")
-        .then((intlTelInput) => {
-          intlTelInstance.current = intlTelInput.default(
-            phoneInputRef1.current,
-            {
-              initialCountry: "in",
+      // Function to fetch country code based on user location
+      const getCountryCodeFromLocation = async () => {
+        try {
+          let countryCode = "in"; // Fallback to 'in' if fetching fails
+          const response = await fetch("https://ipapi.co/json/");
+          const data = await response.json();
+          if (data && data.country_code) {
+            countryCode = data.country_code.toLowerCase();
+            console.log("Fetched country code from IP:", countryCode);
+          } else {
+            console.warn("No country code found, using fallback: in");
+          }
+          return countryCode;
+        } catch (error) {
+          console.error("Failed to fetch country code:", error);
+          return "in"; // Fallback country code
+        }
+      };
+  
+      // Load intl-tel-input and initialize with dynamic country
+      getCountryCodeFromLocation().then((initialCountry) => {
+        import("intl-tel-input")
+          .then((intlTelInput) => {
+            intlTelInstance.current = intlTelInput.default(phoneInputRef1.current, {
+              initialCountry: initialCountry,
               separateDialCode: true,
               utilsScript:
                 "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
-            }
-          );
-
-          const updatePhoneNumber = () => {
-            const selectedCountryData =
-              intlTelInstance.current.getSelectedCountryData();
-            const rawInput = phoneInputRef1.current.value || "";
-
-            setCountryCode(`+${selectedCountryData.dialCode}`);
-            setFormData1((prev) => ({
-              ...prev,
-              mobile: rawInput.replace(/[^0-9]/g, ""),
-            }));
-          };
-
-          phoneInputRef1.current.addEventListener("input", updatePhoneNumber);
-          phoneInputRef1.current.addEventListener(
-            "countrychange",
-            updatePhoneNumber
-          );
-
-          // Set initial country code
-          updatePhoneNumber();
-
-          return () => {
-            phoneInputRef1.current.removeEventListener(
-              "input",
-              updatePhoneNumber
-            );
-            phoneInputRef1.current.removeEventListener(
-              "countrychange",
-              updatePhoneNumber
-            );
-          };
-        })
-        .catch((error) => {
-          console.error("Failed to load intl-tel-input:", error);
-        });
-
+            });
+            console.log("intl-tel-input: Initialized with country", initialCountry);
+  
+            const updatePhoneNumber = () => {
+              const selectedCountryData = intlTelInstance.current.getSelectedCountryData();
+              const rawInput = phoneInputRef1.current.value || "";
+  
+              setCountryCode(`+${selectedCountryData.dialCode}`);
+              console.log("Country code set to:", `+${selectedCountryData.dialCode}`);
+              setFormData1((prev) => ({
+                ...prev,
+                mobile: rawInput.replace(/[^0-9]/g, ""),
+              }));
+            };
+  
+            phoneInputRef1.current.addEventListener("input", updatePhoneNumber);
+            phoneInputRef1.current.addEventListener("countrychange", updatePhoneNumber);
+  
+            // Set initial country code
+            updatePhoneNumber();
+  
+            return () => {
+              phoneInputRef1.current.removeEventListener("input", updatePhoneNumber);
+              phoneInputRef1.current.removeEventListener("countrychange", updatePhoneNumber);
+            };
+          })
+          .catch((error) => {
+            console.error("Failed to load intl-tel-input:", error);
+          });
+      });
+  
       return () => {
         if (intlTelInstance.current) {
           intlTelInstance.current.destroy();
@@ -351,56 +552,124 @@ function project() {
     }
   }, []);
 
+  // useEffect(() => {
+  //   if (phoneInputRef2.current && fopen) {
+  //     import("intl-tel-input")
+  //       .then((intlTelInput) => {
+  //         intlTelInstance.current = intlTelInput.default(
+  //           phoneInputRef2.current,
+  //           {
+  //             initialCountry: "in",
+  //             separateDialCode: true,
+  //             utilsScript:
+  //               "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+  //           }
+  //         );
+
+  //         const updatePhoneNumber = () => {
+  //           const selectedCountryData =
+  //             intlTelInstance.current.getSelectedCountryData();
+  //           const rawInput = phoneInputRef2.current.value || "";
+
+  //           setCountryCode(`+${selectedCountryData.dialCode}`);
+  //           setFormData2((prev) => ({
+  //             ...prev,
+  //             mobile: rawInput.replace(/[^0-9]/g, ""),
+  //           }));
+  //         };
+
+  //         phoneInputRef2.current.addEventListener("input", updatePhoneNumber);
+  //         phoneInputRef2.current.addEventListener(
+  //           "countrychange",
+  //           updatePhoneNumber
+  //         );
+
+  //         // Set initial country code
+  //         updatePhoneNumber();
+
+  //         return () => {
+  //           phoneInputRef2.current.removeEventListener(
+  //             "input",
+  //             updatePhoneNumber
+  //           );
+  //           phoneInputRef2.current.removeEventListener(
+  //             "countrychange",
+  //             updatePhoneNumber
+  //           );
+  //         };
+  //       })
+  //       .catch((error) => {
+  //         console.error("Failed to load intl-tel-input:", error);
+  //       });
+
+  //     return () => {
+  //       if (intlTelInstance.current) {
+  //         intlTelInstance.current.destroy();
+  //       }
+  //     };
+  //   }
+  // }, [fopen]);
+
   useEffect(() => {
     if (phoneInputRef2.current && fopen) {
-      import("intl-tel-input")
-        .then((intlTelInput) => {
-          intlTelInstance.current = intlTelInput.default(
-            phoneInputRef2.current,
-            {
-              initialCountry: "in",
+      // Function to fetch country code based on user location
+      const getCountryCodeFromLocation = async () => {
+        try {
+          let countryCode = "in"; // Fallback to 'in' if fetching fails
+          const response = await fetch("https://ipapi.co/json/");
+          const data = await response.json();
+          if (data && data.country_code) {
+            countryCode = data.country_code.toLowerCase();
+            console.log("Fetched country code from IP:", countryCode);
+          } else {
+            console.warn("No country code found, using fallback: in");
+          }
+          return countryCode;
+        } catch (error) {
+          console.error("Failed to fetch country code:", error);
+          return "in"; // Fallback country code
+        }
+      };
+  
+      // Load intl-tel-input and initialize with dynamic country
+      getCountryCodeFromLocation().then((initialCountry) => {
+        import("intl-tel-input")
+          .then((intlTelInput) => {
+            intlTelInstance.current = intlTelInput.default(phoneInputRef2.current, {
+              initialCountry: initialCountry,
               separateDialCode: true,
               utilsScript:
                 "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
-            }
-          );
-
-          const updatePhoneNumber = () => {
-            const selectedCountryData =
-              intlTelInstance.current.getSelectedCountryData();
-            const rawInput = phoneInputRef2.current.value || "";
-
-            setCountryCode(`+${selectedCountryData.dialCode}`);
-            setFormData2((prev) => ({
-              ...prev,
-              mobile: rawInput.replace(/[^0-9]/g, ""),
-            }));
-          };
-
-          phoneInputRef2.current.addEventListener("input", updatePhoneNumber);
-          phoneInputRef2.current.addEventListener(
-            "countrychange",
-            updatePhoneNumber
-          );
-
-          // Set initial country code
-          updatePhoneNumber();
-
-          return () => {
-            phoneInputRef2.current.removeEventListener(
-              "input",
-              updatePhoneNumber
-            );
-            phoneInputRef2.current.removeEventListener(
-              "countrychange",
-              updatePhoneNumber
-            );
-          };
-        })
-        .catch((error) => {
-          console.error("Failed to load intl-tel-input:", error);
-        });
-
+            });
+            console.log("intl-tel-input: Initialized with country", initialCountry);
+  
+            const updatePhoneNumber = () => {
+              const selectedCountryData = intlTelInstance.current.getSelectedCountryData();
+              const rawInput = phoneInputRef2.current.value || "";
+  
+              setCountryCode(`+${selectedCountryData.dialCode}`);
+              setFormData2((prev) => ({
+                ...prev,
+                mobile: rawInput.replace(/[^0-9]/g, ""),
+              }));
+            };
+  
+            phoneInputRef2.current.addEventListener("input", updatePhoneNumber);
+            phoneInputRef2.current.addEventListener("countrychange", updatePhoneNumber);
+  
+            // Set initial country code
+            updatePhoneNumber();
+  
+            return () => {
+              phoneInputRef2.current.removeEventListener("input", updatePhoneNumber);
+              phoneInputRef2.current.removeEventListener("countrychange", updatePhoneNumber);
+            };
+          })
+          .catch((error) => {
+            console.error("Failed to load intl-tel-input:", error);
+          });
+      });
+  
       return () => {
         if (intlTelInstance.current) {
           intlTelInstance.current.destroy();
@@ -446,17 +715,23 @@ function project() {
       newErrors.mobile = "Phone number is required";
       isValid = false;
     }
-    // else if (formData.mobile.length < 6 || formData.mobile.length > 10) {
-    //   newErrors.mobile = "Phone number must be between 6 and 10 digits";
-    //   isValid = false;
-    // }
-
-    // Check if email is entered (basic validation can be done here if needed)
-    if (!formData.email) {
-      newErrors.email = "Email is required";
+    else if (formData.mobile.length < 6 || formData.mobile.length > 15) {
+      newErrors.mobile = "Please enter a valid phone number";
       isValid = false;
     }
 
+    // Check if email is entered (basic validation can be done here if needed)
+    // if (!formData.email) {
+    //   newErrors.email = "Email is required";
+    //   isValid = false;
+    // }
+    if (!formData.email) {
+      newErrors.email = "Email is required";
+      isValid = false;
+    } else if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(formData.email)) {
+      newErrors.email = "Please enter a valid email address";
+      isValid = false;
+    }
     // Check if the user agrees to the terms
     if (!formData.agree) {
       newErrors.agree = "You must agree to the terms";
@@ -466,18 +741,276 @@ function project() {
     setErrors(newErrors);
     return isValid;
   };
+  const navigate = useNavigate();
 
-  const handleSubmit1 = async (e) => {
+//   const handleSubmit1 = async (e) => {
+//     e.preventDefault();
+//     if (validateForm1()) {
+//     setLoading(true);
+//       console.log("Form is valid, submitting data:", formData1);
+//       const fullMobileNumber = `${countryCode}${formData1.mobile}`;
+// console.log('asajsdjkas',fullMobileNumber)
+//       // Extract project name from URL
+//       const url = window.location.href; // e.g., http://localhost:5173/project/godrej-miraya
+//       const projectSlugArray = url.split("/project/");
+//       const projectSlug = projectSlugArray[1] || "Unknown Project";
+
+//       // Format project name: remove hyphens, capitalize first letter of each word
+//       const projectName = projectSlug
+//         .split("-")
+//         .map(
+//           (word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+//         )
+//         .join(" ");
+//       console.log("Formatted projectName:", projectName);
+
+//       // 2. Contact Us API call
+//       const contactUsUrl = `${baseUrl}api/contact-us`;
+//       const contactUsResponse = await axios.post(
+//         contactUsUrl,
+//         {
+//           name: formData1.name,
+//           email: formData1.email,
+//           // mobile: fullMobileNumber,
+//           mobile: formData1.mobile,
+//         },
+//         {
+//           headers: {
+//             Authorization: `Bearer ${apiToken}`,
+//             "Content-Type": "application/json",
+//           },
+//         }
+//       );
+//       if (!contactUsResponse.data.success) {
+//         throw new Error(
+//           "Contact Us API failed: " +
+//             (contactUsResponse.data.message || "Unknown error")
+//         );
+//       }
+//       console.log("Contact Us API response:", contactUsResponse.data);
+//       // Prepare API URL with form data
+//       const apiUrl =
+//         `https://sloc.bitrix24.in/rest/1/s94cvkguwyrljt7f/crm.lead.add.json?` +
+//         `FIELDS[TITLE]=SLOC_Webform` +
+//         `&FIELDS[NAME]=${encodeURIComponent(formData1.name)}` +
+//         `&FIELDS[EMAIL][0][VALUE]=${formData1.email}` +
+//         `&FIELDS[PHONE][0][VALUE]=${fullMobileNumber}` +
+//         `&FIELDS[UF_CRM_1745260289]=${url}` +
+//         `&FIELDS[EMAIL][0][VALUE_TYPE]=WORK` +
+//         `&FIELDS[SOURCE_DESCRIPTION]=${projectName}` +
+//         `&FIELDS[SOURCE_ID]=UC_R2M98V`;
+//       // Make API call
+//       fetch(apiUrl, {
+//         method: "POST",
+//         headers: {
+//           "Content-Type": "application/json",
+//         },
+//       })
+//         .then((response) => response.json())
+//         .then((data) => {
+//           console.log("API response:", data);
+//           // Reset the form fields after successful submit
+//           setFormData1({
+//             name: "",
+//             mobile: "",
+//             email: "",
+//             agree: false,
+//           });
+//           setErrors1({}); // Clear any old errors
+//           // handleShow(); // Show success modal
+//           navigate("/thank-you", { state: { projectSlug } });
+//     setLoading(false);
+//         })
+//         .catch((error) => {
+//           console.error("API error:", error);
+//         });
+//     } else {
+//       console.log("Form has errors, not submitting");
+//     }
+//   };
+
+const handleSubmit1 = async (e) => {
+  e.preventDefault();
+  if (validateForm1()) {
+    setLoading(true);
+    console.log("Form is valid, submitting data:", formData1);
+    const fullMobileNumber = `${countryCode}${formData1.mobile}`;
+    console.log('asajsdjkas', fullMobileNumber);
+    // Extract project name and URL parts
+    const url = window.location.href; // e.g., http://localhost:5173/project/godrej-miraya?utm_source=...
+    const projectSlugArray = url.split("/project/");
+    const projectSlug = projectSlugArray[1]?.split("?")[0] || "Unknown Project"; // Get part before '?'
+
+    // Format project name: remove hyphens, capitalize first letter of each word
+    const projectName = projectSlug
+      .split("-")
+      .map(
+        (word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+      )
+      .join(" ");
+    console.log("Formatted projectName:", projectName);
+
+    // 2. Contact Us API call
+    const contactUsUrl = `${baseUrl}api/contact-us`;
+    const contactUsResponse = await axios.post(
+      contactUsUrl,
+      {
+        name: formData1.name,
+        email: formData1.email,
+        mobile: formData1.mobile,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${apiToken}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    if (!contactUsResponse.data.success) {
+      throw new Error(
+        "Contact Us API failed: " +
+          (contactUsResponse.data.message || "Unknown error")
+      );
+    }
+    console.log("Contact Us API response:", contactUsResponse.data);
+
+    // Prepare API URL with form data
+    const apiUrl =
+      `https://sloc.bitrix24.in/rest/1/s94cvkguwyrljt7f/crm.lead.add.json?` +
+      `FIELDS[TITLE]=SLOC_Webform` +
+      `&FIELDS[NAME]=${encodeURIComponent(formData1.name)}` +
+      `&FIELDS[EMAIL][0][VALUE]=${formData1.email}` +
+      `&FIELDS[EMAIL][0][VALUE_TYPE]=WORK` +
+      `&FIELDS[PHONE][0][VALUE]=${fullMobileNumber}` +
+      `&FIELDS[PHONE][0][VALUE_TYPE]=WORK` +
+      `&FIELDS[SOURCE_ID]=UC_R2M98V` +
+      `&FIELDS[SOURCE_DESCRIPTION]=${encodeURIComponent(projectName)}` +
+      `&FIELDS[UF_CRM_1745260289]=${encodeURIComponent(url)}`;
+
+    // Make API call
+    fetch(apiUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("API response:", data);
+        // Reset the form fields after successful submit
+        setFormData1({
+          name: "",
+          mobile: "",
+          email: "",
+          agree: false,
+        });
+        setErrors1({}); // Clear any old errors
+        navigate("/thank-you", { state: { projectSlug } });
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error("API error:", error);
+        setLoading(false);
+      });
+  } else {
+    console.log("Form has errors, not submitting");
+  }
+};
+
+  // const handleSubmit2 = async (e) => {
+  //   e.preventDefault();
+  //   if (validateForm2()) {
+  //   setLoading(true);
+  //     // Combine country code with mobile number for submission
+  //     const fullMobileNumber = `${countryCode}${formData2.mobile}`;
+
+  //     const url = window.location.href;
+  //     const projectSlugArray = url.split("/project/");
+  //     const projectSlug = projectSlugArray[1] || "Unknown Project";
+
+  //     const projectName = projectSlug
+  //       .split("-")
+  //       .map(
+  //         (word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+  //       )
+  //       .join(" ");
+  //     // 2. Contact Us API call
+  //     const contactUsUrl = `${baseUrl}api/contact-us`;
+  //     const contactUsResponse = await axios.post(
+  //       contactUsUrl,
+  //       {
+  //         name: formData2.name,
+  //         email: formData2.email,
+  //         // mobile: fullMobileNumber,
+  //         mobile: formData2.mobile,
+  //       },
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${apiToken}`,
+  //           "Content-Type": "application/json",
+  //         },
+  //       }
+  //     );
+  //     if (!contactUsResponse.data.success) {
+  //       throw new Error(
+  //         "Contact Us API failed: " +
+  //           (contactUsResponse.data.message || "Unknown error")
+  //       );
+  //     }
+  //     console.log("Contact Us API response:", contactUsResponse.data);
+
+  //     const apiUrl =
+  //       `https://sloc.bitrix24.in/rest/1/s94cvkguwyrljt7f/crm.lead.add.json?` +
+  //       `FIELDS[TITLE]=SLOC_Webform` +
+  //       `&FIELDS[NAME]=${formData2.name}` +
+  //       `&FIELDS[EMAIL][0][VALUE]=${formData2.email}` +
+  //       `&FIELDS[SOURCE_DESCRIPTION]=${projectName}` +
+  //       `&FIELDS[PHONE][0][VALUE]=${fullMobileNumber}` +
+  //       `&FIELDS[UF_CRM_1745260289]=${url}` +
+  //       `&FIELDS[EMAIL][0][VALUE_TYPE]=WORK` +
+  //       `&FIELDS[SOURCE_ID]=UC_R2M98V`;
+
+  //     fetch(apiUrl, {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //     })
+  //       .then((response) => response.json())
+  //       .then((data) => {
+  //         setFormData2({
+  //           name: "",
+  //           mobile: "",
+  //           email: "",
+  //           agree: false,
+  //         });
+  //         setErrors2({});
+  //         // open();
+  //         // handleShow();
+  //         navigate("/thank-you", { state: { projectSlug } });
+  //     setLoading(false);
+  //       })
+  //       .catch((error) => {
+  //         console.error("API error:", error);
+  //       });
+  //   }
+  // };
+
+
+  const handleSubmit2 = async (e) => {
     e.preventDefault();
-    if (validateForm1()) {
-      console.log("Form is valid, submitting data:", formData1);
-      const fullMobileNumber = `${countryCode}${formData1.mobile}`;
-
-      // Extract project name from URL
-      const url = window.location.href; // e.g., http://localhost:5173/project/godrej-miraya
+    if (validateForm2()) {
+      setLoading(true);
+      // Combine country code with mobile number for submission
+      const fullMobileNumber = `${countryCode}${formData2.mobile}`;
+      console.log('asajsdjkas', fullMobileNumber);
+      console.log("Form is valid, submitting data:", formData2);
+      // Extract project name and URL parts
+      const url = window.location.href; // e.g., http://localhost:5173/project/godrej-miraya?utm_source=...
+      console.log('//////////////////////', "url", url)
       const projectSlugArray = url.split("/project/");
-      const projectSlug = projectSlugArray[1] || "Unknown Project";
-
+      const projectSlug = projectSlugArray[1]?.split("?")[0] || "Unknown Project"; // Get part before '?'
+      console.log('//////////////////////', "projectSlug", projectSlug)
       // Format project name: remove hyphens, capitalize first letter of each word
       const projectName = projectSlug
         .split("-")
@@ -485,89 +1018,7 @@ function project() {
           (word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
         )
         .join(" ");
-      console.log("Formatted projectName:", projectName);
-
-      // 2. Contact Us API call
-      const contactUsUrl = `${baseUrl}api/contact-us`;
-      const contactUsResponse = await axios.post(
-        contactUsUrl,
-        {
-          name: formData1.name,
-          email: formData1.email,
-          // mobile: fullMobileNumber,
-          mobile: formData1.mobile,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${apiToken}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      if (!contactUsResponse.data.success) {
-        throw new Error(
-          "Contact Us API failed: " +
-            (contactUsResponse.data.message || "Unknown error")
-        );
-      }
-      console.log("Contact Us API response:", contactUsResponse.data);
-      // Prepare API URL with form data
-      const apiUrl =
-        `https://sloc.bitrix24.in/rest/1/s94cvkguwyrljt7f/crm.lead.add.json?` +
-        `FIELDS[TITLE]=SLOC_Webform` +
-        `&FIELDS[NAME]=${encodeURIComponent(formData1.name)}` +
-        `&FIELDS[EMAIL][0][VALUE]=${formData1.email}` +
-        `&FIELDS[EMAIL][0][VALUE_TYPE]=WORK` +
-        `&FIELDS[PHONE][0][VALUE]=${fullMobileNumber}` +
-        `&FIELDS[PHONE][0][VALUE_TYPE]=WORK` +
-        `&FIELDS[SOURCE_ID]=UC_R2M98V` +
-        `&FIELDS[SOURCE_DESCRIPTION]=${projectName}` +
-        `&FIELDS[UF_CRM_1745260289]=${url}`;
-
-      // Make API call
-      fetch(apiUrl, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          console.log("API response:", data);
-          // Reset the form fields after successful submit
-          setFormData1({
-            name: "",
-            mobile: "",
-            email: "",
-            agree: false,
-          });
-          setErrors1({}); // Clear any old errors
-          handleShow(); // Show success modal
-        })
-        .catch((error) => {
-          console.error("API error:", error);
-        });
-    } else {
-      console.log("Form has errors, not submitting");
-    }
-  };
-
-  const handleSubmit2 = async (e) => {
-    e.preventDefault();
-    if (validateForm2()) {
-      // Combine country code with mobile number for submission
-      const fullMobileNumber = `${countryCode}${formData2.mobile}`;
-
-      const url = window.location.href;
-      const projectSlugArray = url.split("/project/");
-      const projectSlug = projectSlugArray[1] || "Unknown Project";
-
-      const projectName = projectSlug
-        .split("-")
-        .map(
-          (word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
-        )
-        .join(" ");
+  
       // 2. Contact Us API call
       const contactUsUrl = `${baseUrl}api/contact-us`;
       const contactUsResponse = await axios.post(
@@ -575,7 +1026,6 @@ function project() {
         {
           name: formData2.name,
           email: formData2.email,
-          // mobile: fullMobileNumber,
           mobile: formData2.mobile,
         },
         {
@@ -592,18 +1042,21 @@ function project() {
         );
       }
       console.log("Contact Us API response:", contactUsResponse.data);
-
+  
+      // Prepare API URL with form data
       const apiUrl =
         `https://sloc.bitrix24.in/rest/1/s94cvkguwyrljt7f/crm.lead.add.json?` +
         `FIELDS[TITLE]=SLOC_Webform` +
-        `&FIELDS[NAME]=${formData2.name}` +
-        `&FIELDS[EMAIL][0][VALUE]=${formData2.email}` +
+        `&FIELDS[NAME]=${encodeURIComponent(formData2.name)}` +
+        `&FIELDS[EMAIL][0][VALUE]=${encodeURIComponent(formData2.email)}` +
         `&FIELDS[EMAIL][0][VALUE_TYPE]=WORK` +
-        `&FIELDS[PHONE][0][VALUE]=${fullMobileNumber}` +
+        `&FIELDS[PHONE][0][VALUE]=${(fullMobileNumber)}` +
         `&FIELDS[PHONE][0][VALUE_TYPE]=WORK` +
         `&FIELDS[SOURCE_ID]=UC_R2M98V` +
-        `&FIELDS[UF_CRM_1745260289]=${url}`;
-
+        `&FIELDS[SOURCE_DESCRIPTION]=${encodeURIComponent(projectName)}` +
+        `&FIELDS[UF_CRM_1745260289]=${encodeURIComponent(url)}`;
+  
+      // Make API call
       fetch(apiUrl, {
         method: "POST",
         headers: {
@@ -619,26 +1072,119 @@ function project() {
             agree: false,
           });
           setErrors2({});
-          open();
-          handleShow();
+          navigate("/thank-you", { state: { projectSlug } });
+          setLoading(false);
         })
         .catch((error) => {
           console.error("API error:", error);
+          setLoading(false);
         });
     }
   };
 
+
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   if (validateForm()) {
+  //   setLoading(true);
+  //     console.log("Form is valid, submitting data:", formData);
+  //     const fullMobileNumber = `${countryCode}${formData.mobile}`;
+  //     console.log("Full mobile number:", fullMobileNumber);
+  //     // Extract project name from URL
+  //     const url = window.location.href; // e.g., http://localhost:5173/project/godrej-miraya
+  //     const projectSlugArray = url.split("/project/");
+  //     const projectSlug = projectSlugArray[1] || "Unknown Project";
+
+  //     // Format project name: remove hyphens, capitalize first letter of each word
+  //     const projectName = projectSlug
+  //       .split("-")
+  //       .map(
+  //         (word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+  //       )
+  //       .join(" ");
+  //     console.log("Formatted projectName:", projectName);
+  //     // 2. Contact Us API call
+  //     const contactUsUrl = `${baseUrl}api/contact-us`;
+  //     const contactUsResponse = await axios.post(
+  //       contactUsUrl,
+  //       {
+  //         name: formData.name,
+  //         email: formData.email,
+  //         // mobile: fullMobileNumber,
+  //         mobile: formData.mobile,
+  //       },
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${apiToken}`,
+  //           "Content-Type": "application/json",
+  //         },
+  //       }
+  //     );
+  //     if (!contactUsResponse.data.success) {
+  //       throw new Error(
+  //         "Contact Us API failed: " +
+  //           (contactUsResponse.data.message || "Unknown error")
+  //       );
+  //     }
+  //     console.log("Contact Us API response:", contactUsResponse.data);
+
+  //     // Prepare API URL with form data
+  //     const apiUrl =
+  //       `https://sloc.bitrix24.in/rest/1/s94cvkguwyrljt7f/crm.lead.add.json?` +
+  //       `FIELDS[TITLE]=SLOC_Webform` +
+  //       `&FIELDS[NAME]=${encodeURIComponent(formData.name)}` +
+  //       `&FIELDS[EMAIL][0][VALUE]=${formData.email}` +
+  //       `&FIELDS[EMAIL][0][VALUE_TYPE]=WORK` +
+  //       `&FIELDS[PHONE][0][VALUE]=${fullMobileNumber}` +
+  //       `&FIELDS[PHONE][0][VALUE_TYPE]=WORK` +
+  //       `&FIELDS[SOURCE_ID]=UC_R2M98V` +
+  //       `&FIELDS[SOURCE_DESCRIPTION]=${projectName}` +
+  //       `&FIELDS[UF_CRM_1745260289]=${url}`;
+
+  //     // Make API call
+  //     fetch(apiUrl, {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //     })
+  //       .then((response) => response.json())
+  //       .then((data) => {
+  //         console.log("API response:", data);
+  //         // Reset the form fields after successful submit
+  //         setFormData({
+  //           name: "",
+  //           mobile: "",
+  //           email: "",
+  //           agree: false,
+  //         });
+  //         setErrors({}); // Clear any old errors
+  //         // handleShow(); // Open the modal
+  //         // navigate('/thank-you');
+  //         navigate("/thank-you", { state: { projectSlug } });
+  //   setLoading(false);
+  //       })
+  //       .catch((error) => {
+  //         console.error("API error:", error);
+  //       });
+  //   } else {
+  //     console.log("Form has errors, not submitting");
+  //   }
+  // };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (validateForm()) {
+      setLoading(true);
       console.log("Form is valid, submitting data:", formData);
       const fullMobileNumber = `${countryCode}${formData.mobile}`;
-
-      // Extract project name from URL
-      const url = window.location.href; // e.g., http://localhost:5173/project/godrej-miraya
+      console.log("Full mobile number:", fullMobileNumber);
+      // Extract project name and URL parts
+      const url = window.location.href; // e.g., http://localhost:5173/project/godrej-miraya?utm_source=...
+      console.log("Current URL:", url);
       const projectSlugArray = url.split("/project/");
-      const projectSlug = projectSlugArray[1] || "Unknown Project";
-
+      const projectSlug = projectSlugArray[1]?.split("?")[0] || "Unknown Project"; // Get part before '?'
+      console.log("Project slug:", projectSlug);
       // Format project name: remove hyphens, capitalize first letter of each word
       const projectName = projectSlug
         .split("-")
@@ -647,6 +1193,7 @@ function project() {
         )
         .join(" ");
       console.log("Formatted projectName:", projectName);
+      
       // 2. Contact Us API call
       const contactUsUrl = `${baseUrl}api/contact-us`;
       const contactUsResponse = await axios.post(
@@ -654,7 +1201,6 @@ function project() {
         {
           name: formData.name,
           email: formData.email,
-          // mobile: fullMobileNumber,
           mobile: formData.mobile,
         },
         {
@@ -671,7 +1217,7 @@ function project() {
         );
       }
       console.log("Contact Us API response:", contactUsResponse.data);
-
+  
       // Prepare API URL with form data
       const apiUrl =
         `https://sloc.bitrix24.in/rest/1/s94cvkguwyrljt7f/crm.lead.add.json?` +
@@ -682,9 +1228,9 @@ function project() {
         `&FIELDS[PHONE][0][VALUE]=${fullMobileNumber}` +
         `&FIELDS[PHONE][0][VALUE_TYPE]=WORK` +
         `&FIELDS[SOURCE_ID]=UC_R2M98V` +
-        `&FIELDS[SOURCE_DESCRIPTION]=${projectName}` +
-        `&FIELDS[UF_CRM_1745260289]=${url}`;
-
+        `&FIELDS[SOURCE_DESCRIPTION]=${encodeURIComponent(projectName)}` +
+        `&FIELDS[UF_CRM_1745260289]=${encodeURIComponent(url)}`; // Send full URL
+  
       // Make API call
       fetch(apiUrl, {
         method: "POST",
@@ -703,10 +1249,12 @@ function project() {
             agree: false,
           });
           setErrors({}); // Clear any old errors
-          handleShow(); // Open the modal
+          navigate("/thank-you", { state: { projectSlug } });
+          setLoading(false);
         })
         .catch((error) => {
           console.error("API error:", error);
+          setLoading(false);
         });
     } else {
       console.log("Form has errors, not submitting");
@@ -797,7 +1345,7 @@ function project() {
               title: projectData.name || "Untitled Project",
               slug: projectData.slug || generateSlug(projectData.name),
               price: projectData.tag_price
-                ? `₹ ${projectData.tag_price} `
+                ? `${projectData.tag_price} `
                 : "Price on Request",
               size: projectData.pricing_layout[0]?.title || "",
               feet: projectData.pricing_layout[0]?.description || "",
@@ -911,7 +1459,10 @@ function project() {
 
             <Modal.Body className="popup-body">
               <div className="form-set">
-                <h5>Enter details to schedule meeting</h5>
+                <div className="text-center">
+                <h5 className="new-text-projects">{project?.title}</h5>
+                <h5>Please Fill The Form Below:</h5>
+                </div>
                 <form onSubmit={handleSubmit2}>
                   <div className="mb-3">
                     <input
@@ -984,7 +1535,17 @@ function project() {
                 </form>
               </div>
             </Modal.Body>
+
           </div>
+          {loading && (
+                                      <div className="loader">
+                                        <img
+                                          src={gf}
+                                          style={{ width: "50px", height: "50px" }}
+                                          className="loderr"
+                                        />
+                                      </div>
+                                    )}
         </Modal>
 
         {/* Popup for form submit thanku msg */}
@@ -1074,9 +1635,9 @@ function project() {
                 {/* </a> */}
               </p>
             </div>
-            <div className="d-flex align-items-md-center searc-bar  justify-content-between">
+            <div className="d-flex align-items-md-center searc-bar  justify-content-center">
               <div className="form-set">
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit} className="enquiry-form">
                   <h5 className="m-0">Enquire Now</h5>
 
                   <div className="set-ww">
@@ -1104,36 +1665,25 @@ function project() {
                   </div>
 
                   <div className="input-group long-one">
-                    <input
-                      type="tel"
-                      className="form-control"
-                      placeholder="Enter Mobile Number"
-                      name="mobile"
-                      value={formData.mobile}
-                      ref={phoneInputRef}
-                      minLength={6}
-                      maxLength={15}
-                      onKeyPress={(e) => {
-                        // Allow only numeric input
-                        const isNumeric = /^[0-9]*$/.test(e.key);
-                        if (!isNumeric) {
-                          e.preventDefault();
-                        }
-                      }}
-                      onChange={(e) => {
-                        const value = e.target.value
-                          .replace(/[^0-9]/g, "")
-                          .slice(0, 15);
-                        setFormData((prev) => ({
-                          ...prev,
-                          mobile: value,
-                        }));
-                      }}
-                    />
-                    {errors.mobile && (
-                      <span className="text-danger">{errors.mobile}</span>
-                    )}
-                  </div>
+  <input
+    type="tel"
+    className="form-control"
+    placeholder="Enter Mobile Number"
+    name="mobile"
+    value={formData.mobile}
+    ref={phoneInputRef}
+    minLength={6}
+    maxLength={15}
+    onChange={(e) => {
+      const value = e.target.value.replace(/[^0-9]/g, ""); // Store only digits
+      setFormData((prev) => ({
+        ...prev,
+        mobile: value,
+      }));
+    }}
+  />
+  {errors.mobile && <span className="text-danger">{errors.mobile}</span>}
+</div>
 
                   <div className="set-ww">
                     <input
@@ -1202,7 +1752,7 @@ function project() {
           <Container className="py-md-5 mt-md-5">
             <Row className="mb-4 d-flex">
               <Col md={6} className="align-content-end head">
-                <img src={Round} alt="scroling" className="scrol-top" />
+                {/* <img src={Round} alt="scroling" className="scrol-top" /> */}
 
                 <h2
                   className="same-head"
@@ -1759,10 +2309,10 @@ function project() {
                   data-aos-easing="ease-in-sine"
                   data-aos-offset="10"
                   // onClick={close}
-                  href={`tel: ${project?.whatsapp_number}`}
+                  href={`tel: ${project?.calling_number}`}
                 >
                   {/* Contact us for More info */}
-                  Call Now +91{project?.whatsapp_number}
+                  Call Now {project?.calling_number}
                 </Button>
                 <img src={back} alt="" className="back-roll" />
               </Col>
@@ -1943,7 +2493,7 @@ function project() {
                             </Card.Text>
                             <Card.Title>{similarProject.name}</Card.Title>
                             <Card.Text className="text-primary font-weight-bold">
-                              ₹{similarProject.tag_price}{" "}
+                              {similarProject.tag_price}{" "}
                               {similarProject.tag_price
                                 ? ""
                                 : "Price on Request"}
@@ -2011,7 +2561,8 @@ function project() {
                 className="mb-4 mb-md-0 res-st wi align-content-center justify-content-center"
               >
                 <p className="my-3 rerera ">
-                  HARYANA RERA - HRERA-PKL-REA-3396-2025
+                  {/* HARYANA RERA - HRERA-PKL-REA-3396-2025 */}
+                {project?.state_rera_num_on_img}
                 </p>
               </Col>
 
@@ -2057,7 +2608,8 @@ function project() {
           </Container>
         </footer>
         <a
-          href={`https://api.whatsapp.com/send?phone=+91${project?.whatsapp_number || '9971094108'}&text=Hello,%20I%20want%20to%20know%20more%20about%20project%20${project?.title}.%20%7B${cleanedRoute}%7D`}
+          // href={`https://api.whatsapp.com/send?phone=+91${project?.whatsapp_number || '9971094108'}&text=Hello,%20I%20want%20to%20know%20more%20about%20project%20${project?.title}.%20%7B${cleanedRoute}%7D`}
+          href={`https://api.whatsapp.com/send?phone=${project?.whatsapp_number || '9971094108'}&text=Hello,%20I%20want%20to%20know%20more%20about%20project%20${project?.title}.%0D%0A%0A(${encodedPath})`}
           target="_blank"
           rel="noopener noreferrer"
           className="prnav desktop-visible"
@@ -2084,7 +2636,7 @@ function project() {
           <FaWhatsapp />
         </a>
         <a
-          href={`tel:+91${project?.calling_number}`}
+          href={`tel:${project?.calling_number}`}
           target="_blank"
           className="calling prnav desktop-visible"
           rel="noopener noreferrer"
@@ -2111,8 +2663,7 @@ function project() {
         </a>
 
         <a
- href={`https://api.whatsapp.com/send?phone=+91${project?.whatsapp_number || '9971094108'}&text=Hello,%20I%20want%20to%20know%20more%20about%20project%20${project?.title}.%20%7B${cleanedRoute}%7D`}
-
+          href={`https://api.whatsapp.com/send?phone=${project?.whatsapp_number || '9971094108'}&text=Hello,%20I%20want%20to%20know%20more%20about%20project%20${project?.title}.%0D%0A%0A(${encodedPath})`}
           target="_blank"
           rel="noopener noreferrer"
           className="mobilek"
@@ -2140,7 +2691,7 @@ function project() {
         </a>
 
         <a
-          href={`tel:+91${project?.calling_number}`}
+          href={`tel:${project?.calling_number}`}
           target="_blank"
           className="calling mobilek"
           rel="noopener noreferrer"
