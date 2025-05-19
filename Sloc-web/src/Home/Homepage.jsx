@@ -7,7 +7,6 @@ import Search from "../assets/Imgs/Search.svg";
 import { Card } from "react-bootstrap";
 import { toast } from 'react-toastify';
 import { ToastContainer } from 'react-toastify';
-
 import {
   Form,
   Button,
@@ -45,13 +44,6 @@ import BottomImg3 from "../assets/Imgs/Group (3).svg";
 import BottomImg4 from "../assets/Imgs/Group (3).svg";
 import BottomImg11 from "../assets/Imgs/image.svg";
 import Logo from "../assets/Imgs/back-scrol.png";
-import {
-  FaTwitter,
-  FaFacebook,
-  FaInstagram,
-  FaSnapchat,
-  FaTelegram,
-} from "react-icons/fa";
 import Instagram from "../assets/Imgs/ig.svg";
 import Facebook from "../assets/Imgs/facbook.svg";
 import linkdin from "../assets/Imgs/Linkdin.svg";
@@ -124,17 +116,15 @@ const Blogs = [
   },
 ];
 gsap.registerPlugin(ScrollTrigger);
-
 function Home() {
+  const [isFocused, setIsFocused] = useState(false);
   const [Blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const stripHtmlAndTruncate = (html, maxLength = 100) => {
     if (!html) return "No description available";
-
     // Remove HTML tags
     const plainText = html.replace(/<[^>]+>/g, "");
-
     // Remove extra whitespace and truncate
     const trimmedText = plainText.replace(/\s+/g, " ").trim();
     return trimmedText.length > maxLength
@@ -154,7 +144,6 @@ function Home() {
     const baseUrl =
       import.meta.env.VITE_BASE_URL || "https://default-api-url.com/";
     const apiUrl = `${baseUrl}api/blogs`;
-
     axios
       .get(apiUrl, {
         headers: {
@@ -165,11 +154,9 @@ function Home() {
         if (response.data.success) {
           console.log("Blogs fetched successfully:", response.data.data);
           const apiBlogs = response.data.data;
-
           const showBlogs = apiBlogs.filter(
             (blog) => blog.show_on_homepage === 1
           );
-
           // Map API response to the required blog structure
           const mappedBlogs = showBlogs.map((blog, index) => ({
             id: blog.id || `blog-${index + 1}`, // Use API id or fallback
@@ -193,7 +180,6 @@ function Home() {
             BlogImage: BottomImg1, // Static fallback
             BlogImages: BottomImg11, // Static fallback
           }));
-
           setBlogs(mappedBlogs);
         } else {
           throw new Error("API response was not successful");
@@ -209,7 +195,6 @@ function Home() {
         setLoading(false);
       });
   }, []);
-
   useEffect(() => {
     // Simulate a click on the "scroll-to-top" button when the page loads
     const scrollButton = document.getElementById("scroll-to-top-btn");
@@ -217,7 +202,6 @@ function Home() {
       scrollButton.click(); // Simulate click
     }
   }, []); // Only run once on component mount
-
   const [projects, setProjects] = useState([]);
   const [apiProjectsCount, setApiProjectsCount] = useState(0);
   const [filteredProjects, setFilteredProjects] = useState([]);
@@ -230,58 +214,10 @@ function Home() {
           .replace(/(^-|-$)/g, "") // Remove leading/trailing hyphens
       : "untitled-project"; // Fallback slug
   };
-  // const debouncedSearch = debounce((query) => {
-  //   if (query.trim() === "") {
-  //     setFilteredProjects([]);
-  //   } else {
-  //     const matches = projects.filter((project) =>
-  //       project.title.toLowerCase().includes(query.toLowerCase())
-  //     );
-  //     setFilteredProjects(matches);
-  //   }
-  // }, 300); // 300ms debounce time
-
-
-  // const debouncedSearch = debounce((query, city, property) => {
-  //   console.log("debouncedSearch called with:", {
-  //     query,
-  //     city: city ? { id: city.id, name: city.name } : null,
-  //     property: property ? { id: property.id, name: property.name } : null,
-  //   });
-
-  //   console.log("Projects before filtering:", projects);
-
-  //   const filtered = projects.filter((project) => {
-  //     const matchesQuery = query
-  //       ? project.title.toLowerCase().includes(query.toLowerCase())
-  //       : true;
-  //     const matchesCity = city.id ? project.city_id === city.id : true;
-  //     const matchesProperty = property.id ? project.property_type_id === property.id : true;
-
-  //     console.log(`Filtering project: ${project.title}`, {
-  //       matchesQuery,
-  //       matchesCity,
-  //       matchesProperty,
-  //       projectDetails: project, // Log full project to identify field names
-  //     });
-
-  //     return matchesQuery && matchesCity && matchesProperty;
-  //   });
-
-  //   console.log("Filtered projects:", filtered);
-  //   setFilteredProjects(filtered);
-  // }, 300);
-  // const handleSearchInputChange = (e) => {
-  //   const query = e.target.value;
-  //   setSearchQuery(query);
-  //   console.log("handleSearchInputChange called with query:", query);
-  //   debouncedSearch(query, selectedCity, selectedProperty);
-  // };
   useEffect(() => {
     const baseUrl =
       import.meta.env.VITE_BASE_URL || "https://default-api-url.com/";
     const apiUrl = `${baseUrl}api/projects`;
-
     axios
       .get(apiUrl, {
         headers: {
@@ -293,12 +229,10 @@ function Home() {
           console.log("Projects fetched successfully:", response.data.data);
           const apiProjects = response.data.data;
           setApiProjectsCount(apiProjects.length);
-
           // Filter projects where is_exclusive === 1
           const exclusiveProjects = apiProjects.filter(
             (project) => project.is_exclusive === 1
           );
-
           const mappedApiProjects = exclusiveProjects.map((project, index) => ({
             id: project.id,
             title: project.name || "Untitled Project",
@@ -312,14 +246,13 @@ function Home() {
           propertyType: project.property?.name || "", // Use property name
             location: project.property.name || "",
             image:
-              project.hero_img_original ||
+              project.hero_img ||
               "https://admin.sloc.in/public/feature_image/1745472810_f1.png",
             bottomImage:
               [BottomImg1, BottomImg2, BottomImg3, BottomImg4][index % 4] ||
               BottomImg1,
             sectors: project.sectors || "",
           }));
-
           const combinedProjects = [...mappedApiProjects];
           setProjects(combinedProjects);
         }
@@ -328,1243 +261,22 @@ function Home() {
         console.error("Error fetching projects:", error);
       })
       .finally(() => {
-        // setLoading(false); // Uncomment if you have a loading state
       });
   }, []);
-  // 1. Welcome to SLOC section animation
-  // const containerRefs = useRef(null);
-  // const logoRefs = useRef(null); // Transparent SVG
-  // const scrollImageRef = useRef(null);
-  // const welcomeTextRef = useRef(null);
-
-  // const getAnimationProps = (width) => {
-  //   // Default values for larger screens (>1920px)
-  //   let props = {
-  //     logoFrom: { opacity: 0, y: -160, x: 160, scale: 0.9 },
-  //     logoTo1: { opacity: 1, y: 50, x: -300, scale: 0.6, duration: 1 },
-  //     scrollImageTo: { opacity: 0, duration: 0.2 },
-  //     pathsTo: { fill: "#c1d1e0", stroke: "#c1d1e0", duration: 0.6 },
-  //     logoTo2: { y: 460, x: 100, scale: 0.1, duration: 2.5 },
-  //     logoTo3: { opacity: 0, duration: 0.5 },
-  //     scrollTrigger: { start: "top center", end: "bottom center", scrub: 0.5 },
-  //   };
-
-  //   if (width <= 320) {
-  //     props = {
-  //       logoFrom: { opacity: 0, y: -80, x: 0, scale: 0.8 },
-  //       logoTo1: {
-  //         opacity: 1,
-  //         y: 650,
-  //         x: 0,
-  //         scale: 0.5,
-  //         duration: 21,
-  //         scrub: 1.2,
-  //       },
-  //       scrollImageTo: { opacity: 0, duration: 0.15 },
-  //       pathsTo: { fill: "#c1d1e0", stroke: "#c1d1e0", duration: 2.5 },
-  //       logoTo2: { y: 966, x: -39, scale: 0.1, duration: 29 },
-  //       logoTo3: { opacity: 0, duration: 0.1 },
-  //       scrollTrigger: { start: "top 30%", end: "bottom 77.6%", scrub: 1.2 },
-  //     };
-  //   } else if (width <= 370) {
-  //     props = {
-  //       logoFrom: { opacity: 0, y: -80, x: 0, scale: 0.8 },
-  //       logoTo1: {
-  //         opacity: 1,
-  //         y: 650,
-  //         x: 0,
-  //         scale: 0.5,
-  //         duration: 21,
-  //         scrub: 1.2,
-  //       },
-  //       scrollImageTo: { opacity: 0, duration: 0.15 },
-  //       pathsTo: { fill: "#c1d1e0", stroke: "#c1d1e0", duration: 2.5 },
-  //       logoTo2: { y: 966, x: -39, scale: 0.1, duration: 29 },
-  //       logoTo3: { opacity: 0, duration: 0.1 },
-  //       scrollTrigger: { start: "top 30%", end: "bottom 77.6%", scrub: 1.2 },
-  //     };
-  //   } else if (width <= 425) {
-  //     props = {
-  //       logoFrom: { opacity: 0, y: -80, x: 0, scale: 0.8 },
-  //       logoTo1: {
-  //         opacity: 1,
-  //         y: 650,
-  //         x: 0,
-  //         scale: 0.5,
-  //         duration: 21,
-  //         scrub: 1.2,
-  //       },
-  //       scrollImageTo: { opacity: 0, duration: 0.15 },
-  //       pathsTo: { fill: "#c1d1e0", stroke: "#c1d1e0", duration: 2.5 },
-  //       logoTo2: { y: 966, x: -39, scale: 0.1, duration: 29 },
-  //       logoTo3: { opacity: 0, duration: 0.1 },
-  //       scrollTrigger: { start: "top 30%", end: "bottom 77.6%", scrub: 1.2 },
-  //     };
-  //   } else if (width <= 574) {
-  //     props = {
-  //       logoFrom: { opacity: 0, y: -100, x: 100, scale: 0.85 },
-  //       logoTo1: { opacity: 1, y: 30, x: 120, scale: 0.55, duration: 0.9 },
-  //       scrollImageTo: { opacity: 0, duration: 0.18 },
-  //       pathsTo: { fill: "#c1d1e0", stroke: "#c1d1e0", duration: 0.55 },
-  //       logoTo2: { y: 910, x: 39, scale: 0.1, duration: 15 },
-  //       logoTo3: { opacity: 0, duration: 0.45 },
-  //       scrollTrigger: { start: "top 69%", end: "bottom 79%", scrub: 0.4 },
-  //     };
-  //   } else if (width <= 991) {
-  //     props = {
-  //       logoFrom: { opacity: 0, y: -140, x: 340, scale: 0.9 },
-  //       logoTo1: { opacity: 1, y: 45, x: 350, scale: 0.58, duration: 1 },
-  //       scrollImageTo: { opacity: 0, duration: 0.2 },
-  //       pathsTo: { fill: "#c1d1e0", stroke: "#c1d1e0", duration: 0.6 },
-  //       logoTo2: { y: 485, x: 250, scale: 0.1, duration: 3.6 },
-  //       logoTo3: { opacity: 0, duration: 0.5 },
-  //       scrollTrigger: { start: "top 65%", end: "bottom 61%", scrub: 0.5 },
-  //     };
-  //   } else if (width <= 1100) {
-  //     props = {
-  //       logoFrom: { opacity: 0, y: -140, x: 140, scale: 0.9 },
-  //       logoTo1: { opacity: 1, y: 45, x: 200, scale: 0.58, duration: 1 },
-  //       scrollImageTo: { opacity: 0, duration: 0.2 },
-  //       pathsTo: { fill: "#c1d1e0", stroke: "#c1d1e0", duration: 0.6 },
-  //       logoTo2: { y: 330, x: 306, scale: 0.1, duration: 5.6 },
-  //       logoTo3: { opacity: 0, duration: 0.5 },
-  //       scrollTrigger: { start: "top 65%", end: "bottom 49%", scrub: 0.5 },
-  //     };
-  //   } else if (width <= 1400) {
-  //     props = {
-  //       logoFrom: { opacity: 0, y: -150, x: 150, scale: 0.9 },
-  //       logoTo1: { opacity: 1, y: 48, x: 250, scale: 0.6, duration: 1 },
-  //       scrollImageTo: { opacity: 0, duration: 0.2 },
-  //       pathsTo: { fill: "#c1d1e0", stroke: "#c1d1e0", duration: 0.6 },
-  //       logoTo2: { y: 415, x: 470, scale: 0.1, duration: 2.6 },
-  //       logoTo3: { opacity: 0, duration: 0.5 },
-  //       scrollTrigger: { start: "top 60%", end: "bottom 40%", scrub: 1 },
-  //     };
-  //   } else if (width <= 1600) {
-  //     props = {
-  //       logoFrom: { opacity: 0, y: -155, x: 155, scale: 0.9, scrub: 1 },
-  //       logoTo1: {
-  //         opacity: 1,
-  //         y: 50,
-  //         x: 280,
-  //         scale: 0.6,
-  //         duration: 1,
-  //         scrub: 1,
-  //       },
-  //       scrollImageTo: { opacity: 0, duration: 1.1, scrub: 1 },
-  //       pathsTo: { fill: "#c1d1e0", stroke: "#c1d1e0", scrub: 3 },
-  //       logoTo2: { y: 480, x: 561, scale: 0.1, duration: 4.6 },
-  //       logoTo3: { opacity: 0, duration: 0.5 },
-  //       scrollTrigger: {
-  //         start: "top 75%",
-  //         end: "bottom 52%",
-  //         ease: "power3.out",
-  //         scrub: 2.3,
-  //       },
-  //     };
-  //   } else if (width <= 1750) {
-  //     props = {
-  //       logoFrom: { opacity: 0, y: -155, x: 155, scale: 0.9, scrub: 1 },
-  //       logoTo1: {
-  //         opacity: 1,
-  //         y: 50,
-  //         x: 280,
-  //         scale: 0.6,
-  //         duration: 1,
-  //         scrub: 1,
-  //       },
-  //       scrollImageTo: { opacity: 0, duration: 1.1, scrub: 1 },
-  //       pathsTo: { fill: "#c1d1e0", stroke: "#c1d1e0", scrub: 3 },
-  //       logoTo2: { y: 479, x: 625, scale: 0.1, duration: 4.6 },
-  //       logoTo3: { opacity: 0, duration: 0.5 },
-  //       scrollTrigger: {
-  //         start: "top 75%",
-  //         end: "bottom 50%",
-  //         ease: "power3.out",
-  //         scrub: 2.3,
-  //       },
-  //     };
-  //   } else if (width <= 1800) {
-  //     props = {
-  //       logoFrom: { opacity: 0, y: -155, x: 155, scale: 0.9, scrub: 1 },
-  //       logoTo1: {
-  //         opacity: 1,
-  //         y: 50,
-  //         x: 280,
-  //         scale: 0.6,
-  //         duration: 1,
-  //         scrub: 1,
-  //       },
-  //       scrollImageTo: { opacity: 0, duration: 1.1, scrub: 1 },
-  //       pathsTo: { fill: "#c1d1e0", stroke: "#c1d1e0", scrub: 3 },
-  //       logoTo2: { y: 483, x: 650, scale: 0.1, duration: 4.6 },
-  //       logoTo3: { opacity: 0, duration: 0.5 },
-  //       scrollTrigger: {
-  //         start: "top 75%",
-  //         end: "bottom 48%",
-  //         ease: "power3.out",
-  //         scrub: 2.3,
-  //       },
-  //     };
-  //   } else if (width <= 1920) {
-  //     props = {
-  //       logoFrom: { opacity: 0, y: -160, x: 110, scale: 0.9 },
-  //       logoTo1: { opacity: 1, y: 50, x: 300, scale: 0.6, duration: 1 },
-  //       scrollImageTo: { opacity: 0, duration: 0.2 },
-  //       pathsTo: { fill: "#c1d1e0", stroke: "#c1d1e0", duration: 0.6 },
-  //       logoTo2: { y: 500, x: 725, scale: 0.1, duration: 3.2 },
-  //       logoTo3: { opacity: 0, duration: 0.5 },
-  //       scrollTrigger: { start: "top center", end: "bottom 43%", scrub: 0.5 },
-  //     };
-  //   }
-
-  //   return props;
-  // };
-
-  // useEffect(() => {
-  //   // Ensure logoRefs exists
-  //   const paths = logoRefs.current?.querySelectorAll("path");
-  //   if (!paths || paths.length === 0) {
-  //     console.warn("No paths found in logoRefs");
-  //     return;
-  //   }
-
-  //   // Set initial faded color using GSAP to avoid FOUC
-  //   gsap.set(paths, {
-  //     fill: "#b3b3b3",
-  //     stroke: "#b3b3b3",
-  //   });
-
-  //   // Function to create or update animation
-  //   const createAnimation = () => {
-  //     // Get current width
-  //     const width = window.innerWidth;
-  //     const props = getAnimationProps(width);
-
-  //     // Kill existing ScrollTriggers to avoid duplicates
-  //     ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-
-  //     // GSAP Timeline with ScrollTrigger
-  //     const tl = gsap
-  //       .timeline({
-  //         scrollTrigger: {
-  //           trigger: containerRefs.current,
-  //           ...props.scrollTrigger,
-  //           anticipatePin: 1,
-  //           fastScrollEnd: true,
-  //           markers: false,
-  //         },
-  //       })
-  //       .fromTo(logoRefs.current, props.logoFrom, {
-  //         ...props.logoTo1,
-  //         ease: "power3.out",
-  //         willChange: "transform, opacity",
-  //       })
-  //       .to(
-  //         scrollImageRef.current,
-  //         {
-  //           ...props.scrollImageTo,
-  //           ease: "power3.out",
-  //         },
-  //         "-=1"
-  //       )
-  //       .to(
-  //         paths,
-  //         {
-  //           ...props.pathsTo,
-  //           ease: "sine.out",
-  //         },
-  //         "-=1"
-  //       )
-  //       .to(
-  //         logoRefs.current,
-  //         {
-  //           ...props.logoTo2,
-  //           ease: "power3.inOut",
-  //         },
-  //         "-=0.4"
-  //       )
-  //       .to(
-  //         logoRefs.current,
-  //         {
-  //           ...props.logoTo3,
-  //           ease: "sine.out",
-  //         },
-  //         "-=1.1"
-  //       );
-
-  //     return tl;
-  //   };
-
-  //   // Initial animation
-  //   let tl = createAnimation();
-
-  //   // Optimized resize handler
-  //   let timeout;
-  //   const handleResize = () => {
-  //     clearTimeout(timeout);
-  //     timeout = setTimeout(() => {
-  //       tl.kill(); // Kill existing timeline
-  //       ScrollTrigger.refresh(); // Refresh ScrollTrigger
-  //       tl = createAnimation(); // Recreate animation with new props
-  //     }, 200);
-  //   };
-  //   window.addEventListener("resize", handleResize);
-
-  //   // Cleanup
-  //   return () => {
-  //     tl.kill();
-  //     ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-  //     window.removeEventListener("resize", handleResize);
-  //   };
-  // }, []);
-
   const section1Ref = useRef(null);
   const section2Ref = useRef(null);
   const imageRefs = useRef([]);
   const boxRefs = useRef([]);
   const bottomImageRefs = useRef([]);
   const section2ImageRef = useRef(null);
-//  commenetd on 7th of may
-  // useEffect(() => {
-  //   // Configure ScrollTrigger
-  //   ScrollTrigger.config({ limitCallbacks: true, syncInterval: 100 });
-
-  //   // Only enable normalizeScroll for mobile
-  //   const isMobile = window.matchMedia("(max-width: 768px)").matches;
-  //   ScrollTrigger.normalizeScroll(isMobile);
-
-  //   // Exit early if projects or refs aren't ready
-  //   if (
-  //     !projects.length ||
-  //     !boxRefs.current ||
-  //     !imageRefs.current ||
-  //     !bottomImageRefs.current ||
-  //     !section2ImageRef.current ||
-  //     boxRefs.current.length < projects.length
-  //   ) {
-  //     console.log("Animation setup skipped: Waiting for projects or refs", {
-  //       projectsLength: projects.length,
-  //       boxesLength: boxRefs.current?.length || 0,
-  //       imagesLength: imageRefs.current?.length || 0,
-  //     });
-  //     return;
-  //   }
-
-  //   const boxes = boxRefs.current;
-  //   const images = imageRefs.current;
-  //   const bottomImages = bottomImageRefs.current;
-  //   const section2Image = section2ImageRef.current;
-
-  //   // Respect prefers-reduced-motion
-  //   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-  //     gsap.set([...images, ...bottomImages, section2Image], {
-  //       opacity: 1,
-  //       x: 0,
-  //       y: 0,
-  //       scale: 1,
-  //       visibility: "visible",
-  //     });
-  //     return;
-  //   }
-
-  //   // Throttle utility for onUpdate (increased interval for desktop)
-  //   const throttle = (func, limit) => {
-  //     let inThrottle;
-  //     return function (...args) {
-  //       if (!inThrottle) {
-  //         func.apply(this, args);
-  //         inThrottle = true;
-  //         setTimeout(() => (inThrottle = false), limit);
-  //       }
-  //     };
-  //   };
-
-  //   // Animation logic for images
-  //   images.forEach((img, index) => {
-  //     if (index >= projects.length || !boxes[index]) {
-  //       console.log(`Skipping index ${index}: Invalid data`);
-  //       return;
-  //     }
-
-  //     const box = boxes[index];
-  //     const cardImg = box.querySelector("img.card-img-top"); // Targeting card image
-  //     if (!cardImg) {
-  //       console.log(`Skipping index ${index}: card-img-top not found`);
-  //       return;
-  //     }
-
-  //     // Calculate offsets based on cardImg's position
-  //     const cardImgRect = cardImg.getBoundingClientRect();
-  //     const imgRect = img.getBoundingClientRect();
-  //     const offsets = {
-  //       x: (cardImgRect.right - imgRect.width / 2 - imgRect.left) * 1.07,
-  //       y: cardImgRect.top - 50 + imgRect.height / 2 - imgRect.top,
-  //     };
-
-  //     // Use IntersectionObserver for background color change on desktop
-  //     if (!isMobile) {
-  //       const observer = new IntersectionObserver(
-  //         ([entry]) => {
-  //           box.style.backgroundColor = entry.isIntersecting ? "" : "";
-  //         },
-  //         { rootMargin: "0px", threshold: 0.1 }
-  //       );
-  //       observer.observe(img);
-  //     }
-
-  //     gsap.fromTo(
-  //       img,
-  //       {
-  //         x: -10,
-  //         y: -160,
-  //         scale: 1,
-  //         opacity: 1,
-  //         visibility: "hidden",
-  //       },
-  //       {
-  //         x: offsets.x,
-  //         y: offsets.y,
-  //         scale: 1,
-  //         opacity: 1,
-  //         visibility: "visible",
-  //         ease: "power2.out",
-  //         willChange: isMobile ? "transform, opacity" : "", // Conditional willChange
-  //         scrollTrigger: {
-  //           trigger: section1Ref.current,
-  //           start: isMobile ? "top 60%" : "top 70%",
-  //           end: isMobile ? "bottom 80%" : "bottom 30%",
-  //           scrub: isMobile ? 1 : 0.5, // Lighter scrub for desktop
-  //           onUpdate: isMobile
-  //             ? throttle((self) => {
-  //                 const imgRect = img.getBoundingClientRect();
-  //                 const boxRect = box.getBoundingClientRect();
-  //                 const isInside =
-  //                   imgRect.top < boxRect.bottom &&
-  //                   imgRect.bottom > boxRect.top;
-  //                 box.style.backgroundColor = isInside ? "" : "";
-  //               }, 200) // Increased throttle for desktop
-  //             : null,
-  //           onComplete: () => {
-  //             gsap.set(img, { visibility: "hidden" });
-  //           },
-  //         },
-  //       }
-  //     );
-  //   });
-
-  //   // Bottom images animation
-  //   bottomImages.forEach((img) => {
-  //     const imgRect = img.getBoundingClientRect();
-  //     const targetRect = section2Image.getBoundingClientRect();
-  //     const offsets = {
-  //       x:
-  //         targetRect.left +
-  //         targetRect.width / 2 -
-  //         (imgRect.left + imgRect.width / 2),
-  //       y:
-  //         targetRect.top +
-  //         targetRect.height / 2 -
-  //         (imgRect.top + imgRect.height / 2),
-  //     };
-
-  //     gsap.fromTo(
-  //       img,
-  //       {
-  //         x: -50,
-  //         y: 0,
-  //         scale: 0.1,
-  //         opacity: 0,
-  //         visibility: "hidden",
-  //       },
-  //       {
-  //         x: offsets.x,
-  //         y: offsets.y,
-  //         scale: 0.5,
-  //         opacity: 1,
-  //         duration: isMobile ? 3 : 2, // Shorter for desktop
-  //         visibility: "visible",
-  //         ease: "power2.out",
-  //         willChange: isMobile ? "transform, opacity" : "",
-  //         scrollTrigger: {
-  //           trigger: section2Ref.current,
-  //           start: isMobile ? "top 70%" : "top 60%",
-  //           end: isMobile ? "bottom 90%" : "bottom 80%",
-  //           scrub: isMobile ? 7 : 7,
-  //         },
-  //       }
-  //     );
-  //   });
-
-  //   // Synchronized fade-out
-  //   gsap.to([section2Image], {
-  //     opacity: 0,
-  //     scale: 0.4,
-  //     ease: "power2.out",
-  //     scrollTrigger: {
-  //       trigger: section2Ref.current,
-  //       start: isMobile ? "bottom 90%" : "bottom 80%",
-  //       end: isMobile ? "bottom 90%" : "bottom 80%",
-  //       scrub: isMobile ? 7 : 7,
-  //       onEnter: () => {
-  //         section2Image.classList.add("new_hover");
-  //       },
-  //       onLeave: () => {
-  //         section2Image.classList.remove("new_hover");
-  //       },
-  //       onComplete: () => {
-  //         gsap.set([section2Image, ...bottomImages], {
-  //           opacity: 0,
-  //           visibility: "hidden",
-  //         });
-  //         bottomImages.forEach((img) => {
-  //           img.dataset.hidden = "true";
-  //         });
-  //         section2Image.dataset.hidden = "true";
-  //       },
-  //     },
-  //   });
-
-  //   // Debounced resize/orientation handler
-  //   let resizeTimeout;
-  //   const handleResize = () => {
-  //     clearTimeout(resizeTimeout);
-  //     resizeTimeout = setTimeout(() => {
-  //       ScrollTrigger.refresh();
-  //     }, 200);
-  //   };
-  //   window.addEventListener("resize", handleResize);
-  //   window.addEventListener("orientationchange", handleResize);
-
-  //   // Cleanup
-  //   return () => {
-  //     ScrollTrigger.getAll().forEach((trigger) => {
-  //       if (
-  //         trigger.trigger === section1Ref.current ||
-  //         trigger.trigger === section2Ref.current
-  //       ) {
-  //         trigger.kill();
-  //       }
-  //     });
-  //     window.removeEventListener("resize", handleResize);
-  //     window.removeEventListener("orientationchange", handleResize);
-  //   };
-  // }, [projects]);
-
-  // useEffect(() => {
-  //   // Configure ScrollTrigger
-  //   ScrollTrigger.config({ limitCallbacks: true, syncInterval: 100 });
-  //   // Only enable normalizeScroll for mobile
-  //   const isMobile = window.matchMedia("(max-width: 768px)").matches;
-  //   ScrollTrigger.normalizeScroll(isMobile);
-  //   // Detect Safari browser
-  //   const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-  //   // Exit early if projects or refs aren't ready
-  //   if (
-  //   !projects.length ||
-  //   !boxRefs.current ||
-  //   !imageRefs.current ||
-  //   !bottomImageRefs.current ||
-  //   !section2ImageRef.current ||
-  //   boxRefs.current.length < projects.length
-  //   ) {
-  //   console.log("Animation setup skipped: Waiting for projects or refs", {
-  //   projectsLength: projects.length,
-  //   boxesLength: boxRefs.current?.length || 0,
-  //   imagesLength: imageRefs.current?.length || 0,
-  //   });
-  //   return;
-  //   }
-  //   const boxes = boxRefs.current;
-  //   const images = imageRefs.current;
-  //   const bottomImages = bottomImageRefs.current;
-  //   const section2Image = section2ImageRef.current;
-  //   // Respect prefers-reduced-motion or Safari
-  //   if (
-  //   window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
-  //   isSafari
-  //   ) {
-  //   gsap.set([...images, ...bottomImages, section2Image], {
-  //   opacity: 1,
-  //   x: 0,
-  //   y: 0,
-  //   scale: 1,
-  //   visibility: "visible",
-  //   });
-  //   return;
-  //   }
-  //   // Throttle utility for onUpdate (increased interval for desktop)
-  //   const throttle = (func, limit) => {
-  //   let inThrottle;
-  //   return function (...args) {
-  //   if (!inThrottle) {
-  //   func.apply(this, args);
-  //   inThrottle = true;
-  //   setTimeout(() => (inThrottle = false), limit);
-  //   }
-  //   };
-  //   };
-  //   // Animation logic for images
-  //   images.forEach((img, index) => {
-  //   if (index >= projects.length || !boxes[index]) {
-  //   console.log(`Skipping index ${index}: Invalid data`);
-  //   return;
-  //   }
-  //   const box = boxes[index];
-  //   const cardImg = box.querySelector("img.card-img-top"); // Targeting card image
-  //   if (!cardImg) {
-  //   console.log(`Skipping index ${index}: card-img-top not found`);
-  //   return;
-  //   }
-  //   // Calculate offsets based on cardImg's position
-  //   const cardImgRect = cardImg.getBoundingClientRect();
-  //   const imgRect = img.getBoundingClientRect();
-  //   const offsets = {
-  //   x: (cardImgRect.right - imgRect.width / 2 - imgRect.left) * 1.07,
-  //   y: cardImgRect.top - 170 + imgRect.height / 2 - imgRect.top,
-  //   };
-  //   // Use IntersectionObserver for background color change on desktop
-  //   if (!isMobile) {
-  //   const observer = new IntersectionObserver(
-  //   ([entry]) => {
-  //   box.style.backgroundColor = entry.isIntersecting ? "" : "";
-  //   },
-  //   { rootMargin: "0px", threshold: 0.1 }
-  //   );
-  //   observer.observe(img);
-  //   }
-  //   gsap.fromTo(
-  //   img,
-  //   {
-  //   x: -10,
-  //   y: -160,
-  //   scale: 1,
-  //   opacity: 1,
-  //   visibility: "hidden",
-  //   },
-  //   {
-  //   x: offsets.x,
-  //   y: offsets.y,
-  //   scale: 1,
-  //   opacity: 1,
-  //   visibility: "visible",
-  //   ease: "power2.out",
-  //   willChange: isMobile ? "transform, opacity" : "", // Conditional willChange
-  //   scrollTrigger: {
-  //   trigger: section1Ref.current,
-  //   start: isMobile ? "top 60%" : "top 70%",
-  //   end: isMobile ? "bottom 80%" : "bottom 30%",
-  //   scrub: isMobile ? 1 : 0.5, // Lighter scrub for desktop
-  //   onUpdate: isMobile
-  //   ? throttle((self) => {
-  //   const imgRect = img.getBoundingClientRect();
-  //   const boxRect = box.getBoundingClientRect();
-  //   const isInside =
-  //   imgRect.top < boxRect.bottom &&
-  //   imgRect.bottom > boxRect.top;
-  //   box.style.backgroundColor = isInside ? "" : "";
-  //   }, 200) // Increased throttle for desktop
-  //   : null,
-  //   onComplete: () => {
-  //   gsap.set(img, { visibility: "hidden" });
-  //   },
-  //   },
-  //   }
-  //   );
-  //   });
-  //   // Bottom images animation
-  //   bottomImages.forEach((img) => {
-  //   const imgRect = img.getBoundingClientRect();
-  //   const targetRect = section2Image.getBoundingClientRect();
-  //   const offsets = {
-  //   x:
-  //   targetRect.left +
-  //   targetRect.width / 2 -
-  //   (imgRect.left + imgRect.width / 2),
-  //   y:
-  //   targetRect.top +
-  //   targetRect.height / 2 -
-  //   (imgRect.top + imgRect.height / 2),
-  //   };
-  //   gsap.fromTo(
-  //   img,
-  //   {
-  //   x: -50,
-  //   y: 0,
-  //   scale: 0.1,
-  //   opacity: 0,
-  //   visibility: "hidden",
-  //   },
-  //   {
-  //   x: offsets.x,
-  //   y: offsets.y,
-  //   scale: 0.5,
-  //   opacity: 1,
-  //   duration: isMobile ? 3 : 2, // Shorter for desktop
-  //   visibility: "visible",
-  //   ease: "power2.out",
-  //   willChange: isMobile ? "transform, opacity" : "",
-  //   scrollTrigger: {
-  //   trigger: section2Ref.current,
-  //   start: isMobile ? "top 70%" : "top 60%",
-  //   end: isMobile ? "bottom 90%" : "bottom 80%",
-  //   scrub: isMobile ? 7 : 7,
-  //   },
-  //   }
-  //   );
-  //   });
-  //   // Synchronized fade-out
-  //   gsap.to([section2Image], {
-  //   opacity: 0,
-  //   scale: 0.4,
-  //   ease: "power2.out",
-  //   scrollTrigger: {
-  //   trigger: section2Ref.current,
-  //   start: isMobile ? "bottom 90%" : "bottom 80%",
-  //   end: isMobile ? "bottom 90%" : "bottom 80%",
-  //   scrub: isMobile ? 7 : 7,
-  //   onEnter: () => {
-  //   section2Image.classList.add("new_hover");
-  //   },
-  //   onLeave: () => {
-  //   section2Image.classList.remove("new_hover");
-  //   },
-  //   onComplete: () => {
-  //   gsap.set([section2Image, ...bottomImages], {
-  //   opacity: 0,
-  //   visibility: "hidden",
-  //   });
-  //   bottomImages.forEach((img) => {
-  //   img.dataset.hidden = "true";
-  //   });
-  //   section2Image.dataset.hidden = "true";
-  //   },
-  //   },
-  //   });
-  //   // Debounced resize/orientation handler
-  //   let resizeTimeout;
-  //   const handleResize = () => {
-  //   clearTimeout(resizeTimeout);
-  //   resizeTimeout = setTimeout(() => {
-  //   ScrollTrigger.refresh();
-  //   }, 200);
-  //   };
-  //   window.addEventListener("resize", handleResize);
-  //   window.addEventListener("orientationchange", handleResize);
-  //   // Cleanup
-  //   return () => {
-  //   ScrollTrigger.getAll().forEach((trigger) => {
-  //   if (
-  //   trigger.trigger === section1Ref.current ||
-  //   trigger.trigger === section2Ref.current
-  //   ) {
-  //   trigger.kill();
-  //   }
-  //   });
-  //   window.removeEventListener("resize", handleResize);
-  //   window.removeEventListener("orientationchange", handleResize);
-  //   };
-  //   }, [projects]);
-
-
   const logoRefs1 = useRef(null);
   const containerRefs1 = useRef(null);
-  // const getAnimationProps1 = (width) => {
-  //   // Default values for larger screens (>1920px)
-  //   let props = {
-  //     fromTo: {
-  //       from: { opacity: 0, y: -450, scale: 1.3, x: 90 },
-  //       to: {
-  //         opacity: 1,
-  //         y: -30,
-  //         x: 100,
-  //         scale: 0.7,
-  //         ease: "power3.out",
-  //         duration: 4.8,
-  //       },
-  //     },
-  //     to: {
-  //       opacity: 0,
-  //       y: 600,
-  //       x: 20,
-  //       scale: 0,
-  //       ease: "power3.inOut",
-  //       duration: 6.5,
-  //     },
-  //     scrollTrigger: { start: "top 105%", end: "bottom 35%", scrub: 0.9 },
-  //   };
-  //   if (width <= 320) {
-  //     props = {
-  //       fromTo: {
-  //         from: { opacity: 0, y: -450, scale: 1.3, x: 90 },
-  //         to: {
-  //           opacity: 1,
-  //           y: -330,
-  //           x: 100,
-  //           scale: 0.7,
-  //           ease: "power3.out",
-  //           duration: 4.8,
-  //         },
-  //       },
-  //       to: {
-  //         opacity: 0,
-  //         y: 600,
-  //         x: 20,
-  //         scale: 0,
-  //         ease: "power3.inOut",
-  //         duration: 6.5,
-  //       },
-  //       scrollTrigger: { start: "top 105%", end: "bottom 35%", scrub: 0.9 },
-  //     };
-  //   } else if (width <= 370) {
-  //     props = {
-  //       fromTo: {
-  //         from: { opacity: 0, y: -450, scale: 1.3, x: 90 },
-  //         to: {
-  //           opacity: 1,
-  //           y: -330,
-  //           x: 100,
-  //           scale: 0.7,
-  //           ease: "power3.out",
-  //           duration: 4.8,
-  //         },
-  //       },
-  //       to: {
-  //         opacity: 0,
-  //         y: 600,
-  //         x: 20,
-  //         scale: 0,
-  //         ease: "power3.inOut",
-  //         duration: 6.5,
-  //       },
-  //       scrollTrigger: { start: "top 105%", end: "bottom 35%", scrub: 0.9 },
-  //     };
-  //   } else if (width <= 425) {
-  //     // Adjust for specific breakpoints
-  //     props = {
-  //       fromTo: {
-  //         from: { opacity: 0, y: -450, scale: 1.3, x: 90 },
-  //         to: {
-  //           opacity: 1,
-  //           y: 30,
-  //           x: 100,
-  //           scale: 0.7,
-  //           ease: "power3.out",
-  //           duration: 4.8,
-  //         },
-  //       },
-  //       to: {
-  //         opacity: 0,
-  //         y: 600,
-  //         x: 20,
-  //         scale: 0,
-  //         ease: "power3.inOut",
-  //         duration: 6.5,
-  //       },
-  //       scrollTrigger: { start: "top 65%", end: "bottom 35%", scrub: 0.9 },
-  //     };
-  //   } else if (width <= 574) {
-  //     props = {
-  //       fromTo: {
-  //         from: { opacity: 0, y: -300, scale: 1.3, x: 150 },
-  //         to: {
-  //           opacity: 1,
-  //           y: 30,
-  //           x: 150,
-  //           scale: 0.7,
-  //           ease: "power3.out",
-  //           duration: 4.8,
-  //         },
-  //       },
-  //       to: {
-  //         opacity: 0,
-  //         y: 570,
-  //         x: 90,
-  //         scale: 0,
-  //         ease: "power3.inOut",
-  //         duration: 6.5,
-  //       },
-  //       scrollTrigger: { start: "top 75%", end: "bottom 35%", scrub: 0.9 },
-  //     };
-  //   } else if (width <= 991) {
-  //     props = {
-  //       fromTo: {
-  //         from: { opacity: 0, y: -300, x: 600 },
-  //         to: { opacity: 1, y: 40, x: 350, ease: "power3.out", duration: 5 },
-  //       },
-  //       to: {
-  //         opacity: 0,
-  //         y: 550,
-  //         x: 300,
-  //         scale: 0,
-  //         ease: "power3.inOut",
-  //         duration: 7,
-  //       },
-  //       scrollTrigger: { start: "top -30%", end: "bottom -35%", scrub: 1 },
-  //     };
-  //   } else if (width <= 1100) {
-  //     props = {
-  //       fromTo: {
-  //         from: { opacity: 0, y: -410, x: 730, scale: 1.2, scrub: 3 },
-  //         to: {
-  //           opacity: 1,
-  //           y: 45,
-  //           x: 390,
-  //           scale: 0.7,
-  //           ease: "power3.out",
-  //           duration: 5.2,
-  //         },
-  //       },
-  //       to: {
-  //         opacity: 0,
-  //         y: 550,
-  //         x: 370,
-  //         scale: 0,
-  //         ease: "power3.inOut",
-  //         duration: 7.2,
-  //       },
-  //       scrollTrigger: { start: "top -30%", end: "bottom -65%", scrub: 2 },
-  //     };
-  //   } else if (width <= 1400) {
-  //     props = {
-  //       fromTo: {
-  //         from: { opacity: 0, y: -400, scale: 1.2, x: 980, scrub: 2 },
-  //         to: {
-  //           opacity: 1,
-  //           y: 8,
-  //           x: 570,
-  //           scale: 0.7,
-  //           ease: "power3.out",
-  //           duration: 5.3,
-  //         },
-  //       },
-  //       to: {
-  //         opacity: 0,
-  //         y: 570,
-  //         x: 497,
-  //         scale: 0,
-  //         ease: "power3.inOut",
-  //         duration: 7.3,
-  //       },
-  //       scrollTrigger: { start: "top -30%", end: "bottom -65%", scrub: 2.1 },
-  //     };
-  //   } else if (width <= 1600) {
-  //     props = {
-  //       fromTo: {
-  //         from: { opacity: 0, y: -390, x: 1170, scale: 1.3, scrub: 1 },
-  //         to: {
-  //           opacity: 1,
-  //           y: 50,
-  //           x: 660,
-  //           scale: 0.7,
-  //           ease: "power3.out",
-  //           duration: 6.5,
-  //           scrub: 1,
-  //         },
-  //       },
-  //       to: {
-  //         opacity: 0,
-  //         y: 610,
-  //         x: 589,
-  //         scale: 0,
-  //         ease: "power3.inOut",
-  //         duration: 11.9,
-  //         scrub: ``,
-  //       },
-  //       scrollTrigger: {
-  //         start: "top -30%",
-  //         end: "bottom -30%",
-  //         duration: 3.5,
-  //         scrub: 5.6,
-  //       },
-  //     };
-  //   } else if (width <= 1700) {
-  //     props = {
-  //       fromTo: {
-  //         from: { opacity: 0, y: -390, x: 1170, scale: 1.3, scrub: 1 },
-  //         to: {
-  //           opacity: 1,
-  //           y: 50,
-  //           x: 660,
-  //           scale: 0.7,
-  //           ease: "power3.out",
-  //           duration: 3.5,
-  //           scrub: 1,
-  //         },
-  //       },
-  //       to: {
-  //         opacity: 0,
-  //         y: 590,
-  //         x: 600,
-  //         scale: 0,
-  //         ease: "power3.inOut",
-  //         duration: 3.9,
-  //         scrub: 1,
-  //       },
-  //       scrollTrigger: {
-  //         start: "top -20%",
-  //         end: "bottom -50%",
-  //         duration: 3.5,
-  //         scrub: 2.6,
-  //       },
-  //     };
-  //   } else if (width <= 1800) {
-  //     props = {
-  //       fromTo: {
-  //         from: { opacity: 0, y: -390, x: 1270, scale: 1.3, scrub: 1 },
-  //         to: {
-  //           opacity: 1,
-  //           y: 50,
-  //           x: 730,
-  //           scale: 0.7,
-  //           ease: "power3.out",
-  //           duration: 3.5,
-  //           scrub: 1,
-  //         },
-  //       },
-  //       to: {
-  //         opacity: 0,
-  //         y: 610,
-  //         x: 645,
-  //         scale: 0.1,
-  //         ease: "power3.inOut",
-  //         duration: 3.9,
-  //         scrub: 1,
-  //       },
-  //       scrollTrigger: {
-  //         start: "top -20%",
-  //         end: "bottom -50%",
-  //         duration: 3.5,
-  //         scrub: 1.6,
-  //       },
-  //     };
-  //   } else if (width <= 1920) {
-  //     props = {
-  //       fromTo: {
-  //         from: { opacity: 0, y: -390, x: 1550, scale: 1.3 },
-  //         to: {
-  //           opacity: 1,
-  //           y: 10,
-  //           x: 790,
-  //           scale: 1,
-  //           ease: "power3.out",
-  //           duration: 5.5,
-  //         },
-  //       },
-  //       to: {
-  //         opacity: 0,
-  //         y: 650,
-  //         x: 760,
-  //         scale: 0,
-  //         ease: "power3.inOut",
-  //         duration: 5.6,
-  //         scrub: 3.2,
-  //       },
-  //       scrollTrigger: { start: "top -20%", end: "bottom -70%", scrub: 1.2 },
-  //     };
-  //   }
-
-  //   return props;
-  // };
-  // useEffect(() => {
-  //   let width = window.innerWidth;
-  //   let animationProps = getAnimationProps1(width);
-
-  //   // Create GSAP timeline
-  //   const tl = gsap
-  //     .timeline({
-  //       scrollTrigger: {
-  //         trigger: containerRefs1.current,
-  //         ...animationProps.scrollTrigger,
-  //         markers: false,
-  //       },
-  //     })
-  //     .fromTo(
-  //       logoRefs1.current,
-  //       animationProps.fromTo.from,
-  //       animationProps.fromTo.to
-  //     )
-  //     .to(logoRefs1.current, animationProps.to);
-
-  //   // Handle resize to refresh animation with new props
-  //   let timeout;
-  //   const handleResize = () => {
-  //     clearTimeout(timeout);
-  //     timeout = setTimeout(() => {
-  //       width = window.innerWidth;
-  //       animationProps = getAnimationProps1(width);
-  //       // Kill only this animation's ScrollTrigger
-  //       if (tl.scrollTrigger) {
-  //         tl.scrollTrigger.kill();
-  //       }
-  //       // Create a new timeline
-  //       const newTl = gsap
-  //         .timeline({
-  //           scrollTrigger: {
-  //             trigger: containerRefs1.current,
-  //             ...animationProps.scrollTrigger,
-  //             markers: false,
-  //           },
-  //         })
-  //         .fromTo(
-  //           logoRefs1.current,
-  //           animationProps.fromTo.from,
-  //           animationProps.fromTo.to
-  //         )
-  //         .to(logoRefs1.current, animationProps.to);
-  //     }, 100);
-  //   };
-
-  //   window.addEventListener("resize", handleResize);
-
-  //   // Cleanup
-  //   return () => {
-  //     if (tl.scrollTrigger) {
-  //       tl.scrollTrigger.kill();
-  //     }
-  //     window.removeEventListener("resize", handleResize);
-  //   };
-  // }, []);
-
   const blogsectionRef = useRef(null);
   const BlogimageRefs = useRef([]);
   const BlogsboxRefs = useRef([]);
   const BlogBottomImageRefs = useRef([]);
   const BlogsBottomsectionRef = useRef(null);
   const Blogsection2Ref = useRef(null);
-  // useEffect(() => {
-  //   if (!Blogs.length || loading) return; // Skip if Blogs is empty or still loading
-
-  //   const boxes = BlogsboxRefs.current;
-  //   const images = BlogimageRefs.current;
-  //   const bottomImages = BlogBottomImageRefs.current;
-  //   const logoO = BlogsBottomsectionRef.current;
-
-  //   // Customizable offsets for bottom images
-  //   const startOffset = { x: 230, y: -35 };
-  //   const endOffset = { x: 229, y: -24 };
-
-  //   // Create a GSAP context for easy cleanup
-  //   const ctx = gsap.context(() => {
-  //     // Animation for top images
-  //     images.forEach((img, index) => {
-  //       const box = boxes[index];
-  //       if (!box || !img) return;
-
-  //       const cardImg = box.querySelector("img.card-img-top");
-  //       if (!cardImg) return;
-
-  //       const getOffsets = () => {
-  //         const cardImgRect = cardImg.getBoundingClientRect();
-  //         const imgRect = img.getBoundingClientRect();
-  //         const spacing = 13;
-  //         return {
-  //           x:
-  //             cardImgRect.right -
-  //             imgRect.width / 2 -
-  //             imgRect.left +
-  //             index * spacing,
-  //           y: cardImgRect.top - 180 + imgRect.height / 2 - imgRect.top,
-  //         };
-  //       };
-
-  //       gsap.fromTo(
-  //         img,
-  //         { x: 10, y: -145, scale: 1, opacity: 1, visibility: "hidden" },
-  //         {
-  //           x: () => getOffsets().x,
-  //           y: () => getOffsets().y,
-  //           scale: 1,
-  //           opacity: 1,
-  //           visibility: "visible",
-  //           ease: "power2.out",
-  //           scrollTrigger: {
-  //             trigger: blogsectionRef.current,
-  //             start: "top 50%",
-  //             end: "bottom center",
-  //             scrub: 1,
-  //             toggleActions: "play none none reverse", // Explicitly reverse on scroll up
-  //             onUpdate: (self) => {
-  //               const imgRect = img.getBoundingClientRect();
-  //               const boxRect = box.getBoundingClientRect();
-  //               const isInside =
-  //                 imgRect.top < boxRect.bottom && imgRect.bottom > boxRect.top;
-  //               box.style.backgroundColor = isInside ? "" : "";
-  //             },
-  //           },
-  //         }
-  //       );
-  //     });
-
-  //     // Animation for bottom images: Converge into the "O"
-  //     bottomImages.forEach((img, index) => {
-  //       if (!img || !logoO) return;
-
-  //       const fadeOutDuration = 0.01;
-
-  //       const getOffsets = () => {
-  //         const imgRect = img.getBoundingClientRect();
-  //         const logoORect = logoO.getBoundingClientRect();
-  //         const targetX = logoORect.left + logoORect.width / 2 + endOffset.x;
-  //         const targetY = logoORect.top + logoORect.height / 2 + endOffset.y;
-  //         const imgCenterX = imgRect.left + imgRect.width / 2;
-  //         const imgCenterY = imgRect.top + imgRect.height / 2;
-  //         return {
-  //           x: targetX - imgCenterX,
-  //           y: targetY - imgCenterY,
-  //         };
-  //       };
-
-  //       gsap.fromTo(
-  //         img,
-  //         {
-  //           x: startOffset.x,
-  //           y: startOffset.y,
-  //           scale: 1,
-  //           opacity: 0.3,
-  //           visibility: "visible",
-  //         },
-  //         {
-  //           x: () => getOffsets().x,
-  //           y: () => getOffsets().y,
-  //           scale: 0.9,
-  //           opacity: 0,
-  //           visibility: "visible",
-  //           duration: 6.1,
-  //           ease: "sine.out",
-  //           scrollTrigger: {
-  //             trigger: Blogsection2Ref.current,
-  //             start: "top 90%", // Adjusted to avoid premature start
-  //             end: "bottom center+=370",
-  //             scrub: 3,
-  //             toggleActions: "play none none reverse", // Explicitly reverse on scroll up
-  //             onEnter: () => {
-  //               images.forEach((topImg) => {
-  //                 gsap.set(topImg, { visibility: "hidden", opacity: 0 });
-  //                 topImg.dataset.hidden = "true";
-  //               });
-  //               gsap.set(img, { visibility: "visible", opacity: 1 });
-  //             },
-  //           },
-  //           onComplete: () => {
-  //             gsap.to(img, {
-  //               opacity: 0,
-  //               visibility: "hidden",
-  //               duration: fadeOutDuration,
-  //               ease: "power2.in",
-  //               onComplete: () => {
-  //                 img.dataset.hidden = "true";
-  //               },
-  //             });
-  //           },
-  //         }
-  //       );
-  //     });
-  //   });
-
-  //   // Cleanup on unmount or when Blogs changes
-  //   return () => ctx.revert();
-  // }, [Blogs, loading]); // Include loading in dependencies
   const [selectedCity, setSelectedCity] = useState({ id: null, name: "City" });
   const [selectedProperty, setSelectedProperty] = useState({
     id: null,
@@ -1575,12 +287,10 @@ function Home() {
   const [propertyTypes, setPropertyTypes] = useState([]);
   const navigate = useNavigate();
   const [searchLoading, setSearchLoading] = useState(false);
-
   const baseUrl = (
     import.meta.env.VITE_BASE_URL || "https://admin.sloc.in/public"
   ).replace(/\/+$/, "");
   const token = "AzlrVK30FVdEx0TwrRwqYrQTL";
-
   useEffect(() => {
     axios
       .get(`${baseUrl}/api/city`, {
@@ -1594,7 +304,6 @@ function Home() {
       .catch((error) => {
         console.error("Error fetching cities:", error);
       });
-
     axios
       .get(`${baseUrl}/api/property-type`, {
         headers: { Authorization: `Bearer ${token}` },
@@ -1608,43 +317,6 @@ function Home() {
         console.error("Error fetching property types:", error);
       });
   }, [baseUrl]);
-
-  // const handleCitySelect = (city) => {
-  //   setSelectedCity({ id: city.id, name: city.name });
-  // };
-
-  // const handlePropertySelect = (property) => {
-  //   setSelectedProperty({ id: property.id, name: property.name });
-  // };
-
-  // const handleCitySelect = (city) => {
-  //   console.log("handleCitySelect called with:", { id: city.id, name: city.name });
-  //   setSelectedCity(city);
-  //   console.log("selectedCity updated to:", { id: city.id, name: city.name });
-  //   debouncedSearch(searchQuery, city, selectedProperty);
-  // };
-
-  // const handlePropertySelect = (property) => {
-  //   console.log("handlePropertySelect called with:", { id: property.id, name: property.name });
-  //   setSelectedProperty(property);
-  //   console.log("selectedProperty updated to:", { id: property.id, name: property.name });
-  //   debouncedSearch(searchQuery, selectedCity, property);
-  // };
-
-  // const handleProjectIdInput = (event) => {
-  //   setProjectId(event.target.value);
-  // };
-  // const handleSearchInputChange = (e) => {
-  //   immediateSearch({
-  //     query: '',
-  //     city: selectedCity,
-  //     property: selectedProperty,
-  //   });
-  //   const query = e.target.value;
-  //   setSearchQuery(query);
-  //   console.log("handleSearchInputChange called with query:", query);
-  //   debouncedSearch(query, selectedCity, selectedProperty);
-  // };
   const handleSearchInputChange = (e) => {
     immediateSearch({
       query: '',
@@ -1666,27 +338,22 @@ function Home() {
   const debouncedSearch = debounce(async ({ query = '', city = null, property = null }) => {
     setSearchLoading(true);
     const baseUrl = import.meta.env.VITE_BASE_URL || "https://default-api-url.com/";
-
     // Build query parameters
     const queryParams = new URLSearchParams();
     if (query) queryParams.append("search", query);
     if (city?.id) queryParams.append("cityId", city.id);
     if (property?.id) queryParams.append("propertyTypeId", property.id);
-
     const apiUrl = `${baseUrl}api/projects?${queryParams.toString()}`;
-
     try {
       const response = await axios.get(apiUrl, {
         headers: {
           Authorization: `Bearer AzlrVK30FVdEx0TwrRwqYrQTL`,
         },
       });
-
       if (response.data.success) {
         const apiProjects = response.data.data;
         console.log("Projects before filtering:", apiProjects);
         console.log("Project keys (for first project):", Object.keys(apiProjects[0] || {}));
-
         // Map API projects
         const mappedProjects = apiProjects
           .filter((project) => project.is_exclusive === 1)
@@ -1704,30 +371,26 @@ function Home() {
             propertyType: project.property?.name || "Unknown Type",
             propertyTypeId: project.property?.id || null,
             image:
-              project.hero_img_original ||
+              project.hero_img ||
               "https://admin.sloc.in/public/feature_image/1745472810_f1.png",
             bottomImage:
               [BottomImg1, BottomImg2, BottomImg3, BottomImg4][index % 4] ||
               BottomImg1,
             sectors: project.sectors || "",
           }));
-
         // Filter projects
         const filteredProjects = mappedProjects.filter((project) => {
           const matchesQuery = query
             ? project.title.toLowerCase().includes(query.toLowerCase())
             : true;
-
           const matchesCity = city?.id
             ? project.cityId === city.id ||
               project.location.toLowerCase().includes(city.name.toLowerCase())
             : true;
-
           const matchesProperty = property?.id
             ? project.propertyTypeId === property.id ||
               project.propertyType.toLowerCase().includes(property.name.toLowerCase())
             : true;
-
           console.log("Filtering project:", {
             title: project.title,
             matchesQuery,
@@ -1738,10 +401,8 @@ function Home() {
             cityComparison: { projectCityId: project.cityId, selectedCityId: city?.id, projectLocation: project.location, selectedCityName: city?.name },
             propertyComparison: { projectPropertyId: project.propertyTypeId, selectedPropertyId: property?.id, projectPropertyType: project.propertyType, selectedPropertyName: property?.name },
           });
-
           return matchesQuery && matchesCity && matchesProperty;
         });
-
         console.log("Filtered projects:", filteredProjects);
         setSuggestedProjects(filteredProjects);
       } else {
@@ -1754,32 +415,26 @@ function Home() {
       setSearchLoading(false);
     }
   }, 500);
-
   // Immediate search function (no debounce for filter changes)
   const immediateSearch = async ({ query = '', city = null, property = null }) => {
     setSearchLoading(true);
     const baseUrl = import.meta.env.VITE_BASE_URL || "https://default-api-url.com/";
-
     // Build query parameters
     const queryParams = new URLSearchParams();
     if (query) queryParams.append("search", query);
     if (city?.id) queryParams.append("cityId", city.id);
     if (property?.id) queryParams.append("propertyTypeId", property.id);
-
     const apiUrl = `${baseUrl}api/projects?${queryParams.toString()}`;
-
     try {
       const response = await axios.get(apiUrl, {
         headers: {
           Authorization: `Bearer AzlrVK30FVdEx0TwrRwqYrQTL`,
         },
       });
-
       if (response.data.success) {
         const apiProjects = response.data.data;
         console.log("Projects before filtering:", apiProjects);
         console.log("Project keys (for first project):", Object.keys(apiProjects[0] || {}));
-
         // Map API projects
         const mappedProjects = apiProjects
           .filter((project) => project.is_exclusive === 1)
@@ -1797,30 +452,26 @@ function Home() {
             propertyType: project.property?.name || "Unknown Type",
             propertyTypeId: project.property?.id || null,
             image:
-              project.hero_img_original ||
+              project.hero_img ||
               "https://admin.sloc.in/public/feature_image/1745472810_f1.png",
             bottomImage:
               [BottomImg1, BottomImg2, BottomImg3, BottomImg4][index % 4] ||
               BottomImg1,
             sectors: project.sectors || "",
           }));
-
         // Filter projects
         const filteredProjects = mappedProjects.filter((project) => {
           const matchesQuery = query
             ? project.title.toLowerCase().includes(query.toLowerCase())
             : true;
-
           const matchesCity = city?.id
             ? project.cityId === city.id ||
               project.location.toLowerCase().includes(city.name.toLowerCase())
             : true;
-
           const matchesProperty = property?.id
             ? project.propertyTypeId === property.id ||
               project.propertyType.toLowerCase().includes(property.name.toLowerCase())
             : true;
-
           console.log("Filtering project:", {
             title: project.title,
             matchesQuery,
@@ -1831,10 +482,8 @@ function Home() {
             cityComparison: { projectCityId: project.cityId, selectedCityId: city?.id, projectLocation: project.location, selectedCityName: city?.name },
             propertyComparison: { projectPropertyId: project.propertyTypeId, selectedPropertyId: property?.id, projectPropertyType: project.propertyType, selectedPropertyName: property?.name },
           });
-
           return matchesQuery && matchesCity && matchesProperty;
         });
-
         console.log("Filtered projects:", filteredProjects);
         setSuggestedProjects(filteredProjects);
       } else {
@@ -1847,30 +496,17 @@ function Home() {
       setSearchLoading(false);
     }
   };
-
   // Handle city and property selection
   const handleCitySelect = (city) => {
     console.log("handleCitySelect called with:", city);
-      // immediateSearch({
-      //   query: '',
-      //   city: selectedCity,
-      //   property: selectedProperty,
-      // });
         setSelectedCity({ id: city.id, name: city.name });
     console.log("selectedCity updated to:", { id: city.id, name: city.name });
   };
-
   const handlePropertySelect = (property) => {
     console.log("handlePropertySelect called with:", property);
-      //     immediateSearch({
-      //   query: '',
-      //   city: selectedCity,
-      //   property: selectedProperty,
-      // });
     setSelectedProperty({ id: property.id, name: property.name });
     console.log("selectedProperty updated to:", { id: property.id, name: property.name });
   };
-
   // Trigger immediate search when city or property changes
   useEffect(() => {
     console.log("useEffect triggered with selectedCity:", selectedCity, "selectedProperty:", selectedProperty);
@@ -1884,7 +520,6 @@ function Home() {
       // setSuggestedProjects(projects); // Reset to all exclusive projects
     }
   }, [selectedCity, selectedProperty, projects]);
-
 // Handle search input
 const handleSearchInput = (query) => {
   console.log("handleSearchInput called with query:", query);
@@ -1894,77 +529,98 @@ const handleSearchInput = (query) => {
     property: selectedProperty,
   });
 };
-
-  useEffect(() => {
-    return () => {
-      debouncedSearch.cancel();
-    };
-  }, []);
-  const [errorMessage, setErrorMessage] = useState(""); // To store the error message
-
-
-
-  const handleSearch = (projectTitle = null) => {
-    if (
-      !selectedCity.id &&
-      selectedCity.name === "City" &&
-      !selectedProperty.id &&
-      selectedProperty.name === "Property Type" &&
-      !searchQuery.trim() &&
-      !projectTitle
-    ) {
-      toast.error("Please select a city, property type, or enter a project name.");
-      return;
-    }
-
-    setErrorMessage("");
-
-    const formatSlug = (name) => {
-      return name
-        .toLowerCase()
-        .replace(/\s+/g, "-")
-        .replace(/[^a-z0-9-]/g, "");
-    };
-
-    const query = projectTitle || searchQuery.trim();
-    const slugifiedProject = formatSlug(query);
-    if (slugifiedProject) {
-      console.log("Navigating to:", `/project/${slugifiedProject}`);
-      setTimeout(() => setSearchLoading(false), 2000);
-      navigate(`/project/${slugifiedProject}`);
-      return;
-    }
-
-    const params = new URLSearchParams();
-
-    if (selectedCity.id && selectedCity.name !== "All Cities") {
-      params.append("city", formatSlug(selectedCity.name));
-    }
-
-    if (selectedProperty.id && selectedProperty.name !== "Any Property Type") {
-      params.append("property_type", formatSlug(selectedProperty.name));
-    }
-
-    console.log("Navigating to:", `/search-Listing?${params.toString()}`);
-    setTimeout(() => setSearchLoading(false), 2000);
-    navigate(`/search-Listing?${params.toString()}`);
+  const [errorMessage, setErrorMessage] = useState("");
+const apiUrl = `${baseUrl}/api/projects`;
+const handleSearch = async (projectTitle = null) => {
+  if (
+    !selectedCity.id &&
+    selectedCity.name === "City" &&
+    !selectedProperty.id &&
+    selectedProperty.name === "Property Type" &&
+    !searchQuery.trim() &&
+    !projectTitle
+  ) {
+    navigate('/search-listing');
+    return;
+  }
+  setErrorMessage("");
+  const formatSlug = (name) => {
+    return name
+      .toLowerCase()
+      .replace(/\s+/g, "-")
+      .replace(/[^a-z0-9-]/g, "");
   };
-
-  // Clean up debounced function on component unmount
-  useEffect(() => {
-    return () => {
-      debouncedSearch.cancel();
-    };
-  }, []);
+  const query = (projectTitle || searchQuery.trim()).trim();
+  console.log("Search query:", query); // Debug: Log the query
+  if (query) {
+    try {
+      console.log("Fetching from:", apiUrl); // Debug: Log API URL
+      const response = await fetch(apiUrl, {
+        headers: {
+          Authorization: `Bearer AzlrVK30FVdEx0TwrRwqYrQTL`, // Add the token here
+        },
+      });
+      if (!response.ok) {
+        if (response.status === 401) {
+          console.error("API error: Unauthorized. Invalid Token.");
+          toast.error("Unauthorized: Invalid token. Please log in again.");
+          setSearchLoading(false);
+          return;
+        }
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      const data = await response.json();
+      console.log("API response:", data); // Debug: Log full API response
+      if (data.success && data.data) {
+        const projectExists = data.data.some((project) => {
+          const projectName = project.name.trim().toLowerCase();
+          const queryLower = query.toLowerCase();
+          console.log(`Comparing: "${projectName}" with "${queryLower}"`); // Debug: Log comparison
+          return projectName === queryLower;
+        });
+        if (projectExists) {
+          const slugifiedProject = formatSlug(query);
+          console.log("Navigating to:", `/project/${slugifiedProject}`);
+          setTimeout(() => setSearchLoading(false), 2000);
+          navigate(`/project/${slugifiedProject}`);
+          return;
+        } else {
+          console.log("No matching project found for:", query); // Debug: Log no match
+          toast.error("Please enter a valid project name.");
+          setSearchLoading(false);
+          return;
+        }
+      } else {
+        console.log("API error or no data:", data); // Debug: Log API failure
+        toast.error("Failed to fetch projects. Please try again.");
+        setSearchLoading(false);
+        return;
+      }
+    } catch (error) {
+      console.error("Fetch error:", error.message); // Debug: Log fetch error
+      toast.error("An error occurred while validating the project name.");
+      setSearchLoading(false);
+      return;
+    }
+  }
+  const params = new URLSearchParams();
+  if (selectedCity.id && selectedCity.name !== "All Cities") {
+    params.append("city", formatSlug(selectedCity.name));
+  }
+  if (selectedProperty.id && selectedProperty.name !== "Any Property Type") {
+    params.append("property_type", formatSlug(selectedProperty.name));
+  }
+  console.log("Navigating to:", `/search-Listing?${params.toString()}`);
+  setTimeout(() => setSearchLoading(false), 2000);
+  navigate(`/search-Listing?${params.toString()}`);
+};
   const companyData = {
     name: "Real Estate Company | Property Dealer | Buy Property in India | SLOC",
     description:
       "SLOC is a leading real estate company and property dealer in India, offering expert services to help you invest in residential and commercial properties.",
     websites: ["https://staging.sloc.in/"],
   };
-
   const [socialLinks, setSocialLinks] = useState({});
-
   useEffect(() => {
     fetch("https://admin.sloc.in/public/api/setting", {
       headers: {
@@ -1990,13 +646,9 @@ const handleSearchInput = (query) => {
         console.error("Error fetching social links:", err);
       });
   }, []);
-
-
       const footerRef = useRef(null);
-
     useEffect(() => {
       if (!footerRef.current) return;
-
       gsap.to(".mobilek", {
         opacity: 0.5,
         scrollTrigger: {
@@ -2006,7 +658,6 @@ const handleSearchInput = (query) => {
         }
       });
     }, []);
-
   return (
     <>
 <Helmet>
@@ -2024,8 +675,6 @@ const handleSearchInput = (query) => {
       </Helmet>
       <main id="All">
       <ToastContainer />
-
-
         <section className="Main-banner mobile-bgp" data-speed="1.5">
           <Container>
             <Row>
@@ -2036,6 +685,7 @@ const handleSearchInput = (query) => {
                   locations of India.{" "}
                 </p>
               </Col>
+                    <ToastContainer  />
               <Col>
                 {/* Dont Edit this this for animation  */}
                 <div className="animated-logo">
@@ -2077,7 +727,6 @@ const handleSearchInput = (query) => {
           <Dropdown.Item disabled>No cities available</Dropdown.Item>
         )}
       </DropdownButton>
-
       <DropdownButton
         id="dropdown-property"
         title={selectedProperty.name}
@@ -2099,7 +748,6 @@ const handleSearchInput = (query) => {
           </Dropdown.Item>
         )}
       </DropdownButton>
-
       <InputGroup className="me-2">
         <InputGroup.Text>
           <img src={Search} alt="Search" />
@@ -2110,8 +758,35 @@ const handleSearchInput = (query) => {
           aria-describedby="basic-addon1"
           value={searchQuery}
           onChange={handleSearchInputChange}
+                    onFocus={() => setIsFocused(true)}
+          onBlur={() => {
+            // Timeout to allow click on suggestion to register
+            setTimeout(() => setIsFocused(false), 100);
+          }}
         />
-        {suggestedProjects.length > 0 && (
+      {isFocused && suggestedProjects.length > 0 && (
+        <div
+          className="suggestions-box"
+style={{ maxHeight: "200px", overflowY: "auto" }}
+        >
+          {suggestedProjects.map((project) => (
+            <div
+              key={project.id}
+              className="suggestion-item"
+              style={{  cursor: 'pointer' }}
+              onMouseDown={() => {
+                console.log('Selected project title:', project.title);
+                setSearchQuery(project.title);
+                handleSearch(project.title);
+                setSuggestedProjects([]); // Hide suggestions
+              }}
+            >
+              {project.title}
+            </div>
+          ))}
+        </div>
+      )}
+        {/* {suggestedProjects.length > 0 && (
           <div
             className="suggestions-box"
             style={{ maxHeight: "200px", overflowY: "auto" }}
@@ -2131,9 +806,8 @@ const handleSearchInput = (query) => {
               </div>
             ))}
           </div>
-        )}
+        )} */}
       </InputGroup>
-
       <Button
         variant="primary all-same-ani"
         onClick={() => handleSearch()}
@@ -2141,7 +815,6 @@ const handleSearchInput = (query) => {
       >
         Search
       </Button>
-
       {errorMessage && (
         <span
           className="error-message"
@@ -2151,10 +824,8 @@ const handleSearchInput = (query) => {
         </span>
       )}
     </div>
-
           {/*
       {searchError && <div className="text-danger mt-2">{searchError}</div>}
-
       <div className="mt-3">
         {searchResults.length > 0 ? (
           <ul className="list-group">
@@ -2171,7 +842,6 @@ const handleSearchInput = (query) => {
         )}
     </div> */}
         </section>
-
         {/* <section ref={containerRefs} className="welcome"> */}
         <section className="welcome">
           {/* Blue SVG */}
@@ -2205,12 +875,6 @@ const handleSearchInput = (query) => {
           <Container className="py-5">
             <Row className="mb-4 d-flex">
               <Col md={6} className="align-content-center head">
-                <img
-                  src={Round}
-                  alt="scroling"
-                  className="scrol-top"
-                  // ref={scrollImageRef}
-                />
                 <h2 className="same-head">WELCOME TO SLOC!</h2>
                 <p className="same-head-p">
                   SLOC is all about turning property searches into seamless,
@@ -2266,7 +930,6 @@ const handleSearchInput = (query) => {
             </Row>
           </Container>
         </section>
-
         <section ref={section1Ref} className="featured">
           {/* <div className="featured-floating-imgs">
             <div className="image-stack">
@@ -2398,7 +1061,6 @@ const handleSearchInput = (query) => {
             </Row>
           </Container>
         </section>
-
         <section ref={section2Ref} className="Cta position-relative">
           <Container>
             <Row className="d-flex align-items-center justify-content-center ">
@@ -2428,7 +1090,6 @@ const handleSearchInput = (query) => {
             </Row>
           </Container>
         </section>
-
         <section
           // ref={containerRefs1}
           className="social-proof position-relative"
@@ -2500,7 +1161,6 @@ const handleSearchInput = (query) => {
             </Row>
           </Container>
         </section>
-
         <section className="featured blogs" ref={blogsectionRef}>
           <div className="featured-floating-imgs">
             {/* <div className="image-stack image-stack-1">
@@ -2595,7 +1255,6 @@ const handleSearchInput = (query) => {
             </Row>
           </Container>
         </section>
-
         <section className="Disclamer new-desclaimer">
           <Container>
             <p className="Dis">
@@ -2629,11 +1288,10 @@ const handleSearchInput = (query) => {
             </p>
           </Container>
         </section>
-
         <footer className="Disclamer-footer" ref={Blogsection2Ref}>
           <Container>
             <Row className="mb-4 justify-content-between">
-              <Col lg={5} md={6} className="mb-4 mb-md-0 p-md-0">
+              <Col lg={4} md={6} className="mb-4 mb-md-0 p-md-0">
                 <div className="footer-logo">
                   {/* <a href='/'><p className='Logo' ref={BlogBottomImageRefs}>SLOC</p></a> */}
                   <a href="/">
@@ -2661,7 +1319,6 @@ const handleSearchInput = (query) => {
                   >
                     <img src={linkdin} alt="LinkedIn" />
                   </a>
-
                   <a
                     href={socialLinks.instagram}
                     target="_blank"
@@ -2669,7 +1326,6 @@ const handleSearchInput = (query) => {
                   >
                     <img src={Instagram} alt="Instagram" />
                   </a>
-
                   <a
                     href={socialLinks.facebook}
                     target="_blank"
@@ -2730,17 +1386,18 @@ const handleSearchInput = (query) => {
                   </li>
                 </ul>
               </Col>
-              <Col lg={2} md={6} className="mb-4 mb-md-0 res-st">
-                <h6 className="text-uppercase ft-font mb-3">Contact Us</h6>
-                <p className=" mb-1">15th Floor, Ocus Quantum,</p>
-                <p className=" mb-1">Sector-51, Gurugram, Haryana, 122003 </p>
-                <p className=" my-3">
-                  <a href="mailto:contact@sloc.in">contact@sloc.in</a>{" "}
-                </p>
-                <p className=" mb-1">
-                  <a href="tel:+919971094108">+919971094108</a>
-                </p>
-              </Col>
+                  <Col lg={3} md={6} className="mb-4 mb-md-0 res-st">
+                         <h6 className="text-uppercase ft-font mb-3">Contact Us</h6>
+                         <p className=" mb-1">SLOC REAL ESTATE PRIVATE LIMITED,</p>
+                         <p className=" mb-1">RAJESH KUMAR - 15th Floor, Ocus Quantum,</p>
+                         <p className=" mb-1">Sector-51, Gurugram, Haryana, 122003 </p>
+                         <p className=" my-3">
+                           <a href="mailto:contact@sloc.in">contact@sloc.in</a>{" "}
+                         </p>
+                         <p className=" mb-1">
+                           <a href="tel:+919971094108">+919971094108</a>
+                         </p>
+                       </Col>
             </Row>
             <Row className="border-top-set pt-3 mt-2">
               <Col className="text-center small">

@@ -116,9 +116,12 @@ section.Main-banner h1 {
   font-weight: 500;
   font-size: 20px;
   line-height: 100%;
-  padding: 12px 43px;
+  padding: 12px 12px;
   border-radius: 0;
   border: none;
+  width: 100%;
+  max-width: 150px;
+
 }
 input.form-control::placeholder {
   color: rgba(255, 255, 255, 0.514);
@@ -2173,3 +2176,4 @@ section.social-proof img.Move {left: 40%; top: 30%;}
 h5.new-text-projects {
   margin-bottom: 12px;
 }
+

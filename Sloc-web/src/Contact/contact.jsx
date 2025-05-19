@@ -11,11 +11,9 @@ import Facebook from "../assets/Imgs/facbook.svg";
 import linkdin from "../assets/Imgs/Linkdin.svg";
 import social from "../assets/Imgs/social-media.svg";
 import gf from "./Loader.gif";
-
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Helmet } from "react-helmet";
-
 const Contact = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -23,88 +21,24 @@ const Contact = () => {
     email: "",
     agree: true,
   });
-
   const [errors, setErrors] = useState({
     name: "",
     mobile: "",
     email: "",
     agree: "",
   });
-
   const phoneInputRef = useRef(null);
   const intlTelInstance1 = useRef(null);
-
   const [countryCode, setCountryCode] = useState("+91"); // Default to India
   const navigate = useNavigate();
-
-  // useEffect(() => {
-  //   if (phoneInputRef.current) {
-  //     import("intl-tel-input")
-  //       .then((intlTelInput) => {
-  //         intlTelInstance.current = intlTelInput.default(
-  //           phoneInputRef.current,
-  //           {
-  //             initialCountry: "in",
-  //             separateDialCode: true,
-  //             utilsScript:
-  //               "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
-  //           }
-  //         );
-
-  //         const updatePhoneNumber = () => {
-  //           const selectedCountryData =
-  //             intlTelInstance.current.getSelectedCountryData();
-  //           const rawInput = phoneInputRef.current.value || "";
-
-  //           setCountryCode(`+${selectedCountryData.dialCode}`);
-  //           setFormData((prev) => ({
-  //             ...prev,
-  //             mobile: rawInput.replace(/[^0-9]/g, ""),
-  //           }));
-  //         };
-
-  //         phoneInputRef.current.addEventListener("input", updatePhoneNumber);
-  //         phoneInputRef.current.addEventListener(
-  //           "countrychange",
-  //           updatePhoneNumber
-  //         );
-
-  //         // Set initial country code
-  //         updatePhoneNumber();
-
-  //         return () => {
-  //           phoneInputRef.current.removeEventListener(
-  //             "input",
-  //             updatePhoneNumber
-  //           );
-  //           phoneInputRef.current.removeEventListener(
-  //             "countrychange",
-  //             updatePhoneNumber
-  //           );
-  //         };
-  //       })
-  //       .catch((error) => {
-  //         console.error("Failed to load intl-tel-input:", error);
-  //       });
-
-  //     return () => {
-  //       if (intlTelInstance.current) {
-  //         intlTelInstance.current.destroy();
-  //       }
-  //     };
-  //   }
-  // }, []);
-  
     useEffect(() => {
       console.log("useEffect: Initializing intl-tel-input");
-    
       if (phoneInputRef.current) {
         // Function to fetch country code based on user location
         const getCountryCodeFromLocation = async () => {
           try {
             // Fallback to 'in' if location fetching fails
             let countryCode = "in";
-    
             // Use ipapi.co to get country code based on IP (no geolocation permission needed)
             const response = await fetch("https://ipapi.co/json/");
             const data = await response.json();
@@ -114,20 +48,17 @@ const Contact = () => {
             } else {
               console.warn("No country code found, using fallback: in");
             }
-    
             return countryCode;
           } catch (error) {
             console.error("Failed to fetch country code:", error);
             return "in"; // Fallback country code
           }
         };
-    
         // Load intl-tel-input and initialize with dynamic country
         getCountryCodeFromLocation().then((initialCountry) => {
           import("intl-tel-input")
             .then((intlTelInput) => {
               console.log("intl-tel-input: Module loaded");
-    
               intlTelInstance1.current = intlTelInput.default(phoneInputRef.current, {
                 initialCountry: initialCountry,
                 separateDialCode: true,
@@ -135,19 +66,15 @@ const Contact = () => {
                   "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
               });
               console.log("intl-tel-input: Initialized with country", initialCountry, intlTelInstance1.current);
-    
               const updatePhoneNumber = () => {
                 console.log("updatePhoneNumber: Triggered");
                 const selectedCountryData = intlTelInstance1.current.getSelectedCountryData();
                 const rawInput = phoneInputRef.current.value || "";
-    
                 console.log("Selected country:", selectedCountryData);
                 console.log("Raw input:", rawInput);
-    
                 const newCountryCode = `+${selectedCountryData.dialCode}`;
                 setCountryCode(newCountryCode);
                 console.log("Country code updated to:", newCountryCode);
-    
                 const phoneNumber = rawInput.replace(/[^0-9]/g, "");
                 setFormData((prev) => ({
                   ...prev,
@@ -155,10 +82,8 @@ const Contact = () => {
                 }));
                 console.log("formData.mobile updated to:", phoneNumber);
               };
-    
               // Initialize country code
               updatePhoneNumber();
-    
               // Add event listeners
               phoneInputRef.current.addEventListener("countrychange", () => {
                 console.log("Event: countrychange fired");
@@ -168,9 +93,7 @@ const Contact = () => {
                 console.log("Event: input fired");
                 updatePhoneNumber();
               });
-    
               console.log("Event listeners added");
-    
               // Cleanup event listeners
               return () => {
                 console.log("Cleanup: Removing event listeners");
@@ -182,7 +105,6 @@ const Contact = () => {
               console.error("intl-tel-input: Failed to load", error);
             });
         });
-    
         // Cleanup intl-tel-input instance
         return () => {
           if (intlTelInstance1.current) {
@@ -194,28 +116,22 @@ const Contact = () => {
         console.warn("phoneInputRef: Not available");
       }
     }, []);
-
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-
     setFormData((prev) => ({
       ...prev,
       [name]: type === "checkbox" ? checked : value,
     }));
-
     if (name === "name") {
       setErrors((prev) => ({ ...prev, name: "" }));
     }
-
     if (name === "email") {
       setErrors((prev) => ({ ...prev, email: "" }));
     }
-
     if (name === "agree") {
       setErrors((prev) => ({ ...prev, agree: "" }));
     }
   };
-
   const validateForm = () => {
     const newErrors = {
       name: "",
@@ -224,13 +140,11 @@ const Contact = () => {
       agree: "",
     };
     let isValid = true;
-
     // Check if name is entered (you can add more specific validation here)
     if (!formData.name.trim()) {
       newErrors.name = "Name is required";
       isValid = false;
     }
-
     // Validate mobile number (only digits, 6-10 digits)
     if (!formData.mobile) {
       newErrors.mobile = "Phone number is required";
@@ -243,16 +157,6 @@ const Contact = () => {
       newErrors.mobile = "Please enter a valid phone number";
       isValid = false;
     }
-    // else if (formData.mobile.length < 6 || formData.mobile.length > 10) {
-    //   newErrors.mobile = 'Phone number must be between 6 and 10 digits';
-    //   isValid = false;
-    // }
-    // else if (formData.mobile.length > 10) {
-    //   newErrors.mobile = 'Phone number must be between 6 and 10 digits';
-    //   isValid = false;
-    // }
-    // Check if email is entered (basic validation can be done here if needed)
-    // Validate email format
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!formData.email) {
       newErrors.email = "Email is required";
@@ -261,13 +165,11 @@ const Contact = () => {
       newErrors.email = "Invalid email format";
       isValid = false;
     }
-
     // Check if the user agrees to the terms
     if (!formData.agree) {
       newErrors.agree = "You must agree to the terms";
       isValid = false;
     }
-
     setErrors(newErrors);
     return isValid;
   };
@@ -282,12 +184,10 @@ const Contact = () => {
     if (validateForm()) {
       console.log("Form is valid, submitting data:", formData);
       const fullMobileNumber = `${countryCode}${formData.mobile}`;
-
       // Extract project name from URL
       const url = window.location.href; // e.g., http://localhost:5173/project/godrej-miraya
       const projectSlugArray = url.split("/project/");
       const projectSlug = projectSlugArray[1] || "Unknown Project";
-
       // Format project name: remove hyphens, capitalize first letter of each word
       const projectName = projectSlug
         .split("-")
@@ -320,7 +220,6 @@ const Contact = () => {
         );
       }
       console.log("Contact Us API response:", contactUsResponse.data);
-
       // Prepare API URL with form data
       const apiUrl =
         `https://sloc.bitrix24.in/rest/1/s94cvkguwyrljt7f/crm.lead.add.json?` +
@@ -332,7 +231,6 @@ const Contact = () => {
         `&FIELDS[PHONE][0][VALUE_TYPE]=WORK` +
         `&FIELDS[SOURCE_ID]=UC_R2M98V` +
         `&FIELDS[UF_CRM_1745260289]=${url}`;
-
       // Make API call
       fetch(apiUrl, {
         method: "POST",
@@ -361,12 +259,9 @@ const Contact = () => {
       console.log("Form has errors, not submitting");
     }
   };
-
   const [show, setShow] = useState(false);
-
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
   return (
     <>
       <Helmet>
@@ -420,7 +315,6 @@ const Contact = () => {
           </Row>
         </Container>
       </section>
-
       <section className="blog-text ">
         <Container fluid>
           <Row className="justify-content-center">
@@ -448,12 +342,10 @@ const Contact = () => {
                             }));
                           }}
                         />
-
                         {errors.name && (
                           <span style={{ color: "red" }}>{errors.name}</span>
                         )}
                       </div>
-
                       <div className="mb-3">
                         <input
                           type="tel"
@@ -485,7 +377,6 @@ const Contact = () => {
                       {errors.mobile && (
                         <span style={{ color: "red" }}>{errors.mobile}</span>
                       )}
-
                       <div className="mb-3">
                         <input
                           type="text"
@@ -505,7 +396,6 @@ const Contact = () => {
                           <span style={{ color: "red" }}>{errors.email}</span>
                         )}
                       </div>
-
                       <div className="form-check mb-3 text-white">
                         <input
                           className="form-check-input"
@@ -526,7 +416,6 @@ const Contact = () => {
                       {errors.agree && (
                         <span style={{ color: "red" }}>{errors.agree}</span>
                       )}
-
                       <div className="d-grid">
                         <button
                           type="submit"
@@ -534,7 +423,6 @@ const Contact = () => {
                         >
                           Submit
                         </button>
-
                         {loading && (
                           <div className="loader">
                             <img
@@ -556,9 +444,11 @@ const Contact = () => {
                     <li className="mb-3 d-flex align-items-center">
                       <img src={ofc} />
                       <span>
-                        15th Floor, Ocus Quantum, Sector-51,
+                          SLOC REAL ESTATE PRIVATE LIMITED,
+                      <br/>
+                        RAJESH KUMAR -15th Floor, Ocus Quantum,
                         <br />
-                        Gurugram, Haryana - 122003
+                       Sector-51, Gurugram, Haryana - 122003
                       </span>
                     </li>
                     <li className="mb-3 d-flex align-items-center">
@@ -585,7 +475,6 @@ const Contact = () => {
                         >
                           <img src={linkdin} />
                         </Link>
-
                         <Link
                           to="https://www.instagram.com/sloc.in/"
                           className=""
@@ -612,5 +501,4 @@ const Contact = () => {
     </>
   );
 };
-
 export default Contact;

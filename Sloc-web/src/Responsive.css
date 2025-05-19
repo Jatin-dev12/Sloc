@@ -1358,6 +1358,11 @@ main.project-page {
 .timeline-container{
   height: 100%;
 }
+.searc-bar button.btn.btn-primary {
+
+  max-width: 100%;
+
+}
 }
 
 @media screen and (max-width: 578px) {

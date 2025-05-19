@@ -13,7 +13,6 @@ import {
 import Bg from "./sbg.png";
 import Plus from "./plus.svg";
 import Arrow from "../assets/Imgs/up-arrow.svg";
-
 import f1 from "../assets/Imgs/f1.png";
 import f2 from "../assets/Imgs/f2.png";
 import f3 from "../assets/Imgs/f3.png";
@@ -24,15 +23,13 @@ import { Navigation } from "swiper/modules";
 import { Card } from "react-bootstrap";
 import { Link, useLocation, useNavigate, useParams } from "react-router";
 import axios from "axios";
-
 import { debounce } from "lodash"; // You can install lodash to use debounce
 import { Helmet } from "react-helmet";
-
 function list() {
+    const [isFocused, setIsFocused] = useState(false);
   const [projectId, setProjectId] = useState("");
   const [suggestedProjects, setSuggestedProjects] = useState([]);
   const [searchLoading, setSearchLoading] = useState(false);
-
   // Handle the input change
   const handleProjectIdInput = (e) => {
     const query = e.target.value;
@@ -44,20 +41,17 @@ function list() {
       setSuggestedProjects([]); // Clear suggestions when less than 3 characters
     }
   };
-
   const debouncedSearch = debounce(async (query) => {
     setSearchLoading(true);
     const baseUrl =
       import.meta.env.VITE_BASE_URL || "https://default-api-url.com/";
     const apiUrl = `${baseUrl}api/projects?search=${query}`;
-
     try {
       const response = await axios.get(apiUrl, {
         headers: {
           Authorization: `Bearer AzlrVK30FVdEx0TwrRwqYrQTL`,
         },
       });
-
       if (response.data.success) {
         const projects = response.data.data;
         // Filter projects where the name (or relevant field) starts with the query
@@ -104,20 +98,16 @@ function list() {
   const [sortKey, setSortKey] = useState(null);
   const [totalProjects, setTotalProjects] = useState(0);
   const [mappedProjects, setMappedProjects] = useState([]);
-
   const baseUrl = (
     import.meta.env.VITE_BASE_URL || "https://admin.sloc.in/public"
   ).replace(/\/+$/, "");
   const token = "AzlrVK30FVdEx0TwrRwqYrQTL";
   const location = useLocation();
   const navigate = useNavigate();
-
-
   let propetySort = [
     { id: 1, key: 'low', text: 'Sort by low price' },
     { id: 2, key: 'high', text: 'Sort by high price' }
   ];
-
   // Fetch cities and property types on mount
   useEffect(() => {
     // Fetch cities
@@ -133,7 +123,6 @@ function list() {
       .catch((error) => {
         console.error("Error fetching cities:", error);
       });
-
     // Fetch property types
     axios
       .get(`${baseUrl}/api/property-type`, {
@@ -149,26 +138,21 @@ function list() {
       });
       setSortProperty(propetySort);
   }, [baseUrl, token]); // Only run on mount or if baseUrl/token changes
-
   useEffect(() => {
     if (!cities.length || !propertyTypes.length) return; // Wait until cities and property types are loaded
-
     const params = new URLSearchParams(location.search);
     const citySlug = params.get("city");
     const propertyTypeSlug = params.get("property_type");
     const projectParam = params.get("project");
-
     const formatSlug = (name) => {
       return name
         .toLowerCase()
         .replace(/\s+/g, "-") // Replace spaces with hyphens
         .replace(/[^a-z0-9-]/g, ""); // Remove special chars
     };
-
     let cityId = null;
     let propertyTypeId = null;
     let resolvedProjectId = projectParam;
-
     // Resolve city slug
     if (citySlug) {
       const city = cities.find((c) => formatSlug(c.name) === citySlug);
@@ -177,7 +161,6 @@ function list() {
         setSelectedCity({ id: city.id, name: city.name });
       }
     }
-
     // Resolve property type slug
     if (propertyTypeSlug) {
       const property = propertyTypes.find(
@@ -188,7 +171,6 @@ function list() {
         setSelectedProperty({ id: property.id, name: property.name });
       }
     }
-
     // Resolve project ID if provided
     const resolveProjectId = async () => {
       if (!projectParam) return null;
@@ -212,13 +194,11 @@ function list() {
         return projectParam;
       }
     };
-
     // Perform initial search
     const performInitialSearch = async () => {
       if (projectParam) {
         resolvedProjectId = await resolveProjectId();
       }
-
       const payload = {
         page: 1,
         per_page: 6,
@@ -226,12 +206,10 @@ function list() {
       if (cityId) payload.city = cityId;
       if (propertyTypeId) payload.property_type = propertyTypeId;
       if (resolvedProjectId) payload.project_name = resolvedProjectId; // Use project_name instead of project_id
-
       // If no filters are provided, ensure payload only contains pagination
       if (!cityId && !propertyTypeId && !resolvedProjectId) {
         console.log("Fetching all projects with default payload:", payload);
       }
-
       setSearchLoading(true);
       try {
         const response = await axios.post(
@@ -253,7 +231,6 @@ function list() {
           setDisplayCount(6); // Initialize display count
           setPage(1); // Reset page to 1
           console.log("Initial search results:", results, "Total:", total);
-
           // Map the results to update mappedProjects
           const mappedProjectsVar = results.map((project) => ({
             id: project.id,
@@ -276,152 +253,126 @@ function list() {
         setSearchLoading(false);
       }
     };
-
     performInitialSearch();
   }, [baseUrl, token, location.search, cities, propertyTypes]);
-
   const handleCitySelect = (city) => {
     setSelectedCity({ id: city.id, name: city.name });
   };
-
   const handlePropertySelect = (property) => {
     setSelectedProperty({ id: property.id, name: property.name });
   };
-
-  // const handleProjectIdInput = (event) => {
-  //   setProjectId(event.target.value);
-  // };
-
   const handleSearch = (newPage = 1) => {
-    var mappedProjectsVar = searchResults.map((project) => ({
-      id: project.id,
-      title: project.name || "Untitled Project",
-      slug: generateSlug(project.name), // Generate slug from name
-      price: project.tag_price ? `₹${project.tag_price}` : "Price on Request",
-      // location: project.address || 'Unknown Location',
-      // size: project.specification || 'N/A',
-      // feet: project.disclaimer || 'N/A',
-      image: project.hero_img || "https://via.placeholder.com/300",
-      size: project.pricing_layout[0]?.title || "", // Use title from first index of pricing_layout
-      feet: project.pricing_layout[0]?.description || "", // Use description from first index of pricing_layout
-      location: project.address || "",
-    }));
-    setMappedProjects(mappedProjectsVar);
-    setSearchLoading(true);
-    setSearchError(null);
-    if (newPage === 1) {
-      setSearchResults([]);
-      setDisplayCount(6);
-    }
-
-    const payload = {};
-    if (selectedCity.id) payload.city = selectedCity.id.toString();
-    if (selectedProperty.id)
-      payload.property_type = selectedProperty.id.toString();
-    if (projectId.trim()) payload.project_name = projectId.trim(); // Changed from project_id to project_name
-    payload.page = newPage;
-    payload.per_page = newPage === 1 ? 6 : 3;
-
-    console.log(
-      "Searching projects at:",
-      `${baseUrl}/api/project-search`,
-      "Payload:",
-      payload
-    );
-
-    axios
-      .post(`${baseUrl}/api/project-search`, payload, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-      })
-      .then((response) => {
-        if (response.data.success) {
-          const newResults = response.data.data;
-          setSearchResults((prev) =>
-            newPage === 1 ? newResults : [...prev, ...newResults]
-          );
-          setPage(newPage);
-          const newDisplayCount = newPage === 1 ? 6 : displayCount + 3;
-          setDisplayCount(newDisplayCount);
-          const total = response.data.total || newResults.length;
-          setTotalProjects(total);
-          setHasMore(newDisplayCount < total && newResults.length > 0);
-          console.log("Search results:", newResults, "Total:", total);
-
-          // Update URL with name-based slugs
-          const params = new URLSearchParams();
-
-          const formatSlug = (name) => {
-            return name
-              .toLowerCase()
-              .replace(/\s+/g, "-") // Replace spaces with hyphens
-              .replace(/[^a-z0-9-]/g, ""); // Remove special characters
-          };
-
-          if (selectedCity.id && selectedCity.name !== "All Cities") {
-            params.append("city", formatSlug(selectedCity.name));
-          }
-          if (
-            selectedProperty.id &&
-            selectedProperty.name !== "Any Property Type"
-          ) {
-            params.append("property_type", formatSlug(selectedProperty.name));
-          }
-          if (projectId.trim()) {
-            params.append("project", formatSlug(projectId.trim())); // Already using project
-          }
-
-          navigate(`/search-Listing?${params.toString()}`);
-        } else {
-          setSearchError(response.data.message || "Search failed.");
-        }
-      })
-      .catch((error) => {
-        console.error("Error fetching search results:", error);
-        setSearchError("Failed to fetch search results.");
-      })
-      .finally(() => {
-        setSearchLoading(false);
-      });
+    console.log('/////////////////',propertyTypes)
+  setSearchLoading(true);
+  setSearchError(null);
+  if (newPage === 1) {
+    setSearchResults([]);
+    setDisplayCount(6);
+  }
+  const payload = {
+    page: newPage,
+    per_page: newPage === 1 ? 6 : 3,
   };
-
+  if (selectedCity.id) payload.city = selectedCity.id.toString();
+  if (selectedProperty.id) payload.property_type = selectedProperty.id.toString();
+  if (projectId.trim()) payload.project_name = projectId.trim();
+  axios
+    .post(`${baseUrl}/api/project-search`, payload, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    })
+    .then((response) => {
+      if (response.data.success) {
+        const newResults = response.data.data;
+        // Remove duplicates by project ID
+        const uniqueResults = newResults.filter(
+          (project, index, self) =>
+            index === self.findIndex((p) => p.id === project.id)
+        );
+        // Accumulate unique results
+        setSearchResults((prev) => {
+          const updatedResults = newPage === 1 ? uniqueResults : [...prev, ...uniqueResults];
+          // Ensure no duplicates in accumulated results
+          return [...new Map(updatedResults.map((p) => [p.id, p])).values()];
+        });
+        // Use API's total if reliable, otherwise count unique projects
+        const total = response.data.total
+          ? Math.min(response.data.total, [...new Map([...searchResults, ...uniqueResults].map((p) => [p.id, p])).values()].length)
+          : [...new Map([...searchResults, ...uniqueResults].map((p) => [p.id, p])).values()].length;
+        setTotalProjects(total);
+        setHasMore(uniqueResults.length >= (newPage === 1 ? 6 : 3) && newPage * (newPage === 1 ? 6 : 3) < total);
+        // Adjust displayCount to not exceed totalProjects
+        const newDisplayCount = Math.min(newPage === 1 ? 6 : displayCount + 3, total);
+        setDisplayCount(newDisplayCount);
+        setPage(newPage);
+        // Map unique results to mappedProjects
+        const mappedProjectsVar = (newPage === 1 ? uniqueResults : [...searchResults, ...uniqueResults]).map((project) => ({
+          id: project.id,
+          title: project.name || "Untitled Project",
+          slug: generateSlug(project.name),
+          price: project.tag_price ? `₹${project.tag_price}` : "Price on Request",
+          image: project.hero_img || "https://via.placeholder.com/300",
+          size: project.pricing_layout[0]?.title || "",
+          feet: project.pricing_layout[0]?.description || "",
+          location: project.address || "",
+        }));
+        // Remove duplicates in mappedProjects
+        const uniqueMappedProjects = [...new Map(mappedProjectsVar.map((p) => [p.id, p])).values()];
+        setMappedProjects(uniqueMappedProjects);
+        // Update URL with slugs
+        const params = new URLSearchParams();
+        const formatSlug = (name) =>
+          name.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "");
+        if (selectedCity.id && selectedCity.name !== "All Cities") {
+          params.append("city", formatSlug(selectedCity.name));
+        }
+        if (selectedProperty.id && selectedProperty.name !== "Any Property Type") {
+          params.append("property_type", formatSlug(selectedProperty.name));
+        }
+        if (projectId.trim()) {
+          params.append("project", formatSlug(projectId.trim()));
+        }
+        navigate(`/search-Listing?${params.toString()}`);
+      } else {
+        setSearchError(response.data.message || "Search failed.");
+      }
+    })
+    .catch((error) => {
+      console.error("Error fetching search results:", error);
+      setSearchError("Failed to fetch search results.");
+    })
+    .finally(() => {
+      setSearchLoading(false);
+    });
+};
   const handleLoadMore = () => {
     handleSearch(page + 1);
   };
-
   const handleSort = (propertyTypeId) => {
     const selectedType = propertyTypes.find((pt) => pt.id === propertyTypeId);
-
     setSelectedProperty({
       id: propertyTypeId,
       name: selectedType ? selectedType.name : "Sort By", // Default to 'Sort By' if something goes wrong
     });
-
     // Trigger the search with the selected property type and reset to page 1
     handleSearch(1);
   };
-
   const handlePropertySort = (type) => {
     setSortPropertyHandle(type);
-
   };
-
   const { slug } = useParams();
   const [bannerImage, setBannerImage] = useState("/src/assets/Imgs/Baner.png"); // Default fallback image
   const [project, setProject] = useState(null);
   const [allProjects, setAllProjects] = useState([]);
   useEffect(() => {
     // console.log('useEffect: Starting with slug:', slug);
-
     const baseUrl =
       import.meta.env.VITE_BASE_URL || "https://default-api-url.com/";
     // console.log('useEffect: Base URL:', baseUrl);
-
     const apiUrl = `${baseUrl}api/projects`;
     // console.log('useEffect: API URL:', apiUrl);
-
     // console.log('useEffect: Initiating axios GET request');
     axios
       .get(apiUrl, {
@@ -432,11 +383,9 @@ function list() {
       .then((response) => {
         // console.log('useEffect: Axios response received:', response);
         // console.log('useEffect: Response data:', response.data);
-
         if (response.data.success) {
           // console.log('useEffect: API request successful');
           // console.log('useEffect: Searching for project with slug:', slug);
-
           const projectData = response.data.data.find((p) => {
             const projectSlug = generateSlug(p.name);
             // console.log(
@@ -448,10 +397,8 @@ function list() {
             return projectSlug === slug;
           });
           setAllProjects(response.data); // Set all projects
-
           // console.log('useEffect: Found project data:', projectData);
           // console.log('useEffect: All projects data:', response.data.data);
-
           if (projectData) {
             // console.log('useEffect: Project found, setting project state');
             const projectState = {
@@ -501,7 +448,6 @@ function list() {
               overview_highlights: projectData.overview_highlights || [], // Added here
               address: projectData.address || "N/A",
             };
-
             // console.log('useEffect: Setting project state with:', projectState);
             setProject(projectState);
             // Set banner image with validation
@@ -533,12 +479,10 @@ function list() {
         // console.log('useEffect: Request completed, setting loading to false');
       });
   }, [slug]);
-
   const clearFilter = (filter) => {
     let newCity = { ...selectedCity };
     let newProperty = { ...selectedProperty };
     let newProjectId = projectId;
-
     if (filter === "city") {
       newCity = { id: null, name: "City" };
       setSelectedCity(newCity);
@@ -551,7 +495,6 @@ function list() {
       newProjectId = "";
       setProjectId(newProjectId);
     }
-
     // Update URL with slug-based parameters
     const params = new URLSearchParams();
     const formatSlug = (name) => {
@@ -560,7 +503,6 @@ function list() {
         .replace(/\s+/g, "-") // Replace spaces with hyphens
         .replace(/[^a-z0-9-]/g, ""); // Remove special characters
     };
-
     if (newCity.id && newCity.name !== "All Cities") {
       params.append("city", formatSlug(newCity.name));
     }
@@ -571,7 +513,6 @@ function list() {
       params.append("project", formatSlug(newProjectId.trim())); // Use 'project'
     }
     navigate(`/search-Listing?${params.toString()}`);
-
     // Trigger search
     const payload = {};
     if (newCity.id) payload.city = newCity.id.toString();
@@ -579,7 +520,6 @@ function list() {
     if (newProjectId.trim()) payload.project_id = newProjectId.trim();
     payload.page = 1;
     payload.per_page = 6;
-
     setSearchLoading(true);
     axios
       .post(`${baseUrl}/api/project-search`, payload, {
@@ -596,10 +536,6 @@ function list() {
           setTotalProjects(total);
           setHasMore(results.length >= 6 && results.length < total);
           console.log("Search results after clear:", results, "Total:", total);
-
-
-
-
         } else {
           setSearchError(response.data.message || "Search failed.");
         }
@@ -612,16 +548,13 @@ function list() {
         setSearchLoading(false);
       });
   };
-
   useEffect(() => {
     let type = sortPropertyHandle;
     const sortedFunction = () =>{
       const normalizePrice = (priceStr) => {
         if (!priceStr) return 0;
-
         // Remove currency symbols and whitespace
         let cleanPrice = priceStr.replace(/[₹,\s]/g, '').toUpperCase();
-
         if (cleanPrice.includes('CR')) {
           return parseFloat(cleanPrice.replace('CR', '')) * 10000000;
         } else if (cleanPrice.includes('LAC')) {
@@ -630,14 +563,11 @@ function list() {
           return parseFloat(cleanPrice); // For plain numbers like "3.49"
         }
       };
-
       const sortedProjects = [...mappedProjects].sort((a, b) => {
         const priceA = normalizePrice(a.price);
         const priceB = normalizePrice(b.price);
-
         return type === 'low' ? priceA - priceB : priceB - priceA;
       });
-
       console.log("sorted --------",sortedProjects);
       setMappedProjects(sortedProjects);
       // You can update state if needed: setMappedProjects(sortedProjects);
@@ -681,7 +611,7 @@ function list() {
             </Col>
           </Row>
         </Container>
-        <div className="d-flex align-items-md-center searc-bar home-serch justify-content-between searchlisting-bar">
+        <div className="d-flex align-items-md-center searc-bar home-serch justify-content-center searchlisting-bar">
           <DropdownButton
             id="dropdown-city"
             title={selectedCity.name}
@@ -707,7 +637,6 @@ function list() {
               <Dropdown.Item disabled>No cities available</Dropdown.Item>
             )}
           </DropdownButton>
-
           <DropdownButton
             id="dropdown-property"
             title={selectedProperty.name}
@@ -735,7 +664,6 @@ function list() {
               </Dropdown.Item>
             )}
           </DropdownButton>
-
           <InputGroup className="me-2">
             <InputGroup.Text>
               <img src={Search} alt="Search" />
@@ -746,8 +674,13 @@ function list() {
               aria-describedby="basic-addon1"
               value={projectId}
               onChange={handleProjectIdInput}
+                                  onFocus={() => setIsFocused(true)}
+          onBlur={() => {
+            // Timeout to allow click on suggestion to register
+            setTimeout(() => setIsFocused(false), 100);
+          }}
             />
-            {projectId && suggestedProjects.length > 0 && (
+            {/* {projectId && suggestedProjects.length > 0 && (
               <div className="suggestions-box">
                 {suggestedProjects.map((project) => (
                   <div
@@ -759,11 +692,24 @@ function list() {
                   </div>
                 ))}
               </div>
-            )}
+            )} */}
+                  {isFocused && projectId && suggestedProjects.length > 0 && (
+        <div
+          className="suggestions-box"
+        >
+          {suggestedProjects.map((project) => (
+                  <div
+                    key={project.id}
+                    className="suggestion-item"
+                    onClick={() => handleSuggestionClick(project.name)}
+                  >
+                    <span>{project.name}</span>
+            </div>
+          ))}
+        </div>
+      )}
           </InputGroup>
-
           {/* Display search suggestions */}
-
           <Button
             className="all-same-ani"
             variant="primary"
@@ -774,7 +720,6 @@ function list() {
           </Button>
         </div>
       </section>
-
       <section className="Blog-listing">
         <Container>
           <Row className="blog-select mb-5">
@@ -845,14 +790,13 @@ function list() {
                   </Dropdown.Item>
                 )}
               </DropdownButton>
-
               {/* <p className="Bysearch">by search Result : {searchResults.length}</p> */}
-              <p className="Bysearch">by search Result</p>
+              <p className="Bysearch">by search Result : {totalProjects}</p>
+              {/* <p className="Bysearch">by search Result</p> */}
             </Col>
           </Row>
         </Container>
       </section>
-
       <section className="featured listing-mania pt-4">
         <Container className="full">
           {searchError && <div className="text-danger mb-3">{searchError}</div>}
@@ -864,13 +808,11 @@ function list() {
                   if (!text) return "";
                   return text.split(" ").slice(0, 3).join(" ");
                 };
-
                 // Calculate the number of projects to display (limited by displayCount)
                 const projectsToDisplay = mappedProjects.slice(
                   0,
                   Math.min(displayCount, mappedProjects.length)
                 );
-
                 // Group projects into rows of 3
                 const rows = [];
                 for (let i = 0; i < projectsToDisplay.length; i += 3) {
@@ -935,13 +877,13 @@ function list() {
                     </Row>
                   );
                 }
-
                 return (
                   <>
                     {rows}
                     {/* Load More Button */}
-                    {hasMore && displayCount < mappedProjects.length && (
-                      <Row className="align-items-center justify-content-center mt-5">
+{/* {mappedProjects.length > displayCount && ( */}
+{displayCount < totalProjects && (
+                        <Row className="align-items-center justify-content-center mt-5">
                         <Button
                           variant="dark"
                           className="load-more"
@@ -964,5 +906,4 @@ function list() {
     </main>
   );
 }
-
 export default list;

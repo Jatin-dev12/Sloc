@@ -525,7 +525,7 @@ nav.Main-nav.navbar {
   position: fixed ;
   width: 100%;
   top: 0;
-  z-index: 99999;
+  z-index: 999999999;
   background: #fff;
 }
 a.nav-link:hover {
@@ -586,4 +586,7 @@ a.banner-button.white.btn.btn-dark:hover{
   color: #fff !important;
   background-color: unset !important;
 }
+.Toastify__toast-container--top-right {
+    top: 140px !important;
 
+}

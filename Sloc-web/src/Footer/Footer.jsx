@@ -74,7 +74,7 @@ const Footer = () => {
       <footer className="">
         <Container>
           <Row className="mb-4 justify-content-between">
-            <Col lg={5} md={6} className="mb-4 mb-md-0 p-md-0">
+            <Col lg={4} md={6} className="mb-4 mb-md-0 p-md-0">
               <div className="footer-logo">
                 <Link to="/">
                   <p className="Logo">SLOC</p>
@@ -162,18 +162,18 @@ const Footer = () => {
                 </li>
               </ul>
             </Col>
-
-            <Col lg={2} md={6} className="mb-4 mb-md-0 res-st">
-              <h6 className="text-uppercase ft-font mb-3">Contact Us</h6>
-              <p className=" mb-1">15th Floor, Ocus Quantum,</p>
-              <p className=" mb-1">Sector-51, Gurugram, Haryana, 122003 </p>
-              <p className=" my-3">
-                <a href="mailto:contact@sloc.in">contact@sloc.in</a>{" "}
-              </p>
-              <p className=" mb-1">
-                <a href="tel:+919971094108">+919971094108</a>
-              </p>
-            </Col>
+  <Col lg={3} md={6} className="mb-4 mb-md-0 res-st">
+                         <h6 className="text-uppercase ft-font mb-3">Contact Us</h6>
+                         <p className=" mb-1">SLOC REAL ESTATE PRIVATE LIMITED,</p>
+                         <p className=" mb-1">RAJESH KUMAR - 15th Floor, Ocus Quantum,</p>
+                         <p className=" mb-1">Sector-51, Gurugram, Haryana, 122003 </p>
+                         <p className=" my-3">
+                           <a href="mailto:contact@sloc.in">contact@sloc.in</a>{" "}
+                         </p>
+                         <p className=" mb-1">
+                           <a href="tel:+919971094108">+919971094108</a>
+                         </p>
+                       </Col>
           </Row>
 
           <Row className="border-top-set pt-3 mt-2">

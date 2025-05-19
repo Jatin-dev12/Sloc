@@ -121,7 +121,7 @@ export default function Header() {
       isValid = false;
     }
     if (!formData2.agree) {
-      newErrors.agree = 'You must agree to the terms';
+      newErrors.agree = 'You must agree to the terms hello';
       isValid = false;
     }
 

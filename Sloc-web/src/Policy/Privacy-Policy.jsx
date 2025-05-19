@@ -4,12 +4,13 @@ import Bl from "../assets/Imgs/Blog-detail.svg";
 import "../App.css";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
-
 const Privacy = () => {
   return (
     <>
       <Helmet>
-        <title>Privacy Policy | SLOC - Your Trusted Real Estate Partner in India</title>
+        <title>
+          Privacy Policy | SLOC - Your Trusted Real Estate Partner in India
+        </title>
         <meta
           property="og:title"
           content="Privacy Policy | SLOC - Your Trusted Real Estate Partner in India"
@@ -19,7 +20,7 @@ const Privacy = () => {
           content="Read SLOC's Privacy Policy to understand how we collect, use, and protect your personal data. We are committed to ensuring the security and privacy of your information."
         />
       </Helmet>
-      <section className="privacy baner-iner">
+      <section className=">privacy baner-iner">
         <Container className="">
           <Row className="align-items-center">
             <Col md={12} className="animate__animated animate__fadeInLeft">
@@ -71,7 +72,6 @@ const Privacy = () => {
                           site.
                         </li>
                       </ul>
-
                       <p>
                         We also gather non-personal, analytical data - such as
                         pages visited, time spent, and location-based data - to
@@ -98,7 +98,6 @@ const Privacy = () => {
                           Maintain and grow our client relationships
                         </li>
                       </ul>
-
                       <p>
                         We may use your information to send you marketing
                         content about properties or services that you are
@@ -124,7 +123,6 @@ const Privacy = () => {
                           content
                         </li>
                       </ul>
-
                       <p>
                         Your browser options let you decide whether to turn off
                         cookies. Some aspects of our website could not work
@@ -176,7 +174,6 @@ const Privacy = () => {
                           Withdraw consent or request data deletion
                         </li>
                       </ul>
-
                       <p>
                         To use these rights, kindly write to us at
                         contact@sloc.in. Keep in mind that removing your data
@@ -259,5 +256,4 @@ const Privacy = () => {
     </>
   );
 };
-
 export default Privacy;
