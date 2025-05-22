@@ -26,7 +26,7 @@ import axios from "axios";
 import { debounce } from "lodash"; // You can install lodash to use debounce
 import { Helmet } from "react-helmet";
 function list() {
-    const [isFocused, setIsFocused] = useState(false);
+  const [isFocused, setIsFocused] = useState(false);
   const [projectId, setProjectId] = useState("");
   const [suggestedProjects, setSuggestedProjects] = useState([]);
   const [searchLoading, setSearchLoading] = useState(false);
@@ -105,8 +105,8 @@ function list() {
   const location = useLocation();
   const navigate = useNavigate();
   let propetySort = [
-    { id: 1, key: 'low', text: 'Sort by low price' },
-    { id: 2, key: 'high', text: 'Sort by high price' }
+    { id: 1, key: "low", text: "Sort by low price" },
+    { id: 2, key: "high", text: "Sort by high price" },
   ];
   // Fetch cities and property types on mount
   useEffect(() => {
@@ -136,7 +136,7 @@ function list() {
       .catch((error) => {
         console.error("Error fetching property types:", error);
       });
-      setSortProperty(propetySort);
+    setSortProperty(propetySort);
   }, [baseUrl, token]); // Only run on mount or if baseUrl/token changes
   useEffect(() => {
     if (!cities.length || !propertyTypes.length) return; // Wait until cities and property types are loaded
@@ -180,7 +180,9 @@ function list() {
       }
       try {
         const response = await axios.get(
-          `${baseUrl}/api/resolve-project?name=${encodeURIComponent(projectParam)}`,
+          `${baseUrl}/api/resolve-project?name=${encodeURIComponent(
+            projectParam
+          )}`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -208,7 +210,7 @@ function list() {
       if (resolvedProjectId) payload.project_name = resolvedProjectId; // Use project_name instead of project_id
       // If no filters are provided, ensure payload only contains pagination
       if (!cityId && !propertyTypeId && !resolvedProjectId) {
-        console.log("Fetching all projects with default payload:", payload);
+        // console.log("Fetching all projects with default payload:", payload);
       }
       setSearchLoading(true);
       try {
@@ -230,17 +232,22 @@ function list() {
           setHasMore(results.length >= 6 && results.length < total);
           setDisplayCount(6); // Initialize display count
           setPage(1); // Reset page to 1
-          console.log("Initial search results:", results, "Total:", total);
+          // console.log("Initial search results:", results, "Total:", total);
           // Map the results to update mappedProjects
           const mappedProjectsVar = results.map((project) => ({
             id: project.id,
             title: project.name || "Untitled Project",
             slug: generateSlug(project.name), // Generate slug from name
-            price: project.tag_price ? `₹${project.tag_price}` : "Price on Request",
+            price: project.tag_price
+              ? `${project.tag_price}`
+              : "Price on Request",
             image: project.hero_img || "https://via.placeholder.com/300",
             size: project.pricing_layout[0]?.title || "",
             feet: project.pricing_layout[0]?.description || "",
             location: project.address || "",
+            type: project.type || "",
+            area: project.area || "",
+            locations: project.location || "",
           }));
           setMappedProjects(mappedProjectsVar);
         } else {
@@ -261,8 +268,7 @@ function list() {
   const handlePropertySelect = (property) => {
     setSelectedProperty({ id: property.id, name: property.name });
   };
-  const handleSearch = (newPage = 1) => {
-    console.log('/////////////////',propertyTypes)
+const handleSearch = (newPage = 1) => {
   setSearchLoading(true);
   setSearchError(null);
   if (newPage === 1) {
@@ -276,6 +282,7 @@ function list() {
   if (selectedCity.id) payload.city = selectedCity.id.toString();
   if (selectedProperty.id) payload.property_type = selectedProperty.id.toString();
   if (projectId.trim()) payload.project_name = projectId.trim();
+
   axios
     .post(`${baseUrl}/api/project-search`, payload, {
       headers: {
@@ -293,48 +300,71 @@ function list() {
         );
         // Accumulate unique results
         setSearchResults((prev) => {
-          const updatedResults = newPage === 1 ? uniqueResults : [...prev, ...uniqueResults];
+          const updatedResults =
+            newPage === 1 ? uniqueResults : [...prev, ...uniqueResults];
           // Ensure no duplicates in accumulated results
           return [...new Map(updatedResults.map((p) => [p.id, p])).values()];
         });
-        // Use API's total if reliable, otherwise count unique projects
-        const total = response.data.total
-          ? Math.min(response.data.total, [...new Map([...searchResults, ...uniqueResults].map((p) => [p.id, p])).values()].length)
-          : [...new Map([...searchResults, ...uniqueResults].map((p) => [p.id, p])).values()].length;
+        // Calculate total based on filters
+        const hasFilters = selectedCity.id || selectedProperty.id || projectId.trim();
+        const total = hasFilters
+          ? uniqueResults.length // Use filtered results length when filters are applied
+          : response.data.total || uniqueResults.length; // Fallback to API total if no filters
         setTotalProjects(total);
-        setHasMore(uniqueResults.length >= (newPage === 1 ? 6 : 3) && newPage * (newPage === 1 ? 6 : 3) < total);
+        setHasMore(
+          uniqueResults.length >= (newPage === 1 ? 6 : 3) &&
+            newPage * (newPage === 1 ? 6 : 3) < total
+        );
         // Adjust displayCount to not exceed totalProjects
-        const newDisplayCount = Math.min(newPage === 1 ? 6 : displayCount + 3, total);
+        const newDisplayCount = Math.min(
+          newPage === 1 ? 6 : displayCount + 3,
+          total
+        );
         setDisplayCount(newDisplayCount);
         setPage(newPage);
         // Map unique results to mappedProjects
-        const mappedProjectsVar = (newPage === 1 ? uniqueResults : [...searchResults, ...uniqueResults]).map((project) => ({
+        const mappedProjectsVar = (
+          newPage === 1 ? uniqueResults : [...searchResults, ...uniqueResults]
+        ).map((project) => ({
           id: project.id,
           title: project.name || "Untitled Project",
           slug: generateSlug(project.name),
-          price: project.tag_price ? `₹${project.tag_price}` : "Price on Request",
+          price: project.tag_price
+            ? `${project.tag_price}`
+            : "Price on Request",
           image: project.hero_img || "https://via.placeholder.com/300",
           size: project.pricing_layout[0]?.title || "",
           feet: project.pricing_layout[0]?.description || "",
           location: project.address || "",
+          type: project.type || "",
+          area: project.area || "",
+          locations: project.location || "",
         }));
         // Remove duplicates in mappedProjects
-        const uniqueMappedProjects = [...new Map(mappedProjectsVar.map((p) => [p.id, p])).values()];
+        const uniqueMappedProjects = [
+          ...new Map(mappedProjectsVar.map((p) => [p.id, p])).values(),
+        ];
         setMappedProjects(uniqueMappedProjects);
         // Update URL with slugs
         const params = new URLSearchParams();
         const formatSlug = (name) =>
-          name.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "");
+          name
+            .toLowerCase()
+            .replace(/\s+/g, "-")
+            .replace(/[^a-z0-9-]/g, "");
         if (selectedCity.id && selectedCity.name !== "All Cities") {
           params.append("city", formatSlug(selectedCity.name));
         }
-        if (selectedProperty.id && selectedProperty.name !== "Any Property Type") {
+        if (
+          selectedProperty.id &&
+          selectedProperty.name !== "Any Property Type"
+        ) {
           params.append("property_type", formatSlug(selectedProperty.name));
         }
         if (projectId.trim()) {
           params.append("project", formatSlug(projectId.trim()));
         }
-        navigate(`/search-Listing?${params.toString()}`);
+        // navigate(`/search-Listing?${params.toString()}`);
       } else {
         setSearchError(response.data.message || "Search failed.");
       }
@@ -381,7 +411,7 @@ function list() {
         },
       })
       .then((response) => {
-        // console.log('useEffect: Axios response received:', response);
+        // console.log('useEffect: Axios resposnse received:', response);
         // console.log('useEffect: Response data:', response.data);
         if (response.data.success) {
           // console.log('useEffect: API request successful');
@@ -407,7 +437,7 @@ function list() {
               title: projectData.name || "Untitled Project",
               slug: projectData.slug || generateSlug(projectData.name),
               price: projectData.tag_price
-                ? `₹ ${projectData.tag_price} CR* ONWARDS`
+                ? `${projectData.tag_price} CR* ONWARDS`
                 : "Price on Request",
               // location: projectData.address || 'Unknown Location',
               // size: projectData.pricing_layout[0]?.title || '',
@@ -415,6 +445,9 @@ function list() {
               size: projectData.pricing_layout[0]?.title || "", // Use title from first index of pricing_layout
               feet: projectData.pricing_layout[0]?.description || "", // Use description from first index of pricing_layout
               location: projectData.address || "",
+              type: projectData.type || "",
+              area: projectData.area || "",
+              locations: projectData.location || "",
               image: projectData.hero_img || "https://via.placeholder.com/300",
               overview:
                 projectData.overview_content || "No overview available.",
@@ -447,6 +480,7 @@ function list() {
               location_advantages: projectData.location_advantages || [], // Added here
               overview_highlights: projectData.overview_highlights || [], // Added here
               address: projectData.address || "N/A",
+
             };
             // console.log('useEffect: Setting project state with:', projectState);
             setProject(projectState);
@@ -550,15 +584,15 @@ function list() {
   };
   useEffect(() => {
     let type = sortPropertyHandle;
-    const sortedFunction = () =>{
+    const sortedFunction = () => {
       const normalizePrice = (priceStr) => {
         if (!priceStr) return 0;
         // Remove currency symbols and whitespace
-        let cleanPrice = priceStr.replace(/[₹,\s]/g, '').toUpperCase();
-        if (cleanPrice.includes('CR')) {
-          return parseFloat(cleanPrice.replace('CR', '')) * 10000000;
-        } else if (cleanPrice.includes('LAC')) {
-          return parseFloat(cleanPrice.replace('LAC', '')) * 100000;
+        let cleanPrice = priceStr.replace(/[₹,\s]/g, "").toUpperCase();
+        if (cleanPrice.includes("CR")) {
+          return parseFloat(cleanPrice.replace("CR", "")) * 10000000;
+        } else if (cleanPrice.includes("LAC")) {
+          return parseFloat(cleanPrice.replace("LAC", "")) * 100000;
         } else {
           return parseFloat(cleanPrice); // For plain numbers like "3.49"
         }
@@ -566,12 +600,12 @@ function list() {
       const sortedProjects = [...mappedProjects].sort((a, b) => {
         const priceA = normalizePrice(a.price);
         const priceB = normalizePrice(b.price);
-        return type === 'low' ? priceA - priceB : priceB - priceA;
+        return type === "low" ? priceA - priceB : priceB - priceA;
       });
-      console.log("sorted --------",sortedProjects);
+      // console.log("sorted --------", sortedProjects);
       setMappedProjects(sortedProjects);
       // You can update state if needed: setMappedProjects(sortedProjects);
-    }
+    };
     sortedFunction();
   }, [sortPropertyHandle]);
   const handleSuggestionClick = (projectName) => {
@@ -590,6 +624,10 @@ function list() {
         />
         <meta
           property="og:description"
+          content="Browse a wide range of property listings across India. Find residential and commercial properties to invest with SLOC, your trusted real estate partner in India."
+        />
+          <meta
+         name="description"
           content="Browse a wide range of property listings across India. Find residential and commercial properties to invest with SLOC, your trusted real estate partner in India."
         />
       </Helmet>
@@ -674,11 +712,11 @@ function list() {
               aria-describedby="basic-addon1"
               value={projectId}
               onChange={handleProjectIdInput}
-                                  onFocus={() => setIsFocused(true)}
-          onBlur={() => {
-            // Timeout to allow click on suggestion to register
-            setTimeout(() => setIsFocused(false), 100);
-          }}
+              onFocus={() => setIsFocused(true)}
+              onBlur={() => {
+                // Timeout to allow click on suggestion to register
+                setTimeout(() => setIsFocused(false), 100);
+              }}
             />
             {/* {projectId && suggestedProjects.length > 0 && (
               <div className="suggestions-box">
@@ -693,21 +731,19 @@ function list() {
                 ))}
               </div>
             )} */}
-                  {isFocused && projectId && suggestedProjects.length > 0 && (
-        <div
-          className="suggestions-box"
-        >
-          {suggestedProjects.map((project) => (
+            {isFocused && projectId && suggestedProjects.length > 0 && (
+              <div className="suggestions-box">
+                {suggestedProjects.map((project) => (
                   <div
                     key={project.id}
                     className="suggestion-item"
                     onClick={() => handleSuggestionClick(project.name)}
                   >
                     <span>{project.name}</span>
-            </div>
-          ))}
-        </div>
-      )}
+                  </div>
+                ))}
+              </div>
+            )}
           </InputGroup>
           {/* Display search suggestions */}
           <Button
@@ -724,11 +760,11 @@ function list() {
         <Container>
           <Row className="blog-select mb-5">
             <Col md={6}>
-              {console.log("Filter States:", {
+              {/* {console.log("Filter States:", {
                 selectedCity,
                 selectedProperty,
                 projectId,
-              })}
+              })} */}
               <Button
                 variant="dark"
                 className={`latest filter ${selectedCity.id ? "active" : ""}`}
@@ -842,20 +878,20 @@ function list() {
                             />
                             <Card.Body className="uper-space">
                               <Card.Text className="mb-4 btn-loc">
-                                {project.size && project.size !== "N/A" && (
+                                {project.type && project.type !== "N/A" && (
                                   <span>
-                                    {truncateToThreeWords(project.size)}
+                                    {(project.type)}
                                   </span>
                                 )}
-                                {project.feet && project.feet !== "N/A" && (
+                                {project.area && project.area !== "N/A" && (
                                   <span>
-                                    {truncateToThreeWords(project.feet)}
+                                    {(project.area)}
                                   </span>
                                 )}
-                                {project.location &&
-                                  project.location !== "N/A" && (
+                                {project.locations &&
+                                  project.locations !== "N/A" && (
                                     <span>
-                                      {truncateToThreeWords(project.location)}
+                                      {(project.locations)}
                                     </span>
                                   )}
                               </Card.Text>
@@ -881,9 +917,9 @@ function list() {
                   <>
                     {rows}
                     {/* Load More Button */}
-{/* {mappedProjects.length > displayCount && ( */}
-{displayCount < totalProjects && (
-                        <Row className="align-items-center justify-content-center mt-5">
+                    {/* {mappedProjects.length > displayCount && ( */}
+                    {displayCount < totalProjects && (
+                      <Row className="align-items-center justify-content-center mt-5">
                         <Button
                           variant="dark"
                           className="load-more"

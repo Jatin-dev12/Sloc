@@ -1,25 +1,67 @@
-import React from "react";
-import { Container, Row, Col, Badge, Image } from "react-bootstrap";
+  import React, { useState, useEffect } from "react";
+  import { Container, Row, Col, Badge, Image } from "react-bootstrap";
 import Bl from "../assets/Imgs/Blog-detail.svg";
 import "../App.css";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
+  import axios from "axios";
+
+import { useLocation } from 'react-router-dom';
 const Privacy = () => {
+  const location = useLocation();
+      const [metaTitle, setMetaTitle] = useState('');
+      const [metaDescription, setMetaDescription] = useState('');
+    const [ogImage, setOgImage] = useState('');
+
+
+       useEffect(() => {
+         const currentPath = location.pathname.replace(/^\/|\/$/g, '');
+        const baseUrl =
+          import.meta.env.VITE_BASE_URL || "https://default-api-url.com/";
+        const apiUrl = `${baseUrl}api/metas`;
+
+        axios
+          .get(apiUrl, {
+            headers: {
+              Authorization: `Bearer AzlrVK30FVdEx0TwrRwqYrQTL`,
+            },
+          })
+       .then((response) => {
+          if (response.data.success && Array.isArray(response.data.data)) {
+            const matchedMeta = response.data.data.find(
+              (item) => item.page && item.page.slug === currentPath
+            );
+
+            if (matchedMeta) {
+              setMetaTitle(matchedMeta.meta_title);
+              setMetaDescription(matchedMeta.meta_description);
+                  setOgImage(matchedMeta.og_image);
+            } else {
+              console.warn(`No meta found for slug: ${currentPath}`);
+            }
+          } else {
+            console.error('Invalid response data');
+          }
+        })
+        .catch((error) => {
+          console.error('API call failed', error);
+        });
+    }, [location.pathname]);
   return (
     <>
-      <Helmet>
-        <title>
-          Privacy Policy | SLOC - Your Trusted Real Estate Partner in India
-        </title>
-        <meta
-          property="og:title"
-          content="Privacy Policy | SLOC - Your Trusted Real Estate Partner in India"
-        />
-        <meta
-          property="og:description"
-          content="Read SLOC's Privacy Policy to understand how we collect, use, and protect your personal data. We are committed to ensuring the security and privacy of your information."
-        />
-      </Helmet>
+     <Helmet>
+                 <title>{metaTitle} </title>
+                 <meta
+                   property="og:title"
+                   content={metaTitle}
+                 />
+                 <meta
+                   property="og:description"
+                   content={metaDescription}
+                 />
+       <meta property="og:image" content={ogImage}></meta>
+                 <meta name="description" content={metaDescription}></meta>
+               </Helmet>
       <section className=">privacy baner-iner">
         <Container className="">
           <Row className="align-items-center">

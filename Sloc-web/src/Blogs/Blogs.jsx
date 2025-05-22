@@ -6,11 +6,16 @@ import Arrow from "../assets/Imgs/up-arrow.svg";
 import blog1 from "../assets/Imgs/blog-1.png";
 import blog2 from "../assets/Imgs/blog-2.png";
 import blog3 from "../assets/Imgs/blog-3.png";
+import { useLocation } from 'react-router-dom';
 import "../App.css";
 import { Helmet } from "react-helmet";
 // Static fallback images
 const fallbackImages = [blog1, blog2, blog3];
 function Blogs() {
+    const location = useLocation();
+  const [metaTitle, setMetaTitle] = useState('');
+  const [metaDescription, setMetaDescription] = useState('');
+const [ogImage, setOgImage] = useState('');
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -35,96 +40,144 @@ function Blogs() {
       : "untitled-blog"; // Fallback slug
   };
   // Fetch blogs from API
-  useEffect(() => {
-    const baseUrl =
-      import.meta.env.VITE_BASE_URL || "https://default-api-url.com/";
-    const apiUrl = `${baseUrl}api/blogs`;
-    axios
-      .get(apiUrl, {
-        headers: {
-          Authorization: `Bearer AzlrVK30FVdEx0TwrRwqYrQTL`,
-        },
-      })
-      .then((response) => {
-        if (response.data.success) {
-          console.log("Blogs fetched successfully:", response.data.data);
-          const apiBlogs = response.data.data;
-          // Map API response to the required blog structure
-          const mappedBlogs = apiBlogs.map((blog, index) => ({
-            id: blog.id || `blog-${index + 1}`,
-            name: blog.name || "Untitled Blog",
-            slug: generateBlogsSlug(blog.name),
-            image: blog.banner
-              ? `${blog.banner}`
-              : fallbackImages[index % fallbackImages.length],
-            text: stripHtmlAndTruncate(
-              blog.short_description || blog.description,
-              100
-            ), // Strip HTML and truncate
-            date: blog.created_at
-              ? new Date(blog.created_at).toLocaleDateString("en-US", {
-                  day: "numeric",
-                  month: "long",
-                  year: "numeric",
-                })
-              : "Unknown Date",
-            rawDate: blog.created_at ? new Date(blog.created_at) : new Date(), // Store raw date for sorting
-            catagory: blog.keywords || "General",
-          }));
-          // Sort blogs by date in descending order (newest first)
-          const sortedBlogs = mappedBlogs.sort((a, b) => b.rawDate - a.rawDate);
-          setBlogs(sortedBlogs);
+useEffect(() => {
+  // Fetch blogs and meta data in a single useEffect
+  const baseUrl =
+    import.meta.env.VITE_BASE_URL || "https://default-api-url.com/";
+
+  // API URLs
+  const blogsApiUrl = `${baseUrl}api/blogs`;
+  const metasApiUrl = `${baseUrl}api/metas`;
+
+  // Get current path for meta data
+  const currentPath = location.pathname.replace(/^\/|\/$/g, '');
+
+  // Fetch blogs
+  axios
+    .get(blogsApiUrl, {
+      headers: {
+        Authorization: `Bearer AzlrVK30FVdEx0TwrRwqYrQTL`,
+      },
+    })
+    .then((response) => {
+      if (response.data.success) {
+        const apiBlogs = response.data.data;
+        const mappedBlogs = apiBlogs.map((blog, index) => ({
+          id: blog.id || `blog-${index + 1}`,
+          name: blog.name || "Untitled Blog",
+          slug: generateBlogsSlug(blog.name),
+          image: blog.banner
+            ? `${blog.banner}`
+            : fallbackImages[index % fallbackImages.length],
+          text: stripHtmlAndTruncate(
+            blog.short_description || blog.description,
+            100
+          ), // Strip HTML and truncate
+          date: blog.created_at
+            ? new Date(blog.created_at).toLocaleDateString("en-US", {
+                day: "numeric",
+                month: "long",
+                year: "numeric",
+              })
+            : "Unknown Date",
+          rawDate: blog.created_at ? new Date(blog.created_at) : new Date(),
+          catagory: blog.keywords || "General",
+        }));
+
+        // Sort blogs by date in descending order (newest first)
+        const sortedBlogs = mappedBlogs.sort((a, b) => b.rawDate - a.rawDate);
+        setBlogs(sortedBlogs);
+      } else {
+        throw new Error("API response was not successful for blogs");
+      }
+    })
+    .catch((error) => {
+      console.error("Error fetching blogs:", error);
+      setError("Failed to load blogs. Please try again later.");
+    })
+    .finally(() => {
+      setLoading(false);
+    });
+
+  // Fetch meta data
+  axios
+    .get(metasApiUrl, {
+      headers: {
+        Authorization: `Bearer AzlrVK30FVdEx0TwrRwqYrQTL`,
+      },
+    })
+    .then((response) => {
+      if (response.data.success && Array.isArray(response.data.data)) {
+        const matchedMeta = response.data.data.find(
+          (item) => item.page && item.page.slug === currentPath
+        );
+
+        if (matchedMeta) {
+          setMetaTitle(matchedMeta.meta_title);
+          setMetaDescription(matchedMeta.meta_description);
+          setOgImage(matchedMeta.og_image);
         } else {
-          throw new Error("API response was not successful");
+          console.warn(`No meta found for slug: ${currentPath}`);
         }
-      })
-      .catch((error) => {
-        console.error("Error fetching blogs:", error);
-        setError("Failed to load blogs. Please try again later.");
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }, []);
-  // Handle filter change
-  const handleFilterChange = (category) => {
-    setFilter(category);
-  };
-  // Filter blogs based on category or select first three for Latest
-  const filteredBlogs =
-    filter === "All"
-      ? blogs
-      : filter === "Latest"
-      ? blogs.slice(0, 6) // Select first three blogs for Latest
-      : blogs.filter((blog) => blog.catagory === filter);
-  // Render loading state
-  if (loading) {
-    return (
-      <Container className="text-center my-5">
-        <h3>Loading blogs...</h3>
-      </Container>
-    );
-  }
-  // Render error state
-  if (error) {
-    return (
-      <Container className="text-center my-5">
-        <h3>{error}</h3>
-      </Container>
-    );
-  }
+      } else {
+        console.error("Invalid response data for metas");
+      }
+    })
+    .catch((error) => {
+      console.error("API call failed for metas", error);
+    });
+}, [location.pathname]); // This will re-trigger the effect when pathname changes
+
+// Handle filter change
+const handleFilterChange = (category) => {
+  setFilter(category);
+};
+
+// Filter blogs based on category or select first three for Latest
+const filteredBlogs =
+  filter === "All"
+    ? blogs
+    : filter === "Latest"
+    ? blogs.slice(0, 6) // Select first three blogs for Latest
+    : blogs.filter((blog) => blog.catagory === filter);
+
+// Render loading state
+if (loading) {
+  return (
+    <Container className="text-center my-5">
+      <h3>Loading blogs...</h3>
+    </Container>
+  );
+}
+
+// Render error state
+if (error) {
+  return (
+    <Container className="text-center my-5">
+      <h3>{error}</h3>
+    </Container>
+  );
+}
+
+
+
+
+
+
   return (
     <main className="blog-page">
       <Helmet>
-        <title>Real Estate Blog | Property Tips & Market Updates India</title>
-        <meta
-          property="og:title"
-          content="Real Estate Blog | Property Tips & Market Updates India"
-        />
-        <meta
-          property="og:description"
-          content="Explore SLOC’s real estate blog for tips, market trends, and insights on buying and investing in property across India. Stay informed with expert advice."
-        />
+        <title>{metaTitle} </title>
+          <meta
+            property="og:title"
+            content={metaTitle}
+          />
+          <meta
+            property="og:description"
+            content={metaDescription}
+          />
+<meta property="og:image" content={ogImage}></meta>
+          <meta name="description" content={metaDescription}></meta>
       </Helmet>
       {/* Banner Section */}
       <section className="Main-banner Blogs-banner" data-speed="1.5">

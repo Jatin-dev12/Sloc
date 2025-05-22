@@ -1,26 +1,71 @@
-import React from "react";
+  import React, { useState, useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import "../App.css";
 import { FaCheckCircle } from "react-icons/fa";
 import Icon from "../assets/Imgs/list-icon.svg";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
+  import axios from "axios";
+
+import { useLocation } from 'react-router-dom';
 const Terms = () => {
+
+
+  const location = useLocation();
+      const [metaTitle, setMetaTitle] = useState('');
+      const [metaDescription, setMetaDescription] = useState('');
+    const [ogImage, setOgImage] = useState('');
+
+
+       useEffect(() => {
+         const currentPath = location.pathname.replace(/^\/|\/$/g, '');
+        const baseUrl =
+          import.meta.env.VITE_BASE_URL || "https://default-api-url.com/";
+        const apiUrl = `${baseUrl}api/metas`;
+
+        axios
+          .get(apiUrl, {
+            headers: {
+              Authorization: `Bearer AzlrVK30FVdEx0TwrRwqYrQTL`,
+            },
+          })
+       .then((response) => {
+          if (response.data.success && Array.isArray(response.data.data)) {
+            const matchedMeta = response.data.data.find(
+              (item) => item.page && item.page.slug === currentPath
+            );
+
+            if (matchedMeta) {
+              setMetaTitle(matchedMeta.meta_title);
+              setMetaDescription(matchedMeta.meta_description);
+                  setOgImage(matchedMeta.og_image);
+            } else {
+              console.warn(`No meta found for slug: ${currentPath}`);
+            }
+          } else {
+            console.error('Invalid response data');
+          }
+        })
+        .catch((error) => {
+          console.error('API call failed', error);
+        });
+    }, [location.pathname]);
+
   return (
     <>
-      <Helmet>
-        <title>
-          Terms and Conditions | SLOC - Real Estate Company in India
-        </title>
-        <meta
-          property="og:title"
-          content="Terms and Conditions | SLOC - Real Estate Company in India"
-        />
-        <meta
-          property="og:description"
-          content="Read the Terms and Conditions for using SLOC's real estate services. Learn about our policies, user agreements, and how we assist with property investment in India."
-        />
-      </Helmet>
+     <Helmet>
+                 <title>{metaTitle} </title>
+                 <meta
+                   property="og:title"
+                   content={metaTitle}
+                 />
+                 <meta
+                   property="og:description"
+                   content={metaDescription}
+                 />
+       <meta property="og:image" content={ogImage}></meta>
+                 <meta name="description" content={metaDescription}></meta>
+               </Helmet>
       <section className="terms baner-iner">
         <Container className="">
           <Row className="align-items-center">

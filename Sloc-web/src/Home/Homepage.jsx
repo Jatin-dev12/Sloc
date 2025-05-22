@@ -152,7 +152,7 @@ function Home() {
       })
       .then((response) => {
         if (response.data.success) {
-          console.log("Blogs fetched successfully:", response.data.data);
+          // console.log("Blogs fetched successfully:", response.data.data);
           const apiBlogs = response.data.data;
           const showBlogs = apiBlogs.filter(
             (blog) => blog.show_on_homepage === 1
@@ -226,7 +226,7 @@ function Home() {
       })
       .then((response) => {
         if (response.data.success) {
-          console.log("Projects fetched successfully:", response.data.data);
+          // console.log("Projects fetched successfully:", response.data.data);
           const apiProjects = response.data.data;
           setApiProjectsCount(apiProjects.length);
           // Filter projects where is_exclusive === 1
@@ -245,6 +245,9 @@ function Home() {
             cityId: project.state?.city?.id || null, // Store city ID for filtering
           propertyType: project.property?.name || "", // Use property name
             location: project.property.name || "",
+              type: project.type || "",
+            area: project.area || "",
+            locations: project.location || "",
             image:
               project.hero_img ||
               "https://admin.sloc.in/public/feature_image/1745472810_f1.png",
@@ -325,7 +328,7 @@ function Home() {
     });
     const query = e.target.value;
     setSearchQuery(query);
-    console.log("handleSearchInputChange called with query:", query);
+    // console.log("handleSearchInputChange called with query:", query);
     if (query.trim() === '') {
       console.log("Clearing suggested projects (empty query)");
       setSuggestedProjects(projects); // Reset to all exclusive projects when query is empty
@@ -352,8 +355,8 @@ function Home() {
       });
       if (response.data.success) {
         const apiProjects = response.data.data;
-        console.log("Projects before filtering:", apiProjects);
-        console.log("Project keys (for first project):", Object.keys(apiProjects[0] || {}));
+        // console.log("Projects before filtering:", apiProjects);
+        // console.log("Project keys (for first project):", Object.keys(apiProjects[0] || {}));
         // Map API projects
         const mappedProjects = apiProjects
           .filter((project) => project.is_exclusive === 1)
@@ -370,6 +373,9 @@ function Home() {
             cityId: project.state?.city?.id || null,
             propertyType: project.property?.name || "Unknown Type",
             propertyTypeId: project.property?.id || null,
+             type: project.type || "",
+            area: project.area || "",
+            locations: project.location || "",
             image:
               project.hero_img ||
               "https://admin.sloc.in/public/feature_image/1745472810_f1.png",
@@ -403,7 +409,7 @@ function Home() {
           });
           return matchesQuery && matchesCity && matchesProperty;
         });
-        console.log("Filtered projects:", filteredProjects);
+        // console.log("Filtered projects:", filteredProjects);
         setSuggestedProjects(filteredProjects);
       } else {
         setSuggestedProjects([]);
@@ -433,8 +439,8 @@ function Home() {
       });
       if (response.data.success) {
         const apiProjects = response.data.data;
-        console.log("Projects before filtering:", apiProjects);
-        console.log("Project keys (for first project):", Object.keys(apiProjects[0] || {}));
+        // console.log("Projects before filtering:", apiProjects);
+        // console.log("Project keys (for first project):", Object.keys(apiProjects[0] || {}));
         // Map API projects
         const mappedProjects = apiProjects
           .filter((project) => project.is_exclusive === 1)
@@ -451,6 +457,9 @@ function Home() {
             cityId: project.state?.city?.id || null,
             propertyType: project.property?.name || "Unknown Type",
             propertyTypeId: project.property?.id || null,
+            type: project.type || "",
+            area: project.area || "",
+            locations: project.location || "",
             image:
               project.hero_img ||
               "https://admin.sloc.in/public/feature_image/1745472810_f1.png",
@@ -509,7 +518,7 @@ function Home() {
   };
   // Trigger immediate search when city or property changes
   useEffect(() => {
-    console.log("useEffect triggered with selectedCity:", selectedCity, "selectedProperty:", selectedProperty);
+    // console.log("useEffect triggered with selectedCity:", selectedCity, "selectedProperty:", selectedProperty);
     if (selectedCity || selectedProperty) {
       // immediateSearch({
       //   query: '',
@@ -629,14 +638,14 @@ const handleSearch = async (projectTitle = null) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log("//////// API Response ////////", data);
+        // console.log("//////// API Response ////////", data);
         if (data && Array.isArray(data.data) && data.data.length > 0) {
           const firstItem = data.data[0];
-          console.log("//////// Extracted Social Links ////////", firstItem);
-          console.log(
-            "//////// Extracted Social Links ////////",
-            firstItem?.facebook
-          );
+          // console.log("//////// Extracted Social Links ////////", firstItem);
+          // console.log(
+          //   "//////// Extracted Social Links ////////",
+          //   firstItem?.facebook
+          // );
           setSocialLinks(firstItem);
         } else {
           console.warn("//////// No social data found ////////");
@@ -672,6 +681,8 @@ const handleSearch = async (projectTitle = null) => {
           property="og:description"
           content="SLOC is a leading real estate company and property dealer in India, offering expert services to help you invest in residential and commercial properties."
         />
+
+         <meta name="description" content="SLOC is a leading real estate company and property dealer in India, offering expert services to help you invest in residential and commercial properties."></meta>
       </Helmet>
       <main id="All">
       <ToastContainer />
@@ -1037,9 +1048,9 @@ style={{ maxHeight: "200px", overflowY: "auto" }}
                         />
                         <Card.Body className="uper-space">
                           <Card.Text className="mb-4 btn-loc">
-                            {project.size && <span>{project.size}</span>}
-                            {project.feet && <span>{project.feet}</span>}
-                            {project.sectors && <span>{project.sectors}</span>}
+                            {project.type && <span>{project.type}</span>}
+                            {project.area && <span>{project.area}</span>}
+                            {project.locations && <span>{project.locations}</span>}
                           </Card.Text>
                           <Card.Title>{project.title}</Card.Title>
                           <Card.Text className="text-primary font-weight-bold">

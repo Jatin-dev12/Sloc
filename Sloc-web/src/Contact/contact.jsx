@@ -14,6 +14,7 @@ import gf from "./Loader.gif";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Helmet } from "react-helmet";
+import { useLocation } from "react-router-dom";
 const Contact = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -32,7 +33,7 @@ const Contact = () => {
   const [countryCode, setCountryCode] = useState("+91"); // Default to India
   const navigate = useNavigate();
     useEffect(() => {
-      console.log("useEffect: Initializing intl-tel-input");
+      // console.log("useEffect: Initializing intl-tel-input");
       if (phoneInputRef.current) {
         // Function to fetch country code based on user location
         const getCountryCodeFromLocation = async () => {
@@ -44,9 +45,9 @@ const Contact = () => {
             const data = await response.json();
             if (data && data.country_code) {
               countryCode = data.country_code.toLowerCase();
-              console.log("Fetched country code from IP:", countryCode);
+              // console.log("Fetched country code from IP:", countryCode);
             } else {
-              console.warn("No country code found, using fallback: in");
+              // console.warn("No country code found, using fallback: in");
             }
             return countryCode;
           } catch (error) {
@@ -58,57 +59,57 @@ const Contact = () => {
         getCountryCodeFromLocation().then((initialCountry) => {
           import("intl-tel-input")
             .then((intlTelInput) => {
-              console.log("intl-tel-input: Module loaded");
+              // console.log("intl-tel-input: Module loaded");
               intlTelInstance1.current = intlTelInput.default(phoneInputRef.current, {
                 initialCountry: initialCountry,
                 separateDialCode: true,
                 utilsScript:
                   "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
               });
-              console.log("intl-tel-input: Initialized with country", initialCountry, intlTelInstance1.current);
+              // console.log("intl-tel-input: Initialized with country", initialCountry, intlTelInstance1.current);
               const updatePhoneNumber = () => {
-                console.log("updatePhoneNumber: Triggered");
+                // console.log("updatePhoneNumber: Triggered");
                 const selectedCountryData = intlTelInstance1.current.getSelectedCountryData();
                 const rawInput = phoneInputRef.current.value || "";
-                console.log("Selected country:", selectedCountryData);
-                console.log("Raw input:", rawInput);
+                // console.log("Selected country:", selectedCountryData);
+                // console.log("Raw input:", rawInput);
                 const newCountryCode = `+${selectedCountryData.dialCode}`;
                 setCountryCode(newCountryCode);
-                console.log("Country code updated to:", newCountryCode);
+                // console.log("Country code updated to:", newCountryCode);
                 const phoneNumber = rawInput.replace(/[^0-9]/g, "");
                 setFormData((prev) => ({
                   ...prev,
                   mobile: phoneNumber,
                 }));
-                console.log("formData.mobile updated to:", phoneNumber);
+                // console.log("formData.mobile updated to:", phoneNumber);
               };
               // Initialize country code
               updatePhoneNumber();
               // Add event listeners
               phoneInputRef.current.addEventListener("countrychange", () => {
-                console.log("Event: countrychange fired");
+                // console.log("Event: countrychange fired");
                 updatePhoneNumber();
               });
               phoneInputRef.current.addEventListener("input", () => {
-                console.log("Event: input fired");
+                // console.log("Event: input fired");
                 updatePhoneNumber();
               });
-              console.log("Event listeners added");
+              // console.log("Event listeners added");
               // Cleanup event listeners
               return () => {
-                console.log("Cleanup: Removing event listeners");
+                // console.log("Cleanup: Removing event listeners");
                 phoneInputRef.current.removeEventListener("countrychange", updatePhoneNumber);
                 phoneInputRef.current.removeEventListener("input", updatePhoneNumber);
               };
             })
             .catch((error) => {
-              console.error("intl-tel-input: Failed to load", error);
+              // console.error("intl-tel-input: Failed to load", error);
             });
         });
         // Cleanup intl-tel-input instance
         return () => {
           if (intlTelInstance1.current) {
-            console.log("Cleanup: Destroying intl-tel-input");
+            // console.log("Cleanup: Destroying intl-tel-input");
             intlTelInstance1.current.destroy();
           }
         };
@@ -174,6 +175,7 @@ const Contact = () => {
     return isValid;
   };
   const [loading, setLoading] = useState(false);
+
   const baseUrl = import.meta.env.VITE_BASE_URL || "https://admin.sloc.in/";
   const bitrixToken = import.meta.env.VITE_BITRIX_TOKEN || "s94cvkguwyrljt7f";
   const apiToken =
@@ -203,8 +205,11 @@ const Contact = () => {
         {
           name: formData.name,
           email: formData.email,
-          // mobile: fullMobileNumber,
-          mobile: formData.mobile,
+          mobile: fullMobileNumber,
+          source_url:url,
+
+
+          // mobile: formData.mobile,
         },
         {
           headers: {
@@ -247,6 +252,7 @@ const Contact = () => {
             mobile: "",
             email: "",
             agree: false,
+
           });
           setErrors({}); // Clear any old errors
           // handleShow(); // Open the modal
@@ -262,19 +268,58 @@ const Contact = () => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const location = useLocation();
+
+const [metaTitle, setMetaTitle] = useState('');
+const [metaDescription, setMetaDescription] = useState('');
+const [ogImage, setOgImage] = useState('');
+
+useEffect(() => {
+  const currentPath = location.pathname.replace(/^\/|\/$/g, '');
+  const baseUrl = import.meta.env.VITE_BASE_URL || "https://admin.sloc.in/";
+  const apiToken = import.meta.env.VITE_API_TOKEN || "AzlrVK30FVdEx0TwrRwqYrQTL";
+
+  axios
+    .get(`${baseUrl}api/metas`, {
+      headers: {
+        Authorization: `Bearer ${apiToken}`,
+      },
+    })
+    .then((response) => {
+      if (response.data.success && Array.isArray(response.data.data)) {
+        const matchedMeta = response.data.data.find(
+          (item) => item.page && item.page.slug === currentPath
+        );
+
+        if (matchedMeta) {
+          setMetaTitle(matchedMeta.meta_title);
+          setMetaDescription(matchedMeta.meta_description);
+          setOgImage(matchedMeta.og_image);
+        }
+      } else {
+        console.warn("Unexpected API response");
+      }
+    })
+    .catch((error) => {
+      console.error("Meta fetch failed:", error);
+    });
+}, [location.pathname]);
   return (
     <>
-      <Helmet>
-        <title>Contact SLOC - Leading Real Estate Company in India</title>
-        <meta
-          property="og:title"
-          content="Contact SLOC - Leading Real Estate Company in India"
-        />
-        <meta
-          property="og:description"
-          content="Reach out to SLOC for expert guidance in investing property in India. Our team of real estate professionals is ready to help with all your property needs."
-        />
-      </Helmet>
+     <Helmet>
+                    <title>{metaTitle} </title>
+                    <meta
+                      property="og:title"
+                      content={metaTitle}
+                    />
+                    <meta
+                      property="og:description"
+                      content={metaDescription}
+                    />
+          <meta property="og:image" content={ogImage}></meta>
+                    <meta name="description" content={metaDescription}></meta>
+                  </Helmet>
       <section className="disclamer baner-iner contact-banner">
         <Button variant="dark" className="ssksk" onClick={handleShow}>
           x

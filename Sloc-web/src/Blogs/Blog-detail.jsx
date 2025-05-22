@@ -23,7 +23,7 @@ const BlogSection = () => {
       .then((response) => {
         if (response.data.success) {
           const apiBlogs = response.data.data;
-          console.log("////////////////////", apiBlogs);
+          // console.log("////////////////////", apiBlogs);
           // Find the blog with the matching slug
           const selectedBlog = apiBlogs.find(
             (b) =>
@@ -74,7 +74,7 @@ const BlogSection = () => {
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
   if (!blog) return <div>Blog not found</div>;
-  console.log('aslihdasdj',blog?.seo_title)
+  // console.log('aslihdasdj',blog?.seo_title)
   return (
     <>
       <Helmet>
@@ -88,6 +88,7 @@ const BlogSection = () => {
           property="og:description"
           content="Explore SLOC’s real estate blog for tips, market trends, and insights on buying and investing in property across India. Stay informed with expert advice."
         />
+         <meta name="description" content="Explore SLOC’s real estate blog for tips, market trends, and insights on buying and investing in property across India. Stay informed with expert advice."></meta>
       </Helmet>
       <section className="blog-detailss">
 

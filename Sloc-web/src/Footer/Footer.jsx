@@ -27,11 +27,11 @@ const Footer = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log('//////// API Response ////////', data);
+        // console.log('//////// API Response ////////', data);
         if (data && Array.isArray(data.data) && data.data.length > 0) {
           const firstItem = data.data[0];
-          console.log('//////// Extracted Social Links ////////', firstItem);
-          console.log('//////// Extracted Social Links ////////', firstItem?.facebook);
+          // console.log('//////// Extracted Social Links ////////', firstItem);
+          // console.log('//////// Extracted Social Links ////////', firstItem?.facebook);
           setSocialLinks(firstItem);
         } else {
           console.warn('//////// No social data found ////////');

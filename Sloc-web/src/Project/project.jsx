@@ -256,7 +256,7 @@ function project() {
       getCountryCodeFromLocation().then((initialCountry) => {
         import("intl-tel-input")
           .then((intlTelInput) => {
-            console.log("intl-tel-input: Module loaded");
+            // console.log("intl-tel-input: Module loaded");
             intlTelInstance1.current = intlTelInput.default(
               phoneInputRef.current,
               {
@@ -328,15 +328,16 @@ function project() {
       console.warn("phoneInputRef: Not available");
     }
   }, []);
-    const handleScroll = (sectionId) => {
+  const handleScroll = (sectionId) => {
     const element = document.getElementById(sectionId);
     if (element) {
       const offset = 100;
-      const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+      const elementPosition =
+        element.getBoundingClientRect().top + window.pageYOffset;
       const offsetPosition = elementPosition - offset;
       window.scrollTo({
         top: offsetPosition,
-        behavior: 'smooth',
+        behavior: "smooth",
       });
     }
   };
@@ -583,7 +584,7 @@ function project() {
         {
           name: formData1.name,
           email: formData1.email,
-          mobile: formData1.mobile,
+          mobile: fullMobileNumber,
         },
         {
           headers: {
@@ -669,7 +670,7 @@ function project() {
         {
           name: formData2.name,
           email: formData2.email,
-          mobile: formData2.mobile,
+          mobile: fullMobileNumber,
         },
         {
           headers: {
@@ -751,7 +752,8 @@ function project() {
         {
           name: formData.name,
           email: formData.email,
-          mobile: formData.mobile,
+          mobile: fullMobileNumber,
+          source_url:url,
         },
         {
           headers: {
@@ -923,6 +925,9 @@ function project() {
               similar_project: projectData.similar_project || [], // Added similar_project
               seo_title: projectData.seo_title || [], // Added similar_project
               seo_description: projectData.seo_description || [], // Added similar_project
+              brochure_title:projectData.brochure_title || [],
+              brochure_description:projectData.brochure_description || [],
+
             };
             // console.log('useEffect: Setting project state with:', projectState);
             setProject(projectState);
@@ -975,6 +980,7 @@ function project() {
         <title>{project?.seo_title}</title>
         <meta property="og:title" content={project?.seo_title} />
         <meta property="og:description" content={project?.seo_description} />
+        <meta name="description" content={project?.seo_description} />
       </Helmet>
       <main className="project-page">
         <Modal
@@ -1108,20 +1114,32 @@ function project() {
               <Container className="end-toend">
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
-                   <Nav className="ml-auto">
-      <Nav.Link onClick={() => handleScroll('Overview')}>Overview</Nav.Link>
-      <Nav.Link onClick={() => handleScroll('highlight')}>Highlights</Nav.Link>
-      <Nav.Link onClick={() => handleScroll('Amenities')}>Amenities</Nav.Link>
-      <Nav.Link onClick={() => handleScroll('Layout')}>Layout & Pricing</Nav.Link>
-      <Nav.Link onClick={() => handleScroll('Gallery')}>Gallery</Nav.Link>
-      <Nav.Link onClick={() => handleScroll('Emi')}>EMI Calculator</Nav.Link>
-      <Nav.Link
-        onClick={() => handleScroll('call')}
-        className="cntnct all-same-ani"
-      >
-        Contact Us
-      </Nav.Link>
-    </Nav>
+                  <Nav className="ml-auto">
+                    <Nav.Link onClick={() => handleScroll("Overview")}>
+                      Overview
+                    </Nav.Link>
+                    <Nav.Link onClick={() => handleScroll("highlight")}>
+                      Highlights
+                    </Nav.Link>
+                    <Nav.Link onClick={() => handleScroll("Amenities")}>
+                      Amenities
+                    </Nav.Link>
+                    <Nav.Link onClick={() => handleScroll("Layout")}>
+                      Layout & Pricing
+                    </Nav.Link>
+                    <Nav.Link onClick={() => handleScroll("Gallery")}>
+                      Gallery
+                    </Nav.Link>
+                    <Nav.Link onClick={() => handleScroll("Emi")}>
+                      EMI Calculator
+                    </Nav.Link>
+                    <Nav.Link
+                      onClick={() => handleScroll("call")}
+                      className="cntnct all-same-ani"
+                    >
+                      Contact Us
+                    </Nav.Link>
+                  </Nav>
                 </Navbar.Collapse>
               </Container>
             </Navbar>
@@ -1415,10 +1433,9 @@ function project() {
           <Container>
             <Row className="d-flex align-items-center justify-content-center ">
               <Col md={8}>
-                <h2 className="same-head">Let’s Find Your Perfect Property!</h2>
+                <h2 className="same-head">{project?.brochure_title}</h2>
                 <p className="same-head-p">
-                  Your dream home or investment is just a step away. Connect
-                  with SLOC today and make it yours!
+                  {project?.brochure_description}
                 </p>
                 <img src={back} alt="" className="back-roll" />
               </Col>
@@ -1976,14 +1993,12 @@ function project() {
                           <Card.Body className="uper-space">
                             <Card.Text className="mb-4 btn-loc">
                               <span>
-                                {similarProject.pricing_layout[0]?.title ||
-                                  "N/A"}
+                                {similarProject.type|| "N/A"}
                               </span>
                               <span>
-                                {similarProject.pricing_layout[0]
-                                  ?.description || "N/A"}
+                                {similarProject.area|| "N/A"}
                               </span>
-                              <span>{similarProject.sectors || "N/A"}</span>
+                              <span>{similarProject.location || "N/A"}</span>
                             </Card.Text>
                             <Card.Title>{similarProject.name}</Card.Title>
                             <Card.Text className="text-primary font-weight-bold">
