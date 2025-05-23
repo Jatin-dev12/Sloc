@@ -99,7 +99,7 @@ const EMICalculator = () => {
     }
   };
   return (
-    <Container className="emi-chart mt-4">
+    <Container fluid className="emi-chart mt-4">
       <Row className="justify-content-between p-0">
         <Col
           lg={7}

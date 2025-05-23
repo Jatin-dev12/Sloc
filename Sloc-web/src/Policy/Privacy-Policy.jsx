@@ -62,7 +62,7 @@ const Privacy = () => {
        <meta property="og:image" content={ogImage}></meta>
                  <meta name="description" content={metaDescription}></meta>
                </Helmet>
-      <section className=">privacy baner-iner">
+      <section className="privacy baner-iner">
         <Container className="">
           <Row className="align-items-center">
             <Col md={12} className="animate__animated animate__fadeInLeft">

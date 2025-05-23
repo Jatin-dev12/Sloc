@@ -5,7 +5,7 @@ import ofc from "../assets/Imgs/ofc.svg";
 import call from "../assets/Imgs/call.svg";
 import mal from "../assets/Imgs/mal.svg";
 import "intl-tel-input/build/css/intlTelInput.css";
-import bg from "./bg.png";
+import bg from "./bg.webp";
 import Instagram from "../assets/Imgs/ig.svg";
 import Facebook from "../assets/Imgs/facbook.svg";
 import linkdin from "../assets/Imgs/Linkdin.svg";
@@ -175,7 +175,6 @@ const Contact = () => {
     return isValid;
   };
   const [loading, setLoading] = useState(false);
-
   const baseUrl = import.meta.env.VITE_BASE_URL || "https://admin.sloc.in/";
   const bitrixToken = import.meta.env.VITE_BITRIX_TOKEN || "s94cvkguwyrljt7f";
   const apiToken =
@@ -207,8 +206,6 @@ const Contact = () => {
           email: formData.email,
           mobile: fullMobileNumber,
           source_url:url,
-
-
           // mobile: formData.mobile,
         },
         {
@@ -252,7 +249,6 @@ const Contact = () => {
             mobile: "",
             email: "",
             agree: false,
-
           });
           setErrors({}); // Clear any old errors
           // handleShow(); // Open the modal
@@ -268,18 +264,14 @@ const Contact = () => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
   const location = useLocation();
-
 const [metaTitle, setMetaTitle] = useState('');
 const [metaDescription, setMetaDescription] = useState('');
 const [ogImage, setOgImage] = useState('');
-
 useEffect(() => {
   const currentPath = location.pathname.replace(/^\/|\/$/g, '');
   const baseUrl = import.meta.env.VITE_BASE_URL || "https://admin.sloc.in/";
   const apiToken = import.meta.env.VITE_API_TOKEN || "AzlrVK30FVdEx0TwrRwqYrQTL";
-
   axios
     .get(`${baseUrl}api/metas`, {
       headers: {
@@ -291,7 +283,6 @@ useEffect(() => {
         const matchedMeta = response.data.data.find(
           (item) => item.page && item.page.slug === currentPath
         );
-
         if (matchedMeta) {
           setMetaTitle(matchedMeta.meta_title);
           setMetaDescription(matchedMeta.meta_description);

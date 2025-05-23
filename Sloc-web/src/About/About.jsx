@@ -1,7 +1,7 @@
   import React, { useState, useEffect } from "react";
   import { Row, Col, Card } from "react-bootstrap";
   import Container from "react-bootstrap/Container";
-  import Round from "../assets/Imgs/rt.png";
+  import Round from "../assets/Imgs/rt.webp";
   import white from "../assets/Imgs/white.svg";
   import Mision from "../assets/Imgs/Mission.svg";
   import Vision from "../assets/Imgs/Vision.svg";
@@ -9,30 +9,11 @@
   import select from "../assets/Imgs/select.svg";
   import buy from "../assets/Imgs/buy.svg";
   import cus from "../assets/Imgs/customer.svg";
-  import Line from "../assets/Imgs/Line-mid.png";
-  import side from "../assets/Imgs/back-scrol.png";
-  import god from "../assets/Alliance-imgs/godred.png";
-  import ats from "../assets/Alliance-imgs/birla.png";
-  import ace from "../assets/Alliance-imgs/m.png";
-  import emar from "../assets/Alliance-imgs/emar.png";
-  import Gulshan from "../assets/Alliance-imgs/smart.png";
-  import lodha from "../assets/Alliance-imgs/max.png";
-  import amo from "../assets/Alliance-imgs/adnai.png";
-  import dlf from "../assets/Alliance-imgs/amb.png";
-  import max from "../assets/Alliance-imgs/thar.png";
-  import tri from "../assets/Alliance-imgs/kris.png";
-  import pirmal from "../assets/Alliance-imgs/puri.png";
-  import exp from "../assets/Alliance-imgs/exp.png";
-  import bpt from "../assets/Alliance-imgs/bpt.png";
-  import tarc from "../assets/Alliance-imgs/tarc.png";
-  import ris from "../assets/Alliance-imgs/ris.png";
-  import pre from "../assets/Alliance-imgs/pre.png";
-  import gera from "../assets/Alliance-imgs/gera.png";
-  import conc from "../assets/Alliance-imgs/conc.png";
-  import global from "../assets/Alliance-imgs/global.png";
+  import Line from "../assets/Imgs/Line-mid.webp";
+  import side from "../assets/Imgs/back-scrol.webp";
+
   import Award from "../assets/Imgs/award.svg";
-  import shopp from "../assets/Alliance-imgs/shpoji.png";
-  import Achive from "../assets/Imgs/Achive.png";
+  import Achive from "../assets/Imgs/Achive.webp";
   import very from "../assets/Alliance-imgs/verifyed.svg";
   import expert from "../assets/Alliance-imgs/expert.svg";
   import free from "../assets/Alliance-imgs/free.svg";
@@ -41,12 +22,7 @@
   import { Link } from "react-router-dom";
   import { Helmet } from "react-helmet";
   import axios from "axios";
-
 import { useLocation } from 'react-router-dom';
-
-
-
-
   const services = [
     {
       title: "Property Listings",
@@ -117,27 +93,17 @@ import { useLocation } from 'react-router-dom';
         "Enjoy a transparent, reliable, and smooth process from your first inquiry to your final deal.",
     },
   ];
-
-
-
-
-
   function About() {
-
   const location = useLocation();
   const [metaTitle, setMetaTitle] = useState('');
   const [metaDescription, setMetaDescription] = useState('');
 const [ogImage, setOgImage] = useState('');
 const [clients, setClients] = useState([]);
-
-
   useEffect(() => {
     const currentPath = location.pathname.replace(/^\/|\/$/g, '');
     const baseUrl = import.meta.env.VITE_BASE_URL || "https://default-api-url.com/";
-
     const metasApi = `${baseUrl}api/metas`;
     const clientsApi = `${baseUrl}api/clients`;
-
     Promise.all([
       axios.get(metasApi, {
         headers: { Authorization: `Bearer AzlrVK30FVdEx0TwrRwqYrQTL` },
@@ -152,7 +118,6 @@ const [clients, setClients] = useState([]);
           const matchedMeta = metaRes.data.data.find(
             (item) => item.page && item.page.slug === currentPath
           );
-
           if (matchedMeta) {
             setMetaTitle(matchedMeta.meta_title);
             setMetaDescription(matchedMeta.meta_description);
@@ -161,7 +126,6 @@ const [clients, setClients] = useState([]);
             console.warn(`No meta found for slug: ${currentPath}`);
           }
         }
-
         // Handle Clients
         if (clientsRes.data.success && Array.isArray(clientsRes.data.data)) {
           setClients(clientsRes.data.data);
@@ -173,7 +137,6 @@ const [clients, setClients] = useState([]);
         console.error("API call failed", error);
       });
   }, [location.pathname]);
-
   // Split logos into rows of 4
   const groupedClients = [];
   for (let i = 0; i < clients.length; i += 4) {
@@ -425,7 +388,6 @@ const [clients, setClients] = useState([]);
           experts.
         </p>
       </Row>
-
       {groupedClients.map((row, rowIndex) => (
         <Row key={rowIndex} className="text text-center alliance px-5 ">
           {row.map((client, index) => (

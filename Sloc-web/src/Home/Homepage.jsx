@@ -14,19 +14,19 @@ import {
   Dropdown,
   DropdownButton,
 } from "react-bootstrap";
-import Round from "../assets/Imgs/rt.png";
-import f1 from "../assets/Imgs/f1.png";
-import f2 from "../assets/Imgs/f2.png";
-import f3 from "../assets/Imgs/f3.png";
+import Round from "../assets/Imgs/rt.webp";
+import f1 from "../assets/Imgs/f1.webp";
+import f2 from "../assets/Imgs/f2.webp";
+import f3 from "../assets/Imgs/f3.webp";
 import Arrow from "../assets/Imgs/up-arrow.svg";
-import sam from "../assets/Imgs/sam.png";
-import grl from "../assets/Imgs/grl.png";
+import sam from "../assets/Imgs/sam.webp";
+import grl from "../assets/Imgs/grl.webp";
 import testi from "../assets/Imgs/testimonal.svg";
-import blog1 from "../assets/Imgs/blog-1.png";
-import blog2 from "../assets/Imgs/blog-2.png";
-import blog3 from "../assets/Imgs/blog-3.png";
+import blog1 from "../assets/Imgs/blog-1.webp";
+import blog2 from "../assets/Imgs/blog-2.webp";
+import blog3 from "../assets/Imgs/blog-3.webp";
 import Counter from "../Animations/CountUp/CountUp";
-import back from "../assets/Imgs/back-cta.png";
+import back from "../assets/Imgs/back-cta.webp";
 import React, { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -43,7 +43,7 @@ import BottomImg2 from "../assets/Imgs/Group (3).svg";
 import BottomImg3 from "../assets/Imgs/Group (3).svg";
 import BottomImg4 from "../assets/Imgs/Group (3).svg";
 import BottomImg11 from "../assets/Imgs/image.svg";
-import Logo from "../assets/Imgs/back-scrol.png";
+import Logo from "../assets/Imgs/back-scrol.webp";
 import Instagram from "../assets/Imgs/ig.svg";
 import Facebook from "../assets/Imgs/facbook.svg";
 import linkdin from "../assets/Imgs/Linkdin.svg";
@@ -250,7 +250,7 @@ function Home() {
             locations: project.location || "",
             image:
               project.hero_img ||
-              "https://admin.sloc.in/public/feature_image/1745472810_f1.png",
+              "https://admin.sloc.in/public/feature_image/1745472810_f1.webp",
             bottomImage:
               [BottomImg1, BottomImg2, BottomImg3, BottomImg4][index % 4] ||
               BottomImg1,
@@ -320,6 +320,44 @@ function Home() {
         console.error("Error fetching property types:", error);
       });
   }, [baseUrl]);
+  const [metaTitle, setMetaTitle] = useState('');
+  const [metaDescription, setMetaDescription] = useState('');
+const [ogImage, setOgImage] = useState('');
+useEffect(() => {
+  const rawPath = location.pathname.replace(/^\/|\/$/g, '');
+  const currentPath = rawPath === '' ? 'home' : rawPath;
+  const baseUrl =
+    import.meta.env.VITE_BASE_URL || "https://default-api-url.com/";
+  const apiUrl = `${baseUrl}api/metas`;
+  axios
+    .get(apiUrl, {
+      headers: {
+        Authorization: `Bearer AzlrVK30FVdEx0TwrRwqYrQTL`,
+      },
+    })
+    .then((response) => {
+      if (response.data.success && Array.isArray(response.data.data)) {
+        console.log("Slugs:", response.data.data.map(item => item.page?.slug));
+        console.log("Current path:", currentPath);
+        const matchedMeta = response.data.data.find((item) => {
+          const slug = item.page?.slug || '';
+          return slug === (rawPath === '' ? slug : currentPath);
+        });
+        if (matchedMeta) {
+          setMetaTitle(matchedMeta.meta_title);
+          setMetaDescription(matchedMeta.meta_description);
+          setOgImage(matchedMeta.og_image);
+        } else {
+          console.warn(`No meta found for slug: ${currentPath}`);
+        }
+      } else {
+        console.error('Invalid response data');
+      }
+    })
+    .catch((error) => {
+      console.error('API call failed', error);
+    });
+}, [location.pathname]);
   const handleSearchInputChange = (e) => {
     immediateSearch({
       query: '',
@@ -378,7 +416,7 @@ function Home() {
             locations: project.location || "",
             image:
               project.hero_img ||
-              "https://admin.sloc.in/public/feature_image/1745472810_f1.png",
+              "https://admin.sloc.in/public/feature_image/1745472810_f1.webp",
             bottomImage:
               [BottomImg1, BottomImg2, BottomImg3, BottomImg4][index % 4] ||
               BottomImg1,
@@ -462,7 +500,7 @@ function Home() {
             locations: project.location || "",
             image:
               project.hero_img ||
-              "https://admin.sloc.in/public/feature_image/1745472810_f1.png",
+              "https://admin.sloc.in/public/feature_image/1745472810_f1.webp",
             bottomImage:
               [BottomImg1, BottomImg2, BottomImg3, BottomImg4][index % 4] ||
               BottomImg1,
@@ -669,21 +707,19 @@ const handleSearch = async (projectTitle = null) => {
     }, []);
   return (
     <>
-<Helmet>
-        <title>
-          Real Estate Company | Property Dealer | Buy Property in India | SLOC
-        </title>
-        <meta
-          property="og:title"
-          content="Real Estate Company | Property Dealer | Buy Property in India | SLOC"
-        />
-        <meta
-          property="og:description"
-          content="SLOC is a leading real estate company and property dealer in India, offering expert services to help you invest in residential and commercial properties."
-        />
-
-         <meta name="description" content="SLOC is a leading real estate company and property dealer in India, offering expert services to help you invest in residential and commercial properties."></meta>
-      </Helmet>
+  <Helmet>
+                 <title>{metaTitle} </title>
+                 <meta
+                   property="og:title"
+                   content={metaTitle}
+                 />
+                 <meta
+                   property="og:description"
+                   content={metaDescription}
+                 />
+       <meta property="og:image" content={ogImage}></meta>
+                 <meta name="description" content={metaDescription}></meta>
+               </Helmet>
       <main id="All">
       <ToastContainer />
         <section className="Main-banner mobile-bgp" data-speed="1.5">
@@ -883,7 +919,7 @@ style={{ maxHeight: "200px", overflowY: "auto" }}
               stroke="black"
             />
           </svg>
-          <Container className="py-5">
+          <Container className="py-md-5">
             <Row className="mb-4 d-flex">
               <Col md={6} className="align-content-center head">
                 <h2 className="same-head">WELCOME TO SLOC!</h2>
@@ -942,28 +978,6 @@ style={{ maxHeight: "200px", overflowY: "auto" }}
           </Container>
         </section>
         <section ref={section1Ref} className="featured">
-          {/* <div className="featured-floating-imgs">
-            <div className="image-stack">
-              <img
-                ref={(el) => (imageRefs.current[0] = el)}
-                className="initial-image"
-                src={Logo1}
-                alt="img1"
-              />
-              <img
-                ref={(el) => (imageRefs.current[1] = el)}
-                className="initial-image"
-                src={Logo1}
-                alt="img2"
-              />
-              <img
-                ref={(el) => (imageRefs.current[2] = el)}
-                className="initial-image"
-                src={Logo1}
-                alt="img3"
-              />
-            </div>
-          </div> */}
           <Container className="full">
             <Row className="mb-4 d-flex py-md-4 align-content-center">
               <Col md={8} className="align-content-center">

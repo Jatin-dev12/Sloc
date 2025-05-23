@@ -4,14 +4,12 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { Link, useLocation } from "react-router-dom";
-
 export default function Header() {
   const [fopen, setFopen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [countryCode, setCountryCode] = useState("+91"); // Default to India
   const intlTelInstance = useRef(null);
   const phoneInputRef2 = useRef(null);
-
   useEffect(() => {
     if (phoneInputRef2.current && fopen) {
       import("intl-tel-input")
@@ -25,24 +23,19 @@ export default function Header() {
                 "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
             }
           );
-
           const updatePhoneNumber = () => {
             const selectedCountryData = intlTelInstance.current.getSelectedCountryData();
             const rawInput = phoneInputRef2.current.value || "";
-
             setCountryCode(`+${selectedCountryData.dialCode}`);
             setFormData2((prev) => ({
               ...prev,
               mobile: rawInput.replace(/[^0-9]/g, ""),
             }));
           };
-
           phoneInputRef2.current.addEventListener("input", updatePhoneNumber);
           phoneInputRef2.current.addEventListener("countrychange", updatePhoneNumber);
-
           // Set initial country code
           updatePhoneNumber();
-
           return () => {
             phoneInputRef2.current.removeEventListener("input", updatePhoneNumber);
             phoneInputRef2.current.removeEventListener("countrychange", updatePhoneNumber);
@@ -51,7 +44,6 @@ export default function Header() {
         .catch((error) => {
           console.error("Failed to load intl-tel-input:", error);
         });
-
       return () => {
         if (intlTelInstance.current) {
           intlTelInstance.current.destroy();
@@ -59,10 +51,8 @@ export default function Header() {
       };
     }
   }, [fopen]);
-
   const handleChange2 = (e) => {
     const { name, value, type, checked } = e.target;
-
     let newValue = value;
     if (name === 'name') {
       newValue = value.replace(/[^a-zA-Z\s]/g, '').slice(0, 30);
@@ -74,31 +64,25 @@ export default function Header() {
       }
       newValue = value.slice(0, 15);
     }
-
     setFormData2((prev) => ({
       ...prev,
       [name]: type === 'checkbox' ? checked : newValue,
     }));
-
     setErrors2((prev) => ({ ...prev, [name]: '' }));
   };
-
   const [formData2, setFormData2] = useState({
     name: "",
     mobile: "",
     email: "",
     agree: false,
   });
-
   const [errors2, setErrors2] = useState({
     name: "",
     mobile: "",
     email: "",
     agree: "",
   });
-
   const location = useLocation();
-
   const validateForm2 = () => {
     const newErrors = {
       name: '',
@@ -107,7 +91,6 @@ export default function Header() {
       agree: '',
     };
     let isValid = true;
-
     if (!formData2.name.trim()) {
       newErrors.name = 'Name is required';
       isValid = false;
@@ -124,26 +107,21 @@ export default function Header() {
       newErrors.agree = 'You must agree to the terms hello';
       isValid = false;
     }
-
     setErrors2(newErrors);
     return isValid;
   };
-
   const handleSubmit2 = (e) => {
     e.preventDefault();
     if (validateForm2()) {
       // Combine country code with mobile number for submission
       const fullMobileNumber = `${countryCode}${formData2.mobile}`;
-
       const url = window.location.href;
       const projectSlugArray = url.split('/project/');
       const projectSlug = projectSlugArray[1] || 'Unknown Project';
-
       const projectName = projectSlug
         .split('-')
         .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
         .join(' ');
-
       const apiUrl = `https://sloc.bitrix24.in/rest/1/s94cvkguwyrljt7f/crm.lead.add.json?` +
         `FIELDS[TITLE]=SLOC_Webform` +
         `&FIELDS[NAME]=${(formData2.name)}` +
@@ -153,7 +131,6 @@ export default function Header() {
         `&FIELDS[PHONE][0][VALUE_TYPE]=WORK` +
         `&FIELDS[SOURCE_ID]=UC_R2M98V` +
         `&FIELDS[UF_CRM_1745260289]=${(url)}`;
-
       fetch(apiUrl, {
         method: 'POST',
         headers: {
@@ -177,16 +154,12 @@ export default function Header() {
         });
     }
   };
-
   const isActive = (path) => location.pathname === path;
   const [show, setShow] = useState(false);
-
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
   const open = () => setFopen(false);
   const close = () => setFopen(true);
-
   return (
     <>
       <main className="menu">
@@ -195,7 +168,6 @@ export default function Header() {
             <Button variant="dark" className='ssksk' onClick={open}>
               x
             </Button>
-
             <Modal.Body className="popup-body">
               <div
                 className="form-set"
@@ -216,7 +188,6 @@ export default function Header() {
                     />
                     {errors2.name && <span style={{ color: 'red' }}>{errors2.name}</span>}
                   </div>
-
                   <div className="mb-3">
                     <input
                       type="tel"
@@ -231,7 +202,6 @@ export default function Header() {
                     />
                     {errors2.mobile && <span style={{ color: 'red' }}>{errors2.mobile}</span>}
                   </div>
-
                   <div className="mb-3">
                     <input
                       type="email"
@@ -243,7 +213,6 @@ export default function Header() {
                     />
                     {errors2.email && <span style={{ color: 'red' }}>{errors2.email}</span>}
                   </div>
-
                   <div className="form-check mb-3 text-white">
                     <input
                       className="form-check-input"
@@ -258,7 +227,6 @@ export default function Header() {
                     </label>
                   </div>
                   {errors2.agree && <span style={{ color: 'red' }}>{errors2.agree}</span>}
-
                   <div className="d-grid">
                     <button type="submit" className="btn btn-light text-dark">
                       Submit
@@ -270,7 +238,6 @@ export default function Header() {
             </Modal.Body>
           </div>
         </Modal>
-
         <Modal show={show} onHide={handleClose} centered dialogClassName="popup-modal">
           <div className="popup-card">
             <Button variant="dark" className='ssksk' onClick={handleClose}>
@@ -286,15 +253,12 @@ export default function Header() {
             </Modal.Footer>
           </div>
         </Modal>
-
         <Navbar expand="lg" className="Main-nav" collapseOnSelect>
           <Container>
             <Navbar.Brand href="/">
               <p className="Logo">SLOC</p>
             </Navbar.Brand>
-
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
-
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="ml-auto">
                 <Link

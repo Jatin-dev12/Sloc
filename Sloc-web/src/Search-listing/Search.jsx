@@ -10,12 +10,12 @@ import {
   Dropdown,
   DropdownButton,
 } from "react-bootstrap";
-import Bg from "./sbg.png";
+import Bg from "./sbg.webp";
 import Plus from "./plus.svg";
 import Arrow from "../assets/Imgs/up-arrow.svg";
-import f1 from "../assets/Imgs/f1.png";
-import f2 from "../assets/Imgs/f2.png";
-import f3 from "../assets/Imgs/f3.png";
+import f1 from "../assets/Imgs/f1.webp";
+import f2 from "../assets/Imgs/f2.webp";
+import f3 from "../assets/Imgs/f3.webp";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -393,7 +393,7 @@ const handleSearch = (newPage = 1) => {
     setSortPropertyHandle(type);
   };
   const { slug } = useParams();
-  const [bannerImage, setBannerImage] = useState("/src/assets/Imgs/Baner.png"); // Default fallback image
+  const [bannerImage, setBannerImage] = useState("/src/assets/Imgs/Baner.webp"); // Default fallback image
   const [project, setProject] = useState(null);
   const [allProjects, setAllProjects] = useState([]);
   useEffect(() => {
@@ -489,12 +489,12 @@ const handleSearch = (newPage = 1) => {
               projectData.hero_img_original &&
               projectData.hero_img_original.startsWith("http")
                 ? projectData.hero_img_original
-                : "/src/assets/Imgs/Baner.png";
+                : "/src/assets/Imgs/Baner.webp";
             // console.log('useEffect: Setting banner image:', heroImage);
             setBannerImage(heroImage);
           } else {
             // console.log('useEffect: Project not found in data');
-            setBannerImage("/src/assets/Imgs/Baner.png");
+            setBannerImage("/src/assets/Imgs/Baner.webp");
           }
         } else {
           console.log("useEffect: API request unsuccessful");
@@ -872,7 +872,7 @@ const handleSearch = (newPage = 1) => {
                               // src={project.image}
                               src={
                                 project.image ||
-                                "https://admin.sloc.in/feature_image/1745473057_f1.png"
+                                "https://admin.sloc.in/feature_image/1745473057_f1.webp"
                               }
                               alt={project.title}
                             />

@@ -3,9 +3,9 @@ import { Row, Col, Button, Card, Container } from "react-bootstrap";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import Arrow from "../assets/Imgs/up-arrow.svg";
-import blog1 from "../assets/Imgs/blog-1.png";
-import blog2 from "../assets/Imgs/blog-2.png";
-import blog3 from "../assets/Imgs/blog-3.png";
+import blog1 from "../assets/Imgs/blog-1.webp";
+import blog2 from "../assets/Imgs/blog-2.webp";
+import blog3 from "../assets/Imgs/blog-3.webp";
 import { useLocation } from 'react-router-dom';
 import "../App.css";
 import { Helmet } from "react-helmet";
@@ -44,14 +44,11 @@ useEffect(() => {
   // Fetch blogs and meta data in a single useEffect
   const baseUrl =
     import.meta.env.VITE_BASE_URL || "https://default-api-url.com/";
-
   // API URLs
   const blogsApiUrl = `${baseUrl}api/blogs`;
   const metasApiUrl = `${baseUrl}api/metas`;
-
   // Get current path for meta data
   const currentPath = location.pathname.replace(/^\/|\/$/g, '');
-
   // Fetch blogs
   axios
     .get(blogsApiUrl, {
@@ -83,7 +80,6 @@ useEffect(() => {
           rawDate: blog.created_at ? new Date(blog.created_at) : new Date(),
           catagory: blog.keywords || "General",
         }));
-
         // Sort blogs by date in descending order (newest first)
         const sortedBlogs = mappedBlogs.sort((a, b) => b.rawDate - a.rawDate);
         setBlogs(sortedBlogs);
@@ -98,7 +94,6 @@ useEffect(() => {
     .finally(() => {
       setLoading(false);
     });
-
   // Fetch meta data
   axios
     .get(metasApiUrl, {
@@ -111,7 +106,6 @@ useEffect(() => {
         const matchedMeta = response.data.data.find(
           (item) => item.page && item.page.slug === currentPath
         );
-
         if (matchedMeta) {
           setMetaTitle(matchedMeta.meta_title);
           setMetaDescription(matchedMeta.meta_description);
@@ -127,12 +121,10 @@ useEffect(() => {
       console.error("API call failed for metas", error);
     });
 }, [location.pathname]); // This will re-trigger the effect when pathname changes
-
 // Handle filter change
 const handleFilterChange = (category) => {
   setFilter(category);
 };
-
 // Filter blogs based on category or select first three for Latest
 const filteredBlogs =
   filter === "All"
@@ -140,7 +132,6 @@ const filteredBlogs =
     : filter === "Latest"
     ? blogs.slice(0, 6) // Select first three blogs for Latest
     : blogs.filter((blog) => blog.catagory === filter);
-
 // Render loading state
 if (loading) {
   return (
@@ -149,7 +140,6 @@ if (loading) {
     </Container>
   );
 }
-
 // Render error state
 if (error) {
   return (
@@ -158,12 +148,6 @@ if (error) {
     </Container>
   );
 }
-
-
-
-
-
-
   return (
     <main className="blog-page">
       <Helmet>
@@ -180,7 +164,7 @@ if (error) {
           <meta name="description" content={metaDescription}></meta>
       </Helmet>
       {/* Banner Section */}
-      <section className="Main-banner Blogs-banner" data-speed="1.5">
+      <section className="Main-banner Blogs-banner">
         <Container>
           <Row>
             <Col md={12} className="animate__animated animate__fadeInLeft">
@@ -233,8 +217,7 @@ if (error) {
                   md={4}
                   key={blog.id}
                   className="features-list p-0"
-                  data-aos="fade-up"
-                  data-aos-easing="ease-in-sine"
+
                 >
                   <Card
                     className={`position-relative custom-card card-${index} box-${index}`}

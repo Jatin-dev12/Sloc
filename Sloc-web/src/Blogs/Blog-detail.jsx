@@ -78,7 +78,6 @@ const BlogSection = () => {
   return (
     <>
       <Helmet>
-
         <title>{blog?.seo_title}</title>
         <meta
           property="og:title"
@@ -91,7 +90,6 @@ const BlogSection = () => {
          <meta name="description" content="Explore SLOC’s real estate blog for tips, market trends, and insights on buying and investing in property across India. Stay informed with expert advice."></meta>
       </Helmet>
       <section className="blog-detailss">
-
         <Container className="my-5">
           <Row className="align-items-center">
             <Col md={7} className="animate__animated animate__fadeInLeft">

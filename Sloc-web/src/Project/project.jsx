@@ -14,56 +14,39 @@ import {
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import location from "./imgs/navigate.svg";
-import Round from "../assets/Imgs/rt.png";
-import Counter from "../Animations/CountUp/CountUp";
+
 import over1 from "./imgs/over1.svg";
 import over2 from "./imgs/over2.svg";
 import over3 from "./imgs/over3.svg";
 import over4 from "./imgs/over4.svg";
 import Icon from "../assets/Imgs/list-icon.svg";
-import back from "../assets/Imgs/back-cta.png";
-import Temp from "./imgs/tem.png";
-import Struc from "./imgs/home.png";
-import jog from "./imgs/joging.png";
-import silent from "./imgs/silent.png";
-import spa from "./imgs/spa.png";
+import back from "../assets/Imgs/back-cta.webp";
+
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
-import lib from "./imgs/lib.png";
-import tr from "./imgs/24.png";
-import stake from "./imgs/staking.png";
-import gym from "./imgs/gym.png";
-import red from "./imgs/red.png";
-import Time from "./imgs/timer.png";
-import WelcomeLogo from "../assets/Imgs/back-scrol-BsNhHslO.png";
-import f1 from "./imgs/1st.png";
-import f2 from "./imgs/2nd.png";
-import f3 from "./imgs/3rd.png";
+
+import red from "./imgs/red.webp";
+import Time from "./imgs/timer.webp";
+import WelcomeLogo from "../assets/Imgs/back-scrol-BsNhHslO.webp";
 import Arrow from "../assets/Imgs/up-arrow.svg";
-import pro1 from "../assets/Imgs/f1.png";
-import pro2 from "../assets/Imgs/f2.png";
-import pro3 from "../assets/Imgs/f3.png";
 import NextArrow from "../assets/Imgs/right.svg";
 import PrevArrow from "../assets/Imgs/left.svg";
 import { Accordion } from "react-bootstrap";
 import Char from "./Chart";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import Instagram from "../assets/Imgs/ig.svg";
-import Facebook from "../assets/Imgs/facbook.svg";
-import linkdin from "../assets/Imgs/Linkdin.svg";
+
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import axios from "axios";
-import logo from "./imgs/logo.png";
-import backpg from "./imgs/p.jpg";
+import logo from "./imgs/logo.webp";
 import gf from "../Contact/Loader.gif";
 import { FaWhatsapp } from "react-icons/fa";
 import call from "../mobile/call.svg";
 import { Helmet } from "react-helmet";
 import { FiPhoneCall } from "react-icons/fi";
-import { fa } from "intl-tel-input/i18n";
+
 gsap.registerPlugin(ScrollTrigger);
 const isMobileView = () => window.innerWidth < 768;
 function project() {
@@ -842,7 +825,7 @@ function project() {
     // console.log('generateSlug: Output slug:', result);
     return result;
   };
-  const [bannerImage, setBannerImage] = useState("/src/assets/Imgs/Baner.png"); // Default fallback image
+  const [bannerImage, setBannerImage] = useState("/src/assets/Imgs/Baner.webp"); // Default fallback image
   useEffect(() => {
     // console.log('useEffect: Starting with slug:', slug);
     const baseUrl =
@@ -938,17 +921,17 @@ function project() {
               ? projectData.mobile_banner_original &&
                 projectData.mobile_banner_original.startsWith("http")
                 ? projectData.mobile_banner_original // Use mobile_banner for mobile
-                : "/src/assets/Imgs/Baner.png" // Fallback for mobile
+                : "/src/assets/Imgs/Baner.webp" // Fallback for mobile
               : projectData.hero_img_original &&
                 projectData.hero_img_original.startsWith("http")
               ? projectData.hero_img_original // Use hero_img_original for desktop
-              : "/src/assets/Imgs/Baner.png"; // Fallback for desktop
+              : "/src/assets/Imgs/Baner.webp"; // Fallback for desktop
             console.log("asdjkashdjhasdkjhs heroo imagee", heroImage);
             // console.log('useEffect: Setting banner image:', heroImage);
             setBannerImage(heroImage);
           } else {
             // console.log('useEffect: Project not found in data');
-            setBannerImage("/src/assets/Imgs/Baner.png");
+            setBannerImage("/src/assets/Imgs/Baner.webp");
           }
         } else {
           console.log("useEffect: API request unsuccessful");
@@ -1630,42 +1613,6 @@ function project() {
                 data-aos-offset="10"
               >
                 <div className="row">
-                  {/* <Col md={6}>
-                    <div className="kach">
-                          <h6>Burj Khalifa </h6>
-                          <div className="kack-inline">
-                            <img src={Time} className="kckck" />
-                            <span>40 Min</span>
-                          </div>
-                    </div>
-                  </Col>
-                  <Col md={6}>
-                  <div className="kach">
-                          <h6>Burj Khalifa </h6>
-                          <div className="kack-inline">
-                            <img src={Time} className="kckck" />
-                            <span>40 Min</span>
-                          </div>
-                    </div>
-                  </Col>
-                  <Col md={6}>
-                  <div className="kach">
-                          <h6>Burj Khalifa </h6>
-                          <div className="kack-inline">
-                            <img src={Time} className="kckck" />
-                            <span>40 Min</span>
-                          </div>
-                    </div>
-                  </Col>
-                  <Col md={6}>
-                  <div className="kach">
-                          <h6>Burj Khalifa </h6>
-                          <div className="kack-inline">
-                            <img src={Time} className="kckck" />
-                            <span>40 Min</span>
-                          </div>
-                    </div>
-                  </Col> */}
                   {project?.location_advantages &&
                   project.location_advantages.length > 0 ? (
                     project.location_advantages.map((advantage, index) => (

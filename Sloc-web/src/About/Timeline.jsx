@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Container } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import side from "../assets/Imgs/back-scrol.png";
+import side from "../assets/Imgs/back-scrol.webp";
 
 
 const timelineData = [
